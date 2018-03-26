@@ -15,11 +15,16 @@ namespace AWO_Team14.Controllers
         private AppDbContext db = new AppDbContext();
         // GET: Home
 
-        //public ActionResult Index()
-        //{
-        //    return View(db.Movies.ToList());
-       // }
-        public ActionResult Index(String BasicMovieSearch)
+        public ActionResult Index()
+        {
+            //Change this line later when we write validation for getting all the movies showing on today's date
+            ViewBag.DisplayedMovies = db.Movies.Count();
+            ViewBag.TotalMovies = db.Movies.Count();
+            return View(db.Movies.ToList());
+        }
+
+        //Todo: Scaffold view for BasicMovieSearch
+        public ActionResult BasicSearch(String BasicMovieSearch)
         {
             List<Movie> DisplayedMovies = new List<Movie>();
 
@@ -35,15 +40,9 @@ namespace AWO_Team14.Controllers
             ViewBag.TotalMovies = db.Movies.Count();
             ViewBag.DisplayedMovies = DisplayedMovies.Count();
 
-            return View(DisplayedMovies.OrderByDescending(m => m.Title));
+            return View("Index", DisplayedMovies.OrderByDescending(m => m.Title));
 
 
-        }
-
-        public ActionResult DetailedSearch()
-        {
-            ViewBag.AllGenres = GetAllGenres();
-            return View();
         }
 
         public ActionResult Details(int? id)
@@ -58,6 +57,12 @@ namespace AWO_Team14.Controllers
                 return HttpNotFound();
             }
             return View(movie);
+        }
+
+        public ActionResult DetailedSearch()
+        {
+            ViewBag.AllGenres = GetAllGenres();
+            return View();
         }
 
         public SelectList GetAllGenres() //Gets all current genres for the genre dropdown

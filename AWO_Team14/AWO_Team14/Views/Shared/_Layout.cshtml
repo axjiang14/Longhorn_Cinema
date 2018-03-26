@@ -18,16 +18,21 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @using (Html.BeginForm("BasicSearch", "Home", FormMethod.Get))
+                {
+                    <p class="form-group">
+                        Search: @Html.TextBox("BasicMovieSearch", null, new { @class = "form-control" })
+                        <input type="submit" value="Search" class="btn btn-default" />
+                    </p>
+                }
+                @using (Html.BeginForm())
+                {
+                    <p class="form-group">
+                    @Html.ActionLink("Detailed Search", "DetailedSearch", null, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Show All", "Index", null, new { @class = "btn btn-default" })
+                    </p>
+                }
             </div>
-            @using (Html.BeginForm())
-            {
-            <div class="form-group">
-                Search: @Html.TextBox("BasicMovieSearch", null, new { @class = "form-control" })
-                <input type="submit" value="Search" class="btn btn-default" />
-                @Html.ActionLink("Detailed Search", "DetailedSearch", null, new { @class = "btn btn-default" })
-                @Html.ActionLink("Show All", "Index", null, new { @class = "btn btn-default" })
-            </div>
-            }
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
             </div>

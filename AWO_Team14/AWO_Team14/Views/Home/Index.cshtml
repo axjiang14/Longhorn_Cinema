@@ -1,17 +1,19 @@
 ﻿@model IEnumerable<AWO_Team14.Models.Movie>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Longhorn Cinema";
 }
 
-<h2>Index</h2>
-@using (Html.BeginForm())
+<h2>Welcome to Longhorn Cinema</h2>
+@*
+    @using (Html.BeginForm())
 {
     <p class="form-group">
         Search: @Html.TextBox("BasicMovieSearch", null, new { @class = "form-control" }) <br />
         <input type="submit" value="Search" class="btn btn-default" />
     </p>
 }
+*@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
