@@ -14,9 +14,36 @@ namespace AWO_Team14.Controllers
     {
         private AppDbContext db = new AppDbContext();
         // GET: Home
-        public ActionResult Index()
+
+        //public ActionResult Index()
+        //{
+        //    return View(db.Movies.ToList());
+       // }
+        public ActionResult Index(String BasicMovieSearch)
         {
-            return View(db.Movies.ToList());
+            List<Movie> DisplayedMovies = new List<Movie>();
+
+            var query = from m in db.Movies
+                        select m;
+            if (BasicMovieSearch != null)
+            {
+                query = query.Where(m => m.Title.Contains(BasicMovieSearch));
+            }
+
+            DisplayedMovies = query.ToList();
+
+            ViewBag.TotalMovies = db.Movies.Count();
+            ViewBag.DisplayedMovies = DisplayedMovies.Count();
+
+            return View(DisplayedMovies.OrderByDescending(m => m.Title));
+
+
+        }
+
+        public ActionResult DetailedSearch()
+        {
+            ViewBag.AllGenres = GetAllGenres();
+            return View();
         }
 
         public ActionResult Details(int? id)
@@ -31,6 +58,18 @@ namespace AWO_Team14.Controllers
                 return HttpNotFound();
             }
             return View(movie);
+        }
+
+        public SelectList GetAllGenres() //Gets all current genres for the genre dropdown
+        {
+            List<Genre> Genres = db.Genres.ToList();
+
+            Genre SelectNone = new Models.Genre() { GenreID = 0, GenreName = "All Languages" };
+            Genres.Add(SelectNone);
+
+            SelectList AllGenres = new SelectList(Genres.OrderBy(l => l.GenreID), "GenreID", "GenreName");
+
+            return AllGenres;
         }
     }
 

@@ -5,10 +5,21 @@
 }
 
 <h2>Index</h2>
-
+@using (Html.BeginForm())
+{
+    <p class="form-group">
+        Search: @Html.TextBox("BasicMovieSearch", null, new { @class = "form-control" }) <br />
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    Displaying @Html.Raw(ViewBag.DisplayedMovies) out of @Html.Raw(ViewBag.TotalMovies) Movies
+</p>
+
+
 <table class="table">
     <tr>
         <th>
@@ -38,39 +49,40 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tagline)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Overview)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReleaseYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MPAA_Rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Runtime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Actors)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genres)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.MovieID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tagline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Overview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MPAA_Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Runtime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actors)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genres)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MovieID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
+            </td>
 
-    </tr>
-}
+        </tr>
+    }
 
 </table>
