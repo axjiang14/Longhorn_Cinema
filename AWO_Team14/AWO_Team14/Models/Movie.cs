@@ -37,11 +37,12 @@ namespace AWO_Team14.Models
 
         [Required(ErrorMessage = "Runtime is required")]
         [Display(Name = "Run Time")]
-        public DateTime Runtime { get; set; }
+        public Int32 Runtime { get; set; }
 
         [Required(ErrorMessage = "Actors are required")]
         public String Actors { get; set; }
 
+        // public virtual List<Genre> Genres { get; set; } 
         public virtual List<Genre> Genres { get; set; } 
 
     }

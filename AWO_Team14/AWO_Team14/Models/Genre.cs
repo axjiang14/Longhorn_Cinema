@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
+using System;
+using System.Collections.Generic;
+
 namespace AWO_Team14.Models
 {
     public class Genre
