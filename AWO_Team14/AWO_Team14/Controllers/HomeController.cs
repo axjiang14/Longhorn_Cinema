@@ -69,7 +69,7 @@ namespace AWO_Team14.Controllers
         {
             List<Genre> Genres = db.Genres.ToList();
 
-            Genre SelectNone = new Models.Genre() { GenreID = 0, GenreName = "All Languages" };
+            Genre SelectNone = new Models.Genre() { GenreID = 0, GenreName = "All Genres" };
             Genres.Add(SelectNone);
 
             SelectList AllGenres = new SelectList(Genres.OrderBy(l => l.GenreID), "GenreID", "GenreName");

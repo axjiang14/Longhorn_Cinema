@@ -1,4 +1,6 @@
-﻿@model IEnumerable<AWO_Team14.Models.Movie>
+﻿@using AWO_Team14.Models
+
+@model IEnumerable<AWO_Team14.Models.Movie>
 
 @{
     ViewBag.Title = "Longhorn Cinema";
@@ -6,13 +8,13 @@
 
 <h2>Welcome to Longhorn Cinema</h2>
 @*
-    @using (Html.BeginForm())
-{
-    <p class="form-group">
-        Search: @Html.TextBox("BasicMovieSearch", null, new { @class = "form-control" }) <br />
-        <input type="submit" value="Search" class="btn btn-default" />
-    </p>
-}
+        @using (Html.BeginForm())
+    {
+        <p class="form-group">
+            Search: @Html.TextBox("BasicMovieSearch", null, new { @class = "form-control" }) <br />
+            <input type="submit" value="Search" class="btn btn-default" />
+        </p>
+    }
 *@
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -75,9 +77,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Actors)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genres)
-            </td>
+            @foreach (Genre genre in item.Genres)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => genre.GenreName)
+                </td>
+            }
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.MovieID }) |
