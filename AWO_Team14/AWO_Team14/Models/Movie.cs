@@ -11,9 +11,14 @@ namespace AWO_Team14.Models
 
     public class Movie
     {
-        //START AT 3000
+        
         [Display(Name = "Movie ID")]
         public Int32 MovieID { get; set; }
+
+        // starts at 3000
+        [Display(Name = "Movie Number")]
+        [Required(ErrorMessage = "Movie Number is required")]
+        public Int32 MovieNumber { get; set; }
 
         [Required(ErrorMessage ="Title is required")]
         [Display(Name = "Title")]
