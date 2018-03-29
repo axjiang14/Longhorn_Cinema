@@ -22,10 +22,15 @@ namespace AWO_Team14.Models
     }
     public class MovieReview
     {
-        public Int32 MovieReviewID { get; set;}
+        public Int32 MovieReviewID { get; set; }
 
         public Rating Rating { get; set; }
         
         public String Review { get; set; }
+
+        public virtual Movie Movie { get; set; }
+        public virtual User User { get; set; }
+        public virtual List<Vote> Votes { get; set; }
+
     }
 }

@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace AWO_Team14.Models
 {
 	public enum Theater
 	{
-		[Description("1")]
-		TheaterOne = 1,
-		[Description("2")]
-		TheaterTwo = 2
+		[Description("Theater One")]
+		TheaterOne,
+		[Description("Theater Two")]
+		TheaterTwo
 	}
 	public class Showing
 	{
@@ -28,7 +29,7 @@ namespace AWO_Team14.Models
 		public Boolean Special { get; set; }
 
 		[Display(Name = "Theater")]
-		public Enum Theater { get; set; }
+		public Theater Theater { get; set; }
 
 		public virtual Schedule Schedule { get; set; }
 		public virtual List<Movie> Movies { get; set; }

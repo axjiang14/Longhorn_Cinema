@@ -58,5 +58,9 @@ namespace AWO_Team14.Models
         // sets default value to false
         public Boolean Archived { get; set; } = false;
 
+        public virtual List<MovieReview> MovieReviews { get; set; }
+        public virtual List<Vote> Votes { get; set; }
+        public virtual List<Transaction> Transactions { get; set; }
+
     }
 }

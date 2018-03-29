@@ -17,7 +17,8 @@ namespace AWO_Team14.Models
         [Required(ErrorMessage = "Seat Number is required")]
         public String SeatNumber { get; set; }
 
-
+        public virtual List<Transaction> Transactions { get; set; }
+        public virtual Showing Showing { get; set; }
 
 
     }

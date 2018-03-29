@@ -13,7 +13,7 @@ namespace AWO_Team14.Models
 		public Int32 TransactionID { get; set; }
 
 		[Display(Name = "Payment")]
-		public Enum Payment { get; set; }
+		public Payment Payment { get; set; }
 
 		[Display(Name = "Transaction Date")]
 		public DateTime TransactionDate { get; set; }
