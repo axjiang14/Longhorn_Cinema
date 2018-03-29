@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AWO_Team14.Models;
 using AWO_Team14.DAL;
 using System.Net;
+using System.Diagnostics;
 
 
 namespace AWO_Team14.Controllers
@@ -69,6 +70,7 @@ namespace AWO_Team14.Controllers
         {
             var query = from m in db.Movies
                         select m;
+            List<Movie> GenresMovies = new List<Movie>();
 
             if (SearchTitle != null)
             {
@@ -79,28 +81,31 @@ namespace AWO_Team14.Controllers
             {
                 query = query.Where(m => m.Tagline.Contains(SearchTagline));
             }
-            
-            //if (SearchGenres.Count() != 0)
-            //{
-            //    List<Genre> Genres = new List<Genre>();
 
-            //    foreach (int i in SearchGenres)
-            //    {
-            //        var GenreID = db.Genres.Find(i);
-            //        Genres.Add(GenreID);
-            //    }
+            if (SearchGenres.Count() != 0)
+            {
+                //List<Genre> Genres = new List<Genre>();
 
-            //    foreach(var item in query)
-            //    {
-            //        query = query.Where(query => genre.GenreName.Contains(g));
-            //    }
-                
-                
-            //}
+                foreach (int i in SearchGenres)
+                {
+                    var Genre = db.Genres.Find(i);
+                    //Genres.Add(GenreID);
+                    var movie = db.Movies.Find(Genre.GenreID);
+                    GenresMovies.Add(movie);
+                }
+
+                //foreach (var item in Genres)
+                //{
+                //     var movie = db.Movies.Find(item.GenreID);
+                //     query = query.Where(Genres.Contains(item));
+                    
+                //}
+
+            }
 
             if (SearchYear != null)
             {
-                DateTime DateSelected = SearchYear ?? new DateTime(1190, 1, 1);
+                DateTime DateSelected = SearchYear ?? new DateTime(1900, 1, 1);
                 query = query.Where(m => m.ReleaseYear >= DateSelected);
             }
 
@@ -110,7 +115,9 @@ namespace AWO_Team14.Controllers
             }
 
             //Creates list of selected movies
-            List<Movie> DisplayedMovies = query.ToList();
+            List<Movie> OtherMovies = query.ToList();
+
+            var DisplayedMovies = OtherMovies.Intersect(GenresMovies);
 
             //Populates movie counts
             ViewBag.TotalMovies= db.Movies.Count();
