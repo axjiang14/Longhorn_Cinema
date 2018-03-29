@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWO_Team14", "AWO_Team14\AW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deng_Alina_HW5", "..\..\..\source\repos\Deng_Alina_HW5\Deng_Alina_HW5\Deng_Alina_HW5.csproj", "{A0E2FD8C-9535-4960-98A1-EDF237D67578}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sp18DengAlinaHW4", "..\..\..\source\repos\sp18DengAlinaHW4\sp18DengAlinaHW4\sp18DengAlinaHW4.csproj", "{31E2D1F0-8F1E-4172-B9FF-E5652E83C036}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{A0E2FD8C-9535-4960-98A1-EDF237D67578}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0E2FD8C-9535-4960-98A1-EDF237D67578}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0E2FD8C-9535-4960-98A1-EDF237D67578}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31E2D1F0-8F1E-4172-B9FF-E5652E83C036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31E2D1F0-8F1E-4172-B9FF-E5652E83C036}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31E2D1F0-8F1E-4172-B9FF-E5652E83C036}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31E2D1F0-8F1E-4172-B9FF-E5652E83C036}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

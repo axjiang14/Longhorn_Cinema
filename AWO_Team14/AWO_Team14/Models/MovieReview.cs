@@ -7,6 +7,8 @@ using System.ComponentModel;
 
 namespace AWO_Team14.Models
 {
+    //Rating is a decimal between 1.0 and 5.0
+    //Data annotation for restricting values
     public enum Rating
     {
         [Description("1")]

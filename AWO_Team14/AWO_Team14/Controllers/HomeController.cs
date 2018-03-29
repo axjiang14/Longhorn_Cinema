@@ -65,17 +65,78 @@ namespace AWO_Team14.Controllers
             return View();
         }
 
-        public SelectList GetAllGenres() //Gets all current genres for the genre dropdown
+        public ActionResult DisplayDetailedSearch(String SearchTitle, String SearchTagline, int[] SearchGenres, DateTime? SearchYear, String SearchActors)
+        {
+            var query = from m in db.Movies
+                        select m;
+
+            if (SearchTitle != null)
+            {
+                query = query.Where(m => m.Title.Contains(SearchTitle));
+            }
+
+            if (SearchTagline != null)
+            {
+                query = query.Where(m => m.Tagline.Contains(SearchTagline));
+            }
+            
+            //if (SearchGenres.Count() != 0)
+            //{
+            //    List<Genre> Genres = new List<Genre>();
+
+            //    foreach (int i in SearchGenres)
+            //    {
+            //        var GenreID = db.Genres.Find(i);
+            //        Genres.Add(GenreID);
+            //    }
+
+            //    foreach(var item in query)
+            //    {
+            //        query = query.Where(query => genre.GenreName.Contains(g));
+            //    }
+                
+                
+            //}
+
+            if (SearchYear != null)
+            {
+                DateTime DateSelected = SearchYear ?? new DateTime(1190, 1, 1);
+                query = query.Where(m => m.ReleaseYear >= DateSelected);
+            }
+
+            if (SearchActors != null)
+            {
+                query = query.Where(m => m.Actors.Contains(SearchActors));
+            }
+
+            //Creates list of selected movies
+            List<Movie> DisplayedMovies = query.ToList();
+
+            //Populates movie counts
+            ViewBag.TotalMovies= db.Movies.Count();
+            ViewBag.DisplayedMovies = DisplayedMovies.Count();
+
+            DisplayedMovies.OrderByDescending(m => m.Title);
+
+            return View("Index", DisplayedMovies);
+        }
+
+        public MultiSelectList GetAllGenres() //Gets all current genres for the genre dropdown
         {
             List<Genre> Genres = db.Genres.ToList();
 
             Genre SelectNone = new Models.Genre() { GenreID = 0, GenreName = "All Genres" };
             Genres.Add(SelectNone);
 
-            SelectList AllGenres = new SelectList(Genres.OrderBy(l => l.GenreID), "GenreID", "GenreName");
+            MultiSelectList AllGenres = new MultiSelectList(Genres.OrderBy(l => l.GenreID), "GenreID", "GenreName");
 
             return AllGenres;
         }
+
+        //public SelectList GetAllMPAA()
+        //{
+        //    List<>
+        //}
     }
 
     

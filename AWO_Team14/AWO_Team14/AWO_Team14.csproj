@@ -159,6 +159,10 @@
     <Compile Include="Migrations\201803260236295_StarterSeed.Designer.cs">
       <DependentUpon>201803260236295_StarterSeed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803290219190_RestOfModels.cs" />
+    <Compile Include="Migrations\201803290219190_RestOfModels.Designer.cs">
+      <DependentUpon>201803290219190_RestOfModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -192,6 +196,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\Home\DetailedSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -217,6 +222,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803260236295_StarterSeed.resx">
       <DependentUpon>201803260236295_StarterSeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803290219190_RestOfModels.resx">
+      <DependentUpon>201803290219190_RestOfModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
