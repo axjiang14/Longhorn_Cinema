@@ -70,7 +70,10 @@ namespace AWO_Team14.Controllers
         {
             var query = from m in db.Movies
                         select m;
+
+            //List of movies w/ selected genres
             List<Movie> GenresMovies = new List<Movie>();
+            List<Movie> FilterMovies = new List<Movie>();
 
             if (SearchTitle != null)
             {
@@ -82,25 +85,42 @@ namespace AWO_Team14.Controllers
                 query = query.Where(m => m.Tagline.Contains(SearchTagline));
             }
 
-            if (SearchGenres.Count() != 0)
+            if (SearchGenres ==  null || SearchGenres.Count() == 0)
+            {
+
+                
+            }
+            else
             {
                 //List<Genre> Genres = new List<Genre>();
+                GenresMovies = query.ToList(); //List of movies from query
+                FilterMovies = query.ToList(); //We need two of these because you can't change the contents of the list during the loop. So we loop through GenresMovies and then remove the movies that don't fit the criteria from FilterMovies
 
-                foreach (int i in SearchGenres)
+                //foreach (int i in SearchGenres)
+                foreach (Movie m in GenresMovies)
                 {
-                    var Genre = db.Genres.Find(i);
+                    foreach (int i in SearchGenres)
+                    {
+                        //If movie doesn't contain the genre, remove the movie from the list of movies
+                        if (m.Genres.Contains(db.Genres.Find(i)) == false)
+                        {
+                            FilterMovies.Remove(m);
+                            break;
+                        }
+                    }
+
+                    //var Genre = db.Genres.Find(i);
                     //Genres.Add(GenreID);
-                    var movie = db.Movies.Find(Genre.GenreID);
-                    GenresMovies.Add(movie);
+                    //var movie = db.Movies.Find(db.Genres.Find(i).GenreID);
+                    //GenresMovies.Add(db.Movies.Find(db.Genres.Find(i).GenreID));
                 }
 
                 //foreach (var item in Genres)
                 //{
                 //     var movie = db.Movies.Find(item.GenreID);
                 //     query = query.Where(Genres.Contains(item));
-                    
-                //}
 
+                //}
             }
 
             if (SearchYear != null)
@@ -117,15 +137,29 @@ namespace AWO_Team14.Controllers
             //Creates list of selected movies
             List<Movie> OtherMovies = query.ToList();
 
-            var DisplayedMovies = OtherMovies.Intersect(GenresMovies);
+            var DisplayedMovies = OtherMovies;
+            
+            //If genres were selected, find the movies that have those genres and the other entered search requirements
+            if (GenresMovies.Count() != 0)
+            {
+                Debug.WriteLine("Genres selected");
+                DisplayedMovies = OtherMovies.Intersect(FilterMovies).ToList();
+            }
+            else //If not genres were selected, return the movies with the other filters
+            {
+                Debug.WriteLine("No genres selected");
+                DisplayedMovies = OtherMovies;
+            }
+
+            List<Movie> SelectedMovies = DisplayedMovies.ToList();
 
             //Populates movie counts
             ViewBag.TotalMovies= db.Movies.Count();
-            ViewBag.DisplayedMovies = DisplayedMovies.Count();
+            ViewBag.DisplayedMovies = SelectedMovies.Count();
 
-            DisplayedMovies.OrderByDescending(m => m.Title);
+            SelectedMovies.OrderByDescending(m => m.Title);
 
-            return View("Index", DisplayedMovies);
+            return View("Index", SelectedMovies);
         }
 
         public MultiSelectList GetAllGenres() //Gets all current genres for the genre dropdown
