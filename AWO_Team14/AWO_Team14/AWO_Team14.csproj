@@ -163,6 +163,10 @@
     <Compile Include="Migrations\201803290219190_RestOfModels.Designer.cs">
       <DependentUpon>201803290219190_RestOfModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804021819573_updateClasses.cs" />
+    <Compile Include="Migrations\201804021819573_updateClasses.Designer.cs">
+      <DependentUpon>201804021819573_updateClasses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -225,6 +229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803290219190_RestOfModels.resx">
       <DependentUpon>201803290219190_RestOfModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804021819573_updateClasses.resx">
+      <DependentUpon>201804021819573_updateClasses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

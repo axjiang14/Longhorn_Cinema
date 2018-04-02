@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace AWO_Team14.Models
 {
     public enum UserType { Customers, Employees, Managers}
+	public enum State { AL, AK, AZ, AR, CA, CO, CT, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY } 
 
     public class User
     {
@@ -18,7 +19,10 @@ namespace AWO_Team14.Models
         [Required(ErrorMessage = "First Name is required")]
         public String FirstName { get; set; }
 
-        [Display(Name = "Last Name")]
+		[Display(Name = "Middle Initial")]
+		public String MiddleInitial { get; set; }
+
+		[Display(Name = "Last Name")]
         [Required(ErrorMessage = "Last Name is required")]
         public String LastName { get; set; }
 
@@ -27,11 +31,20 @@ namespace AWO_Team14.Models
         [DataType(DataType.EmailAddress, ErrorMessage = "Enter a valid email address.")]
         public String Email { get; set; }
 
-        [Display(Name = "Address")]
-        [Required(ErrorMessage = "Address is required")]
-        public String Address { get; set; }
+        [Display(Name = "Street")]
+        public String Street { get; set; }
 
-        [Display(Name = "Birthday")]
+		[Display(Name = "City")]
+		public String City { get; set; }
+
+		[Display(Name = "State")]
+		public State State { get; set; }
+
+		[StringLength(5)]
+		[Display(Name = "Zip")]
+		public String Zip { get; set; }
+
+		[Display(Name = "Birthday")]
         [Required(ErrorMessage = "Birthday is required")]
         public DateTime Birthday { get; set; }
 
