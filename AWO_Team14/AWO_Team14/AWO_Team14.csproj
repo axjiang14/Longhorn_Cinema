@@ -167,9 +167,26 @@
     <Compile Include="Migrations\201804021819573_updateClasses.Designer.cs">
       <DependentUpon>201804021819573_updateClasses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804021926259_seedusers.cs" />
+    <Compile Include="Migrations\201804021926259_seedusers.Designer.cs">
+      <DependentUpon>201804021926259_seedusers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804021952280_updateseeduserdata.cs" />
+    <Compile Include="Migrations\201804021952280_updateseeduserdata.Designer.cs">
+      <DependentUpon>201804021952280_updateseeduserdata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022013076_update-user.cs" />
+    <Compile Include="Migrations\201804022013076_update-user.Designer.cs">
+      <DependentUpon>201804022013076_update-user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804022027023_Delete users.cs" />
+    <Compile Include="Migrations\201804022027023_Delete users.Designer.cs">
+      <DependentUpon>201804022027023_Delete users.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
+    <Compile Include="Migrations\UserData.cs" />
     <Compile Include="Models\Discount.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -232,6 +249,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804021819573_updateClasses.resx">
       <DependentUpon>201804021819573_updateClasses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804021926259_seedusers.resx">
+      <DependentUpon>201804021926259_seedusers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804021952280_updateseeduserdata.resx">
+      <DependentUpon>201804021952280_updateseeduserdata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022013076_update-user.resx">
+      <DependentUpon>201804022013076_update-user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804022027023_Delete users.resx">
+      <DependentUpon>201804022027023_Delete users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

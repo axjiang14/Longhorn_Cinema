@@ -24,6 +24,10 @@ namespace AWO_Team14.Migrations
 
             MovieData AddMovies = new MovieData();
             AddMovies.SeedMovies(context);
-        }
+
+			//UserData AddUsers = new UserData();
+			//AddUsers.SeedUsers(context);
+		}
+
     }
 }

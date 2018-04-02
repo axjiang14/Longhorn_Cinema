@@ -58,10 +58,10 @@ namespace AWO_Team14.Models
         [Required(ErrorMessage = "Password is required")]
         public String Password { get; set; }
 
-        [Display(Name = "Credit Card")]
-        // should validate credit card number for us 
-        [Required(ErrorMessage = "Credit card is required and must be valid"), CreditCard]
-        public String CreditCardNumber { get; set; }
+		//[Display(Name = "Credit Card")]
+  //      // should validate credit card number for us 
+  //      [DataType(DataType.CreditCard)]
+  //      public String CreditCardNumber { get; set; }
 
         [Display(Name = "Popcorn Points")]
         // sets default value to 0
@@ -71,9 +71,9 @@ namespace AWO_Team14.Models
         // sets default value to false
         public Boolean Archived { get; set; } = false;
 
-        public virtual List<MovieReview> MovieReviews { get; set; }
-        public virtual List<Vote> Votes { get; set; }
-        public virtual List<Transaction> Transactions { get; set; }
+       //public virtual List<MovieReview> MovieReviews { get; set; }
+       //public virtual List<Vote> Votes { get; set; }
+       //public virtual List<Transaction> Transactions { get; set; }
 
     }
 }
