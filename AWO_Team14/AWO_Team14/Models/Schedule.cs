@@ -14,5 +14,13 @@ namespace AWO_Team14.Models
 		public Boolean Published { get; set; }
 
 		public virtual List<Showing> Showings { get; set; }
+
+        public Schedule()
+        {
+            if (Showings == null)
+            {
+                Showings = new List<Showing>();
+            }
+        }
 	}
 }

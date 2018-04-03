@@ -34,5 +34,15 @@ namespace AWO_Team14.Models
         public virtual User User { get; set; }
         public virtual List<Vote> Votes { get; set; }
 
+        public MovieReview()
+        {
+            if (Votes == null)
+            {
+                Votes = new List<Vote>();
+            }
+
+        }
+
+    
     }
 }

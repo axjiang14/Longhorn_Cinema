@@ -16,5 +16,13 @@ namespace AWO_Team14.Models
         public String GenreName { get; set; }
 
         public virtual List<Movie> Movies { get; set; }
+
+        public Genre()
+        {
+            if (Movies == null)
+            {
+                Movies = new List<Movie>();
+            }
+        }
     }
 }

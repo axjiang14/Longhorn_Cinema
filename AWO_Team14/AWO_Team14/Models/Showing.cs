@@ -35,5 +35,13 @@ namespace AWO_Team14.Models
 		public virtual List<Movie> Movies { get; set; }
 		public virtual List<UserTicket> UserTickets { get; set; }
 
+        public Showing()
+        {
+            if (UserTickets == null)
+            {
+                UserTickets = new List<UserTicket>();
+            }
+        }
+
 	}
 }
