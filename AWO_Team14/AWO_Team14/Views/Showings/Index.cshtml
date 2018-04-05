@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AWO_Team14.Models.Showing>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShowTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Movie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Special)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Theater)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShowTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movie.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Special)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Theater)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ShowingID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ShowingID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ShowingID })
+        </td>
+    </tr>
+}
+
+</table>
+
+

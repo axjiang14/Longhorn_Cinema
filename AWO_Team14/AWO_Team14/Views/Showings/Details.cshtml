@@ -1,0 +1,50 @@
+﻿@model AWO_Team14.Models.Showing
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Showing</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShowTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Special)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Special)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Theater)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Theater)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ShowingID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
