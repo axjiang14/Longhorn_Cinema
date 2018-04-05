@@ -13,7 +13,10 @@ namespace AWO_Team14.DAL
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Genre> Genres { get; set; }
-		//public DbSet<User> Users { get; set; }
+        public DbSet<Showing> Showings{ get; set; }
+
+        //public System.Data.Entity.DbSet<AWO_Team14.Models.Showing> Showings { get; set; }
+        //public DbSet<User> Users { get; set; }
 
     }
 }

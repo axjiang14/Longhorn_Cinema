@@ -10,19 +10,22 @@ namespace AWO_Team14.Models
 	public enum Theater
 	{
 		[Description("Theater One")]
-		TheaterOne,
+		One,
 		[Description("Theater Two")]
-		TheaterTwo
+		Two
 	}
 	public class Showing
 	{
-		public Int32 ShowingID { get; set; }
+        public Int32 ShowingID { get; set; }
 
-		[Display(Name = "Date")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{MM/dd/yyyy}")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date")]
 		public DateTime ShowDate { get; set; }
 
-		[Display(Name = "Show Time")]
-		public Int32 ShowTime { get; set; }
+        [DataType(DataType.Time)]
+        [Display(Name = "Show Time")]
+		public DateTime ShowTime { get; set; }
 		
 		//Special??
 		[Display(Name = "Special")]
@@ -31,17 +34,17 @@ namespace AWO_Team14.Models
 		[Display(Name = "Theater")]
 		public Theater Theater { get; set; }
 
-		public virtual Schedule Schedule { get; set; }
-		public virtual List<Movie> Movies { get; set; }
-		public virtual List<UserTicket> UserTickets { get; set; }
+		//public virtual Schedule Schedule { get; set; }
+		public virtual Movie Movie { get; set; }
+		//public virtual List<UserTicket> UserTickets { get; set; }
 
-        public Showing()
-        {
-            if (UserTickets == null)
-            {
-                UserTickets = new List<UserTicket>();
-            }
-        }
+        //public Showing()
+        //{
+        //    if (UserTickets == null)
+        //    {
+        //        UserTickets = new List<UserTicket>();
+        //    }
+        //}
 
 	}
 }

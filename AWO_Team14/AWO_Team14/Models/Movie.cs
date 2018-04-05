@@ -49,20 +49,20 @@ namespace AWO_Team14.Models
 
         public virtual List<Genre> Genres { get; set; } 
         //public virtual List<MovieReview> MovieReviews { get; set; }
-        //public virtual List<Showing> Showings { get; set; }
+        public virtual List<Showing> Showings { get; set; }
 
-        //public Movie()
-        //{
+        public Movie()
+        {
         //    if (MovieReviews == null)
         //    {
         //        MovieReviews = new List<MovieReview>();
         //    }
 
-        //    if (Showings == null)
-        //    {
-        //        Showings = new List<Showing>();
-        //    }
-        //}
+            if (Showings == null)
+            {
+                Showings = new List<Showing>();
+            }
+        }
         
        
 

@@ -10,6 +10,8 @@ namespace AWO_Team14.Models
 
     public class Vote
     {
+        public Int32 VoteID { get; set; }
+
         public ThumbVote ThumbVote { get; set; }
 
 

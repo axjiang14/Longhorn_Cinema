@@ -151,6 +151,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ShowingsController.cs" />
     <Compile Include="DAL\AppDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,6 +183,22 @@
     <Compile Include="Migrations\201804022027023_Delete users.cs" />
     <Compile Include="Migrations\201804022027023_Delete users.Designer.cs">
       <DependentUpon>201804022027023_Delete users.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804050034335_Vote primary key.cs" />
+    <Compile Include="Migrations\201804050034335_Vote primary key.Designer.cs">
+      <DependentUpon>201804050034335_Vote primary key.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804050048354_Changed models.cs" />
+    <Compile Include="Migrations\201804050048354_Changed models.Designer.cs">
+      <DependentUpon>201804050048354_Changed models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804050055325_Changed showings models.cs" />
+    <Compile Include="Migrations\201804050055325_Changed showings models.Designer.cs">
+      <DependentUpon>201804050055325_Changed showings models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804050114282_Changed showing showtime datatype.cs" />
+    <Compile Include="Migrations\201804050114282_Changed showing showtime datatype.Designer.cs">
+      <DependentUpon>201804050114282_Changed showing showtime datatype.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
@@ -218,6 +235,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Home\DetailedSearch.cshtml" />
+    <Content Include="Views\Showings\Create.cshtml" />
+    <Content Include="Views\Showings\Delete.cshtml" />
+    <Content Include="Views\Showings\Details.cshtml" />
+    <Content Include="Views\Showings\Edit.cshtml" />
+    <Content Include="Views\Showings\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -261,6 +283,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804022027023_Delete users.resx">
       <DependentUpon>201804022027023_Delete users.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804050034335_Vote primary key.resx">
+      <DependentUpon>201804050034335_Vote primary key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804050048354_Changed models.resx">
+      <DependentUpon>201804050048354_Changed models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804050055325_Changed showings models.resx">
+      <DependentUpon>201804050055325_Changed showings models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804050114282_Changed showing showtime datatype.resx">
+      <DependentUpon>201804050114282_Changed showing showtime datatype.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
