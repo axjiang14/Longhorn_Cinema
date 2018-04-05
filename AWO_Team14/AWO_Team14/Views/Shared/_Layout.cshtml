@@ -29,8 +29,8 @@
                 @using (Html.BeginForm())
     {
             <p class="form-group">
-                @Html.ActionLink("Detailed Search", "DetailedSearch", null, new { @class = "btn btn-default" })
-                @Html.ActionLink("Show All", "Index", null, new { @class = "btn btn-default" })
+                @Html.ActionLink("Detailed Search", "DetailedSearch", "Home", new { @class = "btn btn-default" }, null)
+                @Html.ActionLink("Show All", "Index", "Home", new { @class = "btn btn-default" }, null)
             </p>
 }
             </div>
