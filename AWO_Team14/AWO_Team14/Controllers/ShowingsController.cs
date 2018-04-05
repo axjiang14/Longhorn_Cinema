@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -19,6 +20,155 @@ namespace AWO_Team14.Controllers
         public ActionResult Index()
         {
             return View(db.Showings.ToList());
+        }
+
+        //public ActionResult DayShowings(String ShowDate)
+        //{
+        //    DateTime firstSunday = new DateTime(1753, 1, 7);
+
+        //    List<Showing> Showings = new List<Showing>();
+        //    //var query = from s in db.Showings
+        //    //            select s;
+        //    //query = query.Where(s => s.ShowDate.DayOfWeek == ShowDate);
+
+        //    if (ShowDate == "Friday")
+        //    {
+        //        var query = from s in db.Showings
+        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 5
+        //                    select s;
+        //        Showings = query.ToList();
+        //    }
+
+        //    if (ShowDate == "Thursday")
+        //    {
+        //        var query = from s in db.Showings
+        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 4
+        //                    select s;
+        //        Showings = query.ToList();
+        //    }
+
+        //    if (ShowDate == "Wednesday")
+        //    {
+        //        var query = from s in db.Showings
+        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 3
+        //                    select s;
+        //        Showings = query.ToList();
+        //    }
+
+        //    if (ShowDate == "Tuesday")
+        //    {
+        //        var query = from s in db.Showings
+        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 2
+        //                    select s;
+        //        Showings = query.ToList();
+        //    }
+
+        //    if (ShowDate == "Monday")
+        //    {
+        //        var query = from s in db.Showings
+        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 1
+        //                    select s;
+        //        Showings = query.ToList();
+        //    }
+
+        //    if (ShowDate == "Saturday")
+        //    {
+        //        var query = from s in db.Showings
+        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 6
+        //                    select s;
+        //        Showings = query.ToList();
+        //    }
+
+        //    if (ShowDate == "Sunday")
+        //    {
+        //        var query = from s in db.Showings
+        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 0
+        //                    select s;
+        //        Showings = query.ToList();
+        //    }
+
+        //    return View("Index", Showings.OrderBy(s => s.ShowTime));
+
+
+
+        //}
+
+        public ActionResult DayShowings(String ShowDate, Theater Theater)
+        {
+            DateTime firstSunday = new DateTime(1753, 1, 7);
+
+            List<Showing> Showings = new List<Showing>();
+            //var query = from s in db.Showings
+            //            select s;
+            //query = query.Where(s => s.ShowDate.DayOfWeek == ShowDate);
+
+            if (ShowDate == "Friday")
+            {
+                var query = from s in db.Showings
+                            where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 5
+                            select s;
+
+                query = query.Where(s => s.Theater == Theater);
+
+                //if (Theater == "One")
+                //{
+                //    query = query.Where(s => s.Theater == Theater));
+                //}
+                Showings = query.ToList();
+            }
+
+            if (ShowDate == "Thursday")
+            {
+                var query = from s in db.Showings
+                            where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 4
+                            select s;
+                Showings = query.ToList();
+            }
+
+            if (ShowDate == "Wednesday")
+            {
+                var query = from s in db.Showings
+                            where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 3
+                            select s;
+                Showings = query.ToList();
+            }
+
+            if (ShowDate == "Tuesday")
+            {
+                var query = from s in db.Showings
+                            where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 2
+                            select s;
+                Showings = query.ToList();
+            }
+
+            if (ShowDate == "Monday")
+            {
+                var query = from s in db.Showings
+                            where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 1
+                            select s;
+                Showings = query.ToList();
+            }
+
+            if (ShowDate == "Saturday")
+            {
+                var query = from s in db.Showings
+                            where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 6
+                            select s;
+                Showings = query.ToList();
+            }
+
+            if (ShowDate == "Sunday")
+            {
+                var query = from s in db.Showings
+                            where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 0
+                            select s;
+                Showings = query.ToList();
+            }
+
+            return View("Index", Showings.OrderBy(s => s.ShowTime));
+
+
+
         }
 
         public SelectList GetAllMovies()
