@@ -200,6 +200,14 @@
     <Compile Include="Migrations\201804050114282_Changed showing showtime datatype.Designer.cs">
       <DependentUpon>201804050114282_Changed showing showtime datatype.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804081959274_update showings class.cs" />
+    <Compile Include="Migrations\201804081959274_update showings class.Designer.cs">
+      <DependentUpon>201804081959274_update showings class.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804082027255_fix showing data annotation.cs" />
+    <Compile Include="Migrations\201804082027255_fix showing data annotation.Designer.cs">
+      <DependentUpon>201804082027255_fix showing data annotation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -215,6 +223,7 @@
     <Compile Include="Models\Showing.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ScheduleValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -295,6 +304,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804050114282_Changed showing showtime datatype.resx">
       <DependentUpon>201804050114282_Changed showing showtime datatype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804081959274_update showings class.resx">
+      <DependentUpon>201804081959274_update showings class.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804082027255_fix showing data annotation.resx">
+      <DependentUpon>201804082027255_fix showing data annotation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

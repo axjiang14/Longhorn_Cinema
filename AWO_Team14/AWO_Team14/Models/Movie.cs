@@ -42,7 +42,7 @@ namespace AWO_Team14.Models
 
         [Required(ErrorMessage = "Runtime is required")]
         [Display(Name = "Run Time")]
-        public Int32 Runtime { get; set; }
+        public TimeSpan Runtime { get; set; }
 
         [Required(ErrorMessage = "Actors are required")]
         public String Actors { get; set; }

@@ -165,7 +165,7 @@ namespace AWO_Team14.Controllers
                 Showings = query.ToList();
             }
 
-            return View("Index", Showings.OrderBy(s => s.ShowTime));
+            return View("Index", Showings.OrderBy(s => s.StartTime));
 
 
 
@@ -220,18 +220,22 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ShowingID,ShowDate,ShowTime,Special,Theater")] Showing showing, int SelectedMovie)
+        public ActionResult Create([Bind(Include = "ShowingID,ShowDate,StartTime,Special,Theater")] Showing showing, int SelectedMovie)
         {
             Movie m = db.Movies.Find(SelectedMovie);
 
             showing.Movie = m;
-
-            if (ModelState.IsValid)
+            showing.EndTime = showing.StartTime.Add(m.Runtime);
+            if (Utilities.ScheduleValidation.ShowingValidation(showing) == true)
             {
-                db.Showings.Add(showing);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Showings.Add(showing);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+            
 
             ViewBag.AllMovies = GetAllMovies();
             return View(showing);
@@ -259,7 +263,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,ShowTime,Special,Theater")] Showing showing, int SelectedMovie)
+        public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,StartTime,Special,Theater")] Showing showing, int SelectedMovie)
         {
 
             if (ModelState.IsValid)
@@ -278,7 +282,7 @@ namespace AWO_Team14.Controllers
 
                 //showingToChange.Movie = movie;
                 showingToChange.ShowDate = showing.ShowDate;
-                showingToChange.ShowTime = showing.ShowTime;
+                showingToChange.StartTime = showing.StartTime;
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 

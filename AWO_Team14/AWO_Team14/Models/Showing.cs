@@ -24,11 +24,17 @@ namespace AWO_Team14.Models
 		public DateTime ShowDate { get; set; }
 
         [DataType(DataType.Time)]
-        [Display(Name = "Show Time")]
-		public DateTime ShowTime { get; set; }
-		
-		//Special??
-		[Display(Name = "Special")]
+        [Range(typeof(DateTime), "9:00:00", "23:59:59",
+        ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        [Display(Name = "Start Time")]
+		public DateTime StartTime { get; set; }
+
+        [DataType(DataType.Time)]
+        [Display(Name = "End Time")]
+        public DateTime EndTime { get; set; }
+
+        //Special??
+        [Display(Name = "Special")]
 		public Boolean Special { get; set; }
 
 		[Display(Name = "Theater")]
