@@ -1,5 +1,4 @@
-﻿@using AWO_Team14.Models
-@model AWO_Team14.Models.Movie
+﻿@model AWO_Team14.Models.Movie
 
 @{
     ViewBag.Title = "Details";
@@ -11,6 +10,14 @@
     <h4>Movie</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MovieNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MovieNumber)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Title)
         </dt>
@@ -66,39 +73,6 @@
         <dd>
             @Html.DisplayFor(model => model.Actors)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Genres)
-        </dt>
-        <dd>
-            @foreach (Genre genre in Model.Genres)
-        {
-            <td>
-                @Html.DisplayFor(modelItem => genre.GenreName)
-            </td>
-    }
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Showings)
-        </dt>
-        <table class="table table-sm table-striped">
-        <tr>
-            <th>Show Date</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Details</th>
-        </tr>
-        @foreach (Showing showing in Model.Showings)
-    {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
-            <td>@Html.DisplayFor(modelItem => showing.StartTime)</td>
-            <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
-            <td>@Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)</td>
-        </tr>
-}
-            </table>
-
-
 
     </dl>
 </div>

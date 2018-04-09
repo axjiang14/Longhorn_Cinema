@@ -265,7 +265,6 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,StartTime,Special,Theater")] Showing showing, int SelectedMovie)
         {
-
             if (ModelState.IsValid)
             {
                 //Find showing to change
@@ -283,12 +282,17 @@ namespace AWO_Team14.Controllers
                 //showingToChange.Movie = movie;
                 showingToChange.ShowDate = showing.ShowDate;
                 showingToChange.StartTime = showing.StartTime;
+                showing.EndTime = showing.StartTime.Add(movie.Runtime);
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
-                db.Entry(showingToChange).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (Utilities.ScheduleValidation.ShowingValidation(showing) == true)
+                {
+                    db.Entry(showingToChange).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                    
             }
             ViewBag.AllMovies = GetAllMovies();
             return View(showing);
