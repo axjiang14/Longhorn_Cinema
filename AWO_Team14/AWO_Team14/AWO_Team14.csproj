@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201804082027255_fix showing data annotation.Designer.cs">
       <DependentUpon>201804082027255_fix showing data annotation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804090213336_Movie release year data annotation.cs" />
+    <Compile Include="Migrations\201804090213336_Movie release year data annotation.Designer.cs">
+      <DependentUpon>201804090213336_Movie release year data annotation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -224,6 +228,7 @@
     <Compile Include="Models\Showing.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\GenerateMovieNumber.cs" />
     <Compile Include="Utilities\ScheduleValidation.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +260,7 @@
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Movies\Edit.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
+    <Content Include="Views\Home\ShowdateSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -316,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804082027255_fix showing data annotation.resx">
       <DependentUpon>201804082027255_fix showing data annotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804090213336_Movie release year data annotation.resx">
+      <DependentUpon>201804090213336_Movie release year data annotation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -21,24 +21,50 @@ namespace AWO_Team14.Controllers
             return View(db.Movies.ToList());
         }
 
-        // GET: Movies/Details/5
-        public ActionResult Details(int? id)
+        public MultiSelectList GetAllGenres()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Movie movie = db.Movies.Find(id);
-            if (movie == null)
-            {
-                return HttpNotFound();
-            }
-            return View(movie);
+            List<Genre> allGenres = db.Genres.OrderBy(g => g.GenreName).ToList();
+
+            MultiSelectList selGenres = new MultiSelectList(allGenres, "GenreID", "GenreName");
+
+            return selGenres;
         }
+
+        public MultiSelectList GetAllGenres(Movie movie)
+        {
+            List<Genre> allGenres = db.Genres.OrderBy(g => g.GenreName).ToList();
+
+            List<Int32> SelectedGenres = new List<Int32>();
+
+            foreach (Genre g in movie.Genres)
+            {
+                SelectedGenres.Add(g.GenreID);
+            }
+
+            MultiSelectList selGenres = new MultiSelectList(allGenres, "GenreID", "GenreName", SelectedGenres);
+
+            return selGenres;
+        }
+
+        //// GET: Movies/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Movie movie = db.Movies.Find(id);
+        //    if (movie == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(movie);
+        //}
 
         // GET: Movies/Create
         public ActionResult Create()
         {
+            ViewBag.SelectedGenres = GetAllGenres();
             return View();
         }
 
@@ -47,15 +73,24 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,Runtime,Actors")] Movie movie)
+        public ActionResult Create([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,Runtime,Actors")] Movie movie, int[] SelectedGenres)
         {
+            movie.MovieNumber = Utilities.GenerateMovieNumber.GetNextMovieNum();
+
+            foreach (int i in SelectedGenres)
+            {
+                Genre genre = db.Genres.Find(i);
+                movie.Genres.Add(genre);
+            }
             if (ModelState.IsValid)
             {
                 db.Movies.Add(movie);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Home", new { id = movie.MovieID });
+
             }
 
+            ViewBag.SelectedGenres = GetAllGenres();
             return View(movie);
         }
 
@@ -71,6 +106,8 @@ namespace AWO_Team14.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.SelectedGenres = GetAllGenres(movie);
             return View(movie);
         }
 
@@ -79,14 +116,38 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,Runtime,Actors")] Movie movie)
+        public ActionResult Edit([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,Runtime,Actors")] Movie movie, int[] SelectedGenres)
         {
+
             if (ModelState.IsValid)
             {
-                db.Entry(movie).State = EntityState.Modified;
+                //Find movie to change
+                Movie movieToChange = db.Movies.Find(movie.MovieID);
+
+                //Remove existing genres
+                movieToChange.Genres.Clear();
+
+                //Add new genres
+                foreach (int i in SelectedGenres)
+                {
+                    Genre g = db.Genres.Find(i);
+                    movieToChange.Genres.Add(g);
+                }
+
+                //Change other properties
+                movieToChange.Title = movie.Title;
+                movieToChange.Tagline = movie.Tagline;
+                movieToChange.Overview = movie.Overview;
+                movieToChange.ReleaseYear = movie.ReleaseYear;
+                movieToChange.MPAA_Rating = movie.MPAA_Rating;
+                movieToChange.Runtime = movie.Runtime;
+                movieToChange.Actors = movie.Actors;
+
+                db.Entry(movieToChange).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Home", new { id = movie.MovieID });
             }
+            ViewBag.SelectedGenres = GetAllGenres(movie);
             return View(movie);
         }
 

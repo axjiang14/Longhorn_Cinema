@@ -17,7 +17,7 @@
     }
 *@
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", "Movies")
 </p>
 <p>
     Displaying @Html.Raw(ViewBag.DisplayedMovies) out of @Html.Raw(ViewBag.TotalMovies) Movies
@@ -99,9 +99,9 @@
 
 }
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }) |
+            @Html.ActionLink("Edit", "Edit", "Movies", new { id = item.MovieID }, null) |
             @Html.ActionLink("Details", "Details", new { id = item.MovieID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
+            @Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null)
         </td>
 
     </tr>

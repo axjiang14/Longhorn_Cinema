@@ -81,22 +81,22 @@
             @Html.DisplayNameFor(model => model.Showings)
         </dt>
         <table class="table table-sm table-striped">
-        <tr>
-            <th>Show Date</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Details</th>
-        </tr>
-        @foreach (Showing showing in Model.Showings)
-    {
-        <tr>
-            <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
-            <td>@Html.DisplayFor(modelItem => showing.StartTime)</td>
-            <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
-            <td>@Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)</td>
-        </tr>
-}
-            </table>
+            <tr>
+                <th>Show Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Details</th>
+            </tr>
+                @foreach (Showing showing in Model.Showings)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
+                    <td>@Html.DisplayFor(modelItem => showing.StartTime)</td>
+                    <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
+                    <td>@Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)</td>
+                </tr>
+            }
+           </table>
 
 
 

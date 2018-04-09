@@ -15,6 +15,7 @@ namespace AWO_Team14.Utilities
             AppDbContext db = new AppDbContext();
             DateTime LatestEnd = new DateTime(1900, 1, 1, 23, 59, 59);
 
+            //Movie movie = showing.Movie;
             
             //check that endtime < 12:00:00 AM
            
@@ -23,14 +24,11 @@ namespace AWO_Team14.Utilities
                 return false;
             }
 
-            else { 
-}
-
             //check for overlap
             var overlapQuery = from s in db.Showings
                         select s;
             overlapQuery = overlapQuery.Where(s => s.Theater == showing.Theater);
-            overlapQuery = overlapQuery.Where(s => (s.EndTime >= showing.StartTime && s.StartTime <= showing.StartTime) || (s.EndTime >= showing.EndTime && s.StartTime <= showing.EndTime));
+            overlapQuery = overlapQuery.Where(s => (s.EndTime.TimeOfDay >= showing.StartTime.TimeOfDay && s.StartTime.TimeOfDay <= showing.StartTime.TimeOfDay) || (s.EndTime.TimeOfDay >= showing.EndTime.TimeOfDay && s.StartTime.TimeOfDay <= showing.EndTime.TimeOfDay));
 
           
 
@@ -51,8 +49,10 @@ namespace AWO_Team14.Utilities
                 query = query.Where(s => s.Theater == Theater.One);
             }
                 
-            query = query.Where(s => s.StartTime == showing.StartTime);
+            query = query.Where(s => s.StartTime.TimeOfDay == showing.StartTime.TimeOfDay);
             query = query.Where(s => s.Movie == showing.Movie);
+
+
             if(query.Count() > 0)
             {
                 return false;

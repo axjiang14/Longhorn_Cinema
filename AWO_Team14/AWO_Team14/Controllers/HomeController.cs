@@ -19,9 +19,9 @@ namespace AWO_Team14.Controllers
         public ActionResult Index()
         {
             //Change this line later when we write validation for getting all the movies showing on today's date
-            ViewBag.DisplayedMovies = db.Movies.Count();
+            DisplayShowdateSearch(DateTime.Now);
             ViewBag.TotalMovies = db.Movies.Count();
-            return View(db.Movies.ToList());
+            return View();
         }
 
         //Todo: Scaffold view for BasicMovieSearch
@@ -159,8 +159,42 @@ namespace AWO_Team14.Controllers
 
             SelectedMovies.OrderByDescending(m => m.Title);
 
-            return View("Index", SelectedMovies);
+            return View("../Movies/Index", SelectedMovies);
         }
+
+        public ActionResult ShowdateSearch()
+        {
+            return View();
+        }
+
+        public ActionResult DisplayShowdateSearch(DateTime ShowDate)
+        {
+            var query = from s in db.Showings
+                        select s;
+
+            query = query.Where(s => s.ShowDate == ShowDate);
+
+            List<Showing> qShowings = query.ToList(); 
+
+            List<Movie> SelectedMovies = new List<Movie>();
+
+            foreach (Showing s in qShowings)
+            {
+                Movie m = db.Movies.Find(s.Movie.MovieID);
+                SelectedMovies.Add(m);
+            }
+
+            ViewBag.TotalMovies = db.Movies.Count();
+            ViewBag.DisplayedMovies = SelectedMovies.Count();
+
+            SelectedMovies.OrderByDescending(m => m.Title);
+
+            return View("Index", SelectedMovies);
+
+
+        }
+
+       
 
         public MultiSelectList GetAllGenres() //Gets all current genres for the genre dropdown
         {
