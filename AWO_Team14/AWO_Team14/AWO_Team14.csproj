@@ -213,6 +213,18 @@
     <Compile Include="Migrations\201804090213336_Movie release year data annotation.Designer.cs">
       <DependentUpon>201804090213336_Movie release year data annotation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804101950388_Changed showings model.cs" />
+    <Compile Include="Migrations\201804101950388_Changed showings model.Designer.cs">
+      <DependentUpon>201804101950388_Changed showings model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804102016108_Removed start time datatype.cs" />
+    <Compile Include="Migrations\201804102016108_Removed start time datatype.Designer.cs">
+      <DependentUpon>201804102016108_Removed start time datatype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804102027588_Remove showings range.cs" />
+    <Compile Include="Migrations\201804102027588_Remove showings range.Designer.cs">
+      <DependentUpon>201804102027588_Remove showings range.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -325,6 +337,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804090213336_Movie release year data annotation.resx">
       <DependentUpon>201804090213336_Movie release year data annotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804101950388_Changed showings model.resx">
+      <DependentUpon>201804101950388_Changed showings model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102016108_Removed start time datatype.resx">
+      <DependentUpon>201804102016108_Removed start time datatype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804102027588_Remove showings range.resx">
+      <DependentUpon>201804102027588_Remove showings range.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

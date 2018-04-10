@@ -109,11 +109,6 @@ namespace AWO_Team14.Controllers
                             select s;
 
                 query = query.Where(s => s.Theater == Theater);
-
-                //if (Theater == "One")
-                //{
-                //    query = query.Where(s => s.Theater == Theater));
-                //}
                 Showings = query.ToList();
             }
 
@@ -122,6 +117,8 @@ namespace AWO_Team14.Controllers
                 var query = from s in db.Showings
                             where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 4
                             select s;
+
+                query = query.Where(s => s.Theater == Theater);
                 Showings = query.ToList();
             }
 
@@ -130,6 +127,8 @@ namespace AWO_Team14.Controllers
                 var query = from s in db.Showings
                             where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 3
                             select s;
+
+                query = query.Where(s => s.Theater == Theater);
                 Showings = query.ToList();
             }
 
@@ -138,6 +137,8 @@ namespace AWO_Team14.Controllers
                 var query = from s in db.Showings
                             where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 2
                             select s;
+
+                query = query.Where(s => s.Theater == Theater);
                 Showings = query.ToList();
             }
 
@@ -146,6 +147,8 @@ namespace AWO_Team14.Controllers
                 var query = from s in db.Showings
                             where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 1
                             select s;
+
+                query = query.Where(s => s.Theater == Theater);
                 Showings = query.ToList();
             }
 
@@ -154,6 +157,8 @@ namespace AWO_Team14.Controllers
                 var query = from s in db.Showings
                             where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 6
                             select s;
+
+                query = query.Where(s => s.Theater == Theater);
                 Showings = query.ToList();
             }
 
@@ -162,10 +167,12 @@ namespace AWO_Team14.Controllers
                 var query = from s in db.Showings
                             where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 0
                             select s;
+
+                query = query.Where(s => s.Theater == Theater);
                 Showings = query.ToList();
             }
 
-            return View("Index", Showings.OrderBy(s => s.StartTime));
+            return View("Index", Showings.OrderBy(s => s.ShowDate.TimeOfDay));
 
 
 
@@ -220,12 +227,18 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ShowingID,ShowDate,StartTime,Special,Theater")] Showing showing, int SelectedMovie)
+        public ActionResult Create([Bind(Include = "ShowingID,ShowDate,Special,Theater")] Showing showing, int SelectedMovie, int StartHour, int StartMinute)
         {
             Movie m = db.Movies.Find(SelectedMovie);
 
+            showing.ShowDate = showing.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
+
+
+            showing.StartTime = showing.ShowDate;
+
             showing.Movie = m;
-            showing.EndTime = showing.StartTime.Add(m.Runtime);
+
+            showing.EndTime = showing.ShowDate.Add(m.Runtime);
             if (Utilities.ScheduleValidation.ShowingValidation(showing) == true)
             {
                 if (ModelState.IsValid)
@@ -261,28 +274,61 @@ namespace AWO_Team14.Controllers
         // POST: Showings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,StartTime,Special,Theater")] Showing showing, int SelectedMovie)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //Find showing to change
+        //        Showing showingToChange = db.Showings.Find(showing.ShowingID);
+
+        //        //Remove existing movie
+        //        showingToChange.Movie = null;
+
+        //        Movie movie = db.Movies.Find(SelectedMovie);
+
+        //        showingToChange.Movie = movie;
+
+
+
+        //        //showingToChange.Movie = movie;
+        //        showingToChange.ShowDate = showing.ShowDate;
+        //        showingToChange.StartTime = showing.StartTime;
+        //        showing.EndTime = showing.StartTime.Add(movie.Runtime);
+        //        showingToChange.Special = showing.Special;
+        //        showingToChange.Theater = showing.Theater;
+
+        //        if (Utilities.ScheduleValidation.ShowingValidation(showing) == true)
+        //        {
+        //            db.Entry(showingToChange).State = EntityState.Modified;
+        //            db.SaveChanges();
+        //            return RedirectToAction("Index");
+        //        }
+
+        //    }
+        //    ViewBag.AllMovies = GetAllMovies();
+        //    return View(showing);
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,StartTime,Special,Theater")] Showing showing, int SelectedMovie)
+        public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,Special,Theater")] Showing showing, int SelectedMovie, int StartHour, int StartMinute)
         {
             if (ModelState.IsValid)
             {
                 //Find showing to change
                 Showing showingToChange = db.Showings.Find(showing.ShowingID);
-
                 //Remove existing movie
                 showingToChange.Movie = null;
-
                 Movie movie = db.Movies.Find(SelectedMovie);
-
                 showingToChange.Movie = movie;
 
-
-
-                //showingToChange.Movie = movie;
                 showingToChange.ShowDate = showing.ShowDate;
-                showingToChange.StartTime = showing.StartTime;
-                showing.EndTime = showing.StartTime.Add(movie.Runtime);
+
+                showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
+                showingToChange.StartTime = showingToChange.ShowDate;
+                showing.EndTime = showing.ShowDate.Add(movie.Runtime);
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
@@ -292,7 +338,7 @@ namespace AWO_Team14.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                    
+
             }
             ViewBag.AllMovies = GetAllMovies();
             return View(showing);

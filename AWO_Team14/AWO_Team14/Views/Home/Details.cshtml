@@ -91,7 +91,7 @@
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
-                    <td>@Html.DisplayFor(modelItem => showing.StartTime)</td>
+                    <td>@Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)</td>
                     <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
                     <td>@Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)</td>
                 </tr>
