@@ -30,9 +30,7 @@ namespace AWO_Team14.Utilities
             var overlapQuery = from s in db.Showings
                         select s;
             overlapQuery = overlapQuery.Where(s => s.Theater == showing.Theater);
-            overlapQuery = overlapQuery.Where(s => (s.EndTime >= showing.StartTime && s.StartTime <= showing.StartTime) || (s.EndTime >= showing.EndTime && s.StartTime <= showing.EndTime));
-
-          
+            overlapQuery = overlapQuery.Where(s => (s.EndTime >= showing.ShowDate && s.ShowDate <= showing.ShowDate) || (s.EndTime >= showing.EndTime && s.ShowDate <= showing.EndTime));
 
             if (overlapQuery.Count() >0)
             {
