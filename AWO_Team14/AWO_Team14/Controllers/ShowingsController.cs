@@ -200,6 +200,12 @@ namespace AWO_Team14.Controllers
             return selMovies; 
         }
 
+        public ActionResult ChooseMovie()
+        {
+            ViewBag.AllMovies = GetAllMovies();
+            return View();
+        }
+
         // GET: Showings/Details/5
         public ActionResult Details(int? id)
         {
@@ -234,7 +240,7 @@ namespace AWO_Team14.Controllers
             showing.ShowDate = showing.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
 
 
-            showing.StartTime = showing.ShowDate;
+            //showing.StartTime = showing.ShowDate;
 
             showing.Movie = m;
 
@@ -327,7 +333,7 @@ namespace AWO_Team14.Controllers
                 showingToChange.ShowDate = showing.ShowDate;
 
                 showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
-                showingToChange.StartTime = showingToChange.ShowDate;
+                //showingToChange.StartTime = showingToChange.ShowDate;
                 showing.EndTime = showing.ShowDate.Add(movie.Runtime);
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;

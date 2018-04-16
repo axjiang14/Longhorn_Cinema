@@ -13,11 +13,13 @@ namespace AWO_Team14.Models
         [Display(Name = "Price")]
         public Decimal CurrentPrice { get; set;}
 
-        [Display(Name = "Seat Number")]
-        [Required(ErrorMessage = "Seat Number is required")]
-        public String SeatNumber { get; set; }
+        //[Display(Name = "Seat Number")]
+        //[Required(ErrorMessage = "Seat Number is required")]
+        //public String SeatNumber { get; set; }
 
-        public virtual List<Transaction> Transactions { get; set; }
+        public bool Current { get; set; }
+
+        public virtual Transaction Transaction { get; set; }
         public virtual Showing Showing { get; set; }
 
 

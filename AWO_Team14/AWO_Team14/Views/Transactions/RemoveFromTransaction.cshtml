@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AWO_Team14.Models.UserTicket>
+@{
+    ViewBag.Title = "RemoveFromTransaction";
+}
+
+<h2>Remove From Transaction</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Showing.Movie.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Showing.ShowDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Current)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Showing.Movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Showing.ShowDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentPrice)
+            </td>
+            <td>
+                @Html.DisplayNameFor(model => model.Current)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Transactions", new { id = item.UserTicketID }, null) |
+                @Html.ActionLink("Delete", "Delete", "Transactions", new { id = item.UserTicketID }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+

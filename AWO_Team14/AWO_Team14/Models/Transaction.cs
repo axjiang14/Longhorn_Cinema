@@ -18,7 +18,7 @@ namespace AWO_Team14.Models
 		[Display(Name = "Transaction Date")]
 		public DateTime TransactionDate { get; set; }
 
-		public virtual User User { get; set; }
+		//public virtual User User { get; set; }
 		public virtual List<UserTicket> UserTickets { get; set; } 
 
 	}

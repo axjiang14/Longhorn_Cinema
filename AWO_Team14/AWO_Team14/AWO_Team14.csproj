@@ -153,6 +153,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\ShowingsController.cs" />
+    <Compile Include="Controllers\TransactionsController.cs" />
+    <Compile Include="Controllers\UserTicketsController.cs" />
     <Compile Include="DAL\AppDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,6 +227,26 @@
     <Compile Include="Migrations\201804102027588_Remove showings range.Designer.cs">
       <DependentUpon>201804102027588_Remove showings range.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804160104217_Remove start time.cs" />
+    <Compile Include="Migrations\201804160104217_Remove start time.Designer.cs">
+      <DependentUpon>201804160104217_Remove start time.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804160129351_Change transactions list.cs" />
+    <Compile Include="Migrations\201804160129351_Change transactions list.Designer.cs">
+      <DependentUpon>201804160129351_Change transactions list.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804160135230_Getting ready for tickets.cs" />
+    <Compile Include="Migrations\201804160135230_Getting ready for tickets.Designer.cs">
+      <DependentUpon>201804160135230_Getting ready for tickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804160156286_Add transaction and tickets.cs" />
+    <Compile Include="Migrations\201804160156286_Add transaction and tickets.Designer.cs">
+      <DependentUpon>201804160156286_Add transaction and tickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804160259003_Changed tickets.cs" />
+    <Compile Include="Migrations\201804160259003_Changed tickets.Designer.cs">
+      <DependentUpon>201804160259003_Changed tickets.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -273,6 +295,19 @@
     <Content Include="Views\Movies\Edit.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Home\ShowdateSearch.cshtml" />
+    <Content Include="Views\Transactions\Create.cshtml" />
+    <Content Include="Views\Transactions\Delete.cshtml" />
+    <Content Include="Views\Transactions\Details.cshtml" />
+    <Content Include="Views\Transactions\Edit.cshtml" />
+    <Content Include="Views\Transactions\Index.cshtml" />
+    <Content Include="Views\Transactions\AddToTransaction.cshtml" />
+    <Content Include="Views\Transactions\ChooseMovie.cshtml" />
+    <Content Include="Views\Transactions\RemoveFromTransaction.cshtml" />
+    <Content Include="Views\UserTickets\Create.cshtml" />
+    <Content Include="Views\UserTickets\Delete.cshtml" />
+    <Content Include="Views\UserTickets\Details.cshtml" />
+    <Content Include="Views\UserTickets\Edit.cshtml" />
+    <Content Include="Views\UserTickets\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -346,6 +381,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804102027588_Remove showings range.resx">
       <DependentUpon>201804102027588_Remove showings range.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160104217_Remove start time.resx">
+      <DependentUpon>201804160104217_Remove start time.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160129351_Change transactions list.resx">
+      <DependentUpon>201804160129351_Change transactions list.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160135230_Getting ready for tickets.resx">
+      <DependentUpon>201804160135230_Getting ready for tickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160156286_Add transaction and tickets.resx">
+      <DependentUpon>201804160156286_Add transaction and tickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160259003_Changed tickets.resx">
+      <DependentUpon>201804160259003_Changed tickets.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
