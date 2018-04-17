@@ -2,13 +2,13 @@
 @using AWO_Team14.Models
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Transaction Details";
 }
 
-<h2>Details</h2>
+<h2>Transaction Details</h2>
 
 <div>
-    <h4>Transaction</h4>
+    <h4>Transaction Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -40,6 +40,7 @@
         <th>Showtime</th>
         <th>Price</th>
         <th>Status</th>
+        <th>Seat</th>
     </tr>
     @foreach (UserTicket t in Model.UserTickets)
     {
@@ -49,6 +50,7 @@
         <td>@Html.DisplayFor(model => t.Showing.ShowDate.TimeOfDay)</td>
         <td>@Html.DisplayFor(model => t.CurrentPrice)</td>
         <td>@Html.DisplayFor(model => t.Current)</td>
+        <td>@Html.DisplayFor(model => t.SeatNumber) </td>
 
     </tr>
     }

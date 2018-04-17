@@ -247,6 +247,18 @@
     <Compile Include="Migrations\201804160259003_Changed tickets.Designer.cs">
       <DependentUpon>201804160259003_Changed tickets.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804161928508_Seats enum.cs" />
+    <Compile Include="Migrations\201804161928508_Seats enum.Designer.cs">
+      <DependentUpon>201804161928508_Seats enum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804171651289_Add user tickets.cs" />
+    <Compile Include="Migrations\201804171651289_Add user tickets.Designer.cs">
+      <DependentUpon>201804171651289_Add user tickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804171731145_Changed seats enum.cs" />
+    <Compile Include="Migrations\201804171731145_Changed seats enum.Designer.cs">
+      <DependentUpon>201804171731145_Changed seats enum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -396,6 +408,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804160259003_Changed tickets.resx">
       <DependentUpon>201804160259003_Changed tickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804161928508_Seats enum.resx">
+      <DependentUpon>201804161928508_Seats enum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804171651289_Add user tickets.resx">
+      <DependentUpon>201804171651289_Add user tickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804171731145_Changed seats enum.resx">
+      <DependentUpon>201804171731145_Changed seats enum.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

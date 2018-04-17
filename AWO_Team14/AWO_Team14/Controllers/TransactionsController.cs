@@ -15,6 +15,15 @@ namespace AWO_Team14.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
+        public SelectList GetAllMovies()
+        {
+            List<Movie> allMovies = db.Movies.OrderBy(m => m.Title).ToList();
+
+            SelectList selMovies = new SelectList(allMovies, "MovieID", "Title");
+
+            return selMovies;
+        }
+
         // GET: Transactions
         public ActionResult Index()
         {
@@ -44,6 +53,7 @@ namespace AWO_Team14.Controllers
             return AllShowings;
 
         }
+
 
         // GET: Transactions/Details/5
         public ActionResult Details(int? id)
@@ -86,6 +96,24 @@ namespace AWO_Team14.Controllers
             return View(transaction);
         }
 
+        //public ActionResult ChooseMovie(int id)
+        //{
+        //    //New instance of user ticket
+        //    UserTicket ut = new UserTicket();
+
+        //    //Finds transaction for user ticket
+        //    Transaction t = db.Transactions.Find(id);
+
+        //    //Sets user ticket's transaction to the transaction
+        //    ut.Transaction = t;
+
+        //    ViewBag.AllShowings = GetAllMovies();
+
+        //    return View(ut);
+        //}
+
+        
+
         public ActionResult AddToTransaction(int id)
         {
             //New instance of user ticket
@@ -98,7 +126,6 @@ namespace AWO_Team14.Controllers
             ut.Transaction = t;
 
             ViewBag.AllShowings = GetAllShowings();
-
             return View(ut);
         }
 
@@ -123,12 +150,16 @@ namespace AWO_Team14.Controllers
 
             ut.Current = true;
 
+            //TODO: Change seat number
+            ut.SeatNumber = Seat.Seat;
+
 
             if (ModelState.IsValid)
             {
                 db.UserTickets.Add(ut);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Transactions", new { id = transaction.TransactionID });
+                //return RedirectToAction("Details", "Transactions", new { id = transaction.TransactionID });
+                return RedirectToAction("Edit", "UserTickets", new { id = ut.UserTicketID });
             }
 
             ViewBag.AllShowings = GetAllShowings();

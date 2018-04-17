@@ -1,15 +1,36 @@
 ﻿@model AWO_Team14.Models.UserTicket
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "UserTicket Details";
 }
 
-<h2>Details</h2>
+<h2>UserTicket Details</h2>
 
 <div>
-    <h4>UserTicket</h4>
+    <h4>UserTicket Details</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Showing.Movie.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Showing.Movie.Title)
+        </dd>
+        <dt>
+           Showdate
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Showing.ShowDate.Date)
+        </dd>
+        <dt>
+            Showtime
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Showing.ShowDate.TimeOfDay)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.CurrentPrice)
         </dt>
@@ -24,6 +45,17 @@
 
         <dd>
             @Html.DisplayFor(model => model.Current)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.CurrentPrice)
+        </dd>
+
+        <dt>
+            Seat
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SeatNumber)
         </dd>
 
     </dl>

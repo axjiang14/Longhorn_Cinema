@@ -21,6 +21,26 @@ namespace AWO_Team14.Controllers
             return View(db.UserTickets.ToList());
         }
 
+        public SelectList GetEmptySeats(int showingid)
+        {
+            List<Seat> allSeats = Enum.GetValues(typeof(Seat)).Cast<Seat>().ToList();
+
+            List<Seat> FilledSeats = new List<Seat>();
+
+            Showing CurrentShowing = db.Showings.Find(showingid);
+
+            foreach (UserTicket ut in CurrentShowing.UserTickets)
+            {
+                FilledSeats.Add(ut.SeatNumber);
+            }
+
+            List<Seat> Empty = allSeats.Except(FilledSeats).Union(FilledSeats.Except(allSeats)).ToList();
+
+            SelectList EmptySeats = new SelectList(Empty);
+
+            return EmptySeats;
+        }
+
         // GET: UserTickets/Details/5
         public ActionResult Details(int? id)
         {
@@ -53,7 +73,7 @@ namespace AWO_Team14.Controllers
             {
                 db.UserTickets.Add(userTicket);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = userTicket.UserTicketID });
             }
 
             return View(userTicket);
@@ -67,6 +87,8 @@ namespace AWO_Team14.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             UserTicket userTicket = db.UserTickets.Find(id);
+            int showingid = userTicket.Showing.ShowingID;
+            ViewBag.EmptySeats = GetEmptySeats(showingid);
             if (userTicket == null)
             {
                 return HttpNotFound();
@@ -79,7 +101,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserTicketID,CurrentPrice,Current")] UserTicket userTicket)
+        public ActionResult Edit([Bind(Include = "UserTicketID,CurrentPrice,Current")] UserTicket userTicket, Seat SelectedSeat)
         {
             UserTicket ut= db.UserTickets.Include(UT => UT.Transaction)
                                             .Include(UT => UT.Showing)
@@ -87,12 +109,18 @@ namespace AWO_Team14.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(userTicket).State = EntityState.Modified;
+
+                ut.SeatNumber = SelectedSeat;
+                db.Entry(ut).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", "Transactions", new { id = ut.Transaction.TransactionID });
             }
 
+            int showingid = userTicket.Showing.ShowingID;
+            ViewBag.EmptySeats = GetEmptySeats(showingid);
+
             userTicket.Transaction = ut.Transaction;
+
             return View(userTicket);
         }
 

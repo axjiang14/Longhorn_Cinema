@@ -1,39 +1,36 @@
 ﻿@model IEnumerable<AWO_Team14.Models.UserTicket>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "UserTickets Index";
 }
 
-<h2>Index</h2>
+<h2>UserTickets Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrentPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Current)
-        </th>
-        <th></th>
+        <th>Movie</th>
+        <th>Showdate</th>
+        <th>Showtime</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Seat</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Current)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserTicketID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserTicketID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserTicketID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(model => item.Showing.Movie.Title)</td>
+            <td>@Html.DisplayFor(model => item.Showing.ShowDate.Date)</td>
+            <td>@Html.DisplayFor(model => item.Showing.ShowDate.TimeOfDay)</td>
+            <td>@Html.DisplayFor(model => item.CurrentPrice)</td>
+            <td>@Html.DisplayFor(model => item.Current)</td>
+            <td>@Html.DisplayFor(model => item.SeatNumber) </td>
+            <td>
+                @Html.ActionLink("Choose a seat", "Edit", new { id = item.UserTicketID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.UserTicketID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserTicketID })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -3,16 +3,16 @@
 
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Movies Index";
 }
 
-<h2>Index</h2>
+<h2>All Movies</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Movie", "Create", null, new { @class = "btn btn-info" })
 </p>
 <p>
-    @Html.ActionLink("Buy tickets", "Create", "Transactions")
+    @Html.ActionLink("Buy tickets", "Create", "Transactions", null, new { @class = "btn btn-info" })
 </p>
 <table class="table">
     <tr>

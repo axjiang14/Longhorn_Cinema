@@ -200,11 +200,6 @@ namespace AWO_Team14.Controllers
             return selMovies; 
         }
 
-        public ActionResult ChooseMovie()
-        {
-            ViewBag.AllMovies = GetAllMovies();
-            return View();
-        }
 
         // GET: Showings/Details/5
         public ActionResult Details(int? id)

@@ -15,7 +15,7 @@ namespace AWO_Team14.Models
 
         //[Display(Name = "Seat Number")]
         //[Required(ErrorMessage = "Seat Number is required")]
-        //public String SeatNumber { get; set; }
+        public Seat SeatNumber { get; set; }
 
         public bool Current { get; set; }
 
