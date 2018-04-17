@@ -21,6 +21,8 @@ namespace AWO_Team14.Controllers
             return View(db.UserTickets.ToList());
         }
 
+
+
         public SelectList GetEmptySeats(int showingid)
         {
             List<Seat> allSeats = Enum.GetValues(typeof(Seat)).Cast<Seat>().ToList();
@@ -113,7 +115,8 @@ namespace AWO_Team14.Controllers
                 ut.SeatNumber = SelectedSeat;
                 db.Entry(ut).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", "Transactions", new { id = ut.Transaction.TransactionID });
+                //Add redirects based on transaction status
+                return RedirectToAction("PendingDetails", "Transactions", new { id = ut.Transaction.TransactionID });
             }
 
             int showingid = userTicket.Showing.ShowingID;

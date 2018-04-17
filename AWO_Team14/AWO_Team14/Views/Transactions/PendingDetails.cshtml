@@ -8,7 +8,7 @@
 <h2>Transaction Details</h2>
 
 <div>
-    <h4>Transaction Details</h4>
+    <h4>Current Transaction</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -64,6 +64,6 @@
     }
 </table>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Add new ticket", "AddToTransaction", "Transactions", new { id = Model.TransactionID }, null) |
+    @Html.ActionLink("Change Seats/Remove Tickets", "RemoveFromTransaction", "Transactions", new { id = Model.TransactionID }, null)
 </p>

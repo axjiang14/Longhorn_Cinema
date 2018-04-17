@@ -30,6 +30,20 @@ namespace AWO_Team14.Controllers
             return View(db.Transactions.ToList());
         }
 
+        public ActionResult PendingDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Transaction transaction = db.Transactions.Find(id);
+            if (transaction == null)
+            {
+                return HttpNotFound();
+            }
+            return View(transaction);
+        }
+
         public SelectList GetAllShowings(int MovieID)
         {
             var query = from s in db.Showings
@@ -90,7 +104,7 @@ namespace AWO_Team14.Controllers
             {
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("AddToTransaction",  new { id = transaction.TransactionID });
             }
 
             return View(transaction);

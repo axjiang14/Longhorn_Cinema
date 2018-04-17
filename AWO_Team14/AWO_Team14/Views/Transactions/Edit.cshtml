@@ -40,8 +40,39 @@
     </div>
 }
 
+    <table class="table">
+        <tr>
+            <th>TicketID</th>
+            <th>Movie</th>
+            <th>Showdate</th>
+            <th>Showtime</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Seat</th>
+        </tr>
+
+        @foreach (var item in Model.UserTickets)
+    {
+        <tr>
+            <td>@Html.DisplayFor(model => item.UserTicketID)</td>
+            <td>@Html.DisplayFor(model => item.Showing.Movie.Title)</td>
+            <td>@Html.DisplayFor(model => item.Showing.ShowDate.Date)</td>
+            <td>@Html.DisplayFor(model => item.Showing.ShowDate.TimeOfDay)</td>
+            <td>@Html.DisplayFor(model => item.CurrentPrice)</td>
+            <td>@Html.DisplayFor(model => item.Current)</td>
+            <td>@Html.DisplayFor(model => item.SeatNumber) </td>
+            <td>
+                @Html.ActionLink("Choose a seat", "Edit", "UserTickets", new { id = item.UserTicketID }, null) |
+                @Html.ActionLink("Details", "Details", "UserTickets", new { id = item.UserTicketID }, null) |
+                @Html.ActionLink("Delete", "Delete", "UserTickets", new { id = item.UserTicketID }, null)
+            </td>
+        </tr>
+}
+
+    </table>
+
     <div>
-        @Html.ActionLink("Back to List", "Index") |
+        @Html.ActionLink("Back to all transaction", "Index") |
         @Html.ActionLink("Add to transaction", "AddToTransaction", new { id = Model.TransactionID }) |
-        @Html.ActionLink("Remove from transaction", "RemoveFromTransaction", new { id = Model.TransactionID })
+        @*@Html.ActionLink("Remove from transaction", "RemoveFromTransaction", new { id = Model.TransactionID })*@
     </div>

@@ -44,14 +44,14 @@
             @Html.DisplayFor(modelItem => item.CurrentPrice)
         </td>
         <td>
-            @Html.DisplayNameFor(model => model.Current)
+            @Html.DisplayFor(model => item.Current)
         </td>
         <td>
-            @Html.DisplayNameFor(model => model.SeatNumber)
+            @Html.DisplayFor(model => item.SeatNumber)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", "Transactions", new { id = item.UserTicketID }, null) |
-            @Html.ActionLink("Delete", "Delete", "Transactions", new { id = item.UserTicketID }, null)
+            @Html.ActionLink("Edit", "Edit", "UserTickets", new { id = item.UserTicketID }, null) |
+            @Html.ActionLink("Delete", "Delete", "UserTickets", new { id = item.UserTicketID }, null)
         </td>
     </tr>
     }

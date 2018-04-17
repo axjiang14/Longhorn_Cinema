@@ -4,13 +4,16 @@
     ViewBag.Title = "Transactions Index";
 }
 
-<h2>Index</h2>
+<h2>All Transactions</h2>
 
 <p>
-    @Html.ActionLink("New Transaction", "Create")
+    @Html.ActionLink("New Transaction", "Create", null, new { @class = "btn btn-info" })
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Payment)
         </th>
@@ -22,6 +25,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Payment)
         </td>
