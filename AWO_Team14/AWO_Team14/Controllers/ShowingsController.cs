@@ -19,7 +19,7 @@ namespace AWO_Team14.Controllers
         // GET: Showings
         public ActionResult Index()
         {
-            return View(db.Showings.ToList());
+			return View(db.Showings.OrderBy(s =>s.ShowDate).ToList());
         }
 
         //public ActionResult DayShowings(String ShowDate)
@@ -228,11 +228,11 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ShowingID,ShowDate,Special,Theater")] Showing showing, int SelectedMovie, int StartHour, int StartMinute)
+        public ActionResult Create([Bind(Include = "ShowingID,ShowDate,StartHour, StartMinute, Special,Theater")] Showing showing, int SelectedMovie)
         {
             Movie m = db.Movies.Find(SelectedMovie);
 
-            showing.ShowDate = showing.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
+            showing.ShowDate = showing.ShowDate.AddHours(showing.StartHour).AddMinutes(showing.StartMinute).AddSeconds(0);
             
 
             showing.Movie = m;

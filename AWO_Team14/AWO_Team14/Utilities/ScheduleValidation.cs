@@ -36,32 +36,67 @@ namespace AWO_Team14.Utilities
             //check for duplicate showing in other theatre
             var query = from s in db.Showings
                         select s;
-            if (showing.Theater == Theater.One)
-            {
-                query = query.Where(s => s.Theater == Theater.Two);
-            }
-            else
-            {
-                query = query.Where(s => s.Theater == Theater.One);
-            }
 
+			//find showings in the other theater
+			query = query.Where(s => s.Theater != showing.Theater);
+			//find showings that are showing at the same time
             query = query.Where(s => s.ShowDate == showing.ShowDate);
-            Debug.WriteLine(query.ToList());
-            query = query.Where(s => s.Movie == showing.Movie);
-            Debug.WriteLine(query.ToList());
 
-
-            if (query.ToList().Count == 0)
-            {
-                Debug.WriteLine("duplicate showing in other theatre");
-                return false;
-            }
-
-
-            Debug.WriteLine("Gucci");
+			//check if they are showing the same movie
+			if (query.Count() == 1)
+			{
+				Showing OtherShowing = query.FirstOrDefault();
+				
+				if (showing.Movie.Title == OtherShowing.Movie.Title)
+				{
+					Debug.WriteLine("duplicate showing in other theatre");
+					return false;
+				}
+			}
+				
             //showing is ok!
             return true;
         }
+
+		public static Boolean DayShowingValidation(DateTime Date)
+		{
+			AppDbContext db = new AppDbContext();
+			var dayQuery = from s in db.Showings
+							   select s;
+			dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day).OrderBy(s=>s.ShowDate);
+
+			//the first movie must start between 9 AM and 10 AM
+			if (dayQuery.FirstOrDefault().StartHour < 9 || dayQuery.FirstOrDefault().StartHour > 10)
+			{
+				Debug.WriteLine("The first movie must start between 9 and 10");
+				return false;
+			}
+
+			//the last movie must end after 21:30
+			if ((dayQuery.LastOrDefault().EndTime.Hour < 21 && dayQuery.LastOrDefault().EndTime.Minute < 30))
+			{
+				Debug.WriteLine("The last movie must end after 21:30");
+				return false;
+			}
+
+			//check the gaps
+			List<Showing> dayShowings = dayQuery.ToList();
+			for (var i = 0; i < dayShowings.Count; i++)
+			{
+				int gap = dayShowings[i].ShowDate - dayShowings[i + 1].ShowDate;
+
+				if (gap < 25 || gap > 45)
+				{
+					Debug.WriteLine("The gap between", dayShowings[i].Movie.Title, "and", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
+					return false;
+				}
+
+			}
+
+
+
+			return true;
+		}
         
 
     }
