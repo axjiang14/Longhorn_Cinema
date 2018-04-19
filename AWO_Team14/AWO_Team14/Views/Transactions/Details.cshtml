@@ -64,6 +64,8 @@
     }
 </table>
 <p>
+    @*TODO: Edit for managers only*@
     @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Change Seats/Return Tickets", "RemoveFromTransaction", new { id = Model.TransactionID })|
+    @Html.ActionLink("Back to Transactions", "Index")
 </p>

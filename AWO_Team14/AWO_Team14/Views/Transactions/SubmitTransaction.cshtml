@@ -1,78 +1,68 @@
 ﻿@model AWO_Team14.Models.Transaction
-@using AWO_Team14.Models
 
 @{
     ViewBag.Title = "SubmitTransaction";
 }
 
-@Html.HiddenFor(model => model.TransactionID)
-
 <h2>Submit Transaction</h2>
-
-<h3>Are you ready to submit this transaction?</h3>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TransactionID)
-        </dt>
-        <dt>
-            @Html.DisplayFor(model => model.TransactionID)
-        </dt>
-        <dt>
-            @Html.DisplayNameFor(model => model.Payment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Payment)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TransactionDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TransactionDate)
-        </dd>
-
-    </dl>
-</div>
-
-<table class="table table-sm table-striped">
-    <tr>
-        <th>Transaction Details</th>
-    </tr>
-    <tr>
-        <th>TicketID</th>
-        <th>Movie</th>
-        <th>Showdate</th>
-        <th>Showtime</th>
-        <th>Price</th>
-        <th>Status</th>
-        <th>Seat</th>
-    </tr>
-    @foreach (UserTicket t in Model.UserTickets)
-    {
-        <tr>
-            <td>@Html.DisplayFor(model => t.UserTicketID)</td>
-            <td>@Html.DisplayFor(model => t.Showing.Movie.Title)</td>
-            <td>@Html.DisplayFor(model => t.Showing.ShowDate.Date)</td>
-            <td>@Html.DisplayFor(model => t.Showing.ShowDate.TimeOfDay)</td>
-            <td>@Html.DisplayFor(model => t.CurrentPrice)</td>
-            <td>@Html.DisplayFor(model => t.Status)</td>
-            <td>@Html.DisplayFor(model => t.SeatNumber) </td>
-
-        </tr>
-    }
-</table>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Save Transaction" class="btn btn-default" /> |
-        @Html.ActionLink("Back to List", "Index")
+    <div class="form-horizontal">
+        <h4>Ready to submit your transaction?</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.TransactionID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.Payment, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TransactionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model => model.TransactionDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save Transaction" class="btn btn-default" />
+            </div>
+        </div>
     </div>
 }
+<table class="table">
+        <tr>
+            <th>TicketID</th>
+            <th>Movie</th>
+            <th>Showdate</th>
+            <th>Showtime</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Seat</th>
+        </tr>
+
+@foreach (var item in Model.UserTickets)
+{
+    <tr>
+        <td>@Html.DisplayFor(model => item.UserTicketID)</td>
+        <td>@Html.DisplayFor(model => item.Showing.Movie.Title)</td>
+        <td>@Html.DisplayFor(model => item.Showing.ShowDate.Date)</td>
+        <td>@Html.DisplayFor(model => item.Showing.ShowDate.TimeOfDay)</td>
+        <td>@Html.DisplayFor(model => item.CurrentPrice)</td>
+        <td>@Html.DisplayFor(model => item.Status)</td>
+        <td>@Html.DisplayFor(model => item.SeatNumber) </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to transaction", "PendingDetails", new { id = Model.TransactionID }, null)
+</div>

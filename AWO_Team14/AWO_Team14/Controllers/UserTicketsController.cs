@@ -113,12 +113,18 @@ namespace AWO_Team14.Controllers
 
             if (ModelState.IsValid)
             {
-                ut.Status = Status.Pending;
                 ut.SeatNumber = SelectedSeat;
                 db.Entry(ut).State = EntityState.Modified;
                 db.SaveChanges();
-                //Add redirects based on transaction status
-                return RedirectToAction("PendingDetails", "Transactions", new { id = ut.Transaction.TransactionID });
+
+                if (ut.Status == Status.Pending)
+                {
+                    return RedirectToAction("PendingDetails", "Transactions", new { id = ut.Transaction.TransactionID });
+                }
+                if (ut.Status == Status.Active)
+                {
+                    return RedirectToAction("Details", "Transactions", new { id = ut.Transaction.TransactionID });
+                }
             }
 
             int showingid = userTicket.Showing.ShowingID;

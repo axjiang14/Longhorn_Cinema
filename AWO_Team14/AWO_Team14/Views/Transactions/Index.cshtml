@@ -35,9 +35,12 @@
             @Html.DisplayFor(modelItem => item.TransactionDate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.TransactionID }) |
+            @*TODO: Edit and Delete for Managers only*@
             @Html.ActionLink("Details", "Details", new { id = item.TransactionID }) |
+            @Html.ActionLink("Change Seats/Remove Tickets", "RemoveFromTransaction", new { id = item.TransactionID }) |
+            @Html.ActionLink("Edit", "Edit", new { id = item.TransactionID }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.TransactionID })
+
         </td>
     </tr>
 }
