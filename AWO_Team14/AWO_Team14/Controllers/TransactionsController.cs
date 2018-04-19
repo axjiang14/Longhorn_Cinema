@@ -66,14 +66,14 @@ namespace AWO_Team14.Controllers
 
             if (ModelState.IsValid)
             {
-                foreach (UserTicket ut in transaction.UserTickets)
+                foreach (UserTicket ut in t.UserTickets)
                 {
                     ut.Status = Status.Active;
                 }
 
-                db.Entry(transaction).State = EntityState.Modified;
+                db.Entry(t).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", new { id = transaction.TransactionID });
+                return RedirectToAction("Details", new { id = t.TransactionID });
             }
             return View(transaction);
         }
