@@ -59,7 +59,7 @@
             <td>@Html.DisplayFor(model => item.Showing.ShowDate.Date)</td>
             <td>@Html.DisplayFor(model => item.Showing.ShowDate.TimeOfDay)</td>
             <td>@Html.DisplayFor(model => item.CurrentPrice)</td>
-            <td>@Html.DisplayFor(model => item.Current)</td>
+            <td>@Html.DisplayFor(model => item.Status)</td>
             <td>@Html.DisplayFor(model => item.SeatNumber) </td>
             <td>
                 @Html.ActionLink("Choose a seat", "Edit", "UserTickets", new { id = item.UserTicketID }, null) |

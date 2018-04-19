@@ -162,7 +162,7 @@ namespace AWO_Team14.Controllers
             //TODO: Change price
             ut.CurrentPrice = 12;
 
-            ut.Current = true;
+            ut.Status = Status.Pending;
 
             //TODO: Change seat number
             ut.SeatNumber = Seat.Seat;

@@ -69,10 +69,11 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserTicketID,CurrentPrice,Current")] UserTicket userTicket)
+        public ActionResult Create([Bind(Include = "UserTicketID,CurrentPrice,Status")] UserTicket userTicket)
         {
             if (ModelState.IsValid)
             {
+                userTicket.Status = Status.Pending;
                 db.UserTickets.Add(userTicket);
                 db.SaveChanges();
                 return RedirectToAction("Details", new { id = userTicket.UserTicketID });
@@ -103,7 +104,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UserTicketID,CurrentPrice,Current")] UserTicket userTicket, Seat SelectedSeat)
+        public ActionResult Edit([Bind(Include = "UserTicketID,CurrentPrice,Status")] UserTicket userTicket, Seat SelectedSeat)
         {
             UserTicket ut= db.UserTickets.Include(UT => UT.Transaction)
                                             .Include(UT => UT.Showing)
@@ -111,7 +112,7 @@ namespace AWO_Team14.Controllers
 
             if (ModelState.IsValid)
             {
-
+                ut.Status = Status.Pending;
                 ut.SeatNumber = SelectedSeat;
                 db.Entry(ut).State = EntityState.Modified;
                 db.SaveChanges();
@@ -147,12 +148,28 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         //TODO: Removing tickets
         public ActionResult DeleteConfirmed(int id)
-        {
+        { 
+
+            
             UserTicket userTicket = db.UserTickets.Find(id);
-            Transaction t = userTicket.Transaction;
-            userTicket.Current = false;
-            db.SaveChanges();
-            return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
+
+            if (userTicket.Status == Status.Pending)
+            {
+
+                Transaction t = userTicket.Transaction;
+                t.UserTickets.Remove(userTicket);
+                db.UserTickets.Remove(userTicket);
+                db.SaveChanges();
+                return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
+
+            }
+            else
+            {
+                Transaction t = userTicket.Transaction;
+                userTicket.Status = Status.Returned;
+                db.SaveChanges();
+                return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
+            }
         }
 
         protected override void Dispose(bool disposing)

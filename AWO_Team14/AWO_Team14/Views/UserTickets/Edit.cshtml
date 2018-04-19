@@ -16,7 +16,7 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.UserTicketID)
     @Html.HiddenFor(model => model.CurrentPrice)
-    @Html.HiddenFor(model => model.Current)
+    @Html.HiddenFor(model => model.Status)
 
     <div class="form-group">
         <label class="control-label col-md-2">Choose a seat:</label>
@@ -33,14 +33,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Current, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Current)
-                    @Html.ValidationMessageFor(model => model.Current, "", new { @class = "text-danger" })
-                </div>
-            </div>
         </div>*@
 
     <div class="form-group">

@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201804171731145_Changed seats enum.Designer.cs">
       <DependentUpon>201804171731145_Changed seats enum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804190015209_Change current to status.cs" />
+    <Compile Include="Migrations\201804190015209_Change current to status.Designer.cs">
+      <DependentUpon>201804190015209_Change current to status.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -418,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804171731145_Changed seats enum.resx">
       <DependentUpon>201804171731145_Changed seats enum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190015209_Change current to status.resx">
+      <DependentUpon>201804190015209_Change current to status.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
