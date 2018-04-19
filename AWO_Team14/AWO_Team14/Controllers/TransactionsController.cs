@@ -44,6 +44,40 @@ namespace AWO_Team14.Controllers
             return View(transaction);
         }
 
+        public ActionResult SubmitTransaction(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Transaction transaction = db.Transactions.Find(id);
+            if (transaction == null)
+            {
+                return HttpNotFound();
+            }
+            return View(transaction);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
+        {
+            Transaction t = db.Transactions.Find(transaction.TransactionID);
+
+            if (ModelState.IsValid)
+            {
+                foreach (UserTicket ut in transaction.UserTickets)
+                {
+                    ut.Status = Status.Active;
+                }
+
+                db.Entry(transaction).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = transaction.TransactionID });
+            }
+            return View(transaction);
+        }
+
         public SelectList GetAllShowings(int MovieID)
         {
             var query = from s in db.Showings

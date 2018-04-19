@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -152,6 +153,7 @@ namespace AWO_Team14.Controllers
 
             
             UserTicket userTicket = db.UserTickets.Find(id);
+            Debug.WriteLine(userTicket);
 
             if (userTicket.Status == Status.Pending)
             {

@@ -263,6 +263,14 @@
     <Compile Include="Migrations\201804190015209_Change current to status.Designer.cs">
       <DependentUpon>201804190015209_Change current to status.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804190103012_DbSetDiscounts.cs" />
+    <Compile Include="Migrations\201804190103012_DbSetDiscounts.Designer.cs">
+      <DependentUpon>201804190103012_DbSetDiscounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804190110545_updateDiscount.cs" />
+    <Compile Include="Migrations\201804190110545_updateDiscount.Designer.cs">
+      <DependentUpon>201804190110545_updateDiscount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -325,6 +333,7 @@
     <Content Include="Views\UserTickets\Edit.cshtml" />
     <Content Include="Views\UserTickets\Index.cshtml" />
     <Content Include="Views\Transactions\PendingDetails.cshtml" />
+    <Content Include="Views\Transactions\SubmitTransaction.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -425,6 +434,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804190015209_Change current to status.resx">
       <DependentUpon>201804190015209_Change current to status.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190103012_DbSetDiscounts.resx">
+      <DependentUpon>201804190103012_DbSetDiscounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804190110545_updateDiscount.resx">
+      <DependentUpon>201804190110545_updateDiscount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
