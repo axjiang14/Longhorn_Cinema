@@ -1,0 +1,78 @@
+﻿@model AWO_Team14.Models.Transaction
+@using AWO_Team14.Models
+
+@{
+    ViewBag.Title = "SubmitTransaction";
+}
+
+@Html.HiddenFor(model => model.TransactionID)
+
+<h2>Submit Transaction</h2>
+
+<h3>Are you ready to submit this transaction?</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionID)
+        </dt>
+        <dt>
+            @Html.DisplayFor(model => model.TransactionID)
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Payment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Payment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransactionDate)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table table-sm table-striped">
+    <tr>
+        <th>Transaction Details</th>
+    </tr>
+    <tr>
+        <th>TicketID</th>
+        <th>Movie</th>
+        <th>Showdate</th>
+        <th>Showtime</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Seat</th>
+    </tr>
+    @foreach (UserTicket t in Model.UserTickets)
+    {
+        <tr>
+            <td>@Html.DisplayFor(model => t.UserTicketID)</td>
+            <td>@Html.DisplayFor(model => t.Showing.Movie.Title)</td>
+            <td>@Html.DisplayFor(model => t.Showing.ShowDate.Date)</td>
+            <td>@Html.DisplayFor(model => t.Showing.ShowDate.TimeOfDay)</td>
+            <td>@Html.DisplayFor(model => t.CurrentPrice)</td>
+            <td>@Html.DisplayFor(model => t.Status)</td>
+            <td>@Html.DisplayFor(model => t.SeatNumber) </td>
+
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Save Transaction" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}

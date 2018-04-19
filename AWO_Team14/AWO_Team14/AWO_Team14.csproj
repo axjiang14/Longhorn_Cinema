@@ -325,6 +325,7 @@
     <Content Include="Views\UserTickets\Edit.cshtml" />
     <Content Include="Views\UserTickets\Index.cshtml" />
     <Content Include="Views\Transactions\PendingDetails.cshtml" />
+    <Content Include="Views\Transactions\SubmitTransaction.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
