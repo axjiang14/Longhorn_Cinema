@@ -233,9 +233,7 @@ namespace AWO_Team14.Controllers
             Movie m = db.Movies.Find(SelectedMovie);
 
             showing.ShowDate = showing.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
-
-
-            //showing.StartTime = showing.ShowDate;
+            
 
             showing.Movie = m;
 

@@ -13,14 +13,9 @@ namespace AWO_Team14.Utilities
         public static Boolean ShowingValidation(Showing showing)
         {
             AppDbContext db = new AppDbContext();
-            DateTime LatestEnd = new DateTime(1900, 1, 1, 23, 59, 59);
 
-            //Movie movie = showing.Movie;
-
-            //check that endtime < 12:00:00 AM
-
-            //if ((showing.EndTime.TimeOfDay > LatestEnd.TimeOfDay)||(showing.EndTime.TimeOfDay < showing.StartTime.TimeOfDay))
-            if ((showing.EndTime.TimeOfDay > LatestEnd.TimeOfDay))
+            //check that the movie ends before midnight
+            if ((showing.EndTime.Day > showing.ShowDate.Day))
             {
                 Debug.WriteLine("1");
                 return false;
@@ -39,27 +34,31 @@ namespace AWO_Team14.Utilities
             }
 
             //check for duplicate showing in other theatre
-            //var query = from s in db.Showings
-            //            select s;
-            //if (showing.Theater == Theater.One)
-            //{
-            //    query = query.Where(s => s.Theater == Theater.Two);
-            //}
-            //else
-            //{
-            //    query = query.Where(s => s.Theater == Theater.One);
-            //}
+            var query = from s in db.Showings
+                        select s;
+            if (showing.Theater == Theater.One)
+            {
+                query = query.Where(s => s.Theater == Theater.Two);
+            }
+            else
+            {
+                query = query.Where(s => s.Theater == Theater.One);
+            }
 
-            //query = query.Where(s => s.StartTime == showing.StartTime);
-            //query = query.Where(s => s.Movie == showing.Movie);
+            query = query.Where(s => s.ShowDate == showing.ShowDate);
+            Debug.WriteLine(query.ToList());
+            query = query.Where(s => s.Movie == showing.Movie);
+            Debug.WriteLine(query.ToList());
 
 
-            //if (query.Count() > 0)
-            //{
-            //    Debug.WriteLine("3");
-            //    return false;
-            //}
+            if (query.ToList().Count == 0)
+            {
+                Debug.WriteLine("duplicate showing in other theatre");
+                return false;
+            }
 
+
+            Debug.WriteLine("Gucci");
             //showing is ok!
             return true;
         }
