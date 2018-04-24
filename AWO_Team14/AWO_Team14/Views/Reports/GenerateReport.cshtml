@@ -1,0 +1,43 @@
+﻿@using AWO_Team14.Controllers
+@{
+
+    ViewBag.Title = "Generate Report";
+}
+
+<h2>Generate Report</h2>
+
+@using (Html.BeginForm("GenerateReport", "Home", FormMethod.Get))
+{
+    <p class="form-group">
+        Generate Report By:
+        <label class="radio">@Html.RadioButton("ReportCriteria", Report.Seats)Total Seats</label>
+        <label class="radio">@Html.RadioButton("ReportCriteria", Report.Revenue)Total Revenue</label>
+        <label class="radio">@Html.RadioButton("ReportCriteria", Report.Both, true)Total Seats and Total Revenue</label>
+    </p>
+
+    <p class="form-group">
+        Start Date: <input type="date" name="StartDate" class="form-control" />
+        End Date: <input type="date" name="EndDate" class="form-control" />
+    </p>
+    <p class="form-group">
+        Movies: @Html.ListBox("SearchGenres", (MultiSelectList)ViewBag.AllMovies, new { @class = "form-control" })
+    </p>
+
+    @*<p class="form-group">
+            MPAA Rating: @Html.DropDownList("SearchMPAA", (SelectList)ViewBag.AllMPAA, new { @class = "form-control" })
+            @Html.EnumDropDownListFor("SearchMPAA", , new { @class = "form-control" })
+        </p>*@
+    <p class="form-group">
+        Time: <input type="time" name="Time" class="form-control" />
+    </p>
+
+
+    <p class="form-group">
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+
+
+
+

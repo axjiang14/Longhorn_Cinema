@@ -152,6 +152,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\ShowingsController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
@@ -350,6 +351,7 @@
     <Content Include="Views\Schedules\Details.cshtml" />
     <Content Include="Views\Schedules\Edit.cshtml" />
     <Content Include="Views\Schedules\Index.cshtml" />
+    <Content Include="Views\Reports\GenerateReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

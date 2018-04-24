@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
+using System.Diagnostics;
 
 namespace AWO_Team14.Controllers
 {
@@ -40,7 +41,6 @@ namespace AWO_Team14.Controllers
                 if (s.Movie.MovieID == movieid)
                 {
                     Showings2.Add(s);
-                    break;
                 }
             }
 
@@ -89,7 +89,7 @@ namespace AWO_Team14.Controllers
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
-			if (Utilities.TransactionValidation.TicketValidation(transaction) == true) 
+			if (Utilities.TransactionValidation.TicketValidation(t) == true) 
 				if (ModelState.IsValid)
 				{
 					foreach (UserTicket ut in t.UserTickets)
@@ -107,19 +107,19 @@ namespace AWO_Team14.Controllers
 			
 		}
 
-        public SelectList GetAllShowings(int MovieID)
-        {
-            var query = from s in db.Showings
-                        select s;
-            query = query.Where(s => s.Movie.MovieID == MovieID);
+        //public SelectList GetAllShowings(int MovieID)
+        //{
+        //    var query = from s in db.Showings
+        //                select s;
+        //    query = query.Where(s => s.Movie.MovieID == MovieID);
 
-            List<Showing> Showings = query.ToList();
+        //    List<Showing> Showings = query.ToList();
 
-            SelectList AllShowings = new SelectList(Showings.OrderBy(s => s.ShowingID), "ShowingID", String.Format("ShowDate" + "Movie"));
+        //    SelectList AllShowings = new SelectList(Showings.OrderBy(s => s.ShowingID), "ShowingID", String.Format("ShowDate" + "Movie"));
 
-            return AllShowings;
+        //    return AllShowings;
    
-        }
+        //}
 
         public SelectList GetAllShowings()
         {
@@ -233,12 +233,11 @@ namespace AWO_Team14.Controllers
 
         public ActionResult AddToTransaction(int ticketid)
         {
-            //New instance of user ticket
+            //Find user ticket
             UserTicket ut = db.UserTickets.Find(ticketid);
 
             //Finds movie for user ticket
             Movie m = db.Movies.Find(ut.MovieID);
-
 
             ViewBag.AllShowings = GetRelShowings(m.MovieID);
 
@@ -247,35 +246,38 @@ namespace AWO_Team14.Controllers
 
         //Post AddToOrder
         [HttpPost]
-        public ActionResult AddToTransaction(UserTicket ut, int SelectedShowing)
+        public ActionResult AddToTransaction([Bind(Include = "UserTicketID, CurrentPrice, SeatNumber, Status, MovieID, Showing")]
+        UserTicket ut, int SelectedShowing)
         {
             //Finds showing
             Showing showing = db.Showings.Find(SelectedShowing);
+            Debug.WriteLine(showing.ShowingID);
 
             //Sets ticket's showing
-            ut.Showing = showing;
+            UserTicket userticket = db.UserTickets.Find(ut.UserTicketID);
+            userticket.Showing = showing;
 
             //Finds transaction associated w/ ticket
-            Transaction transaction = db.Transactions.Find(ut.Transaction.TransactionID);
+            //Transaction transaction = db.Transactions.Find(ut.Transaction.TransactionID);
 
             //Sets user ticket's transaction
-            ut.Transaction = transaction;
+           // ut.Transaction = transaction;
 
             //Sets MovieID
-            ut.MovieID = showing.Movie.MovieID;
+            //ut.MovieID = showing.Movie.MovieID;
 
             //TODO: Change price
-            ut.CurrentPrice = 12;
+            //ut.CurrentPrice = 12;
 
-            ut.Status = Status.Pending;
+            //ut.Status = Status.Pending;
 
             //TODO: Change seat number
-            ut.SeatNumber = Seat.Seat;
+            //ut.SeatNumber = Seat.Seat;
 
 
             if (ModelState.IsValid)
             {
-                db.UserTickets.Add(ut);
+                db.Entry(userticket).State = EntityState.Modified;
                 db.SaveChanges();
                 //return RedirectToAction("Details", "Transactions", new { id = transaction.TransactionID });
                 return RedirectToAction("Edit", "UserTickets", new { id = ut.UserTicketID });
