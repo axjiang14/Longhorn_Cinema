@@ -10,6 +10,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.TransactionID)
+    @Html.HiddenFor(model => model.TransactionDate)
     
     <div class="form-horizontal">
         <h4>Edit Transaction</h4>
