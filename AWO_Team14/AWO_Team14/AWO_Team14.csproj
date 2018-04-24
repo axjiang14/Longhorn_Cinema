@@ -271,6 +271,10 @@
     <Compile Include="Migrations\201804190110545_updateDiscount.Designer.cs">
       <DependentUpon>201804190110545_updateDiscount.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804240122469_Movie to userticket.cs" />
+    <Compile Include="Migrations\201804240122469_Movie to userticket.Designer.cs">
+      <DependentUpon>201804240122469_Movie to userticket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -441,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804190110545_updateDiscount.resx">
       <DependentUpon>201804190110545_updateDiscount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804240122469_Movie to userticket.resx">
+      <DependentUpon>201804240122469_Movie to userticket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

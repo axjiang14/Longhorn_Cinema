@@ -1,4 +1,4 @@
-﻿@model AWO_Team14.Models.Showing
+﻿@model AWO_Team14.Models.UserTicket
 @{
     ViewBag.Title = "ChooseMovie";
 }
@@ -8,14 +8,15 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Transaction.TransactionID)
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
-            <label class="control-label col-md-2">Select a :</label>
+            <label class="control-label col-md-2">Select a Movie:</label>
             <div class="col-md-10">
-                @Html.DropDownList("SelectedMovies", (SelectList)ViewBag.AllMovies, new { @class = "form-control" })
+                @Html.DropDownList("SelectedMovie", (SelectList)ViewBag.AllMovies, new { @class = "form-control" })
             </div>
         </div>
 

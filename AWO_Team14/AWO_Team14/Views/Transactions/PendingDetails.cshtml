@@ -65,5 +65,6 @@
 </table>
 <p>
     @Html.ActionLink("Add new ticket", "AddToTransaction", "Transactions", new { id = Model.TransactionID }, null) |
-    @Html.ActionLink("Change Seats/Remove Tickets", "RemoveFromTransaction", "Transactions", new { id = Model.TransactionID }, null)
+    @Html.ActionLink("Change Seats/Remove Tickets", "RemoveFromTransaction", "Transactions", new { id = Model.TransactionID }, null) |
+    @Html.ActionLink("Submit transaction", "SubmitTransaction", new { id = Model.TransactionID })
 </p>
