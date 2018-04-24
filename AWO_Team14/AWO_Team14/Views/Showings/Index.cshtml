@@ -5,22 +5,30 @@
 @{
     ViewBag.Title = "All Showings";
 }
+
+@ViewBag.Message
+
+@Html.ActionLink("Check the Showings for a Day", "CheckDayShowings")
+
 <table class="table table-sm table-striped">
     <tr>
         <th>Theater One</th>
     </tr>
     <tr>
         <td>
-            @Html.ActionLink("Friday", "DayShowings", new { ShowDate = "Friday", Theater = Theater.One })</td>
-        <td>@Html.ActionLink("Saturday", "DayShowings", new { ShowDate = "Saturday", Theater = Theater.One })
-            </td>                                                                                  
-        <td>@Html.ActionLink("Sunday", "DayShowings", new { ShowDate = "Sunday", Theater = Theater.One })
+            @Html.ActionLink("Friday", "DayShowings", new { ShowDate = "Friday", Theater = Theater.One })
         </td>
-        <td>@Html.ActionLink("Monday", "DayShowings", new { ShowDate = "Monday", Theater = Theater.One })</td>
-        <td>@Html.ActionLink("Tuesday", "DayShowings", new { ShowDate = "Tuesday", Theater = Theater.One })</td>
-        <td>@Html.ActionLink("Wednesday", "DayShowings", new { ShowDate = "Wednesday", Theater = Theater.One})</td>
-        <td>@Html.ActionLink("Thursday", "DayShowings", new { ShowDate = "Thursday", Theater = Theater.One })</td>
-    </tr>
+        <td>
+            @Html.ActionLink("Saturday", "DayShowings", new { ShowDate = "Saturday", Theater = Theater.One })
+    </td>
+    <td>
+        @Html.ActionLink("Sunday", "DayShowings", new { ShowDate = "Sunday", Theater = Theater.One })
+</td>
+<td>@Html.ActionLink("Monday", "DayShowings", new { ShowDate = "Monday", Theater = Theater.One })</td>
+<td>@Html.ActionLink("Tuesday", "DayShowings", new { ShowDate = "Tuesday", Theater = Theater.One })</td>
+<td>@Html.ActionLink("Wednesday", "DayShowings", new { ShowDate = "Wednesday", Theater = Theater.One })</td>
+<td>@Html.ActionLink("Thursday", "DayShowings", new { ShowDate = "Thursday", Theater = Theater.One })</td>
+</tr>
 </table>
 
 <table class="table table-sm table-striped">
@@ -33,15 +41,15 @@
         </td>
         <td>
             @Html.ActionLink("Saturday", "DayShowings", new { ShowDate = "Saturday", Theater = Theater.Two })
-    </td>
-    <td>
-        @Html.ActionLink("Sunday", "DayShowings", new { ShowDate = "Sunday", Theater = Theater.Two })
-</td>
-<td>@Html.ActionLink("Monday", "DayShowings", new { ShowDate = "Monday", Theater = Theater.Two })</td>
-<td>@Html.ActionLink("Tuesday", "DayShowings", new { ShowDate = "Tuesday", Theater = Theater.Two })</td>
-<td>@Html.ActionLink("Wednesday", "DayShowings", new { ShowDate = "Wednesday", Theater = Theater.Two })</td>
-<td>@Html.ActionLink("Thursday", "DayShowings", new { ShowDate = "Thursday", Theater = Theater.Two })</td>
-</tr>
+        </td>
+        <td>
+            @Html.ActionLink("Sunday", "DayShowings", new { ShowDate = "Sunday", Theater = Theater.Two })
+        </td>
+        <td>@Html.ActionLink("Monday", "DayShowings", new { ShowDate = "Monday", Theater = Theater.Two })</td>
+        <td>@Html.ActionLink("Tuesday", "DayShowings", new { ShowDate = "Tuesday", Theater = Theater.Two })</td>
+        <td>@Html.ActionLink("Wednesday", "DayShowings", new { ShowDate = "Wednesday", Theater = Theater.Two })</td>
+        <td>@Html.ActionLink("Thursday", "DayShowings", new { ShowDate = "Thursday", Theater = Theater.Two })</td>
+    </tr>
 </table>
 
 @*<li class="dropdown">

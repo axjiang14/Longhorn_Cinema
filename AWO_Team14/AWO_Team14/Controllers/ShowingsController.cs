@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
+using AWO_Team14.Utilities;
 
 namespace AWO_Team14.Controllers
 {
@@ -98,9 +99,7 @@ namespace AWO_Team14.Controllers
             DateTime firstSunday = new DateTime(1753, 1, 7);
 
             List<Showing> Showings = new List<Showing>();
-            //var query = from s in db.Showings
-            //            select s;
-            //query = query.Where(s => s.ShowDate.DayOfWeek == ShowDate);
+            
 
             if (ShowDate == "Friday")
             {
@@ -238,7 +237,7 @@ namespace AWO_Team14.Controllers
             showing.Movie = m;
 
             showing.EndTime = showing.ShowDate.Add(m.Runtime);
-            if (Utilities.ScheduleValidation.ShowingValidation(showing) == true)
+            if (ScheduleValidation.ShowingValidation(showing) == true)
             {
                 if (ModelState.IsValid)
                 {
@@ -331,7 +330,7 @@ namespace AWO_Team14.Controllers
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
-                if (Utilities.ScheduleValidation.ShowingValidation(showing) == true)
+                if (ScheduleValidation.ShowingValidation(showing) == true)
                 {
                     db.Entry(showingToChange).State = EntityState.Modified;
                     db.SaveChanges();
@@ -342,6 +341,29 @@ namespace AWO_Team14.Controllers
             ViewBag.AllMovies = GetAllMovies();
             return View(showing);
         }
+
+
+        public ActionResult CheckDayShowings()
+        {
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult CheckDayShowings(DateTime date)
+        {
+            if (ScheduleValidation.DayShowingValidation(date))
+            {
+                ViewBag.Message = "Your schedule is great!";
+            }
+            else
+            {
+                ViewBag.Message = "Your schedule is wrong";
+            }
+            return RedirectToAction("Index");
+
+        }
+
 
         // GET: Showings/Delete/5
         public ActionResult Delete(int? id)

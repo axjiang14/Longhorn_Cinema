@@ -344,6 +344,7 @@
     <Content Include="Views\UserTickets\Index.cshtml" />
     <Content Include="Views\Transactions\PendingDetails.cshtml" />
     <Content Include="Views\Transactions\SubmitTransaction.cshtml" />
+    <Content Include="Views\Showings\CheckDayShowings.cshtml" />
     <Content Include="Views\Schedules\Create.cshtml" />
     <Content Include="Views\Schedules\Delete.cshtml" />
     <Content Include="Views\Schedules\Details.cshtml" />
