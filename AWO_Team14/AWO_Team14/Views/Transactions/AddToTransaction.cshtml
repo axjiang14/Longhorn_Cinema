@@ -9,25 +9,26 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Tickets</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Transaction.TransactionID)
+<div class="form-horizontal">
+    <h4>Tickets</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Transaction.TransactionID)
+    @Html.HiddenFor(model => model.UserTicketID)
 
-        <div class="form-group">
-            <label class="control-label col-md-2">Select a Showing:</label>
-            <div class="col-md-10">
-                @Html.DropDownList("SelectedShowing", (SelectList)ViewBag.AllShowings, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Select Showing" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        <label class="control-label col-md-2">Select a Showing:</label>
+        <div class="col-md-10">
+            @Html.DropDownList("SelectedShowing", (SelectList)ViewBag.AllShowings, new { @class = "form-control" })
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Select Showing" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 

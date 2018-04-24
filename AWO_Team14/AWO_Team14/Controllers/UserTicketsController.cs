@@ -151,7 +151,7 @@ namespace AWO_Team14.Controllers
         }
 
         // POST: UserTickets/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         //TODO: Removing tickets
         public ActionResult DeleteConfirmed(int id)
