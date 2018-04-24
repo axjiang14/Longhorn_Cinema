@@ -89,19 +89,23 @@ namespace AWO_Team14.Controllers
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
-            if (ModelState.IsValid)
-            {
-                foreach (UserTicket ut in t.UserTickets)
-                {
-                    ut.Status = Status.Active;
-                }
+			if (Utilities.TransactionValidation.TicketValidation(transaction) == true) 
+				if (ModelState.IsValid)
+				{
+					foreach (UserTicket ut in t.UserTickets)
+					{
+						ut.Status = Status.Active;
+					}
 
-                db.Entry(t).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Details", new { id = t.TransactionID });
-            }
+					db.Entry(t).State = EntityState.Modified;
+					db.SaveChanges();
+					return RedirectToAction("Details", new { id = t.TransactionID });
+
+				}
             return View(transaction);
-        }
+			
+			
+		}
 
         public SelectList GetAllShowings(int MovieID)
         {
