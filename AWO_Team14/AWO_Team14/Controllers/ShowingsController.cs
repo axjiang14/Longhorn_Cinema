@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -349,15 +350,18 @@ namespace AWO_Team14.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult CheckDayShowings(DateTime date)
+        
+        public ActionResult DisplayCheckDayShowings(DateTime ShowDate, Theater SelectedTheater)
         {
-            if (ScheduleValidation.DayShowingValidation(date))
+            Debug.WriteLine("in post");
+            if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater))
             {
+                Debug.WriteLine("schedule good");
                 ViewBag.Message = "Your schedule is great!";
             }
             else
             {
+                Debug.WriteLine("schedue bad");
                 ViewBag.Message = "Your schedule is wrong";
             }
             return RedirectToAction("Index");

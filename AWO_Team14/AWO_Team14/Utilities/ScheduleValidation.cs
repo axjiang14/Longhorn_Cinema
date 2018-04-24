@@ -58,12 +58,12 @@ namespace AWO_Team14.Utilities
             return true;
         }
 
-		public static Boolean DayShowingValidation(DateTime Date)
+		public static Boolean DayShowingValidation(DateTime Date, Theater theater)
 		{
 			AppDbContext db = new AppDbContext();
 			var dayQuery = from s in db.Showings
 							   select s;
-			dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day).OrderBy(s=>s.ShowDate);
+			dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day && s.Theater == theater).OrderBy(s=>s.ShowDate);
 
 			//the first movie must start between 9 AM and 10 AM
 			if (dayQuery.FirstOrDefault().StartHour < 9 || dayQuery.FirstOrDefault().StartHour > 10)
