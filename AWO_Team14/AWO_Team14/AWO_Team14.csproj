@@ -152,6 +152,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\ShowingsController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UserTicketsController.cs" />
@@ -275,6 +276,10 @@
     <Compile Include="Migrations\201804240122469_Movie to userticket.Designer.cs">
       <DependentUpon>201804240122469_Movie to userticket.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804240305249_NotSure.cs" />
+    <Compile Include="Migrations\201804240305249_NotSure.Designer.cs">
+      <DependentUpon>201804240305249_NotSure.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -291,6 +296,7 @@
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\GenerateMovieNumber.cs" />
+    <Compile Include="Utilities\DiscountPrice.cs" />
     <Compile Include="Utilities\ScheduleValidation.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -339,6 +345,11 @@
     <Content Include="Views\Transactions\PendingDetails.cshtml" />
     <Content Include="Views\Transactions\SubmitTransaction.cshtml" />
     <Content Include="Views\Showings\CheckDayShowings.cshtml" />
+    <Content Include="Views\Schedules\Create.cshtml" />
+    <Content Include="Views\Schedules\Delete.cshtml" />
+    <Content Include="Views\Schedules\Details.cshtml" />
+    <Content Include="Views\Schedules\Edit.cshtml" />
+    <Content Include="Views\Schedules\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -448,6 +459,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804240122469_Movie to userticket.resx">
       <DependentUpon>201804240122469_Movie to userticket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804240305249_NotSure.resx">
+      <DependentUpon>201804240305249_NotSure.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

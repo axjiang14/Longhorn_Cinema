@@ -24,6 +24,31 @@ namespace AWO_Team14.Controllers
             return selMovies;
         }
 
+        public SelectList GetRelShowings(int movieid)
+        {
+            //Gets showings for movie
+            List<Showing> Showings1 = new List<Showing>();
+            List<Showing> Showings2 = new List<Showing>();
+
+            var query = from s in db.Showings
+                        select s;
+
+            Showings1 = query.ToList(); //List of showings from query
+
+            foreach (Showing s in Showings1)
+            {
+                if (s.Movie.MovieID == movieid)
+                {
+                    Showings2.Add(s);
+                    break;
+                }
+            }
+
+            SelectList ChosenShowings = new SelectList(Showings2.OrderBy(s => s.ShowingID), "ShowingID", "ShowDate");
+
+            return ChosenShowings;
+        }
+
         // GET: Transactions
         public ActionResult Index()
         {
@@ -138,31 +163,14 @@ namespace AWO_Team14.Controllers
             {
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
-                return RedirectToAction("AddToTransaction",  new { id = transaction.TransactionID });
+                return RedirectToAction("ChooseMovie",  new { id = transaction.TransactionID });
             }
 
             return View(transaction);
         }
 
-        //public ActionResult ChooseMovie(int id)
-        //{
-        //    //New instance of user ticket
-        //    UserTicket ut = new UserTicket();
-
-        //    //Finds transaction for user ticket
-        //    Transaction t = db.Transactions.Find(id);
-
-        //    //Sets user ticket's transaction to the transaction
-        //    ut.Transaction = t;
-
-        //    ViewBag.AllShowings = GetAllMovies();
-
-        //    return View(ut);
-        //}
-
-        
-
-        public ActionResult AddToTransaction(int id)
+        //Get
+        public ActionResult ChooseMovie(int id)
         {
             //New instance of user ticket
             UserTicket ut = new UserTicket();
@@ -173,7 +181,63 @@ namespace AWO_Team14.Controllers
             //Sets user ticket's transaction to the transaction
             ut.Transaction = t;
 
-            ViewBag.AllShowings = GetAllShowings();
+            ViewBag.AllMovies = GetAllMovies();
+
+            return View(ut);
+        }
+
+        [HttpPost]
+        public ActionResult ChooseMovie(UserTicket ut, int SelectedMovie)
+        {
+            //Finds movie
+            Movie movie = db.Movies.Find(SelectedMovie);
+
+            //Sets ticket's showing
+            ut.MovieID = movie.MovieID;
+
+            //Finds transaction associated w/ ticket
+            Transaction transaction = db.Transactions.Find(ut.Transaction.TransactionID);
+
+            //Sets user ticket's transaction
+            ut.Transaction = transaction;
+
+            //TODO: Change price
+            ut.CurrentPrice = 12;
+
+            ut.Status = Status.Pending;
+
+            ut.SeatNumber = Seat.Seat;
+
+            //Sets user ticket's showing
+            ut.Showing = null;
+
+
+            if (ModelState.IsValid)
+            {
+                db.UserTickets.Add(ut);
+                db.SaveChanges();
+                //return RedirectToAction("Details", "Transactions", new { id = transaction.TransactionID });
+                //return RedirectToAction("Edit", "UserTickets", new { id = ut.UserTicketID });
+                return RedirectToAction("AddToTransaction", new { ticketid = ut.UserTicketID });
+            }
+
+            ViewBag.AllMovies = GetAllMovies();
+            return View(ut);
+        }
+
+
+
+        public ActionResult AddToTransaction(int ticketid)
+        {
+            //New instance of user ticket
+            UserTicket ut = db.UserTickets.Find(ticketid);
+
+            //Finds movie for user ticket
+            Movie m = db.Movies.Find(ut.MovieID);
+
+
+            ViewBag.AllShowings = GetRelShowings(m.MovieID);
+
             return View(ut);
         }
 
@@ -192,6 +256,9 @@ namespace AWO_Team14.Controllers
 
             //Sets user ticket's transaction
             ut.Transaction = transaction;
+
+            //Sets MovieID
+            ut.MovieID = showing.Movie.MovieID;
 
             //TODO: Change price
             ut.CurrentPrice = 12;

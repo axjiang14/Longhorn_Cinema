@@ -155,11 +155,8 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         //TODO: Removing tickets
         public ActionResult DeleteConfirmed(int id)
-        { 
-
-            
+        {
             UserTicket userTicket = db.UserTickets.Find(id);
-            Debug.WriteLine(userTicket);
 
             if (userTicket.Status == Status.Pending)
             {
@@ -175,6 +172,13 @@ namespace AWO_Team14.Controllers
             {
                 Transaction t = userTicket.Transaction;
                 userTicket.Status = Status.Returned;
+                //userTicket.CurrentPrice = userTicket.CurrentPrice;
+                userTicket.SeatNumber = Seat.Seat;
+                //userTicket.MovieID = userTicket.MovieID;
+                //userTicket.Transaction = t;
+                //userTicket.Showing = userTicket.Showing;
+
+              
                 db.SaveChanges();
                 return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
             }
