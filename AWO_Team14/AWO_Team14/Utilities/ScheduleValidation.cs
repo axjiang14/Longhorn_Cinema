@@ -80,18 +80,18 @@ namespace AWO_Team14.Utilities
 			}
 
 			//check the gaps
-			List<Showing> dayShowings = dayQuery.ToList();
-			for (var i = 0; i < dayShowings.Count; i++)
-			{
-				int gap = dayShowings[i].ShowDate - dayShowings[i + 1].ShowDate;
+			//List<Showing> dayShowings = dayQuery.ToList();
+			//for (var i = 0; i < dayShowings.Count; i++)
+			//{
+			//	int gap = dayShowings[i].ShowDate - dayShowings[i + 1].ShowDate;
 
-				if (gap < 25 || gap > 45)
-				{
-					Debug.WriteLine("The gap between", dayShowings[i].Movie.Title, "and", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
-					return false;
-				}
+			//	if (gap < 25 || gap > 45)
+			//	{
+			//		Debug.WriteLine("The gap between", dayShowings[i].Movie.Title, "and", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
+			//		return false;
+			//	}
 
-			}
+			//}
 
 
 

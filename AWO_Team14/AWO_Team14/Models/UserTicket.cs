@@ -25,6 +25,8 @@ namespace AWO_Team14.Models
 
         public Status Status { get; set; }
 
+        public Int32 MovieID { get; set; }
+
         public virtual Transaction Transaction { get; set; }
         public virtual Showing Showing { get; set; }
 
