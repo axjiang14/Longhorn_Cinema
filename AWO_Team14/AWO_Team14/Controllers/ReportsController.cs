@@ -29,7 +29,7 @@ namespace AWO_Team14.Controllers
 
             Movie SelectNone = new Models.Movie() { MovieID = 0, Title = "All Movies" };
 
-            Movies.Add(SelectNone);
+            Movies.Insert(0, SelectNone);
 
             SelectList AllMovies = new SelectList(Movies, "MovieID", "Title");
 
@@ -56,12 +56,12 @@ namespace AWO_Team14.Controllers
 
                 if (StartDate != null)
                 {
-                    query = query.Where(ut => ut.Showing.ShowDate.Date >= StartDate);
+                    query = query.Where(ut => ut.Showing.ShowDate >= StartDate);
                 }
 
                 if (EndDate != null)
                 {
-                    query = query.Where(ut => ut.Showing.ShowDate.Date <= EndDate);
+                    query = query.Where(ut => ut.Showing.ShowDate <= EndDate);
                 }
 
                 if (StartTime != null)
@@ -80,7 +80,9 @@ namespace AWO_Team14.Controllers
                 if (ReportCriteria == Report.Seats)
                 {
 
-                    ViewBag.SoldTicketsCount = query.Count();     
+                    List<UserTicket> ReportQuery = new List<UserTicket>();
+                    ReportQuery = query.ToList();
+                    ViewBag.SoldTicketsCount = ReportQuery.Count();    
 
                 }
 
@@ -99,7 +101,7 @@ namespace AWO_Team14.Controllers
 
                 List<UserTicket> ReportTickets = new List<UserTicket>();
                 ReportTickets = query.ToList();
-             return View("DisplayReport", ReportTickets);
+                return View("../Reports/DisplayReport", ReportTickets);
         }
     }
 }
