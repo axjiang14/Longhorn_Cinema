@@ -8,10 +8,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System.Web.Mvc;
 
-//TODO: Change this using statement to match your project
+//Change this using statement to match your project
 using AWO_Team14.DAL;
 
-//TODO: Change this namespace to match your project
+//Change this namespace to match your project
 namespace AWO_Team14.Models
 {
     public class AppRole: IdentityRole

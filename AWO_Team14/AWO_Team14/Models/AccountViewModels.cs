@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System;
 
-//TODO: Change this namespace to match your project
+//Change this namespace to match your project
 namespace AWO_Team14.Models
 {
    
@@ -25,17 +25,20 @@ namespace AWO_Team14.Models
     public class RegisterViewModel
     {
 
-        //TODO:  Add any fields that you need for creating a new user
+        //Add any fields that you need for creating a new user
         //Additional fields go here (First name is an example)
         //Remember, there is already a field for email, phone number, and password
         [Required(ErrorMessage = "First name is required.")]
         [Display(Name = "First Name")]
         public String FirstName { get; set; }
 
-       
+		[Required(ErrorMessage = "Last name is required.")]
+		[Display(Name = "Last Name")]
+		public String LastName { get; set; }
 
-        //NOTE: Here is the property for email
-        [Required]
+
+		//NOTE: Here is the property for email
+		[Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

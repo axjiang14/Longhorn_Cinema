@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using System.Collections.Generic;
 
-//TODO: Change this namespace to match your project
+//Change this namespace to match your project
 namespace AWO_Team14.Models
 {
 
@@ -16,21 +16,24 @@ namespace AWO_Team14.Models
     //NOTE: This is the class for users
     public class AppUser : IdentityUser
     {
-        //TODO: Put any additional fields that you need for your user here
+        //Put any additional fields that you need for your user here
         //First name is here as an example
         [Required(ErrorMessage = "First name is required.")]
         [Display(Name = "First Name")]
         public String FirstName { get; set; }
 
+		[Required(ErrorMessage = "Last name is required.")]
+		[Display(Name = "Last Name")]
+		public String LastName { get; set; }
+
+		//Add any navigational properties needed for your user
+		//Orders is here as an example
+		public DbSet<Transaction> Transactions { get; set; }
+		//public DbSet<UserTicket> UserTickets { get; set; }
 
 
-        //TODO: Add any navigational properties needed for your user
-        //Orders is here as an example
-        //public virtual List<Order> Orders { get; set; }
-
-                
-        //This method allows you to create a new user
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
+		//This method allows you to create a new user
+		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
         {
             // NOTE: The authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

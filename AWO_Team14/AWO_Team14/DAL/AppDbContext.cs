@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
-//TODO: Change this using statement to match your project
+//Change this using statement to match your project
 using AWO_Team14.Models;
 
 
-//TODO: Change this namespace to match your project
+//Change this namespace to match your project
 namespace AWO_Team14.DAL
 {
     // NOTE: Here's your db context for the project.  All of your db sets should go in here
     public class AppDbContext : IdentityDbContext<AppUser>
     {
-        //TODO: Make sure that your connection string name is correct here.
+        //Make sure that your connection string name is correct here.
         public AppDbContext()
             : base("MyDBConnection", throwIfV1Schema: false) { }
 
@@ -20,7 +20,7 @@ namespace AWO_Team14.DAL
             return new AppDbContext();
         }
 
-        // TODO: Add dbsets here. Remember, Identity adds a db set for users, 
+        //Add dbsets here. Remember, Identity adds a db set for users, 
         //so you shouldn't add that one - you will get an error
         //here's a sample for products
         public DbSet<Movie> Movies { get; set; }

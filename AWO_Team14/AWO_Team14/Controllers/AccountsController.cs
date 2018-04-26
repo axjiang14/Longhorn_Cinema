@@ -10,10 +10,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AWO_Team14.DAL;
 
-//TODO: Change this using statement to match your project
+//Change this using statement to match your project
 using AWO_Team14.Models;
 
-//TODO: Change this namespace to match your project
+//Change this namespace to match your project
 namespace AWO_Team14.Controllers
 {
     [Authorize]
@@ -116,17 +116,19 @@ namespace AWO_Team14.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO: Add fields to user here so they will be saved to do the database
-                var user = new AppUser {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    //Firstname is an example - you will need to add the rest
-                    FirstName = model.FirstName,
+				//Add fields to user here so they will be saved to do the database
+				var user = new AppUser {
+					UserName = model.Email,
+					Email = model.Email,
+					//Firstname is an example - you will need to add the rest
+					FirstName = model.FirstName,
+					LastName = model.LastName,
+					PhoneNumber = model.PhoneNumber,
                                  
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
-                //TODO:  Once you get roles working, you may want to add users to roles upon creation
+                //Once you get roles working, you may want to add users to roles upon creation
                 await UserManager.AddToRoleAsync(user.Id, "Customer");
                 // --OR--
                 // await UserManager.AddToRoleAsync(user.Id, "Employee");
