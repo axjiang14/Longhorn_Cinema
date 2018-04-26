@@ -60,17 +60,29 @@ namespace AWO_Team14.Utilities
 			AppDbContext db = new AppDbContext();
 			var dayQuery = from s in db.Showings
 							   select s;
-			dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day && s.Theater == theater).OrderBy(s=>s.ShowDate);
+            dayQuery = dayQuery.Where(s => s.Theater == theater);
+            dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day && s.Theater == theater).OrderBy(s=>s.ShowDate);
 
-			//the first movie must start between 9 AM and 10 AM
-			if (dayQuery.FirstOrDefault().StartHour < 9 || dayQuery.FirstOrDefault().StartHour > 10)
+            Debug.WriteLine(dayQuery.Count());
+            foreach (Showing item in dayQuery)
+            {
+                Debug.WriteLine(item);
+            }
+
+            //the first movie must start between 9 AM and 10 AM
+            DateTime date9 = new DateTime(2018, 1, 1, 9, 00, 00);
+            DateTime date10 = new DateTime(2018, 1, 1, 10, 00, 00);
+
+
+            if (dayQuery.FirstOrDefault().ShowDate.TimeOfDay < date9.TimeOfDay || dayQuery.FirstOrDefault().ShowDate.TimeOfDay > date10.TimeOfDay)
 			{
 				Debug.WriteLine("The first movie must start between 9 and 10");
 				return "start";
 			}
 
-			//the last movie must end after 21:30
-			if ((dayQuery.LastOrDefault().EndTime.Hour < 21 && dayQuery.LastOrDefault().EndTime.Minute < 30))
+            //the last movie must end after 21:30
+            DateTime date2130 = new DateTime(2018, 1, 1, 21, 30, 00);
+            if (dayQuery.LastOrDefault().EndTime.TimeOfDay < date2130.TimeOfDay)
 			{
 				Debug.WriteLine("The last movie must end after 21:30");
 				return "end";
