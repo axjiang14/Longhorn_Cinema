@@ -90,8 +90,8 @@ namespace AWO_Team14.Controllers
 
                     foreach(UserTicket ut in query)
                     {
-                        decRevenue = decRevenue + ut.CurrentPrice
-                    };
+						decRevenue = decRevenue + ut.CurrentPrice;
+                    }
 
                     ViewBag.Revenue = decRevenue;
 
