@@ -13,6 +13,9 @@ namespace AWO_Team14.Models
 		[Display(Name = "Published")]
 		public Boolean Published { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+
 		public virtual List<Showing> Showings { get; set; }
 
         public Schedule()

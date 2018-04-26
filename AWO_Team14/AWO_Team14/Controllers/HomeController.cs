@@ -11,6 +11,8 @@ using System.Diagnostics;
 
 namespace AWO_Team14.Controllers
 {
+    public enum RangeType { Before, After, Equal}
+
     public class HomeController : Controller
     {
         private AppDbContext db = new AppDbContext();
@@ -87,10 +89,11 @@ namespace AWO_Team14.Controllers
         public ActionResult DetailedSearch()
         {
             ViewBag.AllGenres = GetAllGenres();
+            ViewBag.AllMPAA = GetAllMPAA();
             return View();
         }
 
-        public ActionResult DisplayDetailedSearch(String SearchTitle, String SearchTagline, int[] SearchGenres, DateTime? SearchYear, String SearchActors)
+        public ActionResult DisplayDetailedSearch(String SearchTitle, String SearchTagline, int[] SearchGenres, DateTime? SearchYear, String SearchActors, RangeType SearchYearType, MPAA MPAARating)
         {
             var query = from m in db.Movies
                         select m;
@@ -109,10 +112,10 @@ namespace AWO_Team14.Controllers
                 query = query.Where(m => m.Tagline.Contains(SearchTagline));
             }
 
-            if (SearchGenres ==  null || SearchGenres.Count() == 0)
+            if (SearchGenres == null || SearchGenres.Count() == 0)
             {
 
-                
+
             }
             else
             {
@@ -132,25 +135,20 @@ namespace AWO_Team14.Controllers
                             break;
                         }
                     }
-
-                    //var Genre = db.Genres.Find(i);
-                    //Genres.Add(GenreID);
-                    //var movie = db.Movies.Find(db.Genres.Find(i).GenreID);
-                    //GenresMovies.Add(db.Movies.Find(db.Genres.Find(i).GenreID));
                 }
-
-                //foreach (var item in Genres)
-                //{
-                //     var movie = db.Movies.Find(item.GenreID);
-                //     query = query.Where(Genres.Contains(item));
-
-                //}
             }
 
             if (SearchYear != null)
             {
                 DateTime DateSelected = SearchYear ?? new DateTime(1900, 1, 1);
-                query = query.Where(m => m.ReleaseYear >= DateSelected);
+                if (SearchYearType == RangeType.After)
+                { query = query.Where(m => m.ReleaseYear >= DateSelected); }
+                else if (SearchYearType == RangeType.Before)
+                { query = query.Where(m => m.ReleaseYear <= DateSelected); }
+                else if (SearchYearType == RangeType.Equal)
+                {
+                    query = query.Where(m => m.ReleaseYear == DateSelected);
+                }
             }
 
             if (SearchActors != null)
@@ -158,11 +156,16 @@ namespace AWO_Team14.Controllers
                 query = query.Where(m => m.Actors.Contains(SearchActors));
             }
 
+            if (MPAARating != MPAA.All)
+            {
+                query = query.Where(m => m.MPAA_Rating == MPAARating);
+            }
+
             //Creates list of selected movies
             List<Movie> OtherMovies = query.ToList();
 
             var DisplayedMovies = OtherMovies;
-            
+
             //If genres were selected, find the movies that have those genres and the other entered search requirements
             if (GenresMovies.Count() != 0)
             {
@@ -178,7 +181,7 @@ namespace AWO_Team14.Controllers
             List<Movie> SelectedMovies = DisplayedMovies.ToList();
 
             //Populates movie counts
-            ViewBag.TotalMovies= db.Movies.Count();
+            ViewBag.TotalMovies = db.Movies.Count();
             ViewBag.DisplayedMovies = SelectedMovies.Count();
 
             SelectedMovies.OrderByDescending(m => m.Title);
@@ -198,7 +201,7 @@ namespace AWO_Team14.Controllers
 
             query = query.Where(s => s.ShowDate == ShowDate);
 
-            List<Showing> qShowings = query.ToList(); 
+            List<Showing> qShowings = query.ToList();
 
             List<Movie> SelectedMovies = new List<Movie>();
 
@@ -231,11 +234,16 @@ namespace AWO_Team14.Controllers
             return AllGenres;
         }
 
-        //public SelectList GetAllMPAA()
-        //{
-        //    List<>
-        //}
-    }
+        public MultiSelectList GetAllMPAA()
+        {
+            List<MPAA> AllMPAA = Enum.GetValues(typeof(MPAA))
+                                    .Cast<MPAA>()
+                                    .ToList(); ;
 
-    
+            MultiSelectList GetMPAA = new MultiSelectList(AllMPAA);
+
+            return GetMPAA;
+        }
+
+    }
 }

@@ -95,8 +95,24 @@ namespace AWO_Team14.Controllers
 						decRevenue = decRevenue + ut.CurrentPrice;
                     }
 
-                    ViewBag.Revenue = decRevenue;
+                    ViewBag.Revenue = decRevenue.ToString("C");
 
+                }
+
+                if (ReportCriteria == Report.Both)
+                {
+                    List<UserTicket> ReportQuery = new List<UserTicket>();
+                    ReportQuery = query.ToList();
+                    ViewBag.SoldTicketsCount = ReportQuery.Count();
+
+                    Decimal decRevenue = 0;
+
+                    foreach (UserTicket ut in query)
+                    {
+                        decRevenue = decRevenue + ut.CurrentPrice;
+                    }
+
+                    ViewBag.Revenue = decRevenue.ToString("C");
             }
 
                 List<UserTicket> ReportTickets = new List<UserTicket>();
