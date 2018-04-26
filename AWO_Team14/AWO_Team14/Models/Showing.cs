@@ -56,7 +56,7 @@ namespace AWO_Team14.Models
 
         public List<Seat> Seats { get; set; }
 
-		//public virtual Schedule Schedule { get; set; }
+		public virtual Schedule Schedule { get; set; }
 		public virtual Movie Movie { get; set; }
 		public virtual List<UserTicket> UserTickets { get; set; }
 
@@ -65,6 +65,10 @@ namespace AWO_Team14.Models
             if (UserTickets == null)
             {
                 UserTickets = new List<UserTicket>();
+            }
+            if (Schedule == null)
+            {
+                Schedule = new Schedule();
             }
         }
 

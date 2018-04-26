@@ -53,7 +53,8 @@ namespace AWO_Team14.Controllers
             {
                 db.Schedules.Add(schedule);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                // pass ScheduleID to attach a schedule when create showings
+                return RedirectToAction("Create", "Showings", new { ScheduleID = schedule.ScheduleID });
             }
 
             return View(schedule);
