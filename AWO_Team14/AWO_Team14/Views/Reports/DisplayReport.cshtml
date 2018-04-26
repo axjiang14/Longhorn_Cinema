@@ -1,0 +1,61 @@
+﻿@model IEnumerable<AWO_Team14.Models.UserTicket>
+
+@{
+    ViewBag.Title = "DisplayReport";
+}
+
+<h2>DisplayReport</h2>
+
+@if (ViewBag.SoldTicketsCount != null)
+{
+    <p>@ViewBag.SoldTicketsCount Tickets Sold </p>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Showing.Movie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Showing.ShowDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            @Html.DisplayFor(modelItem => item.Status)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.Showing.Movie)
+        </th>
+        <th>
+            @Html.DisplayFor(modelItem => item.Showing.ShowDate)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeatNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+    </tr>
+}
+
+</table>
