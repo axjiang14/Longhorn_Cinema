@@ -217,10 +217,17 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Showings/Create
-        public ActionResult Create()
+        public ActionResult Create(int ScheduleID)
         {
+            Showing showing = new Showing();
+
+            // find schedule object in db
+            Schedule schedule = db.Schedules.Find(ScheduleID);
+            // attach showing to schedule
+            showing.Schedule = schedule;
+
             ViewBag.AllMovies = GetAllMovies();
-            return View();
+            return View(showing);
         }
 
         // POST: Showings/Create
@@ -234,17 +241,24 @@ namespace AWO_Team14.Controllers
 
             showing.ShowDate = showing.ShowDate.AddHours(showing.StartHour).AddMinutes(showing.StartMinute).AddSeconds(0);
             
-
             showing.Movie = m;
 
             showing.EndTime = showing.ShowDate.Add(m.Runtime);
+
+            // find the schedule object associated with the showing's schedule's ScheduleID
+            Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
+
+            // set the showing's schedule to the 
+            // newly found schedule object 
+            showing.Schedule = schedule;
             if (ScheduleValidation.ShowingValidation(showing) == "ok")
             {
                 if (ModelState.IsValid)
                 {
                     db.Showings.Add(showing);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    // redirects to schedule's details page
+                    return RedirectToAction("Details", "Schedules", new { id = showing.Schedule.ScheduleID });
                 }
             }
             
@@ -357,13 +371,25 @@ namespace AWO_Team14.Controllers
             Debug.WriteLine("in post");
             if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater)== "ok")
             {
-                Debug.WriteLine("schedule good");
                 ViewBag.ErrorMessage = "Your schedule is great!";
             }
             else
             {
-                Debug.WriteLine("schedue bad");
-                ViewBag.ErrorMessage = "Your schedule is wrong";
+                if(ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "start")
+                {
+                    ViewBag.ErrorMessage = "The first movie must start between 9 AM and 10 AM";
+                }
+
+                if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "end")
+                {
+                    ViewBag.ErrorMessage = "The last movie must end between 9:30 PM and 12 AM";
+                }
+
+                if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "gap")
+                {
+                    ViewBag.ErrorMessage = "The gaps between your movies must be between 25 minutes and 45 minutes";
+                }
+                
             }
             return View("Index", db.Showings.OrderBy(s => s.ShowDate).ToList());
 
