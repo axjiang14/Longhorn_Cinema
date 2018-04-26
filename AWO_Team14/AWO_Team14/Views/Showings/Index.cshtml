@@ -6,7 +6,8 @@
     ViewBag.Title = "All Showings";
 }
 
-@ViewBag.Message
+<p>@Html.Raw(ViewBag.ErrorMessage)</p>
+
 
 @Html.ActionLink("Check the Showings for a Day", "CheckDayShowings")
 

@@ -6,7 +6,7 @@
 
 <h2>Generate Report</h2>
 
-@using (Html.BeginForm("GenerateReport", "Home", FormMethod.Get))
+@using (Html.BeginForm("DisplayReport", "Reports", FormMethod.Get))
 {
     <p class="form-group">
         Generate Report By:
@@ -20,7 +20,7 @@
         End Date: <input type="date" name="EndDate" class="form-control" />
     </p>
     <p class="form-group">
-        Movies: @Html.ListBox("SearchGenres", (MultiSelectList)ViewBag.AllMovies, new { @class = "form-control" })
+        Movies: @Html.DropDownList("SearchMovie", (SelectList)ViewBag.AllMovies, new { @class = "form-control" })
     </p>
 
     @*<p class="form-group">
@@ -28,7 +28,10 @@
             @Html.EnumDropDownListFor("SearchMPAA", , new { @class = "form-control" })
         </p>*@
     <p class="form-group">
-        Time: <input type="time" name="Time" class="form-control" />
+        Start Time: <input type="time" name="Time" class="form-control" />
+    </p>
+    <p class="form-group">
+        End Time: <input type="time" name="Time" class="form-control" />
     </p>
 
 
