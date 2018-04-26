@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -237,7 +238,7 @@ namespace AWO_Team14.Controllers
             showing.Movie = m;
 
             showing.EndTime = showing.ShowDate.Add(m.Runtime);
-            if (ScheduleValidation.ShowingValidation(showing) == true)
+            if (ScheduleValidation.ShowingValidation(showing) == "ok")
             {
                 if (ModelState.IsValid)
                 {
@@ -330,7 +331,7 @@ namespace AWO_Team14.Controllers
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
-                if (ScheduleValidation.ShowingValidation(showing) == true)
+                if (ScheduleValidation.ShowingValidation(showing) == "ok")
                 {
                     db.Entry(showingToChange).State = EntityState.Modified;
                     db.SaveChanges();
@@ -349,18 +350,22 @@ namespace AWO_Team14.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult CheckDayShowings(DateTime date)
+        
+        public ActionResult DisplayCheckDayShowings(DateTime ShowDate, Theater SelectedTheater)
         {
-            if (ScheduleValidation.DayShowingValidation(date))
+            AppDbContext db = new AppDbContext();
+            Debug.WriteLine("in post");
+            if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater)== "ok")
             {
-                ViewBag.Message = "Your schedule is great!";
+                Debug.WriteLine("schedule good");
+                ViewBag.ErrorMessage = "Your schedule is great!";
             }
             else
             {
-                ViewBag.Message = "Your schedule is wrong";
+                Debug.WriteLine("schedue bad");
+                ViewBag.ErrorMessage = "Your schedule is wrong";
             }
-            return RedirectToAction("Index");
+            return View("Index", db.Showings.OrderBy(s => s.ShowDate).ToList());
 
         }
 

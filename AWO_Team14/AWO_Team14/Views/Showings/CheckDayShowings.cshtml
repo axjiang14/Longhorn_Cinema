@@ -1,4 +1,5 @@
 ﻿@model AWO_Team14.Models.Showing
+@using AWO_Team14.Models
 
 @{
     ViewBag.Title = "CheckDayShowings";
@@ -6,12 +7,18 @@
 
 <h2>CheckDayShowings</h2>
 
-@using (Html.BeginForm("CheckDayShowings", "Showings", FormMethod.Get))
+@using (Html.BeginForm("DisplayCheckDayShowings", "Showings", FormMethod.Get))
 {
     <p class="form-group">
         Pick Day to Check: <input type="date" name="ShowDate" class="form-control" />
+        <div class="form-group">
+            Select a theater: 
+            <br />
+            <label class="radio">@Html.RadioButton("SelectedTheater", Theater.One, true)Theater One</label>
+            <label class="radio">@Html.RadioButton("SelectedTheater", Theater.Two)Theater Two</label>
+        </div>
     </p>
     <p class="form-group">
-        <input type="submit" value="Search" class="btn btn-default" />
+        <input type="submit" value="Submit" class="btn btn-default" />
     </p>
 }
