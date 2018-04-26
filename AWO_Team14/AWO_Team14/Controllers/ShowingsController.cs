@@ -217,10 +217,17 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Showings/Create
-        public ActionResult Create()
+        public ActionResult Create(int ScheduleID)
         {
+            Showing showing = new Showing();
+
+            // find schedule object in db
+            Schedule schedule = db.Schedules.Find(ScheduleID);
+            // attach showing to schedule
+            showing.Schedule = schedule;
+
             ViewBag.AllMovies = GetAllMovies();
-            return View();
+            return View(showing);
         }
 
         // POST: Showings/Create
@@ -234,17 +241,24 @@ namespace AWO_Team14.Controllers
 
             showing.ShowDate = showing.ShowDate.AddHours(showing.StartHour).AddMinutes(showing.StartMinute).AddSeconds(0);
             
-
             showing.Movie = m;
 
             showing.EndTime = showing.ShowDate.Add(m.Runtime);
+
+            // find the schedule object associated with the showing's schedule's ScheduleID
+            Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
+
+            // set the showing's schedule to the 
+            // newly found schedule object 
+            showing.Schedule = schedule;
             if (ScheduleValidation.ShowingValidation(showing) == "ok")
             {
                 if (ModelState.IsValid)
                 {
                     db.Showings.Add(showing);
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    // redirects to schedule's details page
+                    return RedirectToAction("Details", "Schedules", new { id = showing.Schedule.ScheduleID });
                 }
             }
             
