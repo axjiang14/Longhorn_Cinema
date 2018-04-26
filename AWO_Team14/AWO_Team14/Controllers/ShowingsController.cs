@@ -357,13 +357,25 @@ namespace AWO_Team14.Controllers
             Debug.WriteLine("in post");
             if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater)== "ok")
             {
-                Debug.WriteLine("schedule good");
                 ViewBag.ErrorMessage = "Your schedule is great!";
             }
             else
             {
-                Debug.WriteLine("schedue bad");
-                ViewBag.ErrorMessage = "Your schedule is wrong";
+                if(ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "start")
+                {
+                    ViewBag.ErrorMessage = "The first movie must start between 9 AM and 10 AM";
+                }
+
+                if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "end")
+                {
+                    ViewBag.ErrorMessage = "The last movie must end between 9:30 PM and 12 AM";
+                }
+
+                if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "gap")
+                {
+                    ViewBag.ErrorMessage = "The gaps between your movies must be between 25 minutes and 45 minutes";
+                }
+                
             }
             return View("Index", db.Showings.OrderBy(s => s.ShowDate).ToList());
 
