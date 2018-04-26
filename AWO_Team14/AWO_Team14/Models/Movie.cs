@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AWO_Team14.Models
 {
-    public enum MPAA { G, PG, PG13, R, NC17, Unrated}
+    public enum MPAA { G, PG, PG13, R, NC17, Unrated, All}
 
     public class Movie
     {

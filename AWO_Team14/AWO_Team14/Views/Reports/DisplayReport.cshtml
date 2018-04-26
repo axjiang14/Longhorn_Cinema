@@ -10,6 +10,10 @@
 {
     <p>@ViewBag.SoldTicketsCount Tickets Sold </p>
 }
+@if (ViewBag.Revenue != null)
+{
+    <p>@ViewBag.Revenue Revenue</p>
+}
 
 
 <table class="table">
@@ -35,27 +39,28 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <th>
-            @Html.DisplayFor(modelItem => item.Status)
-        </th>
-        <th>
-            @Html.DisplayFor(modelItem => item.Showing.Movie.Title)
-        </th>
-        <th>
-            @Html.DisplayFor(modelItem => item.Showing.ShowDate)
-        </th>
-        <td>
-            @Html.DisplayFor(modelItem => item.SeatNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.Status)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Showing.Movie.Title)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Showing.ShowDate)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.SeatNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+        </tr>
+    }
 
 </table>
