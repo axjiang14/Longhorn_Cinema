@@ -10,15 +10,14 @@ namespace AWO_Team14.Utilities
 {
     public static class ScheduleValidation
     {
-        public static Boolean ShowingValidation(Showing showing)
+        public static String ShowingValidation(Showing showing)
         {
             AppDbContext db = new AppDbContext();
 
             //check that the movie ends before midnight
             if ((showing.EndTime.Day > showing.ShowDate.Day))
             {
-                Debug.WriteLine("1");
-                return false;
+                return "endtime";
             }
 
             //check for overlap
@@ -29,8 +28,7 @@ namespace AWO_Team14.Utilities
 
             if (overlapQuery.Count() >0)
             {
-                Debug.WriteLine("2");
-                return false;
+                return "overlap";
             }
 
             //check for duplicate showing in other theatre
@@ -49,16 +47,15 @@ namespace AWO_Team14.Utilities
 				
 				if (showing.Movie.Title == OtherShowing.Movie.Title)
 				{
-					Debug.WriteLine("duplicate showing in other theatre");
-					return false;
+					return "duplicate";
 				}
 			}
 				
             //showing is ok!
-            return true;
+            return "ok";
         }
 
-		public static Boolean DayShowingValidation(DateTime Date, Theater theater)
+		public static String DayShowingValidation(DateTime Date, Theater theater)
 		{
 			AppDbContext db = new AppDbContext();
 			var dayQuery = from s in db.Showings
@@ -69,14 +66,14 @@ namespace AWO_Team14.Utilities
 			if (dayQuery.FirstOrDefault().StartHour < 9 || dayQuery.FirstOrDefault().StartHour > 10)
 			{
 				Debug.WriteLine("The first movie must start between 9 and 10");
-				return false;
+				return "start";
 			}
 
 			//the last movie must end after 21:30
 			if ((dayQuery.LastOrDefault().EndTime.Hour < 21 && dayQuery.LastOrDefault().EndTime.Minute < 30))
 			{
 				Debug.WriteLine("The last movie must end after 21:30");
-				return false;
+				return "end";
 			}
 
             //check the gaps
@@ -89,12 +86,12 @@ namespace AWO_Team14.Utilities
                 if (intGap < 25 || intGap > 45)
                 {
                     Debug.WriteLine("The gap between", dayShowings[i].Movie.Title, "and", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
-                    return false;
+                    return "gap";
                 }
 
             }
 
-            return true;
+            return "ok";
 		}
         
 

@@ -238,7 +238,7 @@ namespace AWO_Team14.Controllers
             showing.Movie = m;
 
             showing.EndTime = showing.ShowDate.Add(m.Runtime);
-            if (ScheduleValidation.ShowingValidation(showing) == true)
+            if (ScheduleValidation.ShowingValidation(showing) == "ok")
             {
                 if (ModelState.IsValid)
                 {
@@ -331,7 +331,7 @@ namespace AWO_Team14.Controllers
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
-                if (ScheduleValidation.ShowingValidation(showing) == true)
+                if (ScheduleValidation.ShowingValidation(showing) == "ok")
                 {
                     db.Entry(showingToChange).State = EntityState.Modified;
                     db.SaveChanges();
@@ -353,18 +353,19 @@ namespace AWO_Team14.Controllers
         
         public ActionResult DisplayCheckDayShowings(DateTime ShowDate, Theater SelectedTheater)
         {
+            AppDbContext db = new AppDbContext();
             Debug.WriteLine("in post");
-            if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater))
+            if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater)== "ok")
             {
                 Debug.WriteLine("schedule good");
-                ViewBag.Message = "Your schedule is great!";
+                ViewBag.ErrorMessage = "Your schedule is great!";
             }
             else
             {
                 Debug.WriteLine("schedue bad");
-                ViewBag.Message = "Your schedule is wrong";
+                ViewBag.ErrorMessage = "Your schedule is wrong";
             }
-            return RedirectToAction("Index");
+            return View("Index", db.Showings.OrderBy(s => s.ShowDate).ToList());
 
         }
 
