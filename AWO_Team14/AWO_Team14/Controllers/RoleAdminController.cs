@@ -8,10 +8,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 
-//TODO: Change this using statement to match your project
+//Change this using statement to match your project
 using AWO_Team14.Models;
 
-//TODO: Change this namespace to match your project
+//Change this namespace to match your project
 namespace AWO_Team14.Controllers
 {
     //TODO: Uncomment this line once you have roles working correctly

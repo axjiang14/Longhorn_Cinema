@@ -5,11 +5,11 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
-//TODO: Change these using statements to match your project
+//Change these using statements to match your project
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
 
-//TODO: Change this namespace to match your project
+//Change this namespace to match your project
 namespace AWO_Team14
 {
     public partial class Startup
@@ -22,7 +22,7 @@ namespace AWO_Team14
             app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
             
-            //TODO: Make sure there is some code here to create a role manager for each user
+            //Make sure there is some code here to create a role manager for each user
             app.CreatePerOwinContext<AppRoleManager>(AppRoleManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
@@ -32,7 +32,7 @@ namespace AWO_Team14
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
 
-                //TODO:  This should point to wherever your login page is so that the app will redirect to login
+                //This should point to wherever your login page is so that the app will redirect to login
                 LoginPath = new PathString("/Accounts/Login"),
                 Provider = new CookieAuthenticationProvider
                 {

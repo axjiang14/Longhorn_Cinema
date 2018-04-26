@@ -11,11 +11,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 
-//TODO: Change this using statement to match your project
+//Change this using statement to match your project
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
 
-//TODO: Change this namespace to match your project
+//Change this namespace to match your project
 namespace AWO_Team14
 {
    
@@ -28,20 +28,20 @@ namespace AWO_Team14
         }
 
 
-        //TODO:  Change any settings related to your user password rules, etc.
+        //Change any settings related to your user password rules, etc.
         public static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context) 
         {
             var manager = new AppUserManager(new UserStore<AppUser>(context.Get<AppDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<AppUser>(manager)
             {
-                //TODO: If you want to use email as the username, you need to make sure usernames can have @ 
+                //If you want to use email as the username, you need to make sure usernames can have @ 
                 //and that each person has a unique email
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
 
-            // TODO: Configure validation logic for passwords
+            //Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,

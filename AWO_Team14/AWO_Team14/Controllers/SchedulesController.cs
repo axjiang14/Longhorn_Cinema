@@ -49,6 +49,8 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ScheduleID,Published")] Schedule schedule)
         {
+            schedule.StartDate = DateTime.Today;
+
             if (ModelState.IsValid)
             {
                 db.Schedules.Add(schedule);
