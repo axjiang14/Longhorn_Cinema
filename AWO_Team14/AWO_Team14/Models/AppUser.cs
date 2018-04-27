@@ -22,18 +22,51 @@ namespace AWO_Team14.Models
         [Display(Name = "First Name")]
         public String FirstName { get; set; }
 
-		[Required(ErrorMessage = "Last name is required.")]
+        [Display(Name = "Middle Initial")]
+        public String MiddleInitial { get; set; }
+
+        [Required(ErrorMessage = "Last name is required.")]
 		[Display(Name = "Last Name")]
 		public String LastName { get; set; }
 
-		//Add any navigational properties needed for your user
-		//Orders is here as an example
-		public DbSet<Transaction> Transactions { get; set; }
-		//public DbSet<UserTicket> UserTickets { get; set; }
+        [Display(Name = "Street")]
+        public String Street { get; set; }
+
+        [Display(Name = "City")]
+        public String City { get; set; }
+
+        [Display(Name = "State")]
+        public State State { get; set; }
+
+        [StringLength(5)]
+        [Display(Name = "Zip")]
+        public String Zip { get; set; }
+
+        [Display(Name = "Birthday")]
+        [Required(ErrorMessage = "Birthday is required")]
+        public DateTime Birthday { get; set; }
+
+        [Display(Name = "Credit Card")]
+        // should validate credit card number for us 
+        [DataType(DataType.CreditCard)]
+        public String CreditCardNumber { get; set; }
+
+        [Display(Name = "Popcorn Points")]
+        // sets default value to 0
+        public int PopcornPoints { get; set; } = 0;
+
+        [Display(Name = "Archived")]
+        // sets default value to false
+        public Boolean Archived { get; set; } = false;
+
+        //Add any navigational properties needed for your user
+        //Orders is here as an example
+        //public DbSet<Transaction> Transactions { get; set; }
+        //public DbSet<UserTicket> UserTickets { get; set; }
 
 
-		//This method allows you to create a new user
-		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
+        //This method allows you to create a new user
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
         {
             // NOTE: The authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

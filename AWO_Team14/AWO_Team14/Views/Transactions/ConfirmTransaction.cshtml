@@ -1,10 +1,10 @@
 ﻿@model AWO_Team14.Models.Transaction
 
 @{
-    ViewBag.Title = "SubmitTransaction";
+    ViewBag.Title = "ConfirmTransaction";
 }
 
-<h2>Submit Transaction</h2>
+<h2>Confirm Transaction</h2>
 
 @using (Html.BeginForm())
 {
@@ -17,10 +17,9 @@
         @Html.HiddenFor(model => model.TransactionID)
 
         <div class="form-group">
-            Choose Payment Method
+            @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Payment, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Payment, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Payment, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
@@ -33,7 +32,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Next Page" class="btn btn-default" />
+                <input type="submit" value="Confirm Transaction" class="btn btn-default" />
             </div>
         </div>
     </div>

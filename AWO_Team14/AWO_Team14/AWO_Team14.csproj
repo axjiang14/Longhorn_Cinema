@@ -353,6 +353,22 @@
     <Compile Include="Migrations\201804270158272_test.Designer.cs">
       <DependentUpon>201804270158272_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804270110283_Add transaction total.cs" />
+    <Compile Include="Migrations\201804270110283_Add transaction total.Designer.cs">
+      <DependentUpon>201804270110283_Add transaction total.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804270103248_UpdateAppUser.cs" />
+    <Compile Include="Migrations\201804270103248_UpdateAppUser.Designer.cs">
+      <DependentUpon>201804270103248_UpdateAppUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804270121198_test.cs" />
+    <Compile Include="Migrations\201804270121198_test.Designer.cs">
+      <DependentUpon>201804270121198_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804270137146_Seed.cs" />
+    <Compile Include="Migrations\201804270137146_Seed.Designer.cs">
+      <DependentUpon>201804270137146_Seed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -440,6 +456,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
+    <Content Include="Views\Transactions\ConfirmTransaction.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -571,8 +588,20 @@
     <EmbeddedResource Include="Migrations\201804270149286_AddEmployeeRole.resx">
       <DependentUpon>201804270149286_AddEmployeeRole.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804270158272_test.resx">
-      <DependentUpon>201804270158272_test.cs</DependentUpon>
+  <EmbeddedResource Include="Migrations\201804270158272_test.resx">
+    <DependentUpon>201804270158272_test.cs</DependentUpon>
+  </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270110283_Add transaction total.resx">
+      <DependentUpon>201804270110283_Add transaction total.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270103248_UpdateAppUser.resx">
+      <DependentUpon>201804270103248_UpdateAppUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270121198_test.resx">
+      <DependentUpon>201804270121198_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270137146_Seed.resx">
+      <DependentUpon>201804270137146_Seed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -34,6 +34,8 @@ namespace AWO_Team14.Controllers
             var query = from s in db.Showings
                         select s;
 
+            query = query.Where(s => s.ShowDate > DateTime.Now);
+
             Showings1 = query.ToList(); //List of showings from query
 
             foreach (Showing s in Showings1)
@@ -97,15 +99,54 @@ namespace AWO_Team14.Controllers
 						ut.Status = Status.Active;
 					}
 
+                    t.Payment = transaction.Payment;
+
 					db.Entry(t).State = EntityState.Modified;
 					db.SaveChanges();
-					return RedirectToAction("Details", new { id = t.TransactionID });
+					return RedirectToAction("ConfirmTransaction", new { id = t.TransactionID });
 
 				}
             return View(transaction);
 			
 			
 		}
+
+        public ActionResult ConfirmTransaction(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Transaction transaction = db.Transactions.Find(id);
+            if (transaction == null)
+            {
+                return HttpNotFound();
+            }
+            return View(transaction);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmTransaction([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
+        {
+            Transaction t = db.Transactions.Find(transaction.TransactionID);
+
+            if (Utilities.TransactionValidation.TicketValidation(t) == true)
+                if (ModelState.IsValid)
+                {
+                    foreach (UserTicket ut in t.UserTickets)
+                    {
+                        ut.Status = Status.Active;
+                    }
+                    db.Entry(t).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Details", new { id = t.TransactionID });
+
+                }
+            return View(transaction);
+
+
+        }
 
         //public SelectList GetAllShowings(int MovieID)
         //{
@@ -118,7 +159,7 @@ namespace AWO_Team14.Controllers
         //    SelectList AllShowings = new SelectList(Showings.OrderBy(s => s.ShowingID), "ShowingID", String.Format("ShowDate" + "Movie"));
 
         //    return AllShowings;
-   
+
         //}
 
         public SelectList GetAllShowings()
@@ -162,6 +203,7 @@ namespace AWO_Team14.Controllers
         {
             //TODO: Autoincrement transaction id
             transaction.TransactionDate = DateTime.Now;
+            transaction.Payment = Payment.CreditCard;
 
             if (ModelState.IsValid)
             {
@@ -351,16 +393,21 @@ namespace AWO_Team14.Controllers
             return View(transaction);
         }
 
-        //// POST: Transactions/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Transaction transaction = db.Transactions.Find(id);
-        //    db.Transactions.Remove(transaction);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        // POST: Transactions/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Transaction transaction = db.Transactions.Find(id);
+
+            foreach (UserTicket t in transaction.UserTickets)
+            {
+                t.Status = Status.Returned;
+                t.SeatNumber = Seat.Seat;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {

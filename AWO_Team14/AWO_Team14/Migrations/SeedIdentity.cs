@@ -34,6 +34,8 @@ namespace AWO_Team14.Migrations
                 manager.FirstName = "Admin";
 				manager.LastName = "Admin";
                 manager.PhoneNumber = "(512)555-5555";
+                manager.Birthday = new DateTime(1990, 01, 01);
+
 
                 var result = UserManager.Create(manager, "Abc123!");
                 db.SaveChanges();

@@ -171,16 +171,20 @@ namespace AWO_Team14.Controllers
             else
             {
                 Transaction t = userTicket.Transaction;
-                userTicket.Status = Status.Returned;
-                //userTicket.CurrentPrice = userTicket.CurrentPrice;
-                userTicket.SeatNumber = Seat.Seat;
-                //userTicket.MovieID = userTicket.MovieID;
-                //userTicket.Transaction = t;
-                //userTicket.Showing = userTicket.Showing;
 
-              
-                db.SaveChanges();
-                return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
+                if (userTicket.Showing.ShowDate > DateTime.Now.AddHours(1))
+                {
+                    userTicket.Status = Status.Returned;
+                    userTicket.SeatNumber = Seat.Seat;
+                    db.SaveChanges();
+                    return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
+                }
+                else
+                {
+                    ViewBag.Error = "Tickets for movies less than one hour from the current time may not be cancelled";
+                }
+
+                return View(userTicket);
             }
         }
 
