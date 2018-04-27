@@ -66,10 +66,10 @@ namespace AWO_Team14.Models
             {
                 UserTickets = new List<UserTicket>();
             }
-            if (Schedule == null)
-            {
-                Schedule = new Schedule();
-            }
+            //if (Schedule == null)
+            //{
+            //    Schedule = new Schedule();
+            //}
         }
 
 	}

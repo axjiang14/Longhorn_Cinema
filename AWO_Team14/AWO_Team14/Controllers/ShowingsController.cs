@@ -222,7 +222,10 @@ namespace AWO_Team14.Controllers
             Showing showing = new Showing();
 
             // find schedule object in db
+            // Schedule schedule = new Schedule();
+
             Schedule schedule = db.Schedules.Find(ScheduleID);
+
             // attach showing to schedule
             showing.Schedule = schedule;
 
@@ -235,9 +238,11 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ShowingID,ShowDate,StartHour, StartMinute, Special,Theater")] Showing showing, int SelectedMovie)
+        //[Bind(Include = "ShowingID,ShowDate,StartHour, StartMinute, Special,Theater")]
+        public ActionResult Create(Showing showing, int SelectedMovie)
         {
             Movie m = db.Movies.Find(SelectedMovie);
+            
 
             showing.ShowDate = showing.ShowDate.AddHours(showing.StartHour).AddMinutes(showing.StartMinute).AddSeconds(0);
             
@@ -245,6 +250,7 @@ namespace AWO_Team14.Controllers
 
             showing.EndTime = showing.ShowDate.Add(m.Runtime);
 
+            Debug.WriteLine(showing.Schedule.ScheduleID);
             // find the schedule object associated with the showing's schedule's ScheduleID
             Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
 
@@ -258,7 +264,7 @@ namespace AWO_Team14.Controllers
                     db.Showings.Add(showing);
                     db.SaveChanges();
                     // redirects to schedule's details page
-                    return RedirectToAction("Details", "Schedules", new { id = showing.Schedule.ScheduleID });
+                    return RedirectToAction("Details", "Schedules", new { id = schedule.ScheduleID });
                 }
             }
             

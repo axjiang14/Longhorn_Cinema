@@ -47,7 +47,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ScheduleID,Published")] Schedule schedule)
+        public ActionResult Create([Bind(Include = "ScheduleID,Published,StartDate")] Schedule schedule)
         {
             schedule.StartDate = DateTime.Today;
 
