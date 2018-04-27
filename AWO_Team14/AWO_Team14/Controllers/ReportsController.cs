@@ -8,6 +8,7 @@ using AWO_Team14.DAL;
 using System.Net;
 using System.Diagnostics;
 using System.Web.Security;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace AWO_Team14.Controllers
 {
@@ -20,7 +21,9 @@ namespace AWO_Team14.Controllers
         // GET: Reports
         public ActionResult Index()
         {
+            Debug.WriteLine(System.Web.Security.Roles.Enabled);
             return View();
+            
         }
 
         public SelectList GetAllMovies()
@@ -50,6 +53,7 @@ namespace AWO_Team14.Controllers
         public SelectList GetAllCustomers()
         {
 
+  
             //List<AppUser> AllUsers = db.Users.OrderBy(u => u.UserName).ToList();
 
             //List<AppUser> AllCustomers = new List<AppUser>();
@@ -175,6 +179,15 @@ namespace AWO_Team14.Controllers
             List<Transaction> CustomerTransactions = query.ToList();
 
             return View(CustomerTransactions);
+        }
+
+
+        private AppRoleManager RoleManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppRoleManager>();
+            }
         }
     }
 }

@@ -40,7 +40,15 @@ namespace AWO_Team14.Models
         }
 
         public virtual AppUser User { get; set; }
-		public virtual List<UserTicket> UserTickets { get; set; } 
+		public virtual List<UserTicket> UserTickets { get; set; }
 
-	}
+        public Transaction()
+        {
+            if (UserTickets == null)
+            {
+                UserTickets = new List<UserTicket>();
+            }
+        }
+
+        }
 }
