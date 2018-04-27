@@ -15,7 +15,7 @@ using AWO_Team14.Models;
 namespace AWO_Team14.Controllers
 {
     //Uncomment this line once you have roles working correctly
-    [Authorize(Roles = "Manager")]
+    //[Authorize(Roles = "Manager")]
     public class RoleAdminController : Controller
     {
         //

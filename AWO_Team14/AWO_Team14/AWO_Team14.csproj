@@ -357,6 +357,10 @@
     <Compile Include="Migrations\201804270121198_test.Designer.cs">
       <DependentUpon>201804270121198_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804270137146_Seed.cs" />
+    <Compile Include="Migrations\201804270137146_Seed.Designer.cs">
+      <DependentUpon>201804270137146_Seed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -581,6 +585,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804270121198_test.resx">
       <DependentUpon>201804270121198_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270137146_Seed.resx">
+      <DependentUpon>201804270137146_Seed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
