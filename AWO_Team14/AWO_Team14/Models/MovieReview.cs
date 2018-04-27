@@ -31,7 +31,7 @@ namespace AWO_Team14.Models
         public String Review { get; set; }
 
         public virtual Movie Movie { get; set; }
-        public virtual User User { get; set; }
+        public virtual AppUser User { get; set; }
         public virtual List<Vote> Votes { get; set; }
 
         public MovieReview()

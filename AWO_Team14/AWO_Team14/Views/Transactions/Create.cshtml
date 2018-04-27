@@ -19,6 +19,12 @@
             @DateTime.Now
         </div>
     </div>
+    <div class="form-group">
+        Customer Name
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.User.Id)
+        </div>
+    </div>
     @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })

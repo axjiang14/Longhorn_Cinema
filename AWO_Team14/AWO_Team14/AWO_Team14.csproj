@@ -377,6 +377,14 @@
     <Compile Include="Migrations\201804270423356_movie model changessss.Designer.cs">
       <DependentUpon>201804270423356_movie model changessss.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804270441255_Uncomment user on trans.cs" />
+    <Compile Include="Migrations\201804270441255_Uncomment user on trans.Designer.cs">
+      <DependentUpon>201804270441255_Uncomment user on trans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804270443074_Change to appuser.cs" />
+    <Compile Include="Migrations\201804270443074_Change to appuser.Designer.cs">
+      <DependentUpon>201804270443074_Change to appuser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -616,6 +624,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804270423356_movie model changessss.resx">
       <DependentUpon>201804270423356_movie model changessss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270441255_Uncomment user on trans.resx">
+      <DependentUpon>201804270441255_Uncomment user on trans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270443074_Change to appuser.resx">
+      <DependentUpon>201804270443074_Change to appuser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -20,7 +20,7 @@ namespace AWO_Team14.Models
 
         public Decimal Total { get; set; }
 
-		//public virtual User User { get; set; }
+		public virtual AppUser User { get; set; }
 		public virtual List<UserTicket> UserTickets { get; set; } 
 
 	}

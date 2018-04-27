@@ -34,7 +34,7 @@ namespace AWO_Team14.Controllers
             var query = from s in db.Showings
                         select s;
 
-            query = query.Where(s => s.ShowDate > DateTime.Now);
+            //query = query.Where(s => s.ShowDate > DateTime.Now);
 
             Showings1 = query.ToList(); //List of showings from query
 
@@ -94,10 +94,6 @@ namespace AWO_Team14.Controllers
 			if (Utilities.TransactionValidation.TicketValidation(t) == true) 
 				if (ModelState.IsValid)
 				{
-					foreach (UserTicket ut in t.UserTickets)
-					{
-						ut.Status = Status.Active;
-					}
 
                     t.Payment = transaction.Payment;
 
@@ -264,7 +260,7 @@ namespace AWO_Team14.Controllers
                 db.SaveChanges();
                 //return RedirectToAction("Details", "Transactions", new { id = transaction.TransactionID });
                 //return RedirectToAction("Edit", "UserTickets", new { id = ut.UserTicketID });
-                return RedirectToAction("AddToTransaction", new { ticketid = ut.UserTicketID });
+                return RedirectToAction("AddToTransaction", new { ticketid = ut.UserTicketID, transid = ut.Transaction.TransactionID });
             }
 
             ViewBag.AllMovies = GetAllMovies();
@@ -273,10 +269,12 @@ namespace AWO_Team14.Controllers
 
 
 
-        public ActionResult AddToTransaction(int ticketid)
+        public ActionResult AddToTransaction(int ticketid, int transid)
         {
             //Find user ticket
             UserTicket ut = db.UserTickets.Find(ticketid);
+
+            ut.Transaction = db.Transactions.Find(transid);
 
             //Finds movie for user ticket
             Movie m = db.Movies.Find(ut.MovieID);
@@ -288,7 +286,7 @@ namespace AWO_Team14.Controllers
 
         //Post AddToOrder
         [HttpPost]
-        public ActionResult AddToTransaction([Bind(Include = "UserTicketID, CurrentPrice, SeatNumber, Status, MovieID, Showing")]
+        public ActionResult AddToTransaction([Bind(Include = "UserTicketID, CurrentPrice, SeatNumber, Status, MovieID, Showing, Transaction")]
         UserTicket ut, int SelectedShowing)
         {
             //Finds showing
@@ -298,6 +296,10 @@ namespace AWO_Team14.Controllers
             //Sets ticket's showing
             UserTicket userticket = db.UserTickets.Find(ut.UserTicketID);
             userticket.Showing = showing;
+
+            Transaction t = db.Transactions.Find(ut.Transaction.TransactionID);
+
+            userticket.Transaction = t;
 
             //Finds transaction associated w/ ticket
             //Transaction transaction = db.Transactions.Find(ut.Transaction.TransactionID);
