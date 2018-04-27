@@ -345,15 +345,17 @@
     <Compile Include="Migrations\201804262146595_IdentityUpdate.Designer.cs">
       <DependentUpon>201804262146595_IdentityUpdate.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="Migrations\201804270110283_Add transaction total.cs" />
     <Compile Include="Migrations\201804270110283_Add transaction total.Designer.cs">
       <DependentUpon>201804270110283_Add transaction total.cs</DependentUpon>
-=======
+    </Compile>
     <Compile Include="Migrations\201804270103248_UpdateAppUser.cs" />
     <Compile Include="Migrations\201804270103248_UpdateAppUser.Designer.cs">
       <DependentUpon>201804270103248_UpdateAppUser.cs</DependentUpon>
->>>>>>> bf6a7819bc0e33f1ed3943b41b6f985614fba459
+    </Compile>
+    <Compile Include="Migrations\201804270121198_test.cs" />
+    <Compile Include="Migrations\201804270121198_test.Designer.cs">
+      <DependentUpon>201804270121198_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
@@ -573,8 +575,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804270110283_Add transaction total.resx">
       <DependentUpon>201804270110283_Add transaction total.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804270103248_UpdateAppUser.resx">
       <DependentUpon>201804270103248_UpdateAppUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270121198_test.resx">
+      <DependentUpon>201804270121198_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
