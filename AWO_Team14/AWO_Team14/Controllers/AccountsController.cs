@@ -124,6 +124,7 @@ namespace AWO_Team14.Controllers
 					FirstName = model.FirstName,
 					LastName = model.LastName,
 					PhoneNumber = model.PhoneNumber,
+                    Birthday = model.Birthday
                                  
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);

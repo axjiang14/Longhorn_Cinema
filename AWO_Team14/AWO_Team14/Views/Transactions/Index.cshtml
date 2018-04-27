@@ -32,7 +32,8 @@
             @Html.DisplayFor(modelItem => item.TransactionID)
         </td>
         <td>
-            @Html.DisplayFor(modeItem => item.User.UserName)
+            @Html.DisplayFor(modeItem => item.User.FirstName)
+            @Html.DisplayFor(modeItem => item.User.LastName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Payment)

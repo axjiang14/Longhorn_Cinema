@@ -28,7 +28,8 @@
     <div class="form-group">
        Customer Name
         <div class="col-md-10">
-            @Html.DisplayFor(model => model.User.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DisplayFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 

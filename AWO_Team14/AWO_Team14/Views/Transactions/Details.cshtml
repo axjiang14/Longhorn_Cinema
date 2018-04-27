@@ -21,7 +21,8 @@
             Customer Name
         </dt>
         <dt>
-            @Html.DisplayFor(model => model.User.UserName)
+            @Html.DisplayFor(model => model.User.FirstName)
+            @Html.DisplayFor(model => model.User.LastName)
         </dt>
         <dt>
             @Html.DisplayNameFor(model => model.Payment)
