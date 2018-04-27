@@ -338,12 +338,20 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,Special,Theater")] Showing showing, int SelectedMovie, int StartHour, int StartMinute)
+        public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,Special,StartHour,StartMinute,Theater")] Showing showing, int SelectedMovie, int StartHour, int StartMinute)
         {
+            Showing showingToChange = db.Showings.Include(x => x.Schedule)
+                                             .Include(x => x.Movie)
+                                             .FirstOrDefault(x => x.ShowingID == showing.ShowingID);
             if (ModelState.IsValid)
             {
                 //Find showing to change
-                Showing showingToChange = db.Showings.Find(showing.ShowingID);
+                //Showing showingToChange = db.Showings.Find(showing.ShowingID);
+
+                //Find schedule to reattach
+                //Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
+                //showingToChange.Schedule = schedule;
+
                 //Remove existing movie
                 showingToChange.Movie = null;
                 Movie movie = db.Movies.Find(SelectedMovie);
@@ -361,7 +369,7 @@ namespace AWO_Team14.Controllers
                 {
                     db.Entry(showingToChange).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Details", "Schedules", new { id = showingToChange.Schedule.ScheduleID });
                 }
                 else
                 {
@@ -419,12 +427,16 @@ namespace AWO_Team14.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Showing showing = db.Showings.Find(id);
+
+            // saves showing's schedule to return to page 
+            int ScheduleID = showing.Schedule.ScheduleID;
+
             db.Showings.Remove(showing);
             db.SaveChanges();
 
             // TODO: refund popcorn points
-
-            return RedirectToAction("Index");
+            // returns to Schedule's Detail page
+            return RedirectToAction("Details","Schedules", new { id = ScheduleID });
         }
 
         protected override void Dispose(bool disposing)

@@ -29,13 +29,15 @@
         </tr>
         @foreach (Showing showing in Model.Showings)
         {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
-                <td>@Html.DisplayFor(modelItem => showing.StartHour)</td>
-                <td>@Html.DisplayFor(modelItem => showing.StartMinute)</td>
-                <td>@Html.DisplayFor(modelItem => showing.Movie.Title)</td>
-                <td>@Html.DisplayFor(modelItem => showing.Theater)</td>
-            </tr>
+        <tr>
+            <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
+            <td>@Html.DisplayFor(modelItem => showing.StartHour)</td>
+            <td>@Html.DisplayFor(modelItem => showing.StartMinute)</td>
+            <td>@Html.DisplayFor(modelItem => showing.Movie.Title)</td>
+            <td>@Html.DisplayFor(modelItem => showing.Theater)</td>
+            <td>@Html.ActionLink("Edit", "Edit", "Showings", new { id = showing.ShowingID }, null) |
+            @Html.ActionLink("Delete", "Delete", "Showings", new { id = showing.ShowingID }, null)</td>
+        </tr>
         }
     </table>
 </div>
