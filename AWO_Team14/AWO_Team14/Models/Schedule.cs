@@ -16,6 +16,9 @@ namespace AWO_Team14.Models
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
+
 		public virtual List<Showing> Showings { get; set; }
 
         public Schedule()

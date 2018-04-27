@@ -242,7 +242,6 @@ namespace AWO_Team14.Controllers
         public ActionResult Create(Showing showing, int SelectedMovie)
         {
             Movie m = db.Movies.Find(SelectedMovie);
-            
 
             showing.ShowDate = showing.ShowDate.AddHours(showing.StartHour).AddMinutes(showing.StartMinute).AddSeconds(0);
             
@@ -257,6 +256,7 @@ namespace AWO_Team14.Controllers
             // set the showing's schedule to the 
             // newly found schedule object 
             showing.Schedule = schedule;
+
             if (ScheduleValidation.ShowingValidation(showing) == "ok")
             {
                 if (ModelState.IsValid)
@@ -267,7 +267,6 @@ namespace AWO_Team14.Controllers
                     return RedirectToAction("Details", "Schedules", new { id = schedule.ScheduleID });
                 }
             }
-            
 
             ViewBag.AllMovies = GetAllMovies();
             return View(showing);

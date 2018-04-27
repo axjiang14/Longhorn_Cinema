@@ -84,9 +84,12 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ScheduleID,Published")] Schedule schedule)
         {
+            Schedule s = db.Schedules.Find(schedule.ScheduleID);
+            s.Published = schedule.Published;
+
             if (ModelState.IsValid)
             {
-                db.Entry(schedule).State = EntityState.Modified;
+                db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
