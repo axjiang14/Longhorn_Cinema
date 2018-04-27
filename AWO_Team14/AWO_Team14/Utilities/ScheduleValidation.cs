@@ -17,7 +17,7 @@ namespace AWO_Team14.Utilities
             //check that the movie ends before midnight
             if ((showing.EndTime.Day > showing.ShowDate.Day))
             {
-                return "endtime";
+                return "The showing needs to end before midnight";
             }
 
             //check for overlap
@@ -28,7 +28,7 @@ namespace AWO_Team14.Utilities
 
             if (overlapQuery.Count() >0)
             {
-                return "overlap";
+                return "This showing overlaps with an existing showing";
             }
 
             //check for duplicate showing in other theatre
@@ -47,7 +47,7 @@ namespace AWO_Team14.Utilities
 				
 				if (showing.Movie.Title == OtherShowing.Movie.Title)
 				{
-					return "duplicate";
+					return "This showing is a duplicate of another showing in the other theater.";
 				}
 			}
 				
@@ -60,24 +60,28 @@ namespace AWO_Team14.Utilities
 			AppDbContext db = new AppDbContext();
 			var dayQuery = from s in db.Showings
 							   select s;
-			dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day && s.Theater == theater).OrderBy(s=>s.ShowDate);
-
-			//the first movie must start between 9 AM and 10 AM
-			if (dayQuery.FirstOrDefault().StartHour < 9 || dayQuery.FirstOrDefault().StartHour > 10)
-			{
-				Debug.WriteLine("The first movie must start between 9 and 10");
-				return "start";
-			}
-
-			//the last movie must end after 21:30
-			if ((dayQuery.LastOrDefault().EndTime.Hour < 21 && dayQuery.LastOrDefault().EndTime.Minute < 30))
-			{
-				Debug.WriteLine("The last movie must end after 21:30");
-				return "end";
-			}
-
-            //check the gaps
+            dayQuery = dayQuery.Where(s => s.Theater == theater);
+            dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day && s.Theater == theater).OrderBy(s=>s.ShowDate);
             List<Showing> dayShowings = dayQuery.ToList();
+
+            //the first movie must start between 9 AM and 10 AM
+            DateTime date9 = new DateTime(2018, 1, 1, 9, 00, 00);
+            DateTime date10 = new DateTime(2018, 1, 1, 10, 00, 00);
+
+            if (dayShowings.FirstOrDefault().ShowDate.TimeOfDay < date9.TimeOfDay || dayShowings.FirstOrDefault().ShowDate.TimeOfDay > date10.TimeOfDay)
+            { 
+				return "The first movie must start between 9:00 and 10:00";
+			}
+
+            //the last movie must end after 21:30
+            DateTime date2130 = new DateTime(2018, 1, 1, 21, 30, 00);
+            
+            if (dayShowings.LastOrDefault().EndTime.TimeOfDay < date2130.TimeOfDay)
+			{				
+				return "The last movie must end after 21:30";
+			}
+
+            //check the gaps          
             for (var i = 0; i < dayShowings.Count; i++)
             {
                 TimeSpan dateTimeGap = dayShowings[i].ShowDate - dayShowings[i + 1].ShowDate;
@@ -85,8 +89,9 @@ namespace AWO_Team14.Utilities
 
                 if (intGap < 25 || intGap > 45)
                 {
+                    String ErrorMessage = "The gap between" + dayShowings[i].Movie.Title + "and" + dayShowings[i + 1].Movie.Title + "must be between 25 and 45 minutes";
                     Debug.WriteLine("The gap between", dayShowings[i].Movie.Title, "and", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
-                    return "gap";
+                    return ErrorMessage;
                 }
 
             }

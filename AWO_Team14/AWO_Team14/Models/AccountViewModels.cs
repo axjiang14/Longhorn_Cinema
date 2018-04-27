@@ -32,13 +32,46 @@ namespace AWO_Team14.Models
         [Display(Name = "First Name")]
         public String FirstName { get; set; }
 
-		[Required(ErrorMessage = "Last name is required.")]
+        [Display(Name = "Middle Initial")]
+        public String MiddleInitial { get; set; }
+
+        [Required(ErrorMessage = "Last name is required.")]
 		[Display(Name = "Last Name")]
 		public String LastName { get; set; }
 
+        [Display(Name = "Street")]
+        public String Street { get; set; }
 
-		//NOTE: Here is the property for email
-		[Required]
+        [Display(Name = "City")]
+        public String City { get; set; }
+
+        [Display(Name = "State")]
+        public State State { get; set; }
+
+        [StringLength(5)]
+        [Display(Name = "Zip")]
+        public String Zip { get; set; }
+
+        [Display(Name = "Birthday")]
+        [Required(ErrorMessage = "Birthday is required")]
+        public DateTime Birthday { get; set; }
+
+        [Display(Name = "Credit Card")]
+        // should validate credit card number for us 
+        [DataType(DataType.CreditCard)]
+        public String CreditCardNumber { get; set; }
+
+        [Display(Name = "Popcorn Points")]
+        // sets default value to 0
+        public int PopcornPoints { get; set; } = 0;
+
+        [Display(Name = "Archived")]
+        // sets default value to false
+        public Boolean Archived { get; set; } = false;
+
+
+        //NOTE: Here is the property for email
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

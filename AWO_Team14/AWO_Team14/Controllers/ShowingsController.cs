@@ -351,6 +351,10 @@ namespace AWO_Team14.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    ViewBag.ErrorMessage = ScheduleValidation.ShowingValidation(showing);
+                }
 
             }
             ViewBag.AllMovies = GetAllMovies();
@@ -375,21 +379,7 @@ namespace AWO_Team14.Controllers
             }
             else
             {
-                if(ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "start")
-                {
-                    ViewBag.ErrorMessage = "The first movie must start between 9 AM and 10 AM";
-                }
-
-                if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "end")
-                {
-                    ViewBag.ErrorMessage = "The last movie must end between 9:30 PM and 12 AM";
-                }
-
-                if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater) == "gap")
-                {
-                    ViewBag.ErrorMessage = "The gaps between your movies must be between 25 minutes and 45 minutes";
-                }
-                
+                ViewBag.ErrorMessage = ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater);               
             }
             return View("Index", db.Showings.OrderBy(s => s.ShowDate).ToList());
 
