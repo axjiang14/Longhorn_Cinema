@@ -10,6 +10,7 @@
 <div>
     <h4>Movie</h4>
     <hr />
+    @Html.ActionLink("Make a Transaction", "Create", "Transactions", null, null)
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
@@ -71,11 +72,11 @@
         </dt>
         <dd>
             @foreach (Genre genre in Model.Genres)
-        {
-            <td>
-                @Html.DisplayFor(modelItem => genre.GenreName)
-            </td>
-    }
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => genre.GenreName)
+                </td>
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Showings)
@@ -87,7 +88,7 @@
                 <th>End Time</th>
                 <th>Details</th>
             </tr>
-                @foreach (Showing showing in Model.Showings)
+            @foreach (Showing showing in Model.Showings)
             {
                 <tr>
                     <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
@@ -96,7 +97,7 @@
                     <td>@Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)</td>
                 </tr>
             }
-           </table>
+        </table>
 
 
 
