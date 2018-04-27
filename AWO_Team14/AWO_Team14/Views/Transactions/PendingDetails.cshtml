@@ -18,9 +18,14 @@
             @Html.DisplayFor(model => model.TransactionID)
         </dt>
         <dt>
+            Customer Name
+        </dt>
+        <dt>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dt>
+        <dt>
             @Html.DisplayNameFor(model => model.Payment)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Payment)
         </dd>

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
 using System.Diagnostics;
+using Microsoft.AspNet.Identity;
 
 namespace AWO_Team14.Controllers
 {
@@ -200,6 +201,7 @@ namespace AWO_Team14.Controllers
             //TODO: Autoincrement transaction id
             transaction.TransactionDate = DateTime.Now;
             transaction.Payment = Payment.CreditCard;
+            transaction.User = db.Users.Find(User.Identity.GetUserId());
 
             if (ModelState.IsValid)
             {

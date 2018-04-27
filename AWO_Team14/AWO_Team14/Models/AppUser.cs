@@ -61,7 +61,7 @@ namespace AWO_Team14.Models
 
         //Add any navigational properties needed for your user
         //Orders is here as an example
-        //public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
         //public DbSet<UserTicket> UserTickets { get; set; }
 
 
