@@ -36,13 +36,25 @@ namespace AWO_Team14.Controllers
             return AllMovies;
         }
 
+        public MultiSelectList GetAllMPAA()
+        {
+            List<MPAA> AllMPAA = Enum.GetValues(typeof(MPAA))
+                                    .Cast<MPAA>()
+                                    .ToList(); ;
+
+            MultiSelectList GetMPAA = new MultiSelectList(AllMPAA);
+
+            return GetMPAA;
+        }
+
         public ActionResult GenerateReport()
         {
             ViewBag.AllMovies = GetAllMovies();
+            ViewBag.AllMPAA = GetAllMPAA();
             return View();
         }
 
-        public ActionResult DisplayReport(Report ReportCriteria, int SearchMovie, DateTime? StartDate, DateTime? EndDate, DateTime? StartTime, DateTime? EndTime)
+        public ActionResult DisplayReport(Report ReportCriteria, int SearchMovie, DateTime? StartDate, DateTime? EndDate, DateTime? StartTime, DateTime? EndTime, MPAA MPAARating)
         {
                 var query = from ut in db.UserTickets
                             select ut;
@@ -77,7 +89,12 @@ namespace AWO_Team14.Controllers
                     query = query.Where(ut => ut.Showing.ShowDate.TimeOfDay <= eTime.TimeOfDay);
                 }
 
-                if (ReportCriteria == Report.Seats)
+                if (MPAARating != MPAA.All)
+                {
+                    query = query.Where(ut => ut.Showing.Movie.MPAA_Rating == MPAARating);
+                }
+
+            if (ReportCriteria == Report.Seats)
                 {
 
                     List<UserTicket> ReportQuery = new List<UserTicket>();

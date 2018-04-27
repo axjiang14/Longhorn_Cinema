@@ -22,11 +22,10 @@
     <p class="form-group">
         Movies: @Html.DropDownList("SearchMovie", (SelectList)ViewBag.AllMovies, new { @class = "form-control" })
     </p>
-
-    @*<p class="form-group">
-            MPAA Rating: @Html.DropDownList("SearchMPAA", (SelectList)ViewBag.AllMPAA, new { @class = "form-control" })
-            @Html.EnumDropDownListFor("SearchMPAA", , new { @class = "form-control" })
-        </p>*@
+    <p class="form-group">
+        MPAA Rating:
+        @Html.ListBox("MPAARating", (MultiSelectList)ViewBag.AllMPAA, new { @class = "form-control" })
+    </p>
     <p class="form-group">
         Start Time: <input type="time" name="Time" class="form-control" />
     </p>

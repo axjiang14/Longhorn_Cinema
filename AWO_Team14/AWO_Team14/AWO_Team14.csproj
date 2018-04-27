@@ -337,9 +337,18 @@
     <Compile Include="Migrations\201804262122126_add StartDate property to Schedule.Designer.cs">
       <DependentUpon>201804262122126_add StartDate property to Schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804262128345_idk schedules.cs" />
+    <Compile Include="Migrations\201804262128345_idk schedules.Designer.cs">
+      <DependentUpon>201804262128345_idk schedules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804262146595_IdentityUpdate.cs" />
+    <Compile Include="Migrations\201804262146595_IdentityUpdate.Designer.cs">
+      <DependentUpon>201804262146595_IdentityUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
+    <Compile Include="Migrations\SeedIdentity.cs" />
     <Compile Include="Migrations\UserData.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppUser.cs" />
@@ -544,6 +553,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804262122126_add StartDate property to Schedule.resx">
       <DependentUpon>201804262122126_add StartDate property to Schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804262128345_idk schedules.resx">
+      <DependentUpon>201804262128345_idk schedules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804262146595_IdentityUpdate.resx">
+      <DependentUpon>201804262146595_IdentityUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
