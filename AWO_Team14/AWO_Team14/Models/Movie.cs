@@ -62,7 +62,12 @@ namespace AWO_Team14.Models
             {
                 Showings = new List<Showing>();
             }
-        }
+
+			if (Genres == null)
+			{
+				Genres = new List<Genre>();
+			}
+		}
         
        
 
