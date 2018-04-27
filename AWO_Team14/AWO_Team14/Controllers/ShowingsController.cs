@@ -257,7 +257,14 @@ namespace AWO_Team14.Controllers
             // newly found schedule object 
             showing.Schedule = schedule;
 
-            if (ScheduleValidation.ShowingValidation(showing) == "ok")
+            Boolean bolInRange = (showing.ShowDate >= schedule.StartDate) && (showing.ShowDate <= schedule.EndDate);
+            
+            if (bolInRange == false)
+            {
+                ViewBag.OutOfRange = "Show date is out of schedule date range";
+            }
+            
+            if (ScheduleValidation.ShowingValidation(showing) == "ok" && bolInRange)
             {
                 if (ModelState.IsValid)
                 {
@@ -414,6 +421,9 @@ namespace AWO_Team14.Controllers
             Showing showing = db.Showings.Find(id);
             db.Showings.Remove(showing);
             db.SaveChanges();
+
+            // TODO: refund popcorn points
+
             return RedirectToAction("Index");
         }
 

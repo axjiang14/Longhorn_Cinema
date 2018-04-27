@@ -50,6 +50,7 @@ namespace AWO_Team14.Controllers
         public ActionResult Create([Bind(Include = "ScheduleID,Published,StartDate")] Schedule schedule)
         {
             schedule.StartDate = DateTime.Today;
+            schedule.EndDate = DateTime.Today.AddDays(6);
 
             if (ModelState.IsValid)
             {
@@ -84,6 +85,8 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ScheduleID,Published")] Schedule schedule)
         {
+            // TODO: add schedule final validations
+            // ex. minimize gaps and last showing endtime
             Schedule s = db.Schedules.Find(schedule.ScheduleID);
             s.Published = schedule.Published;
 
