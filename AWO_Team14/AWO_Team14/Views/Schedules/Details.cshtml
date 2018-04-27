@@ -22,8 +22,8 @@
     <table class="table table-sm table-striped">
         <tr>
             <th>Show Date</th>
-            <th>Start Hour</th>
-            <th>Start Minute</th>
+            <th>Start Time</th>
+            <th>End Time</th>
             <th>Title</th>
             <th>Theater</th>
         </tr>
@@ -31,8 +31,8 @@
         {
         <tr>
             <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
-            <td>@Html.DisplayFor(modelItem => showing.StartHour)</td>
-            <td>@Html.DisplayFor(modelItem => showing.StartMinute)</td>
+            <td>@Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)</td>
+            <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
             <td>@Html.DisplayFor(modelItem => showing.Movie.Title)</td>
             <td>@Html.DisplayFor(modelItem => showing.Theater)</td>
             <td>@Html.ActionLink("Edit", "Edit", "Showings", new { id = showing.ShowingID }, null) |

@@ -86,15 +86,18 @@ namespace AWO_Team14.Utilities
             
 
             //check the gaps          
-            for (var i = 0; i < dayShowings.Count; i++)
+            for (var i = 0; i+1 < dayShowings.Count; i++)
             {
-                TimeSpan dateTimeGap = dayShowings[i].ShowDate - dayShowings[i + 1].ShowDate;
+                TimeSpan dateTimeGap = dayShowings[i+1].ShowDate - dayShowings[i].EndTime;
                 Int32 intGap = Convert.ToInt32(dateTimeGap.Minutes);
+
+                Debug.WriteLine(dateTimeGap);
+                Debug.WriteLine(intGap);
 
                 if (intGap < 25 || intGap > 45)
                 {
                     String ErrorMessage = "The gap between " + dayShowings[i].Movie.Title + " and " + dayShowings[i + 1].Movie.Title + "must be between 25 and 45 minutes";
-                    Debug.WriteLine("The gap between ", dayShowings[i].Movie.Title, " and ", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
+                    //Debug.WriteLine("The gap between ", dayShowings[i].Movie.Title, " and ", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
                     return ErrorMessage;
                 }
 

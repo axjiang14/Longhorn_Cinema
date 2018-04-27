@@ -358,10 +358,10 @@ namespace AWO_Team14.Controllers
                 showingToChange.Movie = movie;
 
                 showingToChange.ShowDate = showing.ShowDate;
-
+                
                 showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
                 //showingToChange.StartTime = showingToChange.ShowDate;
-                showing.EndTime = showing.ShowDate.Add(movie.Runtime);
+                showingToChange.EndTime = showingToChange.ShowDate.Add(movie.Runtime);
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
