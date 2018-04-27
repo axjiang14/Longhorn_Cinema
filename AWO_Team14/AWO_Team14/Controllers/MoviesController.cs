@@ -136,6 +136,7 @@ namespace AWO_Team14.Controllers
 
                 //Change other properties
                 movieToChange.Title = movie.Title;
+				movieToChange.MovieNumber = movie.MovieNumber;
                 movieToChange.Tagline = movie.Tagline;
                 movieToChange.Overview = movie.Overview;
                 movieToChange.ReleaseYear = movie.ReleaseYear;
