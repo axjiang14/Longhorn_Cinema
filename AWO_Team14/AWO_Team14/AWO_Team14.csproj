@@ -389,6 +389,10 @@
     <Compile Include="Migrations\201804270458055_add endDate property to schedule.Designer.cs">
       <DependentUpon>201804270458055_add endDate property to schedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804270511348_Birthday.cs" />
+    <Compile Include="Migrations\201804270511348_Birthday.Designer.cs">
+      <DependentUpon>201804270511348_Birthday.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -637,6 +641,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804270458055_add endDate property to schedule.resx">
       <DependentUpon>201804270458055_add endDate property to schedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270511348_Birthday.resx">
+      <DependentUpon>201804270511348_Birthday.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -42,6 +42,7 @@ namespace AWO_Team14.Models
         [Display(Name = "Zip")]
         public String Zip { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Birthday")]
         [Required(ErrorMessage = "Birthday is required")]
         public DateTime Birthday { get; set; }

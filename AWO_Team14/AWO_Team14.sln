@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AWO_Team14", "AWO_Team14\AWO_Team14.csproj", "{C19048A7-3436-4BA5-938D-428C737D1A11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deng_Alina_HW7", "..\..\..\source\repos\Deng_Alina_HW7\Deng_Alina_HW7\Deng_Alina_HW7.csproj", "{BAD4F811-A58A-4041-A402-0600F9137D05}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{C19048A7-3436-4BA5-938D-428C737D1A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C19048A7-3436-4BA5-938D-428C737D1A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C19048A7-3436-4BA5-938D-428C737D1A11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BAD4F811-A58A-4041-A402-0600F9137D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BAD4F811-A58A-4041-A402-0600F9137D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BAD4F811-A58A-4041-A402-0600F9137D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BAD4F811-A58A-4041-A402-0600F9137D05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
