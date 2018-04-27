@@ -33,5 +33,34 @@ namespace AWO_Team14.Utilities
 			return true;
 
 		}
+
+		public static Int32 AgeCalc(DateTime Birthday)
+		{
+			int years = DateTime.Now.Year - Birthday.Year;
+
+			if ((Birthday.Month > DateTime.Now.Month) || (Birthday.Month == DateTime.Now.Month && Birthday.Day > DateTime.Now.Day))
+						years--;
+
+			return years;
+		}
+
+		//transaction as parameter - pull user and # tickets (if ture return to database and false)
+
+		public static Boolean PPCalc(Transaction transaction)
+		{
+			Int32 NumberofTickets = transaction.UserTickets.Count();
+
+			Int32 RequiredPP = NumberofTickets * 100;
+
+			Int32 CurrentPP = transaction.User.PopcornPoints;
+
+			if (RequiredPP <= CurrentPP)
+			{
+				return true;
+			}
+			return false;
+
+		}
+				
 	}
 }
