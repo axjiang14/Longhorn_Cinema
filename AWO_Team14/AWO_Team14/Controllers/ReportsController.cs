@@ -7,7 +7,7 @@ using AWO_Team14.Models;
 using AWO_Team14.DAL;
 using System.Net;
 using System.Diagnostics;
-
+using System.Web.Security;
 
 namespace AWO_Team14.Controllers
 {
@@ -47,10 +47,35 @@ namespace AWO_Team14.Controllers
             return GetMPAA;
         }
 
+        public SelectList GetAllCustomers()
+        {
+
+            //List<AppUser> AllUsers = db.Users.OrderBy(u => u.UserName).ToList();
+
+            //List<AppUser> AllCustomers = new List<AppUser>();
+
+            String[] CustomerUsers = Roles.GetUsersInRole("Customer");
+
+            List<String> CustomerList = new List<String>(CustomerUsers);
+
+            CustomerList.Add("All Customers");
+
+            SelectList AllCustomers = new SelectList(CustomerList);
+
+            return AllCustomers;
+
+        }
+
         public ActionResult GenerateReport()
         {
             ViewBag.AllMovies = GetAllMovies();
             ViewBag.AllMPAA = GetAllMPAA();
+            return View();
+        }
+
+        public ActionResult GenerateCustomerReport()
+        {
+            ViewBag.AllCustomers = GetAllCustomers();
             return View();
         }
 
@@ -135,6 +160,21 @@ namespace AWO_Team14.Controllers
                 List<UserTicket> ReportTickets = new List<UserTicket>();
                 ReportTickets = query.ToList();
                 return View("../Reports/DisplayReport", ReportTickets);
+        }
+
+        public ActionResult DisplayCustomerReport(String Customer)
+        {
+            var query = from t in db.Transactions
+                        select t;
+
+            if (Customer != "All Customers")
+            {
+                query = query.Where(t => t.User.UserName == Customer);
+            }
+
+            List<Transaction> CustomerTransactions = query.ToList();
+
+            return View(CustomerTransactions);
         }
     }
 }

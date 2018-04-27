@@ -75,22 +75,26 @@ namespace AWO_Team14.Utilities
 
             //the last movie must end after 21:30
             DateTime date2130 = new DateTime(2018, 1, 1, 21, 30, 00);
+            if (dayShowings.Count() >0)
+            {
+                if (dayShowings[dayShowings.Count() - 1].EndTime.TimeOfDay < date2130.TimeOfDay)
+                {
+                    return "The last movie must end after 21:30";
+                }
+            }
             
-            if (dayShowings.LastOrDefault().EndTime.TimeOfDay < date2130.TimeOfDay)
-			{				
-				return "The last movie must end after 21:30";
-			}
+            
 
             //check the gaps          
             for (var i = 0; i < dayShowings.Count; i++)
             {
                 TimeSpan dateTimeGap = dayShowings[i].ShowDate - dayShowings[i + 1].ShowDate;
-                Int32 intGap = Convert.ToInt32(dateTimeGap);
+                Int32 intGap = Convert.ToInt32(dateTimeGap.Minutes);
 
                 if (intGap < 25 || intGap > 45)
                 {
-                    String ErrorMessage = "The gap between" + dayShowings[i].Movie.Title + "and" + dayShowings[i + 1].Movie.Title + "must be between 25 and 45 minutes";
-                    Debug.WriteLine("The gap between", dayShowings[i].Movie.Title, "and", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
+                    String ErrorMessage = "The gap between " + dayShowings[i].Movie.Title + " and " + dayShowings[i + 1].Movie.Title + "must be between 25 and 45 minutes";
+                    Debug.WriteLine("The gap between ", dayShowings[i].Movie.Title, " and ", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
                     return ErrorMessage;
                 }
 

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AWO_Team14.Models.Transaction>
+
+@{
+    ViewBag.Title = "DisplayCustomerReport";
+}
+
+<h2>Display Customer Report</h2>
+
+<p>
+    @Html.ActionLink("Run Another Report", "Index", "Reports", null, null)
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Payment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransactionDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Payment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Total)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", "Transactions", new { id = item.TransactionID }, null) |
+        </td>
+    </tr>
+}
+
+</table>
