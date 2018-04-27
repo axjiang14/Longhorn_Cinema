@@ -1,0 +1,28 @@
+﻿
+@using AWO_Team14.Controllers
+@{
+
+    ViewBag.Title = "Generate Customer Report";
+}
+
+<h2>Generate Customer Report</h2>
+
+@using (Html.BeginForm("DisplayCustomerReport", "Reports", FormMethod.Get))
+{
+
+    <p class="form-group">
+        Select a customer:
+        <br/>
+        @Html.DropDownList("Customer", (SelectList)ViewBag.AllCustomers, new { @class = "form-control" })
+    </p>
+    <p class="form-group">
+        <input type="submit" value="Search" class="btn btn-default" />
+    </p>
+}
+
+
+
+
+
+
+
