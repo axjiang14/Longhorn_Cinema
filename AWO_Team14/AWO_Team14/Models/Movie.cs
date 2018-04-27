@@ -17,14 +17,13 @@ namespace AWO_Team14.Models
 
         // starts at 3000
         [Display(Name = "Movie Number")]
-        [Required(ErrorMessage = "Movie Number is required")]
         public Int32 MovieNumber { get; set; }
 
         [Required(ErrorMessage ="Title is required")]
         [Display(Name = "Title")]
         public String Title { get; set; }
 
-        [Required(ErrorMessage = "Tagline is required")]
+        //[Required(ErrorMessage = "Tagline is required")]
         [Display(Name = "Tagline")]
         public String Tagline { get; set; }
 

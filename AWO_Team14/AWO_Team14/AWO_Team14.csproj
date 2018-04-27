@@ -373,6 +373,10 @@
     <Compile Include="Migrations\201804270221041_update showing navigational properties.Designer.cs">
       <DependentUpon>201804270221041_update showing navigational properties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804270423356_movie model changessss.cs" />
+    <Compile Include="Migrations\201804270423356_movie model changessss.Designer.cs">
+      <DependentUpon>201804270423356_movie model changessss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -609,6 +613,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804270221041_update showing navigational properties.resx">
       <DependentUpon>201804270221041_update showing navigational properties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270423356_movie model changessss.resx">
+      <DependentUpon>201804270423356_movie model changessss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

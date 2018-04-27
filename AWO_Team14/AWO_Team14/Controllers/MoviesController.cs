@@ -90,7 +90,7 @@ namespace AWO_Team14.Controllers
 
             }
 
-            ViewBag.SelectedGenres = GetAllGenres();
+            ViewBag.SelectedGenres = GetAllGenres(movie);
             return View(movie);
         }
 
