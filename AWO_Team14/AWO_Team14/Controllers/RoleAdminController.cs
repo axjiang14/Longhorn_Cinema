@@ -14,8 +14,8 @@ using AWO_Team14.Models;
 //Change this namespace to match your project
 namespace AWO_Team14.Controllers
 {
-    //Uncomment this line once you have roles working correctly
-    [Authorize(Roles = "Manager")]
+    //TODO: Uncomment this line once you have roles working correctly
+    //[Authorize(Roles = "Manager")]
     public class RoleAdminController : Controller
     {
         //

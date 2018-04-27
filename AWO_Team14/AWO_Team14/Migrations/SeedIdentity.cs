@@ -47,7 +47,12 @@ namespace AWO_Team14.Migrations
                 RoleManager.Create(new AppRole("Manager"));
             }
 
-            if (RoleManager.RoleExists("Customer") == false)
+			if (RoleManager.RoleExists("Employee") == false)
+			{
+				RoleManager.Create(new AppRole("Employee"));
+			}
+
+			if (RoleManager.RoleExists("Customer") == false)
             {
                 RoleManager.Create(new AppRole("Customer"));
             }

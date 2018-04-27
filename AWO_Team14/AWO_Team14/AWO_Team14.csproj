@@ -345,6 +345,14 @@
     <Compile Include="Migrations\201804262146595_IdentityUpdate.Designer.cs">
       <DependentUpon>201804262146595_IdentityUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804270149286_AddEmployeeRole.cs" />
+    <Compile Include="Migrations\201804270149286_AddEmployeeRole.Designer.cs">
+      <DependentUpon>201804270149286_AddEmployeeRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804270158272_test.cs" />
+    <Compile Include="Migrations\201804270158272_test.Designer.cs">
+      <DependentUpon>201804270158272_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -559,6 +567,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804262146595_IdentityUpdate.resx">
       <DependentUpon>201804262146595_IdentityUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270149286_AddEmployeeRole.resx">
+      <DependentUpon>201804270149286_AddEmployeeRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270158272_test.resx">
+      <DependentUpon>201804270158272_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
