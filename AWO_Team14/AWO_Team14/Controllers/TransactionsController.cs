@@ -10,6 +10,7 @@ using AWO_Team14.DAL;
 using AWO_Team14.Models;
 using System.Diagnostics;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace AWO_Team14.Controllers
 {
@@ -421,5 +422,7 @@ namespace AWO_Team14.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }

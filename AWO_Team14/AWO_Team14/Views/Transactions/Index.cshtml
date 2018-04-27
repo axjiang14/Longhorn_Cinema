@@ -18,10 +18,13 @@
             Customer Name
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.TransactionDate)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Payment)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TransactionDate)
+            @Html.DisplayNameFor(model => model.Total)
         </th>
         <th></th>
     </tr>
@@ -36,10 +39,13 @@
             @Html.DisplayFor(modeItem => item.User.LastName)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.TransactionDate)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Payment)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TransactionDate)
+            @Html.DisplayFor(modelItem => item.Total)
         </td>
         <td>
             @*TODO: Edit and Delete for Managers only*@
