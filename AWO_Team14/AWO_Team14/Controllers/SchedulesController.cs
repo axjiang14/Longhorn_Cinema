@@ -50,7 +50,7 @@ namespace AWO_Team14.Controllers
             // find showings in the correct schedule
             query = query.Where(c => c.Schedule.ScheduleID == schedule.ScheduleID);
             // find date to copy showing from
-            query = query.Where(c => c.ShowDate == datPickDate);
+            query = query.Where(c => DbFunctions.TruncateTime(c.ShowDate) == datPickDate.Date);
             // find theater to copy from
             query = query.Where(c => c.Theater == theaterPick);
 
