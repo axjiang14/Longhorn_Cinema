@@ -35,8 +35,20 @@
             <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
             <td>@Html.DisplayFor(modelItem => showing.Movie.Title)</td>
             <td>@Html.DisplayFor(modelItem => showing.Theater)</td>
-            <td>@Html.ActionLink("Edit", "Edit", "Showings", new { id = showing.ShowingID }, null) |
-            @Html.ActionLink("Delete", "Delete", "Showings", new { id = showing.ShowingID }, null)</td>
+            @if (Model.Published == true)
+            {
+               <td>
+               @Html.ActionLink("Reschedule", "Reschedule", "Showings", new { id = showing.ShowingID }, null) |
+               @Html.ActionLink("Cancel", "Delete", "Showings", new { id = showing.ShowingID }, null)
+               </td>
+            }
+            else
+            {
+                <td>
+                @Html.ActionLink("Edit", "Edit", "Showings", new { id = showing.ShowingID }, null) |
+                @Html.ActionLink("Delete", "Delete", "Showings", new { id = showing.ShowingID }, null)
+            </td>
+            }
         </tr>
         }
     </table>

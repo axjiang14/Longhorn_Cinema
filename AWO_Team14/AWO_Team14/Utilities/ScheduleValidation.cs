@@ -106,5 +106,11 @@ namespace AWO_Team14.Utilities
             return "ok";
 		}
         
+        public static Boolean ShowingInRange(Showing showing)
+        {
+            Boolean bolInRange = (showing.ShowDate >= showing.Schedule.StartDate) && (showing.ShowDate <= showing.Schedule.EndDate);
+
+            return bolInRange;
+        }
     }
 }
