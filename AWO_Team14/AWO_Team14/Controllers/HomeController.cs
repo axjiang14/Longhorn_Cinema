@@ -34,8 +34,11 @@ namespace AWO_Team14.Controllers
 
             foreach (Showing s in qShowings)
             {
-               Movie m = db.Movies.Find(s.Movie.MovieID);
-               SelectedMovies.Add(m);
+                Movie m = db.Movies.Find(s.Movie.MovieID);
+                if (SelectedMovies.Contains(m) == false)
+                {
+                    SelectedMovies.Add(m);
+                }
             }
 
             ViewBag.TotalMovies = db.Movies.Count();
@@ -44,10 +47,12 @@ namespace AWO_Team14.Controllers
             SelectedMovies.OrderByDescending(m => m.Title);
 
 
-
-            string currentUserId = User.Identity.GetUserId();
-            AppUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            ViewBag.Name = currentUser.FirstName;
+            if (User.Identity.IsAuthenticated)
+            {
+                string currentUserId = User.Identity.GetUserId();
+                AppUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+                ViewBag.Name = currentUser.FirstName;
+            }
 
             return View(SelectedMovies);
         }
