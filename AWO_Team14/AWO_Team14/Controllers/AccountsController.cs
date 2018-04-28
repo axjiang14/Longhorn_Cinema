@@ -33,14 +33,22 @@ namespace AWO_Team14.Controllers
         {
             var AllUsers = from u in db.Users
                            select u;
+            //List<AppUser> Employees = new List<AppUser>();
 
-            AllUsers = AllUsers.Where(u => User.IsInRole("Employee"));
+            //foreach (AppUser u in AllUsers)
+            //{
+            //    if()
+            //}
+
+            AppRole Employee = db.AppRoles.Find("Employee");
+
+            //AllUsers = AllUsers.Where(u => u.r("Employee"));
 
             List<AppUser> Employees = AllUsers.ToList();
 
             SelectList AllEmployees = new SelectList(Employees.OrderBy(u => u.UserName), "Id", "Email");
 
-            return AllEmployees
+            return AllEmployees;
         }
 
         public ActionResult EmployeeHome()
@@ -397,6 +405,9 @@ namespace AWO_Team14.Controllers
             ViewBag.Zip = user.Zip;
             ViewBag.Birthday = user.Birthday;
             ViewBag.PopcornPoints = user.PopcornPoints;
+            ViewBag.CreditCard1 = user.CreditCardNumber1;
+            ViewBag.CreditCard2 = user.CreditCardNumber2;
+            ViewBag.PhoneNumber = user.PhoneNumber;
 
 
 
@@ -436,15 +447,15 @@ namespace AWO_Team14.Controllers
             return View(model);
         }
 
-        public ActionResult ChangeUserInfo(string UserID)
+        public ActionResult ChangeUserInfo(string id)
         {
-            AppUser user = db.Users.Find(UserID);
+            AppUser user = db.Users.Find(id);
             return View(user);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, MiddleInitial, Street, City, State, Zip, Birthday, Credit Card, Popcorn Points, Archived")] AppUser user)
+        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, MiddleInitial, Street, City, State, Zip, Birthday, CreditCardNumber1, CreditCardNumber2, Popcorn Points, Archived, PhoneNumber")] AppUser user)
         {
             if (ModelState.IsValid)
             {
@@ -457,6 +468,33 @@ namespace AWO_Team14.Controllers
                 AppUser.State = user.State;
                 AppUser.Zip = user.Zip;
                 AppUser.Birthday = user.Birthday;
+                AppUser.PhoneNumber = user.PhoneNumber;
+
+                db.Entry(AppUser).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Accounts");
+            }
+            return View(user);
+        }
+
+        public ActionResult AddCreditCard(string id)
+        {
+            AppUser user = db.Users.Find(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddCreditCard([Bind(Include = "CreditCardNumber1, CreditCardNumber2")] AppUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                //Find user to change
+                AppUser AppUser = db.Users.Find(user.Id);
+
+                //Change other properties
+                AppUser.CreditCardNumber1 = user.CreditCardNumber1;
+                AppUser.CreditCardNumber2 = user.CreditCardNumber2;
 
                 db.Entry(AppUser).State = EntityState.Modified;
                 db.SaveChanges();
@@ -466,7 +504,7 @@ namespace AWO_Team14.Controllers
         }
         //
 
-            // POST: /Accounts/LogOff
+        // POST: /Accounts/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()

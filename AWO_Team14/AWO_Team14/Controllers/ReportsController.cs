@@ -18,6 +18,7 @@ namespace AWO_Team14.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
+
         // GET: Reports
         public ActionResult Index()
         {
@@ -50,34 +51,32 @@ namespace AWO_Team14.Controllers
             return GetMPAA;
         }
 
-        public SelectList GetAllCustomers()
-        {
-            ////List<AppUser> AllUsers = db.Users.OrderBy(u => u.UserName).ToList();
+        //public SelectList GetAllCustomers()
+        //{
+        //    var Employee = from
 
-            ////List<AppUser> AllCustomers = new List<AppUser>();
+        //    String[] CustomerUsers = UserManager.GetUsersInRole("Customer");
 
-            //String[] CustomerUsers = Roles.GetUsersInRole("Customer");
+        //    List<String> CustomerList = new List<String>(CustomerUsers);
 
-            //List<String> CustomerList = new List<String>(CustomerUsers);
+        //    CustomerList.Add("All Customers");
 
-            //CustomerList.Add("All Customers");
+        //    SelectList AllCustomers = new SelectList(CustomerList);
 
-            //SelectList AllCustomers = new SelectList(CustomerList);
+        //    return AllCustomers;
 
-            //return AllCustomers;
+        //    //var AllUsers = from u in db.Users
+        //    //               select u;
 
-            var AllUsers = from u in db.Users
-                           select u;
+        //    //AllUsers = AllUsers.Where(u => User.IsInRole("Customer"));
 
-            AllUsers = AllUsers.Where(u => User.IsInRole("Customer"));
+        //    //List<AppUser> Customers = AllUsers.ToList();
 
-            List<AppUser> Customers = AllUsers.ToList();
+        //    //SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.UserName), "Id", "Email");
 
-            SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.UserName), "Id", "Email");
+        //    //return AllCustomers;
 
-            return AllCustomers;
-
-        }
+        //}
 
         public ActionResult GenerateReport()
         {
@@ -88,7 +87,7 @@ namespace AWO_Team14.Controllers
 
         public ActionResult GenerateCustomerReport()
         {
-            ViewBag.AllCustomers = GetAllCustomers();
+            //ViewBag.AllCustomers = GetAllCustomers();
             return View();
         }
 
@@ -196,6 +195,14 @@ namespace AWO_Team14.Controllers
             get
             {
                 return HttpContext.GetOwinContext().GetUserManager<AppRoleManager>();
+            }
+        }
+
+        private AppUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             }
         }
     }
