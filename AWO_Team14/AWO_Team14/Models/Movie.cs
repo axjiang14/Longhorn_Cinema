@@ -48,15 +48,15 @@ namespace AWO_Team14.Models
         public String Actors { get; set; }
 
         public virtual List<Genre> Genres { get; set; } 
-        //public virtual List<MovieReview> MovieReviews { get; set; }
+        public virtual List<MovieReview> MovieReviews { get; set; }
         public virtual List<Showing> Showings { get; set; }
 
         public Movie()
         {
-        //    if (MovieReviews == null)
-        //    {
-        //        MovieReviews = new List<MovieReview>();
-        //    }
+            if (MovieReviews == null)
+            {
+                MovieReviews = new List<MovieReview>();
+            }
 
             if (Showings == null)
             {
