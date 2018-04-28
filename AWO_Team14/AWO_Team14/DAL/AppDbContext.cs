@@ -36,5 +36,7 @@ namespace AWO_Team14.DAL
         public DbSet<AppRole> AppRoles { get; set; }
 
 		public System.Data.Entity.DbSet<AWO_Team14.Models.MovieReview> MovieReviews { get; set; }
-	}
+
+        //public System.Data.Entity.DbSet<AWO_Team14.Models.AppUser> AppUsers { get; set; }
+    }
 }

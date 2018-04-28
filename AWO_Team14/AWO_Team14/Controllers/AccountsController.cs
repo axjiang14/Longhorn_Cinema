@@ -12,6 +12,7 @@ using AWO_Team14.DAL;
 
 //Change this using statement to match your project
 using AWO_Team14.Models;
+using System.Data.Entity;
 
 //Change this namespace to match your project
 namespace AWO_Team14.Controllers
@@ -120,10 +121,13 @@ namespace AWO_Team14.Controllers
 				var user = new AppUser {
 					UserName = model.Email,
 					Email = model.Email,
-					//Firstname is an example - you will need to add the rest
 					FirstName = model.FirstName,
 					LastName = model.LastName,
-					PhoneNumber = model.PhoneNumber,
+                    Street = model.Street,
+                    City = model.City,
+                    State = model.State,
+                    Zip = model.Zip,
+                    PhoneNumber = model.PhoneNumber,
                     Birthday = model.Birthday
                                  
                 };
@@ -154,6 +158,61 @@ namespace AWO_Team14.Controllers
             return View(model);
         }
 
+        public ActionResult RegisterEmployee()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //Add fields to user here so they will be saved to do the database
+                var user = new AppUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    //Firstname is an example - you will need to add the rest
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Street = model.Street,
+                    City = model.City,
+                    State = model.State,
+                    Zip = model.Zip,
+                    PhoneNumber = model.PhoneNumber,
+                    Birthday = model.Birthday
+
+                };
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                //Once you get roles working, you may want to add users to roles upon creation
+                //await UserManager.AddToRoleAsync(user.Id, "Customer");
+                // --OR--
+                 await UserManager.AddToRoleAsync(user.Id, "Employee");
+
+
+                if (result.Succeeded)
+                {
+                    ////await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
         //GET: Accounts/Index
         public ActionResult Index()
         {
@@ -168,6 +227,17 @@ namespace AWO_Team14.Controllers
             ivm.HasPassword = true;
             ivm.UserID = user.Id;
             ivm.UserName = user.UserName;
+
+            
+            ViewBag.FirstName = user.FirstName;
+            ViewBag.LastName = user.LastName;
+            ViewBag.Street = user.Street;
+            ViewBag.City = user.City;
+            ViewBag.State = user.State;
+            ViewBag.Zip = user.Zip;
+            ViewBag.Birthday = user.Birthday;
+            ViewBag.PopcornPoints = user.PopcornPoints;
+
 
 
             return View(ivm);
@@ -206,9 +276,36 @@ namespace AWO_Team14.Controllers
             return View(model);
         }
 
+        public ActionResult ChangeUserInfo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, MiddleInitial, Street, City, State, Zip, Birthday, Credit Card, Popcorn Points, Archived")] AppUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                //Find user to change
+                AppUser AppUser = db.Users.Find(user.Id);
+
+                //Change other properties
+                AppUser.Street = user.Street;
+                AppUser.City = user.City;
+                AppUser.State = user.State;
+                AppUser.Zip = user.Zip;
+                AppUser.Birthday = user.Birthday;
+
+                db.Entry(AppUser).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", "Accounts");
+            }
+            return View(user);
+        }
         //
 
-        // POST: /Accounts/LogOff
+            // POST: /Accounts/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()

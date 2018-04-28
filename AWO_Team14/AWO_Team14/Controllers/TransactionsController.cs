@@ -55,6 +55,16 @@ namespace AWO_Team14.Controllers
             return ChosenShowings;
         }
 
+        public SelectList GetAllShowings()
+        {
+            List<Showing> Showings = db.Showings.ToList();
+
+            SelectList AllShowings = new SelectList(Showings.OrderBy(s => s.ShowingID), "ShowingID", "ShowDate");
+
+            return AllShowings;
+
+        }
+
         // GET: Transactions
         public ActionResult Index()
         {
@@ -170,30 +180,6 @@ namespace AWO_Team14.Controllers
                 }
             return View(transaction);
 
-
-        }
-
-        //public SelectList GetAllShowings(int MovieID)
-        //{
-        //    var query = from s in db.Showings
-        //                select s;
-        //    query = query.Where(s => s.Movie.MovieID == MovieID);
-
-        //    List<Showing> Showings = query.ToList();
-
-        //    SelectList AllShowings = new SelectList(Showings.OrderBy(s => s.ShowingID), "ShowingID", String.Format("ShowDate" + "Movie"));
-
-        //    return AllShowings;
-
-        //}
-
-        public SelectList GetAllShowings()
-        {
-            List<Showing> Showings = db.Showings.ToList();
-
-            SelectList AllShowings = new SelectList(Showings.OrderBy(s => s.ShowingID), "ShowingID", "ShowDate");
-
-            return AllShowings;
 
         }
 

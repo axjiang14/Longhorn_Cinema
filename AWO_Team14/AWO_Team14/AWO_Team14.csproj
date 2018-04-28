@@ -507,6 +507,8 @@
     <Content Include="Views\MovieReviews\Details.cshtml" />
     <Content Include="Views\MovieReviews\Edit.cshtml" />
     <Content Include="Views\MovieReviews\Index.cshtml" />
+    <Content Include="Views\Accounts\RegisterEmployee.cshtml" />
+    <Content Include="Views\Accounts\ChangeUserInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
