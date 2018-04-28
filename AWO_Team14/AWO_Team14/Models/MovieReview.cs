@@ -22,7 +22,13 @@ namespace AWO_Team14.Models
         [Description("5")]
         Five = 5
     }
-    public class MovieReview
+
+	public enum ReviewStatus
+	{
+		Pending, Approved
+	}
+
+	public class MovieReview
     {
         public Int32 MovieReviewID { get; set; }
 
@@ -30,7 +36,9 @@ namespace AWO_Team14.Models
         
         public String Review { get; set; }
 
-        public virtual Movie Movie { get; set; }
+		public ReviewStatus Status { get; set; }
+
+		public virtual Movie Movie { get; set; }
         public virtual AppUser User { get; set; }
         public virtual List<Vote> Votes { get; set; }
 
