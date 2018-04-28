@@ -43,9 +43,12 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MovieReviewID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.MovieReviewID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MovieReviewID })
+                @if (User.IsInRole("Customer")){@Html.ActionLink("Edit", "EditUser", new { id = item.MovieReviewID }); } 
+                @if (User.IsInRole("Employee")|| User.IsInRole("Manager"))
+                {@Html.ActionLink("Approve", "EditEmployee", new { id = item.MovieReviewID }); }
+                
+                | @Html.ActionLink("Details", "Details", new { id = item.MovieReviewID }) |
+
             </td>
         </tr>
     }

@@ -514,10 +514,11 @@
     <Content Include="Views\MovieReviews\Create.cshtml" />
     <Content Include="Views\MovieReviews\Delete.cshtml" />
     <Content Include="Views\MovieReviews\Details.cshtml" />
-    <Content Include="Views\MovieReviews\Edit.cshtml" />
+    <Content Include="Views\MovieReviews\EditUser.cshtml" />
     <Content Include="Views\MovieReviews\Index.cshtml" />
     <Content Include="Views\Accounts\RegisterEmployee.cshtml" />
     <Content Include="Views\Accounts\ChangeUserInfo.cshtml" />
+    <Content Include="Views\MovieReviews\EditEmployee.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

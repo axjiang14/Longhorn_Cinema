@@ -70,6 +70,10 @@ namespace AWO_Team14.Controllers
         // GET: MovieReviews/Create
         public ActionResult Create()
         {
+            if (GetUserMovies().Count() == 0)
+            {
+                return View();
+            }
             ViewBag.AllMovies = GetUserMovies();
             return View();
         }
@@ -89,6 +93,8 @@ namespace AWO_Team14.Controllers
 
             movieReview.User = user;
 
+            movieReview.Status = ReviewStatus.Pending;
+
 
             if (ModelState.IsValid)
             {
@@ -103,7 +109,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: MovieReviews/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditUser(int? id)
         {
             if (id == null)
             {
@@ -122,15 +128,55 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieReviewID,Rating,Review")] MovieReview movieReview)
+        public ActionResult EditUser([Bind(Include = "MovieReviewID,Rating,Review")] MovieReview movieReview)
         {
+            MovieReview mrToChange = db.MovieReviews.Include(x => x.User).FirstOrDefault(x => x.MovieReviewID == movieReview.MovieReviewID);
+            mrToChange.Status = ReviewStatus.Pending;
             if (ModelState.IsValid)
             {
-                db.Entry(movieReview).State = EntityState.Modified;
+                db.Entry(mrToChange).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(movieReview);
+        }
+
+        // GET: MovieReviews/Edit/5
+        [Authorize(Roles = "Employee, Manager")]
+        public ActionResult EditEmployee(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            MovieReview movieReview = db.MovieReviews.Find(id);
+            if (movieReview == null)
+            {
+                return HttpNotFound();
+            }
+            return View(movieReview);
+        }
+
+        // POST: MovieReviews/EmployeeEdit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Employee, Manager")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmployee([Bind(Include = "MovieReviewID, Rating, Review, Status")] MovieReview movieReview)
+        {
+            MovieReview mrToChange = db.MovieReviews.Include(x => x.User).FirstOrDefault(x => x.MovieReviewID == movieReview.MovieReviewID);
+
+            mrToChange.Review = movieReview.Review;
+            mrToChange.Status = movieReview.Status;
+
+            if (ModelState.IsValid)
+            {
+                db.Entry(mrToChange).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(mrToChange);
         }
 
         // GET: MovieReviews/Delete/5
