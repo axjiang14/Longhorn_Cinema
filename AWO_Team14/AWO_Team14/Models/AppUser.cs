@@ -47,10 +47,15 @@ namespace AWO_Team14.Models
         [Required(ErrorMessage = "Birthday is required")]
         public DateTime Birthday { get; set; }
 
-        [Display(Name = "Credit Card")]
+        [Display(Name = "Credit Card 1")]
         // should validate credit card number for us 
         [DataType(DataType.CreditCard)]
-        public String CreditCardNumber { get; set; }
+        public String CreditCardNumber1 { get; set; }
+
+        [Display(Name = "Credit Card 2")]
+        // should validate credit card number for us 
+        [DataType(DataType.CreditCard)]
+        public String CreditCardNumber2 { get; set; }
 
         [Display(Name = "Popcorn Points")]
         // sets default value to 0

@@ -411,6 +411,10 @@
     <Compile Include="Migrations\201804280345242_connecting movie reviews and movies.Designer.cs">
       <DependentUpon>201804280345242_connecting movie reviews and movies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804282203383_add data annotations to movie reviews.cs" />
+    <Compile Include="Migrations\201804282203383_add data annotations to movie reviews.Designer.cs">
+      <DependentUpon>201804282203383_add data annotations to movie reviews.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -424,7 +428,6 @@
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MovieReview.cs" />
     <Compile Include="Models\RoleViewModels.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserTicket.cs" />
     <Compile Include="Models\Vote.cs" />
     <Compile Include="Models\Schedule.cs" />
@@ -692,6 +695,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804280345242_connecting movie reviews and movies.resx">
       <DependentUpon>201804280345242_connecting movie reviews and movies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804282203383_add data annotations to movie reviews.resx">
+      <DependentUpon>201804282203383_add data annotations to movie reviews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
