@@ -24,7 +24,12 @@ namespace AWO_Team14.Controllers
             List<Movie> MoviesToDisplay = new List<Movie>();
             foreach (UserTicket ut in UserTickets)
             {
-                MoviesToDisplay.Add(ut.Showing.Movie);
+                //only let users write reviews for movies they have seen
+                if (! (MoviesToDisplay.Contains(ut.Showing.Movie)))
+                {
+                    MoviesToDisplay.Add(ut.Showing.Movie);
+                }
+                
             }
 
             SelectList selMovies = new SelectList(MoviesToDisplay, "MovieID", "Title");
