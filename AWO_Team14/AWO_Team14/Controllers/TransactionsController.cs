@@ -259,8 +259,16 @@ namespace AWO_Team14.Controllers
             //Sets user ticket's transaction
             ut.Transaction = transaction;
 
-            //TODO: Change price
-            ut.CurrentPrice = 12;
+			if (movie.MPAA_Rating == MPAA.NC17 || movie.MPAA_Rating == MPAA.R)
+			{
+				if (Utilities.TransactionValidation.AgeCalc(transaction.User.Birthday) < 18)
+				{
+					return View(ut);
+				}
+			}
+
+			//TODO: Change price
+			ut.CurrentPrice = 12;
 
             ut.Status = Status.Pending;
 
@@ -269,20 +277,18 @@ namespace AWO_Team14.Controllers
             //Sets user ticket's showing
             ut.Showing = null;
 
-
-            if (ModelState.IsValid)
-            {
-                db.UserTickets.Add(ut);
-                db.SaveChanges();
-                //return RedirectToAction("Details", "Transactions", new { id = transaction.TransactionID });
-                //return RedirectToAction("Edit", "UserTickets", new { id = ut.UserTicketID });
-                return RedirectToAction("AddToTransaction", new { ticketid = ut.UserTicketID, transid = ut.Transaction.TransactionID });
-            }
+				if (ModelState.IsValid)
+				{
+					db.UserTickets.Add(ut);
+					db.SaveChanges();
+					//return RedirectToAction("Details", "Transactions", new { id = transaction.TransactionID });
+					//return RedirectToAction("Edit", "UserTickets", new { id = ut.UserTicketID });
+					return RedirectToAction("AddToTransaction", new { ticketid = ut.UserTicketID, transid = ut.Transaction.TransactionID });
+				}
 
             ViewBag.AllMovies = GetAllMovies();
             return View(ut);
         }
-
 
 
         public ActionResult AddToTransaction(int ticketid, int transid)
