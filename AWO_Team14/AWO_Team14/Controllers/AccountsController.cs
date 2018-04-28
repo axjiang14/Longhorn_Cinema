@@ -13,6 +13,7 @@ using AWO_Team14.DAL;
 //Change this using statement to match your project
 using AWO_Team14.Models;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 //Change this namespace to match your project
 namespace AWO_Team14.Controllers
@@ -115,21 +116,120 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            var age = DateTime.Now.Year - model.Birthday.Year;
+
+            if (age < 13)
+            {
+                ViewBag.Error = "You must be 13 to create a customer account.";
+                return View(model);
+            }
+
+            List<String> AllEmails = new List<String>();
+
+            foreach (AppUser user in db.Users)
+            {
+                AllEmails.Add(user.Email);
+            }
+
+            if(AllEmails.Contains(model.Email))
+            {
+                ViewBag.Error = "An account already exists for that email address.";
+                return View(model);
+            }
+                if (ModelState.IsValid)
+                {
+                    //Add fields to user here so they will be saved to do the database
+                    var user = new AppUser
+                    {
+                        UserName = model.Email,
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Street = model.Street,
+                        City = model.City,
+                        State = model.State,
+                        Zip = model.Zip,
+                        PhoneNumber = model.PhoneNumber,
+                        Birthday = model.Birthday
+
+                    };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+
+                    //Once you get roles working, you may want to add users to roles upon creation
+                    await UserManager.AddToRoleAsync(user.Id, "Customer");
+                    // --OR--
+                    // await UserManager.AddToRoleAsync(user.Id, "Employee");
+
+
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
+                }
+            
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        // GET: /Accounts/Register
+        [Authorize(Roles = "Manager, Employee")]
+        public ActionResult RegisterCustomer()
+        {
+            return View();
+        }
+
+        // NOTE: Here is your logic for registering a new user
+        // POST: /Accounts/Register
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager, Employee")]
+        public async Task<ActionResult> RegisterCustomer(RegisterViewModel model)
+        {
+            var age = DateTime.Now.Year - model.Birthday.Year;
+
+            if (age < 13)
+            {
+                ViewBag.Error = "You must be 13 to create a customer account.";
+                return View(model);
+            }
+
+            List<String> AllEmails = new List<String>();
+
+            foreach (AppUser user in db.Users)
+            {
+                AllEmails.Add(user.Email);
+            }
+
+            if (AllEmails.Contains(model.Email))
+            {
+                ViewBag.Error = "An account already exists for that email address.";
+                return View(model);
+            }
             if (ModelState.IsValid)
             {
-				//Add fields to user here so they will be saved to do the database
-				var user = new AppUser {
-					UserName = model.Email,
-					Email = model.Email,
-					FirstName = model.FirstName,
-					LastName = model.LastName,
+                //Add fields to user here so they will be saved to do the database
+                var user = new AppUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     Street = model.Street,
                     City = model.City,
                     State = model.State,
                     Zip = model.Zip,
                     PhoneNumber = model.PhoneNumber,
                     Birthday = model.Birthday
-                                 
+
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -141,8 +241,8 @@ namespace AWO_Team14.Controllers
 
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -154,20 +254,30 @@ namespace AWO_Team14.Controllers
                 AddErrors(result);
             }
 
+
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
+        [Authorize(Roles = "Manager")]
         public ActionResult RegisterEmployee()
         {
             return View();
         }
 
         [HttpPost]
-        [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public async Task<ActionResult> RegisterEmployee(RegisterViewModel model)
         {
+            var age = DateTime.Now.Year - model.Birthday.Year;
+
+            if (age < 18)
+            {
+                ViewBag.Error = "Employees must be at least 18 years of age";
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 //Add fields to user here so they will be saved to do the database
@@ -276,9 +386,10 @@ namespace AWO_Team14.Controllers
             return View(model);
         }
 
-        public ActionResult ChangeUserInfo()
+        public ActionResult ChangeUserInfo(string UserID)
         {
-            return View();
+            AppUser user = db.Users.Find(UserID);
+            return View(user);
         }
 
         [HttpPost]

@@ -2,16 +2,12 @@
 @{
     /**/
 
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Register Customer";
 }
 
 <h2>@ViewBag.Title.</h2>
-@if (@ViewBag.Error != null)
-{
-<h2>@ViewBag.Error</h2>
-}
 
-@using (Html.BeginForm("Register", "Accounts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("RegisterCustomer", "Accounts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
@@ -42,7 +38,6 @@
             @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
         </div>
     </div>
-
     <div class="form-group">
         @Html.LabelFor(m => m.Street, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -55,6 +50,7 @@
             @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
         </div>
     </div>
+
     <div class="form-group">
         @Html.LabelFor(m => m.State, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
