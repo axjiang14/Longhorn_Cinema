@@ -6,20 +6,30 @@
     ViewBag.Title = "Longhorn Cinema";
 }
 
-<h2>Welcome to Longhorn Cinema</h2>
-@*
-        @using (Html.BeginForm())
+<h2>
+    Welcome to Longhorn Cinema
+    @if (ViewBag.Name != null)
     {
-        <p class="form-group">
-            Search: @Html.TextBox("BasicMovieSearch", null, new { @class = "form-control" }) <br />
-            <input type="submit" value="Search" class="btn btn-default" />
-        </p>
+        @Html.Raw(ViewBag.Name)
     }
-*@
+</h2>
 
-<p>
-    Displaying @Html.Raw(ViewBag.DisplayedMovies) out of @Html.Raw(ViewBag.TotalMovies) Movies
-</p>
+    
+
+
+    @*
+            @using (Html.BeginForm())
+        {
+            <p class="form-group">
+                Search: @Html.TextBox("BasicMovieSearch", null, new { @class = "form-control" }) <br />
+                <input type="submit" value="Search" class="btn btn-default" />
+            </p>
+        }
+    *@
+
+    <p>
+        Displaying @Html.Raw(ViewBag.DisplayedMovies) out of @Html.Raw(ViewBag.TotalMovies) Movies
+    </p>
 
 
 <table class="table">
@@ -56,53 +66,53 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tagline)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Overview)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReleaseYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MPAA_Rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Runtime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Actors)
-        </td>
-        @foreach (Genre genre in item.Genres)
-    {
-        <td>
-            @Html.DisplayFor(modelItem => genre.GenreName)
-        </td>
-}
-        @foreach (Showing showing in item.Showings)
-    {
-        <td>
-            @Html.DisplayFor(modelItem => showing.ShowDate)
-            @Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)
-            @Html.DisplayFor(modelItem => showing.EndTime)
-            @Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)
-        </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tagline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Overview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MPAA_Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Runtime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actors)
+            </td>
+            @foreach (Genre genre in item.Genres)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => genre.GenreName)
+                </td>
+            }
+            @foreach (Showing showing in item.Showings)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => showing.ShowDate)
+                    @Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)
+                    @Html.DisplayFor(modelItem => showing.EndTime)
+                    @Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)
+                </td>
 
 
 
-}
-        <td>
-            @Html.ActionLink("Edit", "Edit", "Movies", new { id = item.MovieID }, null) |
-            @Html.ActionLink("Details", "Details", new { id = item.MovieID }) |
-            @Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null)
-        </td>
+            }
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Movies", new { id = item.MovieID }, null) |
+                @Html.ActionLink("Details", "Details", new { id = item.MovieID }) |
+                @Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null)
+            </td>
 
-    </tr>
+        </tr>
     }
 
 </table>

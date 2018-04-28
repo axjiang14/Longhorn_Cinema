@@ -40,9 +40,11 @@ namespace AWO_Team14.Controllers
 
             Showings1 = query.ToList(); //List of showings from query
 
+            DateTime Now = DateTime.Now;
+
             foreach (Showing s in Showings1)
             {
-                if (s.Movie.MovieID == movieid)
+                if (s.Movie.MovieID == movieid && s.ShowDate >= Now)
                 {
                     Showings2.Add(s);
                 }
@@ -89,7 +91,7 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
+        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User")] Transaction transaction)
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
@@ -99,8 +101,20 @@ namespace AWO_Team14.Controllers
 
                     t.Payment = transaction.Payment;
 
-					db.Entry(t).State = EntityState.Modified;
-					db.SaveChanges();
+                    if(transaction.Payment == Payment.PopcornPoints)
+                    {
+                        foreach(UserTicket ut in t.UserTickets)
+                        {
+                            UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
+                            userTicket.CurrentPrice = 0;
+                            db.Entry(userTicket).State = EntityState.Modified;
+                            db.SaveChanges();
+                        }
+                    }
+
+                    
+                    db.Entry(t).State = EntityState.Modified;
+                    db.SaveChanges();
 					return RedirectToAction("ConfirmTransaction", new { id = t.TransactionID });
 
 				}
@@ -136,6 +150,19 @@ namespace AWO_Team14.Controllers
                     {
                         ut.Status = Status.Active;
                     }
+
+                    if (transaction.Payment == Payment.CreditCard)
+                    {
+                        Decimal decPopPoints = transaction.UserTickets.Sum(ut => ut.CurrentPrice);
+
+                        Int32 intPopPoints = Convert.ToInt32(decPopPoints - (decPopPoints % 1));
+
+                        Int32 CurPopPoints = transaction.User.PopcornPoints;
+
+                        transaction.User.PopcornPoints = CurPopPoints + intPopPoints;
+
+                    }
+
                     db.Entry(t).State = EntityState.Modified;
                     db.SaveChanges();
                     return RedirectToAction("Details", new { id = t.TransactionID });
