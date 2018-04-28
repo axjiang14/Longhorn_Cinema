@@ -34,5 +34,7 @@ namespace AWO_Team14.DAL
 
         //NOTE: This is a dbSet that you need to make roles work
         public DbSet<AppRole> AppRoles { get; set; }
-    }
+
+		public System.Data.Entity.DbSet<AWO_Team14.Models.MovieReview> MovieReviews { get; set; }
+	}
 }
