@@ -195,6 +195,7 @@
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\GenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MovieReviewsController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RoleAdminController.cs" />
@@ -402,6 +403,10 @@
     <Compile Include="Migrations\201804272324160_Add ut list to trans.Designer.cs">
       <DependentUpon>201804272324160_Add ut list to trans.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804280226083_UpdateMovieReviewModel.cs" />
+    <Compile Include="Migrations\201804280226083_UpdateMovieReviewModel.Designer.cs">
+      <DependentUpon>201804280226083_UpdateMovieReviewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -498,6 +503,11 @@
     <Content Include="Views\Reports\GenerateCustomerReport.cshtml" />
     <Content Include="Views\Reports\DisplayCustomerReport.cshtml" />
     <Content Include="Views\Schedules\Copy.cshtml" />
+    <Content Include="Views\MovieReviews\Create.cshtml" />
+    <Content Include="Views\MovieReviews\Delete.cshtml" />
+    <Content Include="Views\MovieReviews\Details.cshtml" />
+    <Content Include="Views\MovieReviews\Edit.cshtml" />
+    <Content Include="Views\MovieReviews\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -667,6 +677,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804272324160_Add ut list to trans.resx">
       <DependentUpon>201804272324160_Add ut list to trans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804280226083_UpdateMovieReviewModel.resx">
+      <DependentUpon>201804280226083_UpdateMovieReviewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

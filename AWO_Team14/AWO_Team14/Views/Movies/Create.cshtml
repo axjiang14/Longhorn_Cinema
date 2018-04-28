@@ -82,6 +82,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Genres, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.ActionLink("Add New Genre", "Create", "Genres")
         <div class="col-md-10">
             @Html.ListBox("SelectedGenres", (MultiSelectList)ViewBag.AllGenres, new { @class = "form-control" })
         </div>

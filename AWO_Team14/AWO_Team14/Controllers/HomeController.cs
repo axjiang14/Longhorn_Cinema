@@ -7,7 +7,7 @@ using AWO_Team14.Models;
 using AWO_Team14.DAL;
 using System.Net;
 using System.Diagnostics;
-
+using Microsoft.AspNet.Identity;
 
 namespace AWO_Team14.Controllers
 {
@@ -22,32 +22,39 @@ namespace AWO_Team14.Controllers
         {
             //Change this line later when we write validation for getting all the movies showing on today's date
 
-            //var query = from s in db.Showings
-            //            select s;
+            var query = from s in db.Showings
+                       select s;
 
-            //query = query.Where(s => s.ShowDate == DateTime.Today);
+            
+            query = query.Where(s => s.ShowDate >= DateTime.Now);
 
-            //List<Showing> qShowings = query.ToList();
+            List<Showing> qShowings = query.ToList();
 
-            //List<Movie> SelectedMovies = new List<Movie>();
+            List<Movie> SelectedMovies = new List<Movie>();
 
-            //foreach (Showing s in qShowings)
-            //{
-            //    Movie m = db.Movies.Find(s.Movie.MovieID);
-            //    SelectedMovies.Add(m);
-            //}
+            foreach (Showing s in qShowings)
+            {
+                Movie m = db.Movies.Find(s.Movie.MovieID);
+                if (SelectedMovies.Contains(m) == false)
+                {
+                    SelectedMovies.Add(m);
+                }
+            }
 
-            //ViewBag.TotalMovies = db.Movies.Count();
-            //ViewBag.DisplayedMovies = SelectedMovies.Count();
-
-            //SelectedMovies.OrderByDescending(m => m.Title);
-
-            //ViewBag.TotalMovies = db.Movies.Count();
-            //return View("Index", SelectedMovies);
-
-            DisplayShowdateSearch(DateTime.Today);
             ViewBag.TotalMovies = db.Movies.Count();
-            return View();
+            ViewBag.DisplayedMovies = SelectedMovies.Count();
+
+            SelectedMovies.OrderByDescending(m => m.Title);
+
+
+            if (User.Identity.IsAuthenticated)
+            {
+                string currentUserId = User.Identity.GetUserId();
+                AppUser currentUser = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+                ViewBag.Name = currentUser.FirstName;
+            }
+
+            return View(SelectedMovies);
         }
 
         //Todo: Scaffold view for BasicMovieSearch

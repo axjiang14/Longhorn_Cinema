@@ -44,7 +44,7 @@ namespace AWO_Team14.Utilities
 			return years;
 		}
 
-		//transaction as parameter - pull user and # tickets (if ture return to database and false)
+		//transaction as parameter - pull user and # tickets (if true return to database and false)
 
 		public static Boolean PPCalc(Transaction transaction)
 		{
