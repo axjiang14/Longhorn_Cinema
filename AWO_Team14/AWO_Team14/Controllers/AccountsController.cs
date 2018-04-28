@@ -29,6 +29,25 @@ namespace AWO_Team14.Controllers
         {
         }
 
+        public SelectList GetAllEmployees()
+        {
+            var AllUsers = from u in db.Users
+                           select u;
+
+            AllUsers = AllUsers.Where(u => User.IsInRole("Employee"));
+
+            List<AppUser> Employees = AllUsers.ToList();
+
+            SelectList AllEmployees = new SelectList(Employees.OrderBy(u => u.UserName), "Id", "Email");
+
+            return AllEmployees
+        }
+
+        public ActionResult EmployeeHome()
+        {
+            return View();
+        }
+
         //NOTE: This creates a user manager and a sign-in manager every time someone creates a request to this controller
         public AccountsController(AppUserManager userManager, ApplicationSignInManager signInManager )
         {
@@ -249,7 +268,7 @@ namespace AWO_Team14.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("EmployeeHome");
                 }
                 AddErrors(result);
             }
@@ -314,13 +333,44 @@ namespace AWO_Team14.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("EmployeeHome");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [Authorize(Roles = "Manager")]
+        public ActionResult FireEmployee()
+        {
+
+            ViewBag.AllEmployees = GetAllEmployees();
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
+        public ActionResult FireEmployee(string UserID)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser Employee = db.Users.Find(UserID);
+                Employee.Archived = true;
+
+                db.Entry(Employee).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("EmployeeHome");
+
+            }
+
+            ViewBag.AllEmployees = GetAllEmployees();
+
+            // If we got this far, something failed, redisplay form
+            return View();
         }
 
         //GET: Accounts/Index

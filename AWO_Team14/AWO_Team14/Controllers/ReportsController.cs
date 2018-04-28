@@ -52,19 +52,28 @@ namespace AWO_Team14.Controllers
 
         public SelectList GetAllCustomers()
         {
+            ////List<AppUser> AllUsers = db.Users.OrderBy(u => u.UserName).ToList();
 
-  
-            //List<AppUser> AllUsers = db.Users.OrderBy(u => u.UserName).ToList();
+            ////List<AppUser> AllCustomers = new List<AppUser>();
 
-            //List<AppUser> AllCustomers = new List<AppUser>();
+            //String[] CustomerUsers = Roles.GetUsersInRole("Customer");
 
-            String[] CustomerUsers = Roles.GetUsersInRole("Customer");
+            //List<String> CustomerList = new List<String>(CustomerUsers);
 
-            List<String> CustomerList = new List<String>(CustomerUsers);
+            //CustomerList.Add("All Customers");
 
-            CustomerList.Add("All Customers");
+            //SelectList AllCustomers = new SelectList(CustomerList);
 
-            SelectList AllCustomers = new SelectList(CustomerList);
+            //return AllCustomers;
+
+            var AllUsers = from u in db.Users
+                           select u;
+
+            AllUsers = AllUsers.Where(u => User.IsInRole("Customer"));
+
+            List<AppUser> Customers = AllUsers.ToList();
+
+            SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.UserName), "Id", "Email");
 
             return AllCustomers;
 
