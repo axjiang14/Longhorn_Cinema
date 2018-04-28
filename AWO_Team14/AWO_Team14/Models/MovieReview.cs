@@ -25,15 +25,17 @@ namespace AWO_Team14.Models
 
 	public enum ReviewStatus
 	{
-		Pending, Approved
+		Pending, Approved, Rejected
 	}
 
 	public class MovieReview
     {
         public Int32 MovieReviewID { get; set; }
 
+        [Required(ErrorMessage = "You must give the movie a rating")]
         public Rating Rating { get; set; }
         
+        [StringLength(100)]
         public String Review { get; set; }
 
 		public ReviewStatus Status { get; set; }
