@@ -108,7 +108,7 @@ namespace AWO_Team14.Controllers
 			if (Utilities.TransactionValidation.TicketValidation(t) == true) 
 				if (ModelState.IsValid)
 				{
-
+					//TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
                     t.Payment = transaction.Payment;
 
                     if(transaction.Payment == Payment.PopcornPoints)
