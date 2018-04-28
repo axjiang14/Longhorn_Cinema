@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AWO_Team14.Models.Movie>
+﻿@model IEnumerable<AWO_Team14.Models.MovieReview>
 @using AWO_Team14.Models
 
 @{
@@ -13,13 +13,13 @@
 <table class="table">
     <tr>
         <th>
-            Title
+            Movie
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MovieReview.Rating)
+            @Html.DisplayNameFor(model => model.Rating)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MovieReview.Review)
+            @Html.DisplayNameFor(model => model.Review)
         </th>
         <th></th>
     </tr>
@@ -28,13 +28,13 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.Movie.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MovieReview.Rating)
+                @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MovieReview.Review)
+                @Html.DisplayFor(modelItem => item.Review)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MovieReviewID }) |

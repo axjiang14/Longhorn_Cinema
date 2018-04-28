@@ -12,12 +12,12 @@ using Microsoft.AspNet.Identity;
 
 namespace AWO_Team14.Controllers
 {
+    [Authorize]
     public class MovieReviewsController : Controller
     {
         private AppDbContext db = new AppDbContext();
 
-        // GET: MovieReviews
-        public ActionResult Index()
+        public SelectList GetUserMovies()
         {
             String UserID = User.Identity.GetUserId();
             List<UserTicket> UserTickets = db.UserTickets.Where(ut => ut.Transaction.User.Id == UserID).ToList();
@@ -26,7 +26,25 @@ namespace AWO_Team14.Controllers
             {
                 MoviesToDisplay.Add(ut.Showing.Movie);
             }
-            return View(MoviesToDisplay);
+
+            SelectList selMovies = new SelectList(MoviesToDisplay, "MovieID", "Title");
+
+            return selMovies;
+        }
+
+        [Authorize]
+        // GET: MovieReviews
+        public ActionResult Index()
+        {
+            List<MovieReview> UserMovieReviews = db.MovieReviews.ToList();
+
+            if (User.IsInRole("Customer"))
+            {
+                String UserID = User.Identity.GetUserId();
+                UserMovieReviews = db.MovieReviews.Where(mr => mr.User.Id == UserID).ToList();
+            }
+           
+            return View(UserMovieReviews);
         }
 
         // GET: MovieReviews/Details/5
@@ -47,6 +65,7 @@ namespace AWO_Team14.Controllers
         // GET: MovieReviews/Create
         public ActionResult Create()
         {
+            ViewBag.AllMovies = GetUserMovies();
             return View();
         }
 
@@ -55,15 +74,26 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MovieReviewID,Rating,Review")] MovieReview movieReview)
+        public ActionResult Create([Bind(Include = "MovieReviewID,Rating,Review")] MovieReview movieReview, Int32 SelectedMovie)
         {
+            Movie m = db.Movies.Find(SelectedMovie);
+            movieReview.Movie = m;
+
+            String UserID = User.Identity.GetUserId();
+            AppUser user = db.Users.Find(UserID);
+
+            movieReview.User = user;
+
+
             if (ModelState.IsValid)
             {
+                
                 db.MovieReviews.Add(movieReview);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.AllMovies = GetUserMovies();
             return View(movieReview);
         }
 

@@ -55,7 +55,30 @@ namespace AWO_Team14.Controllers
             query = query.Where(c => c.Theater == theaterPick);
 
             List<Showing> SelectedShowings = query.ToList();
+            if(datCopyToDate < s.StartDate || datCopyToDate > s.EndDate)
+            {
+                if (ModelState.IsValid)
+                {
+                    foreach (Showing showing in SelectedShowings)
+                    {
+                        Showing copyShowing = new Showing();
+                        copyShowing.ShowDate = datCopyToDate;
+                        copyShowing.Theater = theaterCopy;
+                        copyShowing.Schedule = s;
 
+                        copyShowing.Movie = showing.Movie;
+                        copyShowing.StartHour = showing.StartHour;
+                        copyShowing.StartMinute = showing.StartMinute;
+                        copyShowing.EndTime = showing.EndTime;
+                        copyShowing.Special = showing.Special;
+
+                        db.Showings.Add(copyShowing);
+                        db.SaveChanges();
+                    }
+
+                    return RedirectToAction("Details", "Schedules", new { id = schedule.ScheduleID });
+                }
+            }
             if (ModelState.IsValid)
             {
                 foreach (Showing showing in SelectedShowings)
