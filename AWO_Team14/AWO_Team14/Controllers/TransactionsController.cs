@@ -111,18 +111,22 @@ namespace AWO_Team14.Controllers
 					//TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
                     t.Payment = transaction.Payment;
 
-                    if(transaction.Payment == Payment.PopcornPoints)
-                    {
-                        foreach(UserTicket ut in t.UserTickets)
-                        {
-                            UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
-                            userTicket.CurrentPrice = 0;
-                            db.Entry(userTicket).State = EntityState.Modified;
-                            db.SaveChanges();
-                        }
-                    }
+					if (Utilities.TransactionValidation.PPCalc(t) == false);
+					{
+						ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
+					}
 
-                    
+					if (transaction.Payment == Payment.PopcornPoints)
+					{
+						foreach(UserTicket ut in t.UserTickets)
+						{
+							UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
+							userTicket.CurrentPrice = 0;
+							db.Entry(userTicket).State = EntityState.Modified;
+							db.SaveChanges();
+						}
+					}
+
                     db.Entry(t).State = EntityState.Modified;
                     db.SaveChanges();
 					return RedirectToAction("ConfirmTransaction", new { id = t.TransactionID });
