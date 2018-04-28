@@ -53,7 +53,7 @@ namespace AWO_Team14.Controllers
             {
                 db.Genres.Add(genre);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Movies");
             }
 
             return View(genre);
