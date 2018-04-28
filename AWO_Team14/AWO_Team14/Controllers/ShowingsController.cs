@@ -249,7 +249,6 @@ namespace AWO_Team14.Controllers
 
             showing.EndTime = showing.ShowDate.Add(m.Runtime);
 
-            Debug.WriteLine(showing.Schedule.ScheduleID);
             // find the schedule object associated with the showing's schedule's ScheduleID
             Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
 

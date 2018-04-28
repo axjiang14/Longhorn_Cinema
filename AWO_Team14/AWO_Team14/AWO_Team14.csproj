@@ -506,6 +506,7 @@
     <Content Include="Views\Genres\Index.cshtml" />
     <Content Include="Views\Reports\GenerateCustomerReport.cshtml" />
     <Content Include="Views\Reports\DisplayCustomerReport.cshtml" />
+    <Content Include="Views\Schedules\Copy.cshtml" />
     <Content Include="Views\MovieReviews\Create.cshtml" />
     <Content Include="Views\MovieReviews\Delete.cshtml" />
     <Content Include="Views\MovieReviews\Details.cshtml" />
