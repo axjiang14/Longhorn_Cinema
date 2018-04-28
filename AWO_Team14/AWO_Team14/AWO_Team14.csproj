@@ -497,6 +497,7 @@
     <Content Include="Views\Genres\Index.cshtml" />
     <Content Include="Views\Reports\GenerateCustomerReport.cshtml" />
     <Content Include="Views\Reports\DisplayCustomerReport.cshtml" />
+    <Content Include="Views\Schedules\Copy.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
