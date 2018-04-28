@@ -21,6 +21,67 @@ namespace AWO_Team14.Controllers
             return View(db.Schedules.ToList());
         }
 
+        // Get: Schedules/Copy/5
+        public ActionResult Copy (int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Schedule schedule = db.Schedules.Find(id);
+            if (schedule == null)
+            {
+                return HttpNotFound();
+            }
+            return View(schedule);
+        }
+
+        //Post: Schedules/Copy/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Copy ([Bind(Include = "ScheduleID")] Schedule schedule, 
+            DateTime datPickDate, Theater theaterPick, DateTime datCopyToDate, Theater theaterCopy)
+        {
+            // find object in database
+            Schedule s = db.Schedules.Find(schedule.ScheduleID);
+
+            var query = from sh in db.Showings select sh;
+
+            // find showings in the correct schedule
+            query = query.Where(c => c.Schedule.ScheduleID == schedule.ScheduleID);
+            // find date to copy showing from
+            query = query.Where(c => c.ShowDate == datPickDate);
+            // find theater to copy from
+            query = query.Where(c => c.Theater == theaterPick);
+
+            List<Showing> SelectedShowings = query.ToList();
+
+            if (ModelState.IsValid)
+            {
+                foreach (Showing showing in SelectedShowings)
+                {
+                    Showing copyShowing = new Showing();
+                    copyShowing.ShowDate = datCopyToDate;
+                    copyShowing.Theater = theaterCopy;
+                    copyShowing.Schedule = s;
+
+                    copyShowing.Movie = showing.Movie;
+                    copyShowing.StartHour = showing.StartHour;
+                    copyShowing.StartMinute = showing.StartMinute;
+                    copyShowing.EndTime = showing.EndTime;
+                    copyShowing.Special = showing.Special;
+
+                    db.Showings.Add(copyShowing);
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("Details", "Schedules", new { id = schedule.ScheduleID });
+            }
+
+            return View(schedule);
+
+        }
+
         // GET: Schedules/Details/5
         public ActionResult Details(int? id)
         {

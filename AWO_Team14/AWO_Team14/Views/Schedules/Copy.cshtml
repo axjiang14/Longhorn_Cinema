@@ -1,0 +1,36 @@
+﻿@model AWO_Team14.Models.Showing
+@using AWO_Team14.Models
+
+@{
+    ViewBag.Title = "Copy Schedule";
+}
+
+<h2>
+    Copy Schedule/h2>
+
+    @using (Html.BeginForm("Copy", "Schedules", FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Schedule.ScheduleID)
+        <p class="form-group">
+            Pick Day to Copy From: <input type="date" name="datPickDate" class="form-control" />
+            <div class="form-group">
+                Select a theater:
+                <br />
+                <label class="radio">@Html.RadioButton("theaterPick", Theater.One, true)Theater One</label>
+                <label class="radio">@Html.RadioButton("theaterPick", Theater.Two)Theater Two</label>
+            </div>
+
+            Pick Day to Copy To: <input type="date" name="datCopyToDate" class="form-control" />
+            <div class="form-group">
+                Select a theater:
+                <br />
+                <label class="radio">@Html.RadioButton("theaterCopy", Theater.One, true)Theater One</label>
+                <label class="radio">@Html.RadioButton("theaterCopy", Theater.Two)Theater Two</label>
+            </div>
+        </p>
+        <p class="form-group">
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </p>
+    }
+

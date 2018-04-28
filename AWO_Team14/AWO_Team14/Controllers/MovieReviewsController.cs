@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
+using Microsoft.AspNet.Identity;
 
 namespace AWO_Team14.Controllers
 {
@@ -18,7 +19,14 @@ namespace AWO_Team14.Controllers
         // GET: MovieReviews
         public ActionResult Index()
         {
-            return View(db.MovieReviews.ToList());
+            String UserID = User.Identity.GetUserId();
+            List<UserTicket> UserTickets = db.UserTickets.Where(ut => ut.Transaction.User.Id == UserID).ToList();
+            List<Movie> MoviesToDisplay = new List<Movie>();
+            foreach (UserTicket ut in UserTickets)
+            {
+                MoviesToDisplay.Add(ut.Showing.Movie);
+            }
+            return View(MoviesToDisplay);
         }
 
         // GET: MovieReviews/Details/5

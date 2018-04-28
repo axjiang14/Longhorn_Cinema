@@ -203,7 +203,7 @@
     <Compile Include="Controllers\ShowingsController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UserTicketsController.cs" />
-    <Compile Include="DAL\AppDbContext.cs" />
+    <Compile Include="Controllers\DAL\AppDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -407,6 +407,10 @@
     <Compile Include="Migrations\201804280226083_UpdateMovieReviewModel.Designer.cs">
       <DependentUpon>201804280226083_UpdateMovieReviewModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804280345242_connecting movie reviews and movies.cs" />
+    <Compile Include="Migrations\201804280345242_connecting movie reviews and movies.Designer.cs">
+      <DependentUpon>201804280345242_connecting movie reviews and movies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -502,6 +506,7 @@
     <Content Include="Views\Genres\Index.cshtml" />
     <Content Include="Views\Reports\GenerateCustomerReport.cshtml" />
     <Content Include="Views\Reports\DisplayCustomerReport.cshtml" />
+    <Content Include="Views\Schedules\Copy.cshtml" />
     <Content Include="Views\MovieReviews\Create.cshtml" />
     <Content Include="Views\MovieReviews\Delete.cshtml" />
     <Content Include="Views\MovieReviews\Details.cshtml" />
@@ -681,6 +686,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804280226083_UpdateMovieReviewModel.resx">
       <DependentUpon>201804280226083_UpdateMovieReviewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804280345242_connecting movie reviews and movies.resx">
+      <DependentUpon>201804280345242_connecting movie reviews and movies.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

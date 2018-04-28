@@ -1,4 +1,5 @@
-﻿@model IEnumerable<AWO_Team14.Models.MovieReview>
+﻿@model IEnumerable<AWO_Team14.Models.Movie>
+@using AWO_Team14.Models
 
 @{
     ViewBag.Title = "Index";
@@ -12,28 +13,35 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Rating)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Review)
+            @Html.DisplayNameFor(model => model.MovieReview.Rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReview.Review)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Review)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MovieReviewID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MovieReviewID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MovieReviewID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieReview.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieReview.Review)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MovieReviewID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MovieReviewID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MovieReviewID })
+            </td>
+        </tr>
+    }
 
 </table>
