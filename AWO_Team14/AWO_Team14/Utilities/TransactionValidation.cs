@@ -36,7 +36,7 @@ namespace AWO_Team14.Utilities
 
 		public static Int32 AgeCalc(DateTime Birthday)
 		{
-			int years = DateTime.Now.Year - Birthday.Year;
+			Int32 years = Convert.ToInt32(DateTime.Now.Year - Birthday.Year);
 
 			if ((Birthday.Month > DateTime.Now.Month) || (Birthday.Month == DateTime.Now.Month && Birthday.Day > DateTime.Now.Day))
 						years--;

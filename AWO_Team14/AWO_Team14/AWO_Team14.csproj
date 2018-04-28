@@ -431,6 +431,7 @@
     <Compile Include="Models\Showing.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Emailing.cs" />
     <Compile Include="Utilities\GenerateMovieNumber.cs" />
     <Compile Include="Utilities\ScheduleValidation.cs" />
     <Compile Include="Utilities\TransactionValidation.cs" />

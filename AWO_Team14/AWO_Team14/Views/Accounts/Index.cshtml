@@ -12,6 +12,9 @@
         <dt>User Name:</dt>
         <dd>@Model.UserName</dd>
 
+        <dt>UserID:</dt>
+        <dd>@Model.UserID</dd>
+
         <dt>First Name:</dt>
         <dd>@Html.Raw(ViewBag.FirstName)</dd>
 
@@ -32,17 +35,17 @@
 
         <dt>Password:</dt>
         <dd>
-            [
+
             @if (Model.HasPassword)
         {
             @Html.ActionLink("Change your password", "ChangePassword")
     }
-            ]
+
 
         </dd>
 
         <dt>Change Account Info:</dt>
-        <dd> @Html.ActionLink("Change Account Info", "ChangeUserInfo")</dd>
+        <dd> @Html.ActionLink("Change Account Info", "ChangeUserInfo", new { id = Model.UserID })</dd>
     </dl>
 
 
