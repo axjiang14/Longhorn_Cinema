@@ -543,6 +543,7 @@
     <Content Include="Views\Reports\DisplayPopcornReport.cshtml" />
     <Content Include="Views\Accounts\ChangeEmployeeStatus.cshtml" />
     <Content Include="Views\Transactions\EmployeeCreate.cshtml" />
+    <Content Include="Views\Accounts\ChangeUserProfile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

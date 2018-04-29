@@ -1,0 +1,29 @@
+﻿
+@using AWO_Team14.Controllers
+@{
+
+    ViewBag.Title = "Change User Profile";
+}
+
+<h2>Change User Profile</h2>
+
+<p class="form-group">
+    Select a user:
+    <br />
+    @Html.DropDownList("Id", (SelectList)ViewBag.AllUsers, new { @class = "form-control" })
+</p>
+
+
+
+<p class="form-group">
+    <input type="submit" value="Submit" class="btn btn-default" />
+</p>
+}
+
+
+
+
+
+
+
+
