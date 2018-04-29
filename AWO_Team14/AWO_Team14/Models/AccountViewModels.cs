@@ -39,15 +39,19 @@ namespace AWO_Team14.Models
 		[Display(Name = "Last Name")]
 		public String LastName { get; set; }
 
+        [Required(ErrorMessage = "Street is required.")]
         [Display(Name = "Street")]
         public String Street { get; set; }
 
+        [Required(ErrorMessage = "City is required.")]
         [Display(Name = "City")]
         public String City { get; set; }
 
+        [Required(ErrorMessage = "State is required.")]
         [Display(Name = "State")]
         public State State { get; set; }
 
+        [Required(ErrorMessage = "Zip is required.")]
         [StringLength(5)]
         [Display(Name = "Zip")]
         public String Zip { get; set; }
