@@ -455,7 +455,7 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, MiddleInitial, Street, City, State, Zip, Birthday, CreditCardNumber1, CreditCardNumber2, Popcorn Points, Archived, PhoneNumber")] AppUser user)
+        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, Street, City, State, Zip, Birthday, PhoneNumber")] AppUser user)
         {
             if (ModelState.IsValid)
             {
