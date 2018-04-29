@@ -33,32 +33,35 @@
                         @Html.ActionLink("Search Showtimes", "ShowdateSearch", "Home", null, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
-                        @Html.ActionLink("View Transactions", "Index", "Transactions", null, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("View Tickets", "Index", "UserTickets", null, new { @class = "nav-link" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Run Reports", "Index", "Reports", null, new { @class = "nav-link" })
+                        @Html.ActionLink("Buy Tickets", "Create", "Transactions", null, new { @class = "nav-link" })
                     </li>
 
-@if (Request.IsAuthenticated)
+
+
+                    @if (Request.IsAuthenticated)
     {
+                <li class="nav-item">
+                    @Html.ActionLink("View Transactions", "Index", "Transactions", null, new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("View Tickets", "Index", "UserTickets", null, new { @class = "nav-link" })
+                </li>
 
 
 if (User.IsInRole("Employee") || User.IsInRole("Manager"))
 {
                 <li class="nav-item">
-                    @Html.ActionLink("EmployeeHome", "EmployeeHome", "Accounts", null, new { @class = "nav-link" })
+                    @Html.ActionLink("Employee Home", "EmployeeHome", "Accounts", null, new { @class = "nav-link" })
+                </li>
+}
+if (User.IsInRole("Manager"))
+{
+                <li class="nav-item">
+                    @Html.ActionLink("Run Reports", "Index", "Reports", null, new { @class = "nav-link" })
                 </li>
 }
 
-                @*else
-    {
-                    <li class="nav-item">
-                        @Html.ActionLink("Log In", "Index", "Accounts", null, new { @class = "nav-link" })
-                    </li>
-    }*@
+
 }
                 </ul>
             </div>

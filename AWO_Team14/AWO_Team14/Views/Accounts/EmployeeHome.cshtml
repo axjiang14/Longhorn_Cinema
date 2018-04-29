@@ -9,9 +9,12 @@
 {
     if (User.IsInRole("Manager") || User.IsInRole("Employee"))
     {
-    <div>
-        @Html.ActionLink("Register Customer", "RegisterCustomer", "Accounts", null, new { @class = "btn btn-default" })
-    </div>
+        <div>
+            @Html.ActionLink("Register Customer", "RegisterCustomer", "Accounts", null, new { @class = "btn btn-default" })
+        </div>
+        <div>
+            @Html.ActionLink("Make a Customer Transaction", "EmployeeCreate", "Transactions", null, new { @class = "btn btn-default" })
+        </div>
     }
 
     if (User.IsInRole("Manager"))
@@ -21,11 +24,9 @@
         </div>
 
         <div>
-            @Html.ActionLink("Hire Employee", "HireEmployee", "Accounts", null, new { @class = "btn btn-default" })
+            @Html.ActionLink("Change Employee Status", "ChangeEmployeeStatus", "Accounts", null, new { @class = "btn btn-default" })
         </div>
 
-        <div>
-            @Html.ActionLink("Fire Employee", "FireEmployee", "Accounts", null, new { @class = "btn btn-default" })
-        </div>
+
     }
 }

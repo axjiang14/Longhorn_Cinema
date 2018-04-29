@@ -68,6 +68,12 @@
             @Html.DisplayFor(model => model.Actors)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.RatingsAvg)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RatingsAvg)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Genres)
         </dt>
         <dd>
@@ -101,24 +107,24 @@
     }
         </table>
 
-         <dt>
+        <dt>
             @Html.DisplayNameFor(model => model.MovieReviews)
-         </dt>
-         <table class="table table-sm table-striped">
-             <tr>
-                  <th>User</th>
-                  <th>Rating</th>
-                  <th>Review</th>
-             </tr>
-             @foreach (MovieReview movreview in Model.MovieReviews)
-              {
-                   <tr>
-                       <td>@Html.DisplayFor(modelItem => movreview.User.FirstName)</td>
-                       <td>@Html.DisplayFor(modelItem => movreview.Rating)</td>
-                       <td>@Html.DisplayFor(modelItem => movreview.Review)</td>
-                   </tr>
-               }
-            </table>
+        </dt>
+        <table class="table table-sm table-striped">
+            <tr>
+                <th>User</th>
+                <th>Rating</th>
+                <th>Review</th>
+            </tr>
+            @foreach (MovieReview movreview in Model.MovieReviews)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => movreview.User.FirstName)</td>
+                <td>@Html.DisplayFor(modelItem => movreview.Rating)</td>
+                <td>@Html.DisplayFor(modelItem => movreview.Review)</td>
+            </tr>
+    }
+        </table>
 
     </dl>
 </div>

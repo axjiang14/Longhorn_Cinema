@@ -169,23 +169,83 @@ namespace AWO_Team14.Controllers
                 query = query.Where(m => m.MPAA_Rating == MPAARating);
             }
 
+            //Decimal decSearchStar;
+            //if (SearchStarRatings != null && SearchStarRatings != "")
+            //{
+            //    try
+            //    {
+            //        decSearchStar = Convert.ToDecimal(SearchStarRatings);
+
+            //        if (decSearchStar >= 1.0m && decSearchStar <= 5.0m)
+            //        {
+            //            switch (SelectedStar)
+            //            {
+            //                case StarComp.GreaterThan:
+            //                    Debug.WriteLine(query.Count());
+            //                    query = query.Where(m => m.RatingsAvg >= decSearchStar);
+            //                    Debug.WriteLine("THis is the query count");
+            //                    Debug.WriteLine(query.Count());
+            //                    break;
+            //                case StarComp.LessThan:
+            //                    query = query.Where(m => m.RatingsAvg <= decSearchStar);
+            //                    break;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            ViewBag.Message = SearchStarRatings + "is not a valid number.";
+            //            ViewBag.AllGenres = GetAllGenres();
+            //            ViewBag.AllMPAA = GetAllMPAA();
+            //            return View("DetailedSearch");
+            //        }
+            //    }
+            //    catch
+            //    {
+            //        ViewBag.Message = SearchStarRatings + "is not a valid number.";
+            //        ViewBag.AllGenres = GetAllGenres();
+            //        ViewBag.AllMPAA = GetAllMPAA();
+            //        return View("DetailedSearch");
+            //    }
+            //}
+
+            //Creates list of selected movies
+            List<Movie> OtherMovies = query.ToList();
+            List<Movie> FinalMovies = new List<Movie>();
+            foreach (Movie item in OtherMovies)
+            {
+                FinalMovies.Add(item);
+            }
+
             Decimal decSearchStar;
             if (SearchStarRatings != null && SearchStarRatings != "")
             {
                 try
                 {
                     decSearchStar = Convert.ToDecimal(SearchStarRatings);
-
                     if (decSearchStar >= 1.0m && decSearchStar <= 5.0m)
                     {
-                        switch (SelectedStar)
+                        if (SelectedStar == StarComp.GreaterThan)
                         {
-                            case StarComp.GreaterThan:
-                                query = query.Where(m => m.RatingsAvg >= decSearchStar);
-                                break;
-                            case StarComp.LessThan:
-                                query = query.Where(r => r.RatingsAvg <= decSearchStar);
-                                break;
+                            foreach(Movie item in OtherMovies)
+                            {
+                                if (item.RatingsAvg < decSearchStar)
+                                {
+                                    FinalMovies.Remove(item);
+                                } 
+                                
+                            }
+                                                   
+                        }
+                        if (SelectedStar == StarComp.LessThan)
+                        {
+                            foreach (Movie item in OtherMovies)
+                            {
+                                if (item.RatingsAvg > decSearchStar)
+                                {
+                                    FinalMovies.Remove(item);
+                                }
+
+                            }
                         }
                     }
                     else
@@ -196,6 +256,7 @@ namespace AWO_Team14.Controllers
                         return View("DetailedSearch");
                     }
                 }
+
                 catch
                 {
                     ViewBag.Message = SearchStarRatings + "is not a valid number.";
@@ -204,22 +265,20 @@ namespace AWO_Team14.Controllers
                     return View("DetailedSearch");
                 }
             }
+            
 
-            //Creates list of selected movies
-            List<Movie> OtherMovies = query.ToList();
-
-            var DisplayedMovies = OtherMovies;
+            var DisplayedMovies = FinalMovies;
 
             //If genres were selected, find the movies that have those genres and the other entered search requirements
             if (GenresMovies.Count() != 0)
             {
                 Debug.WriteLine("Genres selected");
-                DisplayedMovies = OtherMovies.Intersect(FilterMovies).ToList();
+                DisplayedMovies = FinalMovies.Intersect(FilterMovies).ToList();
             }
             else //If not genres were selected, return the movies with the other filters
             {
                 Debug.WriteLine("No genres selected");
-                DisplayedMovies = OtherMovies;
+                DisplayedMovies = FinalMovies;
             }
 
             List<Movie> SelectedMovies = DisplayedMovies.ToList();

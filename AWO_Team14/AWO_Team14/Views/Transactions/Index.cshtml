@@ -6,9 +6,12 @@
 
 <h2>All Transactions</h2>
 
+@if (User.IsInRole("Manager"))
+{
 <p>
     @Html.ActionLink("New Transaction", "Create", null, new { @class = "btn btn-info" })
 </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -29,33 +32,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TransactionID)
-        </td>
-        <td>
-            @Html.DisplayFor(modeItem => item.User.FirstName)
-            @Html.DisplayFor(modeItem => item.User.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TransactionDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Payment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
-        <td>
-            @*TODO: Edit and Delete for Managers only*@
-            @Html.ActionLink("Details", "Details", new { id = item.TransactionID }) |
-            @Html.ActionLink("Change Seats/Remove Tickets", "RemoveFromTransaction", new { id = item.TransactionID }) |
-            @Html.ActionLink("Edit", "Edit", new { id = item.TransactionID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TransactionID })
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modeItem => item.User.FirstName)
+                @Html.DisplayFor(modeItem => item.User.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @*TODO: Edit and Delete for Managers only*@
 
-        </td>
-    </tr>
+                @Html.ActionLink("Details", "Details", new { id = item.TransactionID }) |
+                @Html.ActionLink("Change Seats/Remove Tickets", "RemoveFromTransaction", new { id = item.TransactionID }) |
+ 
+@if (User.IsInRole("Manager"))
+{
+
+@Html.ActionLink("Edit", "Edit", new { id = item.TransactionID }) 
+
+@Html.ActionLink("Delete", "Delete", new { id = item.TransactionID })
+
 }
+
+
+
+
+            </td>
+        </tr>
+    }
 
 </table>

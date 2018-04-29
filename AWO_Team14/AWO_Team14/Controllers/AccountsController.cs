@@ -18,6 +18,8 @@ using System.Collections.Generic;
 //Change this namespace to match your project
 namespace AWO_Team14.Controllers
 {
+    public enum EmploymentAction { Hire, Fire}
+
     [Authorize]
     public class AccountsController : Controller
     {
@@ -31,24 +33,22 @@ namespace AWO_Team14.Controllers
 
         public SelectList GetAllEmployees()
         {
-            var AllUsers = from u in db.Users
-                           select u;
-            //List<AppUser> Employees = new List<AppUser>();
+            var roles = db.Roles.Where(r => r.Name == "Employee");
+            if (roles.Any())
+            {
+                var roleId = roles.First().Id;
+                var dbCustomers = from user in db.Users
+                                  where user.Roles.Any(r => r.RoleId == roleId)
+                                  select user;
+                List<AppUser> Employees = dbCustomers.ToList();
 
-            //foreach (AppUser u in AllUsers)
-            //{
-            //    if()
-            //}
+                SelectList EmployeesList = new SelectList(Employees.OrderBy(u => u.Id), "Id", "UserName");
 
-            AppRole Employee = db.AppRoles.Find("Employee");
+                return EmployeesList;
 
-            //AllUsers = AllUsers.Where(u => u.r("Employee"));
+            }
 
-            List<AppUser> Employees = AllUsers.ToList();
-
-            SelectList AllEmployees = new SelectList(Employees.OrderBy(u => u.UserName), "Id", "Email");
-
-            return AllEmployees;
+            return null;
         }
 
         public ActionResult EmployeeHome()
@@ -351,7 +351,7 @@ namespace AWO_Team14.Controllers
         }
 
         [Authorize(Roles = "Manager")]
-        public ActionResult FireEmployee()
+        public ActionResult ChangeEmployeeStatus()
         {
 
             ViewBag.AllEmployees = GetAllEmployees();
@@ -362,13 +362,22 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager")]
-        public ActionResult FireEmployee(string UserID)
+        public ActionResult ChangeEmployeeStatus( string id, EmploymentAction EmploymentAction)
         {
+            AppUser Employee = db.Users.Find(id);
+
+            if (EmploymentAction == EmploymentAction.Hire)
+            {
+                Employee.Archived = false;
+
+            }
+            if (EmploymentAction == EmploymentAction.Fire)
+            {
+                Employee.Archived = true;
+            }
+
             if (ModelState.IsValid)
             {
-                AppUser Employee = db.Users.Find(UserID);
-                Employee.Archived = true;
-
                 db.Entry(Employee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("EmployeeHome");
@@ -380,6 +389,28 @@ namespace AWO_Team14.Controllers
             // If we got this far, something failed, redisplay form
             return View();
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Manager")]
+        //public ActionResult FireEmployee(string Id)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        AppUser Employee = db.Users.Find(Id);
+        //        Employee.Archived = true;
+
+        //        db.Entry(Employee).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("EmployeeHome");
+
+        //    }
+
+        //    ViewBag.AllEmployees = GetAllEmployees();
+
+        //    // If we got this far, something failed, redisplay form
+        //    return View();
+        //}
 
         //GET: Accounts/Index
         public ActionResult Index()
