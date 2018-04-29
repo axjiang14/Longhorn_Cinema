@@ -71,8 +71,20 @@ namespace AWO_Team14.Models
 
         //Add any navigational properties needed for your user
         //Orders is here as an example
+        //TODO: ??? this looks weird ???
         public DbSet<Transaction> Transactions { get; set; }
-        //public DbSet<UserTicket> UserTickets { get; set; }
+
+
+        public virtual List<MovieReview> MovieReviews { get; set; }
+
+        public AppUser()
+        {
+            if (MovieReviews == null)
+            {
+                MovieReviews = new List<MovieReview>();
+            }
+
+        }
 
 
         //This method allows you to create a new user
