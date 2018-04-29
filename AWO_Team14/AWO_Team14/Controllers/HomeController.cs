@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 namespace AWO_Team14.Controllers
 {
     public enum RangeType { Before, After, Equal}
+    public enum StarComp { GreaterThan, LessThan };
 
     public class HomeController : Controller
     {
@@ -100,7 +101,7 @@ namespace AWO_Team14.Controllers
             return View();
         }
 
-        public ActionResult DisplayDetailedSearch(String SearchTitle, String SearchTagline, int[] SearchGenres, DateTime? SearchYear, String SearchActors, RangeType SearchYearType, MPAA MPAARating)
+        public ActionResult DisplayDetailedSearch(String SearchTitle, String SearchTagline, int[] SearchGenres, DateTime? SearchYear, String SearchActors, RangeType SearchYearType, MPAA MPAARating, String SearchStarRatings, StarComp SelectedStar)
         {
             var query = from m in db.Movies
                         select m;
@@ -166,6 +167,42 @@ namespace AWO_Team14.Controllers
             if (MPAARating != MPAA.All)
             {
                 query = query.Where(m => m.MPAA_Rating == MPAARating);
+            }
+
+            Decimal decSearchStar;
+            if (SearchStarRatings != null && SearchStarRatings != "")
+            {
+                try
+                {
+                    decSearchStar = Convert.ToDecimal(SearchStarRatings);
+
+                    if (decSearchStar >= 1.0m && decSearchStar <= 5.0m)
+                    {
+                        switch (SelectedStar)
+                        {
+                            case StarComp.GreaterThan:
+                                query = query.Where(m => m.RatingsAvg >= decSearchStar);
+                                break;
+                            case StarComp.LessThan:
+                                query = query.Where(r => r.RatingsAvg <= decSearchStar);
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Message = SearchStarRatings + "is not a valid number.";
+                        ViewBag.AllGenres = GetAllGenres();
+                        ViewBag.AllMPAA = GetAllMPAA();
+                        return View("DetailedSearch");
+                    }
+                }
+                catch
+                {
+                    ViewBag.Message = SearchStarRatings + "is not a valid number.";
+                    ViewBag.AllGenres = GetAllGenres();
+                    ViewBag.AllMPAA = GetAllMPAA();
+                    return View("DetailedSearch");
+                }
             }
 
             //Creates list of selected movies
