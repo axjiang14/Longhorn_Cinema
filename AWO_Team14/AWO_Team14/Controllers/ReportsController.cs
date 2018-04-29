@@ -51,66 +51,31 @@ namespace AWO_Team14.Controllers
             return GetMPAA;
         }
 
-        //public static IQueryable<AppUser> GetAllCustomers (AppDbContext db)
         public SelectList GetAllCustomers()
         {
 
                 var roles = db.Roles.Where(r => r.Name == "Customer");
-                if (roles.Any())
+               if (roles.Any())
                 { 
-                    var roleId = roles.First().Id;
+                   var roleId = roles.First().Id;
                     var dbCustomers = from user in db.Users
-                                               where user.Roles.Any(r =>                                r.RoleId == "Customers")
+                                               where user.Roles.Any(r =>                                r.RoleId == roleId)
                                                 select user;
                     List<AppUser> Customers = dbCustomers.ToList();
 
-                    SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.Id), "Id", "UserName");
+                    AppUser AllCustomers = new Models.AppUser() { UserName= "All Customers"};
 
-                return AllCustomers;
+                    Customers.Insert(0, AllCustomers);
+
+                SelectList CustomersList = new SelectList(Customers.OrderBy(u => u.Id), "UserName", "UserName");
+
+                return CustomersList;
 
             }
 
             return null;
         }
             
-
-
-    //    public SelectList GetAllCustomers()
-    //    {
-    //    //    var Employee = from
-
-    //    //String[] CustomerUsers = context.Roles.GetUsersInRole("Customer");
-
-    //    var roles = db.Roles.Where(r => r.Name == "Customer");
-    //            if (roles.Any())
-    //            {
-    //                var roleId = roles.First().Id;
-    //                return from user in db.Users
-    //                        where user.Roles.Any(r => r.RoleId == "Customer")
-    //                        select user;
-    //            }
-
-
-    ////    List<String> CustomerList = new List<String>(CustomerUsers);
-
-    ////    CustomerList.Add("All Customers");
-
-    ////    SelectList AllCustomers = new SelectList(CustomerList);
-
-    ////    return AllCustomers;
-
-    ////    //var AllUsers = from u in db.Users
-    ////    //               select u;
-
-    ////    //AllUsers = AllUsers.Where(u => User.IsInRole("Customer"));
-
-    ////    //List<AppUser> Customers = AllUsers.ToList();
-
-    ////    //SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.UserName), "Id", "Email");
-
-    //    return AllCustomers;
-
-    //}
 
     public ActionResult GenerateReport()
         {
@@ -215,12 +180,36 @@ namespace AWO_Team14.Controllers
 
             if (Customer != "All Customers")
             {
-                query = query.Where(t => t.User.UserName == Customer);
+                query = query.Where(t => t.User.Email == Customer);
             }
 
             List<Transaction> CustomerTransactions = query.ToList();
 
+            ViewBag.ReportUser = Customer;
+
             return View(CustomerTransactions);
+        }
+
+        public ActionResult DisplayPopcornReport()
+        {
+            var query = from t in db.Transactions
+                        select t;
+
+            List<UserTicket> Tickets = new List<UserTicket>();
+
+            foreach (Transaction t in query)
+            {
+                if (t.Payment == Payment.PopcornPoints)
+                {
+                    foreach(UserTicket ut in t.UserTickets)
+                    {
+                        Tickets.Add(ut);
+                    }
+
+                }
+            }
+
+            return View(Tickets);
         }
 
 
