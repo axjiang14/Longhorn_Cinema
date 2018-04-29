@@ -447,8 +447,17 @@
     <Compile Include="Migrations\201804292121108_i wasnt done.Designer.cs">
       <DependentUpon>201804292121108_i wasnt done.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804292253158_seedgenres.cs" />
+    <Compile Include="Migrations\201804292253158_seedgenres.Designer.cs">
+      <DependentUpon>201804292253158_seedgenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804292259502_seedmoviesss.cs" />
+    <Compile Include="Migrations\201804292259502_seedmoviesss.Designer.cs">
+      <DependentUpon>201804292259502_seedmoviesss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
+    <Compile Include="Migrations\OldMovieData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
     <Compile Include="Migrations\SeedIdentity.cs" />
     <Compile Include="Migrations\UserData.cs" />
@@ -762,6 +771,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804292121108_i wasnt done.resx">
       <DependentUpon>201804292121108_i wasnt done.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804292253158_seedgenres.resx">
+      <DependentUpon>201804292253158_seedgenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804292259502_seedmoviesss.resx">
+      <DependentUpon>201804292259502_seedmoviesss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
