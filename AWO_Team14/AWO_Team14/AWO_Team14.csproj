@@ -431,6 +431,10 @@
     <Compile Include="Migrations\201804290255385_Who knows.Designer.cs">
       <DependentUpon>201804290255385_Who knows.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804290556339_update movie model.cs" />
+    <Compile Include="Migrations\201804290556339_update movie model.Designer.cs">
+      <DependentUpon>201804290556339_update movie model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -734,6 +738,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804290255385_Who knows.resx">
       <DependentUpon>201804290255385_Who knows.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804290556339_update movie model.resx">
+      <DependentUpon>201804290556339_update movie model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

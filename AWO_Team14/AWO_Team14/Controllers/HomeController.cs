@@ -146,18 +146,18 @@ namespace AWO_Team14.Controllers
                 }
             }
 
-            if (SearchYear != null)
-            {
-                DateTime DateSelected = SearchYear ?? new DateTime(1900, 1, 1);
-                if (SearchYearType == RangeType.After)
-                { query = query.Where(m => m.ReleaseYear >= DateSelected); }
-                else if (SearchYearType == RangeType.Before)
-                { query = query.Where(m => m.ReleaseYear <= DateSelected); }
-                else if (SearchYearType == RangeType.Equal)
-                {
-                    query = query.Where(m => m.ReleaseYear == DateSelected);
-                }
-            }
+            //if (SearchYear != null)
+            //{
+            //    Int32 DateSelected = SearchYear ?? new (1900, 1, 1);
+            //    if (SearchYearType == RangeType.After)
+            //    { query = query.Where(m => m.ReleaseYear >= DateSelected); }
+            //    else if (SearchYearType == RangeType.Before)
+            //    { query = query.Where(m => m.ReleaseYear <= DateSelected); }
+            //    else if (SearchYearType == RangeType.Equal)
+            //    {
+            //        query = query.Where(m => m.ReleaseYear == DateSelected);
+            //    }
+            //}
 
             if (SearchActors != null)
             {
