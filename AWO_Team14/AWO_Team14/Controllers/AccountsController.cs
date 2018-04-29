@@ -458,37 +458,13 @@ namespace AWO_Team14.Controllers
             return View();
         }
 
-        //GET: Accounts/Index
-        public ActionResult Index(string Id)
+        [Authorize(Roles = "Manager, Employee")]
+        [HttpPost]
+        public ActionResult ChangeUserProfile(String Id)
         {
-            IndexViewModel ivm = new IndexViewModel();
-
-            //get user info
-
             AppUser user = db.Users.Find(Id);
 
-            //populate the view model
-            ivm.Email = user.Email;
-            ivm.HasPassword = true;
-            ivm.UserID = user.Id;
-            ivm.UserName = user.UserName;
-
-
-            ViewBag.FirstName = user.FirstName;
-            ViewBag.LastName = user.LastName;
-            ViewBag.Street = user.Street;
-            ViewBag.City = user.City;
-            ViewBag.State = user.State;
-            ViewBag.Zip = user.Zip;
-            ViewBag.Birthday = user.Birthday;
-            ViewBag.PopcornPoints = user.PopcornPoints;
-            ViewBag.CreditCard1 = user.CreditCardNumber1;
-            ViewBag.CreditCard2 = user.CreditCardNumber2;
-            ViewBag.PhoneNumber = user.PhoneNumber;
-
-
-
-            return View(ivm);
+            return RedirectToAction("ChangeUserInfo", "Accounts", new { id = user.Id });
         }
 
         //GET: Accounts/Index
@@ -580,6 +556,11 @@ namespace AWO_Team14.Controllers
 
                 db.Entry(AppUser).State = EntityState.Modified;
                 db.SaveChanges();
+                if (user.Id != User.Identity.GetUserId())
+                {
+                    return RedirectToAction("EmployeeHome", "Accounts");
+                }
+
                 return RedirectToAction("Index", "Accounts");
             }
             return View(user);
