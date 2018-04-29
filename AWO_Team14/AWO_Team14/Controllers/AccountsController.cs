@@ -485,7 +485,7 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddCreditCard([Bind(Include = "CreditCardNumber1, CreditCardNumber2")] AppUser user)
+        public ActionResult AddCreditCard([Bind(Include = "CreditCardNumber1, CreditCardNumber2, FirstName, LastName, Street, City, State, Zip, Birthday, PhoneNumber")] AppUser user)
         {
             if (ModelState.IsValid)
             {
