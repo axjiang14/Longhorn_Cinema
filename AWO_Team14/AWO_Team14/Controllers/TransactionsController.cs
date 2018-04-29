@@ -117,7 +117,15 @@ namespace AWO_Team14.Controllers
                         ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
                     }
 
-                    if (transaction.Payment == Payment.PopcornPoints)
+					if (Utilities.TransactionValidation.PPCalc(t) == true)
+					{
+						Int32 CurPopPoints = t.User.PopcornPoints;
+						Int32 intTickets = t.UserTickets.Count();
+						Int32 PPTickets = intTickets * 100;
+						t.User.PopcornPoints = CurPopPoints - PPTickets;
+					}
+
+						if (transaction.Payment == Payment.PopcornPoints)
                     {
                         foreach (UserTicket ut in t.UserTickets)
                         {
@@ -167,15 +175,15 @@ namespace AWO_Team14.Controllers
                         ut.Status = Status.Active;
                     }
 
-                    if (transaction.Payment == Payment.CreditCard)
+                    if (t.Payment == Payment.CreditCard)
                     {
-                        Decimal decPopPoints = transaction.UserTickets.Sum(ut => ut.CurrentPrice);
+                        Decimal decPopPoints = t.UserTickets.Sum(ut => ut.CurrentPrice);
 
                         Int32 intPopPoints = Convert.ToInt32(decPopPoints - (decPopPoints % 1));
 
-                        Int32 CurPopPoints = transaction.User.PopcornPoints;
+                        Int32 CurPopPoints = t.User.PopcornPoints;
 
-                        transaction.User.PopcornPoints = CurPopPoints + intPopPoints;
+                        t.User.PopcornPoints = CurPopPoints + intPopPoints;
 
                     }
 

@@ -51,34 +51,33 @@ namespace AWO_Team14.Controllers
             return GetMPAA;
         }
 
-        //public SelectList GetAllCustomers()
-        //{
-        //    var Employee = from
+        public SelectList GetAllCustomers()
+        {
 
-        //    String[] CustomerUsers = UserManager.GetUsersInRole("Customer");
+                var roles = db.Roles.Where(r => r.Name == "Customer");
+               if (roles.Any())
+                { 
+                   var roleId = roles.First().Id;
+                    var dbCustomers = from user in db.Users
+                                               where user.Roles.Any(r =>                                r.RoleId == roleId)
+                                                select user;
+                    List<AppUser> Customers = dbCustomers.ToList();
 
-        //    List<String> CustomerList = new List<String>(CustomerUsers);
+                    AppUser AllCustomers = new Models.AppUser() { UserName= "All Customers"};
 
-        //    CustomerList.Add("All Customers");
+                    Customers.Insert(0, AllCustomers);
 
-        //    SelectList AllCustomers = new SelectList(CustomerList);
+                SelectList CustomersList = new SelectList(Customers.OrderBy(u => u.Id), "UserName", "UserName");
 
-        //    return AllCustomers;
+                return CustomersList;
 
-        //    //var AllUsers = from u in db.Users
-        //    //               select u;
+            }
 
-        //    //AllUsers = AllUsers.Where(u => User.IsInRole("Customer"));
+            return null;
+        }
+            
 
-        //    //List<AppUser> Customers = AllUsers.ToList();
-
-        //    //SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.UserName), "Id", "Email");
-
-        //    //return AllCustomers;
-
-        //}
-
-        public ActionResult GenerateReport()
+    public ActionResult GenerateReport()
         {
             ViewBag.AllMovies = GetAllMovies();
             ViewBag.AllMPAA = GetAllMPAA();
@@ -87,7 +86,7 @@ namespace AWO_Team14.Controllers
 
         public ActionResult GenerateCustomerReport()
         {
-            //ViewBag.AllCustomers = GetAllCustomers();
+            ViewBag.AllCustomers = GetAllCustomers();
             return View();
         }
 
@@ -181,12 +180,36 @@ namespace AWO_Team14.Controllers
 
             if (Customer != "All Customers")
             {
-                query = query.Where(t => t.User.UserName == Customer);
+                query = query.Where(t => t.User.Email == Customer);
             }
 
             List<Transaction> CustomerTransactions = query.ToList();
 
+            ViewBag.ReportUser = Customer;
+
             return View(CustomerTransactions);
+        }
+
+        public ActionResult DisplayPopcornReport()
+        {
+            var query = from t in db.Transactions
+                        select t;
+
+            List<UserTicket> Tickets = new List<UserTicket>();
+
+            foreach (Transaction t in query)
+            {
+                if (t.Payment == Payment.PopcornPoints)
+                {
+                    foreach(UserTicket ut in t.UserTickets)
+                    {
+                        Tickets.Add(ut);
+                    }
+
+                }
+            }
+
+            return View(Tickets);
         }
 
 
