@@ -1,0 +1,39 @@
+﻿@model AWO_Team14.Models.Transaction
+
+@{
+    ViewBag.Title = "New Transaction";
+}
+
+<h2>New Transaction</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Transaction</h4>
+    <hr />
+    <div class="form-group">
+        Transaction Date
+        <div class="col-md-10">
+            @DateTime.Now
+        </div>
+    </div>
+
+    <p class="form-group">
+        Select a customer:
+        <br />
+        @Html.DropDownList("Customer", (SelectList)ViewBag.AllCustomers, new { @class = "form-control" })
+    </p>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

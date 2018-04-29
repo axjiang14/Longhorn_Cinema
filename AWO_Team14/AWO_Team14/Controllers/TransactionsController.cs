@@ -65,12 +65,48 @@ namespace AWO_Team14.Controllers
 
         }
 
+        public SelectList GetAllCustomers()
+        {
+
+            var roles = db.Roles.Where(r => r.Name == "Customer");
+            if (roles.Any())
+            {
+                var roleId = roles.First().Id;
+                var dbCustomers = from user in db.Users
+                                  where user.Roles.Any(r => r.RoleId == roleId)
+                                  select user;
+                List<AppUser> Customers = dbCustomers.ToList();
+
+                SelectList CustomersList = new SelectList(Customers.OrderBy(u => u.Id), "Id", "UserName");
+
+                return CustomersList;
+
+            }
+
+            return null;
+        }
+
         // GET: Transactions
+        [Authorize]
         public ActionResult Index()
         {
+            var query = from t in db.Transactions
+                        select t;
+
+            if (User.IsInRole("Customer"))
+            {
+                string userid = User.Identity.GetUserId();
+                query = query.Where(t => t.User.Id == userid);
+            }
+
+            List<Transaction> transactions = query.ToList();
+
+            return View(transactions);
+
             return View(db.Transactions.ToList());
         }
 
+        [Authorize]
         public ActionResult PendingDetails(int? id)
         {
             if (id == null)
@@ -85,6 +121,7 @@ namespace AWO_Team14.Controllers
             return View(transaction);
         }
 
+        [Authorize]
         public ActionResult SubmitTransaction(int? id)
         {
             if (id == null)
@@ -101,6 +138,7 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User")] Transaction transaction)
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
@@ -147,6 +185,7 @@ namespace AWO_Team14.Controllers
 			
 		}
 
+        [Authorize]
         public ActionResult ConfirmTransaction(int? id)
         {
             if (id == null)
@@ -162,6 +201,7 @@ namespace AWO_Team14.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult ConfirmTransaction([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
         {
@@ -199,6 +239,7 @@ namespace AWO_Team14.Controllers
 
 
         // GET: Transactions/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -214,6 +255,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Transactions/Create
+        [Authorize(Roles = "Customer")]
         public ActionResult Create()
         {
             return View();
@@ -224,6 +266,8 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
+        [Authorize(Roles = "Customer")]
         public ActionResult Create([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
         {
             //TODO: Autoincrement transaction id
@@ -241,7 +285,40 @@ namespace AWO_Team14.Controllers
             return View(transaction);
         }
 
+        // GET: Transactions/Create
+        [Authorize(Roles = "Employee, Manager")]
+        public ActionResult EmployeeCreate()
+        {
+            ViewBag.AllCustomers = GetAllCustomers();
+            return View();
+        }
+
+        // POST: Transactions/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Employee, Manager")]
+        public ActionResult EmployeeCreate([Bind(Include = "TransactionID,Payment,TransactionDate, User")] Transaction transaction, string Customer)
+        {
+            //TODO: Autoincrement transaction id
+            transaction.TransactionDate = DateTime.Now;
+            transaction.Payment = Payment.CreditCard;
+            transaction.User = db.Users.Find(Customer);
+
+            if (ModelState.IsValid)
+            {
+                db.Transactions.Add(transaction);
+                db.SaveChanges();
+                return RedirectToAction("ChooseMovie", new { id = transaction.TransactionID });
+            }
+
+            ViewBag.AllCustomers = GetAllCustomers();
+            return View(transaction);
+        }
+
         //Get
+        [Authorize]
         public ActionResult ChooseMovie(int id)
         {
             //New instance of user ticket
@@ -259,6 +336,7 @@ namespace AWO_Team14.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult ChooseMovie(UserTicket ut, int SelectedMovie)
         {
             //Finds movie
@@ -304,7 +382,7 @@ namespace AWO_Team14.Controllers
             return View(ut);
         }
 
-
+        [Authorize]
         public ActionResult AddToTransaction(int ticketid, int transid)
         {
             //Find user ticket
@@ -322,6 +400,7 @@ namespace AWO_Team14.Controllers
 
         //Post AddToOrder
         [HttpPost]
+        [Authorize]
         public ActionResult AddToTransaction([Bind(Include = "UserTicketID, CurrentPrice, SeatNumber, Status, MovieID, Showing, Transaction")]
         UserTicket ut, int SelectedShowing)
         {
@@ -367,6 +446,7 @@ namespace AWO_Team14.Controllers
             return View(ut);
         }
 
+        [Authorize]
         public ActionResult RemoveFromTransaction(int id)
         {
             Transaction t = db.Transactions.Find(id);
@@ -386,6 +466,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Transactions/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -405,6 +486,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
         {
             if (ModelState.IsValid)
@@ -417,6 +499,8 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Transactions/Delete/5
+
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -433,6 +517,7 @@ namespace AWO_Team14.Controllers
 
         // POST: Transactions/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

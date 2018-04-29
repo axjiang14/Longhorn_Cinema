@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
+using Microsoft.AspNet.Identity;
 
 namespace AWO_Team14.Controllers
 {
@@ -19,7 +20,18 @@ namespace AWO_Team14.Controllers
         // GET: UserTickets
         public ActionResult Index()
         {
-            return View(db.UserTickets.ToList());
+            var query = from ut in db.UserTickets
+                        select ut;
+
+            if (User.IsInRole("Customer"))
+            {
+                string userid = User.Identity.GetUserId();
+                query = query.Where(ut => ut.Transaction.User.Id == userid);
+            }
+
+            List<UserTicket> tickets = query.ToList();
+
+            return View(tickets);
         }
 
 

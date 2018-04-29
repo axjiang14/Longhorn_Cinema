@@ -540,6 +540,8 @@
     <Content Include="Views\Accounts\RegisterCustomer.cshtml" />
     <Content Include="Views\Accounts\AddCreditCard.cshtml" />
     <Content Include="Views\Reports\DisplayPopcornReport.cshtml" />
+    <Content Include="Views\Accounts\ChangeEmployeeStatus.cshtml" />
+    <Content Include="Views\Transactions\EmployeeCreate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
