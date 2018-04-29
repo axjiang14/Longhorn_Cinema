@@ -18,7 +18,7 @@
 //            m1.Overview = "A producer puts on what may be his last Broadway show, and at the last moment a chorus girl has to replace the star.";
 //            m1.ReleaseYear = new DateTime(1933, 2, 2);
 //            m1.MPAA_Rating = MPAA.Unrated;
-//            m1.Runtime = new TimeSpan(0,89,0);
+//            m1.RunTime = new TimeSpan(0,89,0);
 //            m1.Actors = "Warner Baxter, Bebe Daniels, George Brent, Ruby Keeler, Guy Kibbee, Una Merkel";
 //            //m1.Genres = new List<Genre> () {db.Genres.Where GenreName == "Musical");
 
@@ -36,7 +36,7 @@
 //            m2.Overview = "A beautiful girl, Snow White, takes refuge in the forest in the house of seven dwarfs to hide from her stepmother, the wicked Queen. The Queen is jealous because she wants to be known as the fairest in the land, and Snow White's beauty surpasses her own.";
 //            m2.ReleaseYear = new DateTime(1937, 12, 20);
 //            m2.MPAA_Rating = MPAA.G;
-//            m2.Runtime = new TimeSpan(0,83,0);
+//            m2.RunTime = new TimeSpan(0,83,0);
 //            m2.Actors = "James Stewart, Jean Arthur, Claude Rains, Edward Arnold, Guy Kibbee, Thomas Mitchell";
 //            m2.Genres = new List<Genre>();
 //            m2.Genres.Add(db.Genres.FirstOrDefault(x => x.GenreName == "Fantasy"));

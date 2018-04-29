@@ -1,8 +1,8 @@
 ﻿/*
 * This file has been generated to support Visual Studio IntelliSense.
-* You should not use this file at runtime inside the browser--it is only
+* You should not use this file at RunTime inside the browser--it is only
 * intended to be used only for design-time IntelliSense.  Please use the
-* standard jQuery library for all runtime use.
+* standard jQuery library for all RunTime use.
 *
 * Comment version: 3.0.0
 */

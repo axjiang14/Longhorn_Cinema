@@ -10,7 +10,7 @@ namespace AWO_Team14.Migrations
             AddColumn("dbo.Showings", "StartTime", c => c.DateTime(nullable: false));
             AddColumn("dbo.Showings", "EndTime", c => c.DateTime(nullable: false));
             DropColumn("dbo.Movies", "RunTime");
-            AddColumn("dbo.Movies", "Runtime", c => c.Time(nullable: false, precision: 7));
+            AddColumn("dbo.Movies", "RunTime", c => c.Time(nullable: false, precision: 7));
             DropColumn("dbo.Showings", "ShowTime");
         }
         
@@ -18,7 +18,7 @@ namespace AWO_Team14.Migrations
         {
             AddColumn("dbo.Showings", "ShowTime", c => c.DateTime(nullable: false));
             DropColumn("dbo.Movies", "RunTime");
-            AddColumn("dbo.Movies", "Runtime", c => c.Int(nullable: false));
+            AddColumn("dbo.Movies", "RunTime", c => c.Int(nullable: false));
             DropColumn("dbo.Showings", "EndTime");
             DropColumn("dbo.Showings", "StartTime");
         }

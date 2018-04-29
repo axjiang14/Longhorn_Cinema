@@ -4,11 +4,12 @@
     ViewBag.Title = "DisplayCustomerReport";
 }
 
-<h2>Display Customer Report</h2>
+<h2>Displaying Customer Report for @Html.Raw(ViewBag.ReportUser)</h2>
 
 <p>
     @Html.ActionLink("Run Another Report", "Index", "Reports", null, null)
 </p>
+
 <table class="table">
     <tr>
         <th>

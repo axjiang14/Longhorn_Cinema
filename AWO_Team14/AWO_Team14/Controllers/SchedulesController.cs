@@ -62,14 +62,13 @@ namespace AWO_Team14.Controllers
                     foreach (Showing showing in SelectedShowings)
                     {
                         Showing copyShowing = new Showing();
-                        copyShowing.ShowDate = datCopyToDate;
                         copyShowing.Theater = theaterCopy;
                         copyShowing.Schedule = s;
-
                         copyShowing.Movie = showing.Movie;
                         copyShowing.StartHour = showing.StartHour;
                         copyShowing.StartMinute = showing.StartMinute;
-                        copyShowing.EndTime = showing.EndTime;
+                        copyShowing.ShowDate = datCopyToDate.AddHours(copyShowing.StartHour).AddMinutes(copyShowing.StartMinute).AddSeconds(0);
+                        copyShowing.EndTime = copyShowing.ShowDate.Add(copyShowing.Movie.RunTime);
                         copyShowing.Special = showing.Special;
 
                         db.Showings.Add(copyShowing);
@@ -131,7 +130,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ScheduleID,Published,StartDate")] Schedule schedule)
+        public ActionResult Create([Bind(Include = "ScheduleID,StartDate")] Schedule schedule)
         {
             schedule.StartDate = DateTime.Today;
             schedule.EndDate = DateTime.Today.AddDays(6);

@@ -26,7 +26,7 @@ namespace AWO_Team14.Migrations
                         Overview = c.String(nullable: false),
                         ReleaseYear = c.DateTime(nullable: false),
                         MPAA_Rating = c.Int(nullable: false),
-                        Runtime = c.Int(nullable: false),
+                        RunTime = c.Int(nullable: false),
                         Actors = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.MovieID);

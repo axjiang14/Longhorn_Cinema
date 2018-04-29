@@ -450,6 +450,7 @@
     <Compile Include="Models\Showing.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\DiscountPrice.cs" />
     <Compile Include="Utilities\Emailing.cs" />
     <Compile Include="Utilities\GenerateMovieNumber.cs" />
     <Compile Include="Utilities\ScheduleValidation.cs" />
@@ -534,10 +535,12 @@
     <Content Include="Views\MovieReviews\Index.cshtml" />
     <Content Include="Views\Accounts\RegisterEmployee.cshtml" />
     <Content Include="Views\Accounts\ChangeUserInfo.cshtml" />
+    <Content Include="Views\Showings\Reschedule.cshtml" />
     <Content Include="Views\MovieReviews\EditEmployee.cshtml" />
     <Content Include="Views\Accounts\EmployeeHome.cshtml" />
     <Content Include="Views\Accounts\RegisterCustomer.cshtml" />
     <Content Include="Views\Accounts\AddCreditCard.cshtml" />
+    <Content Include="Views\Reports\DisplayPopcornReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

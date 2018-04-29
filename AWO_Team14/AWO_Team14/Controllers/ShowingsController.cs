@@ -247,7 +247,7 @@ namespace AWO_Team14.Controllers
             
             showing.Movie = m;
 
-            showing.EndTime = showing.ShowDate.Add(m.Runtime);
+            showing.EndTime = showing.ShowDate.Add(m.RunTime);
 
             // find the schedule object associated with the showing's schedule's ScheduleID
             Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
@@ -255,15 +255,13 @@ namespace AWO_Team14.Controllers
             // set the showing's schedule to the 
             // newly found schedule object 
             showing.Schedule = schedule;
-
-            Boolean bolInRange = (showing.ShowDate >= schedule.StartDate) && (showing.ShowDate <= schedule.EndDate);
             
-            if (bolInRange == false)
+            if (ScheduleValidation.ShowingInRange(showing) == false)
             {
                 ViewBag.OutOfRange = "Show date is out of schedule date range";
             }
             
-            if (ScheduleValidation.ShowingValidation(showing) == "ok" && bolInRange)
+            if (ScheduleValidation.ShowingValidation(showing) == "ok" && ScheduleValidation.ShowingInRange(showing))
             {
                 if (ModelState.IsValid)
                 {
@@ -278,6 +276,76 @@ namespace AWO_Team14.Controllers
             return View(showing);
         }
 
+        // GET: Showings/Reschedule/5
+        public ActionResult Reschedule(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Showing showing = db.Showings.Find(id);
+            if (showing == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(showing);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reschedule([Bind(Include = "ShowingID,ShowDate,StartHour,StartMinute")] Showing showing, DateTime NewDate, int StartHour, int StartMinute)
+        {
+            Showing showingToChange = db.Showings.Include(x => x.Schedule)
+                                             .FirstOrDefault(x => x.ShowingID == showing.ShowingID);
+
+            // take back to Schedules/Details if Schedule is unpublished
+            if (showing.Schedule.Published == false)
+            {
+                ViewBag.RescheduleError = "Schedule is unpublished. Click 'Edit' to change showings.";
+                return RedirectToAction("Details", "Schedules", new { id = showingToChange.Schedule.ScheduleID });
+            }
+
+            if (ModelState.IsValid)
+            {
+                //Find showing to change
+                //Showing showingToChange = db.Showings.Find(showing.ShowingID);
+
+                //Find schedule to reattach
+                //Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
+                //showingToChange.Schedule = schedule;
+
+                //Remove existing movie
+
+                showingToChange.ShowDate = NewDate;
+
+                showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
+                //showingToChange.StartTime = showingToChange.ShowDate;
+                showingToChange.EndTime = showingToChange.ShowDate.Add(showingToChange.Movie.RunTime);
+                
+                // check if showing is range of current schedule
+                if (ScheduleValidation.ShowingInRange(showing))
+                {
+                    // checks is showing fits into current schedule
+                    if (ScheduleValidation.ShowingValidation(showing) == "ok")
+                    {
+                        db.Entry(showingToChange).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Details", "Schedules", new { id = showingToChange.Schedule.ScheduleID });
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = ScheduleValidation.ShowingValidation(showing);
+                    }
+                }
+                else
+                {
+                    ViewBag.OutOfRange = "Show date is out of schedule date range";
+                }
+            }
+
+            return View(showing);
+        }
         // GET: Showings/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -319,7 +387,7 @@ namespace AWO_Team14.Controllers
         //        //showingToChange.Movie = movie;
         //        showingToChange.ShowDate = showing.ShowDate;
         //        showingToChange.StartTime = showing.StartTime;
-        //        showing.EndTime = showing.StartTime.Add(movie.Runtime);
+        //        showing.EndTime = showing.StartTime.Add(movie.RunTime);
         //        showingToChange.Special = showing.Special;
         //        showingToChange.Theater = showing.Theater;
 
@@ -360,7 +428,7 @@ namespace AWO_Team14.Controllers
                 
                 showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
                 //showingToChange.StartTime = showingToChange.ShowDate;
-                showingToChange.EndTime = showingToChange.ShowDate.Add(movie.Runtime);
+                showingToChange.EndTime = showingToChange.ShowDate.Add(movie.RunTime);
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
@@ -430,12 +498,30 @@ namespace AWO_Team14.Controllers
             // saves showing's schedule to return to page 
             int ScheduleID = showing.Schedule.ScheduleID;
 
-            db.Showings.Remove(showing);
-            db.SaveChanges();
+            // if schedule is published
+            // showing is canceled not delete
+            if (showing.Schedule.Published && DateTime.Now < showing.ShowDate )
+            {
+                // go to the cancelling a showing controller 
+                showing.Schedule = null;
+                db.SaveChanges();
+                // returns to Schedule's Detail page
+                return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
+            }
+
+            // schedule is unpublished
+            if (showing.Schedule.Published == false)
+            {
+                // delete showing from table
+                db.Showings.Remove(showing);
+                db.SaveChanges();
+                // returns to Schedule's Detail page
+                return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
+            }
 
             // TODO: refund popcorn points
-            // returns to Schedule's Detail page
-            return RedirectToAction("Details","Schedules", new { id = ScheduleID });
+            return View(showing);
+            
         }
 
         protected override void Dispose(bool disposing)
