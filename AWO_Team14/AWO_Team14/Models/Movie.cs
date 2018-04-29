@@ -33,8 +33,7 @@ namespace AWO_Team14.Models
 
         [Required(ErrorMessage = "Release Year is required")]
         [Display(Name = "Release Year")]
-        [DataType(DataType.Date)]
-        public DateTime ReleaseYear { get; set; }
+        public Int32 ReleaseYear { get; set; }
 
         [Required(ErrorMessage = "MPAA Rating is required")]
         [Display(Name = "MPAA Rating")]

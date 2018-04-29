@@ -141,7 +141,7 @@ namespace AWO_Team14.Controllers
                 movieToChange.Overview = movie.Overview;
                 movieToChange.ReleaseYear = movie.ReleaseYear;
                 movieToChange.MPAA_Rating = movie.MPAA_Rating;
-                movieToChange.RunTime = movie.RunTime;
+                movieToChange.Runtime = movie.Runtime;
                 movieToChange.Actors = movie.Actors;
 
                 db.Entry(movieToChange).State = EntityState.Modified;
