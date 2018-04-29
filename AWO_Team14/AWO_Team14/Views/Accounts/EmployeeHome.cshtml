@@ -15,6 +15,9 @@
         <div>
             @Html.ActionLink("Make a Customer Transaction", "EmployeeCreate", "Transactions", null, new { @class = "btn btn-default" })
         </div>
+        <div>
+            @Html.ActionLink("Edit User Profiles", "ChangeUserProfile", "Accounts", null, new { @class = "btn btn-default" })
+        </div>
     }
 
     if (User.IsInRole("Manager"))
