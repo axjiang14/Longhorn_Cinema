@@ -70,7 +70,7 @@ namespace AWO_Team14.Controllers
             if (User.IsInRole("Customer"))
             {
                 String UserID = User.Identity.GetUserId();
-                UserMovieReviews = db.MovieReviews.Where(mr => mr.User.Id == UserID).ToList();
+                UserMovieReviews = db.MovieReviews.Where(mr => mr.User.Id == UserID).OrderBy(mr => mr.Status).ToList();
             }
            
             return View(UserMovieReviews);
