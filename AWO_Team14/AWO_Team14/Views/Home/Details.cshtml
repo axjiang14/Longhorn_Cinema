@@ -72,12 +72,14 @@
         </dt>
         <dd>
             @foreach (Genre genre in Model.Genres)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => genre.GenreName)
-                </td>
-            }
+
+        {
+            <td>
+                @Html.DisplayFor(modelItem => genre.GenreName)
+            </td>
+    }
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Showings)
         </dt>
@@ -89,17 +91,34 @@
                 <th>Details</th>
             </tr>
             @foreach (Showing showing in Model.Showings)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
-                    <td>@Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)</td>
-                    <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
-                    <td>@Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)</td>
-                </tr>
-            }
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
+                <td>@Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)</td>
+                <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
+                <td>@Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)</td>
+            </tr>
+    }
         </table>
 
-
+         <dt>
+            @Html.DisplayNameFor(model => model.MovieReviews)
+         </dt>
+         <table class="table table-sm table-striped">
+             <tr>
+                  <th>User</th>
+                  <th>Rating</th>
+                  <th>Review</th>
+             </tr>
+             @foreach (MovieReview movreview in Model.MovieReviews)
+              {
+                   <tr>
+                       <td>@Html.DisplayFor(modelItem => movreview.User.FirstName)</td>
+                       <td>@Html.DisplayFor(modelItem => movreview.Rating)</td>
+                       <td>@Html.DisplayFor(modelItem => movreview.Review)</td>
+                   </tr>
+               }
+            </table>
 
     </dl>
 </div>
