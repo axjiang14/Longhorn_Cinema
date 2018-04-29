@@ -415,6 +415,10 @@
     <Compile Include="Migrations\201804282203383_add data annotations to movie reviews.Designer.cs">
       <DependentUpon>201804282203383_add data annotations to movie reviews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804282355525_Change credit cards.cs" />
+    <Compile Include="Migrations\201804282355525_Change credit cards.Designer.cs">
+      <DependentUpon>201804282355525_Change credit cards.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -514,10 +518,14 @@
     <Content Include="Views\MovieReviews\Create.cshtml" />
     <Content Include="Views\MovieReviews\Delete.cshtml" />
     <Content Include="Views\MovieReviews\Details.cshtml" />
-    <Content Include="Views\MovieReviews\Edit.cshtml" />
+    <Content Include="Views\MovieReviews\EditUser.cshtml" />
     <Content Include="Views\MovieReviews\Index.cshtml" />
     <Content Include="Views\Accounts\RegisterEmployee.cshtml" />
     <Content Include="Views\Accounts\ChangeUserInfo.cshtml" />
+    <Content Include="Views\MovieReviews\EditEmployee.cshtml" />
+    <Content Include="Views\Accounts\EmployeeHome.cshtml" />
+    <Content Include="Views\Accounts\RegisterCustomer.cshtml" />
+    <Content Include="Views\Accounts\AddCreditCard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -696,6 +704,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804282203383_add data annotations to movie reviews.resx">
       <DependentUpon>201804282203383_add data annotations to movie reviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804282355525_Change credit cards.resx">
+      <DependentUpon>201804282355525_Change credit cards.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
