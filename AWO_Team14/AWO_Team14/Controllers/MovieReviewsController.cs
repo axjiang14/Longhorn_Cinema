@@ -20,24 +20,40 @@ namespace AWO_Team14.Controllers
         public SelectList GetUserMovies()
         {
             String UserID = User.Identity.GetUserId();
-            List<UserTicket> UserTickets = db.UserTickets.Where(ut => ut.Transaction.User.Id == UserID).ToList();
+
+            //generates a list of tickets that the user has seen in the past
+            var ticketsQ = db.UserTickets.Where(ut => ut.Transaction.User.Id == UserID);
+            ticketsQ = ticketsQ.Where(ut => ut.Status == Status.Active);
+            ticketsQ = ticketsQ.Where(ut => ut.Showing.EndTime < DateTime.Today);
+            List<UserTicket> UserTickets = ticketsQ.ToList();
+
+            //creates a list of movies that the user has reviewed
+            List<Movie> ReviewedMovies = new List<Movie>();
+            AppUser user = db.Users.Find(UserID);
+            foreach (MovieReview mr in user.MovieReviews)
+            {
+                ReviewedMovies.Add(mr.Movie);
+            }
+
             List<Movie> MoviesToDisplay = new List<Movie>();
 
-            AppUser user = db.Users.Find(UserID);
-
-            //foreach (MovieReview mr in user.MovieReviews)
-
-
-            // ADD NULL MOVIE
-            Movie SelectNone = new Movie() { MovieID = 0, Title = "No Movie", MovieNumber = 0 };
+            //creates a list of all of the movies that the user can review 
             foreach (UserTicket ut in UserTickets)
             {
                 //prevents duplicate movies from populating the list
-                if (! (MoviesToDisplay.Contains(ut.Showing.Movie)))
+                if (! (MoviesToDisplay.Contains(ut.Showing.Movie)) && !(ReviewedMovies.Contains(ut.Showing.Movie)))
                 {
                     MoviesToDisplay.Add(ut.Showing.Movie);
                 }
                 
+            }
+
+            //add a null movie if they don't have movies to review
+            if (MoviesToDisplay.Count() == 0)
+            {
+                // ADD NULL MOVIE
+                Movie SelectNone = new Movie() { MovieID = 0, Title = "No Movies to Review", Overview = "no movie", ReleaseYear = 1900, MPAA_Rating = MPAA.All, Runtime = new TimeSpan(0, 0, 0), Actors = "none" };
+                MoviesToDisplay.Add(SelectNone);
             }
 
             SelectList selMovies = new SelectList(MoviesToDisplay, "MovieID", "Title");
@@ -54,7 +70,7 @@ namespace AWO_Team14.Controllers
             if (User.IsInRole("Customer"))
             {
                 String UserID = User.Identity.GetUserId();
-                UserMovieReviews = db.MovieReviews.Where(mr => mr.User.Id == UserID).ToList();
+                UserMovieReviews = db.MovieReviews.Where(mr => mr.User.Id == UserID).OrderBy(mr => mr.Status).ToList();
             }
            
             return View(UserMovieReviews);
@@ -78,10 +94,12 @@ namespace AWO_Team14.Controllers
         // GET: MovieReviews/Create
         public ActionResult Create()
         {
-            //if (GetUserMovies().Count() == 0)
-            //{
-            //    return View();
-            //}
+            if (GetUserMovies().Count() == 0)
+            {
+                ViewBag.ErrorMessage = "You don't have any movies to review!!";
+                return View("Index");
+            }
+
             ViewBag.AllMovies = GetUserMovies();
             return View();
         }
@@ -93,27 +111,32 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MovieReviewID,Rating,Review")] MovieReview movieReview, Int32 SelectedMovie)
         {
-            Movie m = db.Movies.Find(SelectedMovie);
-            movieReview.Movie = m;
-
-            String UserID = User.Identity.GetUserId();
-            AppUser user = db.Users.Find(UserID);
-
-            movieReview.User = user;
-
-            movieReview.Status = ReviewStatus.Pending;
-
-
-            if (ModelState.IsValid)
+            if ((SelectedMovie != 0))
             {
+                Movie m = db.Movies.Find(SelectedMovie);
+                movieReview.Movie = m;
+
+                String UserID = User.Identity.GetUserId();
+                AppUser user = db.Users.Find(UserID);
+
+                movieReview.User = user;
+
+                movieReview.Status = ReviewStatus.Pending;
+
+
+                if (ModelState.IsValid)
+                {
+
+                    db.MovieReviews.Add(movieReview);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
                 
-                db.MovieReviews.Add(movieReview);
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
             ViewBag.AllMovies = GetUserMovies();
             return View(movieReview);
+
         }
 
         // GET: MovieReviews/Edit/5
@@ -140,6 +163,9 @@ namespace AWO_Team14.Controllers
         {
             MovieReview mrToChange = db.MovieReviews.Include(x => x.User).FirstOrDefault(x => x.MovieReviewID == movieReview.MovieReviewID);
             mrToChange.Status = ReviewStatus.Pending;
+            mrToChange.Rating = movieReview.Rating;
+            mrToChange.Review = movieReview.Review;
+
             if (ModelState.IsValid)
             {
                 db.Entry(mrToChange).State = EntityState.Modified;

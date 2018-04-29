@@ -523,11 +523,33 @@ namespace AWO_Team14.Controllers
         {
             Transaction transaction = db.Transactions.Find(id);
 
-            foreach (UserTicket t in transaction.UserTickets)
+			if (transaction.Payment == Payment.PopcornPoints)
+			{
+				Int32 CurPopPoints = transaction.User.PopcornPoints;
+				Int32 intTickets = transaction.UserTickets.Count();
+				Int32 PPTickets = intTickets * 100;
+				transaction.User.PopcornPoints = CurPopPoints + PPTickets;
+			}
+
+			//TODO: DAN - email customers that used credit card that their $ has been refunded
+
+			if (transaction.Payment == Payment.CreditCard)
+			{
+				Decimal decPopPoints = transaction.UserTickets.Sum(ut => ut.CurrentPrice);
+
+				Int32 intPopPoints = Convert.ToInt32(decPopPoints - (decPopPoints % 1));
+
+				//Int32 CurPopPoints = transaction .User.PopcornPoints;
+
+				transaction.User.PopcornPoints -= intPopPoints;
+
+			}
+
+			foreach (UserTicket t in transaction.UserTickets)
             {
                 t.Status = Status.Returned;
                 t.SeatNumber = Seat.Seat;
-            }
+			}
             db.SaveChanges();
             return RedirectToAction("Index");
         }

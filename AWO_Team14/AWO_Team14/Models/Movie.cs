@@ -58,9 +58,26 @@ namespace AWO_Team14.Models
                 }
                 else
                 {
-                    Double dblAvg =  MovieReviews.Average(m => (int)m.Rating);
-                    Decimal decAvg = Convert.ToDecimal(dblAvg);
-                    return decAvg;
+                    List<MovieReview> ApprovedReviews = new List<MovieReview>();
+                    foreach(MovieReview item in MovieReviews)
+                    {
+                        if (item.Status == ReviewStatus.Approved)
+                        {
+                            ApprovedReviews.Add(item);
+                        }
+                    }
+
+                    if (ApprovedReviews.Count() == 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        Double dblAvg = ApprovedReviews.Average(m => (int)m.Rating);
+                        Decimal decAvg = Convert.ToDecimal(dblAvg);
+                        return decAvg;
+                    }
+                  
                 }
                 
             }

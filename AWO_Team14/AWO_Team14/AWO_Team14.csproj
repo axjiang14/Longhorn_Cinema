@@ -439,6 +439,14 @@
     <Compile Include="Migrations\201804291941101_add moviereviews to user.Designer.cs">
       <DependentUpon>201804291941101_add moviereviews to user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804292115249_redo ratings average.cs" />
+    <Compile Include="Migrations\201804292115249_redo ratings average.Designer.cs">
+      <DependentUpon>201804292115249_redo ratings average.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804292121108_i wasnt done.cs" />
+    <Compile Include="Migrations\201804292121108_i wasnt done.Designer.cs">
+      <DependentUpon>201804292121108_i wasnt done.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -748,6 +756,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804291941101_add moviereviews to user.resx">
       <DependentUpon>201804291941101_add moviereviews to user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804292115249_redo ratings average.resx">
+      <DependentUpon>201804292115249_redo ratings average.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804292121108_i wasnt done.resx">
+      <DependentUpon>201804292121108_i wasnt done.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
