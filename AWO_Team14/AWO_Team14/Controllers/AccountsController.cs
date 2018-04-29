@@ -455,20 +455,18 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, MiddleInitial, Street, City, State, Zip, Birthday, CreditCardNumber1, CreditCardNumber2, Popcorn Points, Archived, PhoneNumber")] AppUser user)
+        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, Street, City, State, Zip, Birthday, PhoneNumber")] AppUser user)
         {
+            AppUser AppUser = db.Users.Find(user.Id);
+            AppUser.Street = user.Street;
+            AppUser.City = user.City;
+            AppUser.State = user.State;
+            AppUser.Zip = user.Zip;
+            AppUser.Birthday = user.Birthday;
+            AppUser.PhoneNumber = user.PhoneNumber;
+
             if (ModelState.IsValid)
             {
-                //Find user to change
-                AppUser AppUser = db.Users.Find(user.Id);
-
-                //Change other properties
-                AppUser.Street = user.Street;
-                AppUser.City = user.City;
-                AppUser.State = user.State;
-                AppUser.Zip = user.Zip;
-                AppUser.Birthday = user.Birthday;
-                AppUser.PhoneNumber = user.PhoneNumber;
 
                 db.Entry(AppUser).State = EntityState.Modified;
                 db.SaveChanges();
@@ -485,17 +483,17 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddCreditCard([Bind(Include = "CreditCardNumber1, CreditCardNumber2")] AppUser user)
+        public ActionResult AddCreditCard([Bind(Include = "CreditCardNumber1, CreditCardNumber2, FirstName, LastName, Street, City, State, Zip, Birthday, PhoneNumber")] AppUser user)
         {
+            //Find user to change
+            AppUser AppUser = db.Users.Find(user.Id);
+
+            //Change other properties
+            AppUser.CreditCardNumber1 = user.CreditCardNumber1;
+            AppUser.CreditCardNumber2 = user.CreditCardNumber2;
+
             if (ModelState.IsValid)
             {
-                //Find user to change
-                AppUser AppUser = db.Users.Find(user.Id);
-
-                //Change other properties
-                AppUser.CreditCardNumber1 = user.CreditCardNumber1;
-                AppUser.CreditCardNumber2 = user.CreditCardNumber2;
-
                 db.Entry(AppUser).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "Accounts");

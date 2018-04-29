@@ -419,9 +419,14 @@
     <Compile Include="Migrations\201804282355525_Change credit cards.Designer.cs">
       <DependentUpon>201804282355525_Change credit cards.cs</DependentUpon>
     </Compile>
+
     <Compile Include="Migrations\201804290240142_add average customer rating.cs" />
     <Compile Include="Migrations\201804290240142_add average customer rating.Designer.cs">
       <DependentUpon>201804290240142_add average customer rating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804290200184_Require user fields.cs" />
+    <Compile Include="Migrations\201804290200184_Require user fields.Designer.cs">
+      <DependentUpon>201804290200184_Require user fields.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
@@ -714,6 +719,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804290240142_add average customer rating.resx">
       <DependentUpon>201804290240142_add average customer rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804290200184_Require user fields.resx">
+      <DependentUpon>201804290200184_Require user fields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
