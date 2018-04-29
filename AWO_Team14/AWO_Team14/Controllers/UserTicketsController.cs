@@ -185,7 +185,7 @@ namespace AWO_Team14.Controllers
                 t.UserTickets.Remove(userTicket);
                 db.UserTickets.Remove(userTicket);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
+                return RedirectToAction("PendingDetails", "Transactions", new { id = t.TransactionID });
 
             }
             else

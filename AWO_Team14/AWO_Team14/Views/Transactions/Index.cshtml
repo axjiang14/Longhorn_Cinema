@@ -12,7 +12,8 @@
     @Html.ActionLink("New Transaction", "Create", null, new { @class = "btn btn-info" })
 </p>
 }
-<table class="table">
+<table class="table table-striped">
+    <thead style="background-color: #fae3d9;">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.TransactionID)
@@ -31,6 +32,7 @@
         </th>
         <th></th>
     </tr>
+</thead>
 
     @foreach (var item in Model)
     {
@@ -60,7 +62,7 @@
 @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
 {
 
-@Html.ActionLink("Edit", "Edit", new { id = item.TransactionID }) 
+<span>@Html.ActionLink("Edit", "Edit", new { id = item.TransactionID }) | </span>
 
 @Html.ActionLink("Delete", "Delete", new { id = item.TransactionID })
 
