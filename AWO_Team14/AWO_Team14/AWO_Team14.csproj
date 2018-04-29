@@ -526,14 +526,11 @@
     <Content Include="Views\MovieReviews\Index.cshtml" />
     <Content Include="Views\Accounts\RegisterEmployee.cshtml" />
     <Content Include="Views\Accounts\ChangeUserInfo.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Showings\Reschedule.cshtml" />
-=======
     <Content Include="Views\MovieReviews\EditEmployee.cshtml" />
     <Content Include="Views\Accounts\EmployeeHome.cshtml" />
     <Content Include="Views\Accounts\RegisterCustomer.cshtml" />
     <Content Include="Views\Accounts\AddCreditCard.cshtml" />
->>>>>>> e4ce2f88a8d71a1a320025445d45ea78731d29d9
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
