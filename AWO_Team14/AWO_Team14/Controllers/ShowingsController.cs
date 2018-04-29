@@ -247,7 +247,7 @@ namespace AWO_Team14.Controllers
             
             showing.Movie = m;
 
-            showing.EndTime = showing.ShowDate.Add(m.Runtime);
+            showing.EndTime = showing.ShowDate.Add(m.RunTime);
 
             // find the schedule object associated with the showing's schedule's ScheduleID
             Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
@@ -321,7 +321,7 @@ namespace AWO_Team14.Controllers
 
                 showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
                 //showingToChange.StartTime = showingToChange.ShowDate;
-                showingToChange.EndTime = showingToChange.ShowDate.Add(showingToChange.Movie.Runtime);
+                showingToChange.EndTime = showingToChange.ShowDate.Add(showingToChange.Movie.RunTime);
                 
                 // check if showing is range of current schedule
                 if (ScheduleValidation.ShowingInRange(showing))
@@ -387,7 +387,7 @@ namespace AWO_Team14.Controllers
         //        //showingToChange.Movie = movie;
         //        showingToChange.ShowDate = showing.ShowDate;
         //        showingToChange.StartTime = showing.StartTime;
-        //        showing.EndTime = showing.StartTime.Add(movie.Runtime);
+        //        showing.EndTime = showing.StartTime.Add(movie.RunTime);
         //        showingToChange.Special = showing.Special;
         //        showingToChange.Theater = showing.Theater;
 
@@ -428,7 +428,7 @@ namespace AWO_Team14.Controllers
                 
                 showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
                 //showingToChange.StartTime = showingToChange.ShowDate;
-                showingToChange.EndTime = showingToChange.ShowDate.Add(movie.Runtime);
+                showingToChange.EndTime = showingToChange.ShowDate.Add(movie.RunTime);
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
