@@ -34,16 +34,17 @@
         @Html.ListBox("MPAARating", (MultiSelectList)ViewBag.AllMPAA, new { @class = "form-control" })
     </p>
 
-    @*<p class="form-group">
-            Customer Rating:
-            <label class="radio">@Html.RadioButton("SearchRange", RangeType.Greater, true)Greater Than</label>
-            <label class="radio">@Html.RadioButton("SearchRange", RangeType.Less)Less Than</label>
-            @Html.TextBox("SearchCustRating", null, new { @class = "form-control" })
-        </p>
-    *@
     <p class="form-group">
         Actors: @Html.TextBox("SearchActors", null, new { @class = "form-control" })
         <br />
+    </p>
+
+    <p class="form-group">
+        Average Rating: @Html.TextBox("SearchStarRatings", null, new { @class = "form-control" })
+    </p>
+    <p class="form-group">
+        <label class="radio">@Html.RadioButton("SelectedStar", StarComp.GreaterThan,true)Greater Than</label>
+        <label class="radio">@Html.RadioButton("SelectedStar", StarComp.LessThan)Less Than</label>
     </p>
     <p class="form-group">
         <input type="submit" value="Search" class="btn btn-default" />
