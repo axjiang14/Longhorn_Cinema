@@ -47,6 +47,26 @@ namespace AWO_Team14.Models
         [Required(ErrorMessage = "Actors are required")]
         public String Actors { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:0.0}")]
+        [Display(Name = "Ratings Average")]
+        public Decimal RatingsAvg
+        {
+            get
+            {
+                if (MovieReviews.Count() == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    Double dblAvg =  MovieReviews.Average(m => (int)m.Rating);
+                    Decimal decAvg = Convert.ToDecimal(dblAvg);
+                    return decAvg;
+                }
+                
+            }
+        }
+
         public virtual List<Genre> Genres { get; set; } 
         public virtual List<MovieReview> MovieReviews { get; set; }
         public virtual List<Showing> Showings { get; set; }

@@ -22,6 +22,10 @@ namespace AWO_Team14.Controllers
             String UserID = User.Identity.GetUserId();
             List<UserTicket> UserTickets = db.UserTickets.Where(ut => ut.Transaction.User.Id == UserID).ToList();
             List<Movie> MoviesToDisplay = new List<Movie>();
+
+
+            // ADD NULL MOVIE
+            Movie SelectNone = new Movie() { MovieID = 0, Title = "No Movie", MovieNumber = 0 };
             foreach (UserTicket ut in UserTickets)
             {
                 //only let users write reviews for movies they have seen
@@ -70,10 +74,10 @@ namespace AWO_Team14.Controllers
         // GET: MovieReviews/Create
         public ActionResult Create()
         {
-            if (GetUserMovies().Count() == 0)
-            {
-                return View();
-            }
+            //if (GetUserMovies().Count() == 0)
+            //{
+            //    return View();
+            //}
             ViewBag.AllMovies = GetUserMovies();
             return View();
         }
