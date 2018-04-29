@@ -73,7 +73,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,Runtime,Actors")] Movie movie, int[] SelectedGenres)
+        public ActionResult Create([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,RunTime,Actors")] Movie movie, int[] SelectedGenres)
         {
             movie.MovieNumber = Utilities.GenerateMovieNumber.GetNextMovieNum();
 
@@ -116,7 +116,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,Runtime,Actors")] Movie movie, int[] SelectedGenres)
+        public ActionResult Edit([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,RunTime,Actors")] Movie movie, int[] SelectedGenres)
         {
 
             if (ModelState.IsValid)
@@ -141,7 +141,7 @@ namespace AWO_Team14.Controllers
                 movieToChange.Overview = movie.Overview;
                 movieToChange.ReleaseYear = movie.ReleaseYear;
                 movieToChange.MPAA_Rating = movie.MPAA_Rating;
-                movieToChange.Runtime = movie.Runtime;
+                movieToChange.RunTime = movie.RunTime;
                 movieToChange.Actors = movie.Actors;
 
                 db.Entry(movieToChange).State = EntityState.Modified;

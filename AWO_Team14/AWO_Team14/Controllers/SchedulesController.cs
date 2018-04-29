@@ -68,7 +68,7 @@ namespace AWO_Team14.Controllers
                         copyShowing.StartHour = showing.StartHour;
                         copyShowing.StartMinute = showing.StartMinute;
                         copyShowing.ShowDate = datCopyToDate.AddHours(copyShowing.StartHour).AddMinutes(copyShowing.StartMinute).AddSeconds(0);
-                        copyShowing.EndTime = copyShowing.ShowDate.Add(copyShowing.Movie.Runtime);
+                        copyShowing.EndTime = copyShowing.ShowDate.Add(copyShowing.Movie.RunTime);
                         copyShowing.Special = showing.Special;
 
                         db.Showings.Add(copyShowing);

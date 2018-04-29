@@ -1,4 +1,4 @@
-﻿@model AWO_Team14.Models.Movie
+﻿@*@model AWO_Team14.Models.Movie
 
 
 @{
@@ -50,7 +50,9 @@
             @Html.DisplayFor(model => model.Runtime)
         </dd>
 
-
+        <dt>
+            @Html.DisplayNameFor(model => model.RatingsAvg)
+        </dt>
         <dd>
             @Html.DisplayFor(model => model.RatingsAvg)
         </dd>
@@ -62,4 +64,4 @@
 <p>
     @Html.ActionLink("Edit", "Movies", "Edit", null, new { id = Model.MovieID }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</p>*@
