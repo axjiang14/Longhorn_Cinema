@@ -37,10 +37,10 @@ namespace AWO_Team14.Controllers
             if (roles.Any())
             {
                 var roleId = roles.First().Id;
-                var dbCustomers = from user in db.Users
+                var dbEmployees = from user in db.Users
                                   where user.Roles.Any(r => r.RoleId == roleId)
                                   select user;
-                List<AppUser> Employees = dbCustomers.ToList();
+                List<AppUser> Employees = dbEmployees.ToList();
 
                 SelectList EmployeesList = new SelectList(Employees.OrderBy(u => u.Id), "Id", "UserName");
 
@@ -51,7 +51,45 @@ namespace AWO_Team14.Controllers
             return null;
         }
 
-        public ActionResult EmployeeHome()
+        public SelectList GetAllUsers()
+        {
+            if (User.IsInRole("Manager"))
+            { 
+            var roles = db.Roles.Where(r => r.Name == "Customer" ||r.Name == "Employee");
+                if (roles.Any())
+                {
+                    var roleId = roles.First().Id;
+                    var dbUsers = from user in db.Users
+                                      where user.Roles.Any(r => r.RoleId == roleId)
+                                      select user;
+                    List<AppUser> Users = dbUsers.ToList();
+
+                    SelectList UsersList = new SelectList(Users.OrderBy(u => u.Id), "Id", "UserName");
+
+                    return UsersList;
+                }
+            }
+            if (User.IsInRole("Employee"))
+            {
+                var roles = db.Roles.Where(r => r.Name == "Customer");
+                if (roles.Any())
+                {
+                    var roleId = roles.First().Id;
+                    var dbUsers = from user in db.Users
+                                  where user.Roles.Any(r => r.RoleId == roleId)
+                                  select user;
+                    List<AppUser> Users = dbUsers.ToList();
+
+                    SelectList UsersList = new SelectList(Users.OrderBy(u => u.Id), "Id", "UserName");
+
+                    return UsersList;
+                }
+            }
+
+            return null;
+        }
+
+            public ActionResult EmployeeHome()
         {
             return View();
         }
@@ -412,6 +450,23 @@ namespace AWO_Team14.Controllers
         //    return View();
         //}
 
+        [Authorize(Roles = "Manager, Employee")]
+        public ActionResult ChangeUserProfile()
+        {
+            ViewBag.AllUsers = GetAllUsers();
+
+            return View();
+        }
+
+        [Authorize(Roles = "Manager, Employee")]
+        [HttpPost]
+        public ActionResult ChangeUserProfile(String Id)
+        {
+            AppUser user = db.Users.Find(Id);
+
+            return RedirectToAction("ChangeUserInfo", "Accounts", new { id = user.Id });
+        }
+
         //GET: Accounts/Index
         public ActionResult Index()
         {
@@ -501,6 +556,11 @@ namespace AWO_Team14.Controllers
 
                 db.Entry(AppUser).State = EntityState.Modified;
                 db.SaveChanges();
+                if (user.Id != User.Identity.GetUserId())
+                {
+                    return RedirectToAction("EmployeeHome", "Accounts");
+                }
+
                 return RedirectToAction("Index", "Accounts");
             }
             return View(user);
