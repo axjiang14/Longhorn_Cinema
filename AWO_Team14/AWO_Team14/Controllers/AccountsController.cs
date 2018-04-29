@@ -455,9 +455,9 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, Street, City, State, Zip, Birthday, PhoneNumber")] AppUser user)
+        public ActionResult ChangeUserInfo([Bind(Include = "FirstName, LastName, Street, City, State, Zip, Birthday, PhoneNumber, Email")] AppUser user)
         {
-            AppUser AppUser = db.Users.Find(user.Id);
+            AppUser AppUser = db.Users.First(u => u.Email == user.Email);
             AppUser.Street = user.Street;
             AppUser.City = user.City;
             AppUser.State = user.State;
@@ -483,10 +483,10 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddCreditCard([Bind(Include = "CreditCardNumber1, CreditCardNumber2, FirstName, LastName, Street, City, State, Zip, Birthday, PhoneNumber")] AppUser user)
+        public ActionResult AddCreditCard([Bind(Include = "CreditCardNumber1, CreditCardNumber2, FirstName, LastName, Street, City, State, Zip, Birthday, PhoneNumber, Email")] AppUser user)
         {
             //Find user to change
-            AppUser AppUser = db.Users.Find(user.Id);
+            AppUser AppUser = db.Users.First(u => u.Email == user.Email);
 
             //Change other properties
             AppUser.CreditCardNumber1 = user.CreditCardNumber1;
