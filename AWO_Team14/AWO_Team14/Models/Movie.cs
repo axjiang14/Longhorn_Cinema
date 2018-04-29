@@ -67,9 +67,17 @@ namespace AWO_Team14.Models
                         }
                     }
 
-                    Double dblAvg =  ApprovedReviews.Average(m => (int)m.Rating);
-                    Decimal decAvg = Convert.ToDecimal(dblAvg);
-                    return decAvg;
+                    if (ApprovedReviews.Count() == 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        Double dblAvg = ApprovedReviews.Average(m => (int)m.Rating);
+                        Decimal decAvg = Convert.ToDecimal(dblAvg);
+                        return decAvg;
+                    }
+                  
                 }
                 
             }
