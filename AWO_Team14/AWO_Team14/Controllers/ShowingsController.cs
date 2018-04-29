@@ -24,77 +24,6 @@ namespace AWO_Team14.Controllers
 			return View(db.Showings.OrderBy(s =>s.ShowDate).ToList());
         }
 
-        //public ActionResult DayShowings(String ShowDate)
-        //{
-        //    DateTime firstSunday = new DateTime(1753, 1, 7);
-
-        //    List<Showing> Showings = new List<Showing>();
-        //    //var query = from s in db.Showings
-        //    //            select s;
-        //    //query = query.Where(s => s.ShowDate.DayOfWeek == ShowDate);
-
-        //    if (ShowDate == "Friday")
-        //    {
-        //        var query = from s in db.Showings
-        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 5
-        //                    select s;
-        //        Showings = query.ToList();
-        //    }
-
-        //    if (ShowDate == "Thursday")
-        //    {
-        //        var query = from s in db.Showings
-        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 4
-        //                    select s;
-        //        Showings = query.ToList();
-        //    }
-
-        //    if (ShowDate == "Wednesday")
-        //    {
-        //        var query = from s in db.Showings
-        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 3
-        //                    select s;
-        //        Showings = query.ToList();
-        //    }
-
-        //    if (ShowDate == "Tuesday")
-        //    {
-        //        var query = from s in db.Showings
-        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 2
-        //                    select s;
-        //        Showings = query.ToList();
-        //    }
-
-        //    if (ShowDate == "Monday")
-        //    {
-        //        var query = from s in db.Showings
-        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 1
-        //                    select s;
-        //        Showings = query.ToList();
-        //    }
-
-        //    if (ShowDate == "Saturday")
-        //    {
-        //        var query = from s in db.Showings
-        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 6
-        //                    select s;
-        //        Showings = query.ToList();
-        //    }
-
-        //    if (ShowDate == "Sunday")
-        //    {
-        //        var query = from s in db.Showings
-        //                    where DbFunctions.DiffDays(firstSunday, s.ShowDate) % 7 == 0
-        //                    select s;
-        //        Showings = query.ToList();
-        //    }
-
-        //    return View("Index", Showings.OrderBy(s => s.ShowTime));
-
-
-
-        //}
-
         public ActionResult DayShowings(String ShowDate, Theater Theater)
         {
             DateTime firstSunday = new DateTime(1753, 1, 7);
@@ -217,6 +146,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Showings/Create
+        [Authorize(Roles = "Manager")]
         public ActionResult Create(int ScheduleID)
         {
             Showing showing = new Showing();
@@ -236,6 +166,7 @@ namespace AWO_Team14.Controllers
         // POST: Showings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "ShowingID,ShowDate,StartHour, StartMinute, Special,Theater")]
@@ -277,6 +208,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Showings/Reschedule/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Reschedule(int? id)
         {
             if (id == null)
@@ -294,6 +226,7 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public ActionResult Reschedule([Bind(Include = "ShowingID,ShowDate,StartHour,StartMinute")] Showing showing, DateTime NewDate, int StartHour, int StartMinute)
         {
             Showing showingToChange = db.Showings.Include(x => x.Schedule)
@@ -308,19 +241,10 @@ namespace AWO_Team14.Controllers
 
             if (ModelState.IsValid)
             {
-                //Find showing to change
-                //Showing showingToChange = db.Showings.Find(showing.ShowingID);
-
-                //Find schedule to reattach
-                //Schedule schedule = db.Schedules.Find(showing.Schedule.ScheduleID);
-                //showingToChange.Schedule = schedule;
-
-                //Remove existing movie
 
                 showingToChange.ShowDate = NewDate;
 
                 showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
-                //showingToChange.StartTime = showingToChange.ShowDate;
                 showingToChange.EndTime = showingToChange.ShowDate.Add(showingToChange.Movie.Runtime);
                 
                 // check if showing is range of current schedule
@@ -346,6 +270,8 @@ namespace AWO_Team14.Controllers
 
             return View(showing);
         }
+
+        [Authorize(Roles = "Manager")]
         // GET: Showings/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -405,6 +331,7 @@ namespace AWO_Team14.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,Special,StartHour,StartMinute,Theater")] Showing showing, int SelectedMovie, int StartHour, int StartMinute)
         {
             Showing showingToChange = db.Showings.Include(x => x.Schedule)
@@ -449,13 +376,14 @@ namespace AWO_Team14.Controllers
         }
 
 
+        [Authorize(Roles = "Manager")]
         public ActionResult CheckDayShowings()
         {
             return View();
 
         }
 
-        
+        [Authorize(Roles = "Manager")]
         public ActionResult DisplayCheckDayShowings(DateTime ShowDate, Theater SelectedTheater)
         {
             AppDbContext db = new AppDbContext();
@@ -474,6 +402,7 @@ namespace AWO_Team14.Controllers
 
 
         // GET: Showings/Delete/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -489,6 +418,7 @@ namespace AWO_Team14.Controllers
         }
 
         // POST: Showings/Delete/5
+        [Authorize(Roles = "Manager")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

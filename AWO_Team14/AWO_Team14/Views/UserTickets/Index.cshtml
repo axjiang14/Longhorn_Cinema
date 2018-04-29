@@ -8,6 +8,7 @@
 
 <table class="table">
     <tr>
+        <th>Purchaser</th>
         <th>Movie</th>
         <th>Showdate</th>
         <th>Showtime</th>
@@ -18,19 +19,20 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>@Html.DisplayFor(model => item.Showing.Movie.Title)</td>
-            <td>@Html.DisplayFor(model => item.Showing.ShowDate.Date)</td>
-            <td>@Html.DisplayFor(model => item.Showing.ShowDate.TimeOfDay)</td>
-            <td>@Html.DisplayFor(model => item.CurrentPrice)</td>
-            <td>@Html.DisplayFor(model => item.Status)</td>
-            <td>@Html.DisplayFor(model => item.SeatNumber) </td>
-            <td>
-                @Html.ActionLink("Choose a seat", "Edit", new { id = item.UserTicketID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.UserTicketID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserTicketID })
-            </td>
-        </tr>
+    <tr>
+        <td>@Html.DisplayFor(model => item.Transaction.User.Email)</td>
+        <td>@Html.DisplayFor(model => item.Showing.Movie.Title)</td>
+        <td>@Html.DisplayFor(model => item.Showing.ShowDate.Date)</td>
+        <td>@Html.DisplayFor(model => item.Showing.ShowDate.TimeOfDay)</td>
+        <td>@Html.DisplayFor(model => item.CurrentPrice)</td>
+        <td>@Html.DisplayFor(model => item.Status)</td>
+        <td>@Html.DisplayFor(model => item.SeatNumber) </td>
+        <td>
+            @Html.ActionLink("Choose a seat", "Edit", new { id = item.UserTicketID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserTicketID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserTicketID })
+        </td>
+    </tr>
     }
 
 </table>

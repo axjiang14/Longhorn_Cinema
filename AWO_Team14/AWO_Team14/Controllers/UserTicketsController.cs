@@ -18,6 +18,7 @@ namespace AWO_Team14.Controllers
         private AppDbContext db = new AppDbContext();
 
         // GET: UserTickets
+        [Authorize]
         public ActionResult Index()
         {
             var query = from ut in db.UserTickets
@@ -57,6 +58,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: UserTickets/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -72,6 +74,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: UserTickets/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -82,6 +85,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "UserTicketID,CurrentPrice,Status")] UserTicket userTicket)
         {
             if (ModelState.IsValid)
@@ -96,6 +100,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: UserTickets/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -117,6 +122,7 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "UserTicketID,CurrentPrice,Status")] UserTicket userTicket, Seat SelectedSeat)
         {
             UserTicket ut= db.UserTickets.Include(UT => UT.Transaction)
@@ -148,6 +154,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: UserTickets/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -163,6 +170,7 @@ namespace AWO_Team14.Controllers
         }
 
         // POST: UserTickets/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         //TODO: Removing tickets

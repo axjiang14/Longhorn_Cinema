@@ -57,7 +57,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.TransactionID }) |
                 @Html.ActionLink("Change Seats/Remove Tickets", "RemoveFromTransaction", new { id = item.TransactionID }) |
  
-@if (User.IsInRole("Manager"))
+@if (User.IsInRole("Manager") || User.IsInRole("Employee"))
 {
 
 @Html.ActionLink("Edit", "Edit", new { id = item.TransactionID }) 

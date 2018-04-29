@@ -8,9 +8,16 @@
 
 <p>@Html.Raw(ViewBag.ErrorMessage)</p>
 
+@if (User.IsInRole("Manager"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <p>@Html.ActionLink("Check the Showings for a Day", "CheckDayShowings")
+    </p>
+}
 
-@Html.ActionLink("Check the Showings for a Day", "CheckDayShowings")
-
+    <h2>All Showings</h2>
 <table class="table table-sm table-striped">
     <tr>
         <th>Theater One</th>
@@ -21,15 +28,15 @@
         </td>
         <td>
             @Html.ActionLink("Saturday", "DayShowings", new { ShowDate = "Saturday", Theater = Theater.One })
-    </td>
-    <td>
-        @Html.ActionLink("Sunday", "DayShowings", new { ShowDate = "Sunday", Theater = Theater.One })
-</td>
-<td>@Html.ActionLink("Monday", "DayShowings", new { ShowDate = "Monday", Theater = Theater.One })</td>
-<td>@Html.ActionLink("Tuesday", "DayShowings", new { ShowDate = "Tuesday", Theater = Theater.One })</td>
-<td>@Html.ActionLink("Wednesday", "DayShowings", new { ShowDate = "Wednesday", Theater = Theater.One })</td>
-<td>@Html.ActionLink("Thursday", "DayShowings", new { ShowDate = "Thursday", Theater = Theater.One })</td>
-</tr>
+        </td>
+        <td>
+            @Html.ActionLink("Sunday", "DayShowings", new { ShowDate = "Sunday", Theater = Theater.One })
+        </td>
+        <td>@Html.ActionLink("Monday", "DayShowings", new { ShowDate = "Monday", Theater = Theater.One })</td>
+        <td>@Html.ActionLink("Tuesday", "DayShowings", new { ShowDate = "Tuesday", Theater = Theater.One })</td>
+        <td>@Html.ActionLink("Wednesday", "DayShowings", new { ShowDate = "Wednesday", Theater = Theater.One })</td>
+        <td>@Html.ActionLink("Thursday", "DayShowings", new { ShowDate = "Thursday", Theater = Theater.One })</td>
+    </tr>
 </table>
 
 <table class="table table-sm table-striped">
@@ -53,30 +60,10 @@
     </tr>
 </table>
 
-@*<li class="dropdown">
-        <a class="dropdown-toggle" role="button" aria-expanded="false" href="#" data-toggle="dropdown">Friday<span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-            <li>@Html.ActionLink("Friday", "DayShowings", new { ShowDate = "Friday", Theater = "One" })</li>
-            <li>@Html.ActionLink("Friday", "DayShowings", new { ShowDate = "Friday", Theater = "Two" })</li>
-        </ul>
-    </li>*@
 
-@*<div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Friday
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            @Html.ActionLink("Friday", "DayShowings", new { ShowDate = "Friday", Theater = "One" })
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-    </div>*@
 
-<h2>Schedule Showings</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -116,9 +103,12 @@
                 @Html.DisplayFor(modelItem => item.Theater)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ShowingID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ShowingID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ShowingID })
+                @Html.ActionLink("Details", "Details", new { id = item.ShowingID })
+                @if (User.IsInRole("Manager"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ShowingID })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ShowingID })
+                }
             </td>
         </tr>
     }
