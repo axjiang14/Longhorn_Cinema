@@ -23,12 +23,16 @@ namespace AWO_Team14.Controllers
             List<UserTicket> UserTickets = db.UserTickets.Where(ut => ut.Transaction.User.Id == UserID).ToList();
             List<Movie> MoviesToDisplay = new List<Movie>();
 
+            AppUser user = db.Users.Find(UserID);
+
+            //foreach (MovieReview mr in user.MovieReviews)
+
 
             // ADD NULL MOVIE
             Movie SelectNone = new Movie() { MovieID = 0, Title = "No Movie", MovieNumber = 0 };
             foreach (UserTicket ut in UserTickets)
             {
-                //only let users write reviews for movies they have seen
+                //prevents duplicate movies from populating the list
                 if (! (MoviesToDisplay.Contains(ut.Showing.Movie)))
                 {
                     MoviesToDisplay.Add(ut.Showing.Movie);
