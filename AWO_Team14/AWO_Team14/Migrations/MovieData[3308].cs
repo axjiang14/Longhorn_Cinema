@@ -36,12 +36,12 @@ namespace AWO_Team14.Migrations
 			m2.MPAA_Rating = MPAA.Unrated;
 			m2.Actors = "Clark Gable, Claudette Colbert, Walter Connolly, Roscoe Karns, Jameson Thomas, Alan Hale";
 			m2.ReleaseYear = 1934;
-			m2.Runtime = new TimeSpan(0,105, 0);
+			m2.Runtime = new TimeSpan(0, 105, 0);
 			db.Movies.AddOrUpdate(m => m.Title, m2);
 			db.SaveChanges();
 			m2 = db.Movies.FirstOrDefault(m => m.MovieNumber == m2.MovieNumber);
 			m2.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-			m2.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName  == "Romance"));
+			m2.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 
 			db.SaveChanges();
 
@@ -60,7 +60,7 @@ namespace AWO_Team14.Migrations
 			m3.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m3.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m3.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m4 = new Movie();
@@ -78,7 +78,7 @@ namespace AWO_Team14.Migrations
 			m4.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m4.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m4.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
-			
+
 			db.SaveChanges();
 
 			Movie m5 = new Movie();
@@ -96,7 +96,7 @@ namespace AWO_Team14.Migrations
 			m5.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m5.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m5.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "War"));
-			
+
 			db.SaveChanges();
 
 			Movie m6 = new Movie();
@@ -113,7 +113,7 @@ namespace AWO_Team14.Migrations
 			m6 = db.Movies.FirstOrDefault(m => m.MovieNumber == m6.MovieNumber);
 			m6.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m6.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-			
+
 			db.SaveChanges();
 
 			Movie m7 = new Movie();
@@ -130,7 +130,7 @@ namespace AWO_Team14.Migrations
 			m7 = db.Movies.FirstOrDefault(m => m.MovieNumber == m7.MovieNumber);
 			m7.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m7.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-		
+
 			db.SaveChanges();
 
 			Movie m8 = new Movie();
@@ -148,7 +148,7 @@ namespace AWO_Team14.Migrations
 			m8.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m8.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m8.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
-	
+
 			db.SaveChanges();
 
 			Movie m9 = new Movie();
@@ -167,7 +167,7 @@ namespace AWO_Team14.Migrations
 			m9.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
 			m9.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m9.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Western"));
-			
+
 			db.SaveChanges();
 
 			Movie m10 = new Movie();
@@ -183,7 +183,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m10 = db.Movies.FirstOrDefault(m => m.MovieNumber == m10.MovieNumber);
 			m10.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-		
+
 			db.SaveChanges();
 
 			Movie m11 = new Movie();
@@ -201,7 +201,7 @@ namespace AWO_Team14.Migrations
 			m11.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m11.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
 			m11.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-			
+
 			db.SaveChanges();
 
 			Movie m12 = new Movie();
@@ -218,7 +218,7 @@ namespace AWO_Team14.Migrations
 			m12 = db.Movies.FirstOrDefault(m => m.MovieNumber == m12.MovieNumber);
 			m12.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m12.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-			
+
 			db.SaveChanges();
 
 			Movie m13 = new Movie();
@@ -235,7 +235,7 @@ namespace AWO_Team14.Migrations
 			m13 = db.Movies.FirstOrDefault(m => m.MovieNumber == m13.MovieNumber);
 			m13.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m13.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-			
+
 			db.SaveChanges();
 
 			Movie m14 = new Movie();
@@ -253,7 +253,7 @@ namespace AWO_Team14.Migrations
 			m14.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m14.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Horror"));
 			m14.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-			
+
 			db.SaveChanges();
 
 			Movie m15 = new Movie();
@@ -271,7 +271,7 @@ namespace AWO_Team14.Migrations
 			m15.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
 			m15.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m15.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
-			
+
 			db.SaveChanges();
 
 			Movie m16 = new Movie();
@@ -287,7 +287,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m16 = db.Movies.FirstOrDefault(m => m.MovieNumber == m16.MovieNumber);
 			m16.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Western"));
-		
+
 			db.SaveChanges();
 
 			Movie m17 = new Movie();
@@ -305,7 +305,7 @@ namespace AWO_Team14.Migrations
 			m17.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m17.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m17.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-			
+
 			db.SaveChanges();
 
 			Movie m18 = new Movie();
@@ -324,7 +324,7 @@ namespace AWO_Team14.Migrations
 			m18.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m18.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "History"));
 			m18.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "War"));
-			
+
 			db.SaveChanges();
 
 			Movie m19 = new Movie();
@@ -341,7 +341,7 @@ namespace AWO_Team14.Migrations
 			m19 = db.Movies.FirstOrDefault(m => m.MovieNumber == m19.MovieNumber);
 			m19.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
 			m19.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m20 = new Movie();
@@ -358,7 +358,7 @@ namespace AWO_Team14.Migrations
 			m20 = db.Movies.FirstOrDefault(m => m.MovieNumber == m20.MovieNumber);
 			m20.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m20.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
-			
+
 			db.SaveChanges();
 
 			Movie m21 = new Movie();
@@ -376,7 +376,7 @@ namespace AWO_Team14.Migrations
 			m21.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m21.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m21.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m22 = new Movie();
@@ -395,7 +395,7 @@ namespace AWO_Team14.Migrations
 			m22.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m22.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
 			m22.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-			
+
 			db.SaveChanges();
 
 			Movie m23 = new Movie();
@@ -414,7 +414,7 @@ namespace AWO_Team14.Migrations
 			m23.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m23.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
 			m23.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-			
+
 			db.SaveChanges();
 
 			Movie m24 = new Movie();
@@ -433,7 +433,7 @@ namespace AWO_Team14.Migrations
 			m24.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m24.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Western"));
 			m24.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
-			
+
 			db.SaveChanges();
 
 			Movie m25 = new Movie();
@@ -451,7 +451,7 @@ namespace AWO_Team14.Migrations
 			m25.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "War"));
 			m25.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m25.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m26 = new Movie();
@@ -468,7 +468,7 @@ namespace AWO_Team14.Migrations
 			m26 = db.Movies.FirstOrDefault(m => m.MovieNumber == m26.MovieNumber);
 			m26.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m26.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
-			
+
 			db.SaveChanges();
 
 			Movie m27 = new Movie();
@@ -485,7 +485,7 @@ namespace AWO_Team14.Migrations
 			m27 = db.Movies.FirstOrDefault(m => m.MovieNumber == m27.MovieNumber);
 			m27.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m27.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-			
+
 			db.SaveChanges();
 
 			Movie m28 = new Movie();
@@ -503,7 +503,7 @@ namespace AWO_Team14.Migrations
 			m28.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m28.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m28.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-		
+
 			db.SaveChanges();
 
 			Movie m29 = new Movie();
@@ -520,7 +520,7 @@ namespace AWO_Team14.Migrations
 			m29 = db.Movies.FirstOrDefault(m => m.MovieNumber == m29.MovieNumber);
 			m29.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m29.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m30 = new Movie();
@@ -538,7 +538,7 @@ namespace AWO_Team14.Migrations
 			m30.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m30.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
 			m30.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-		
+
 			db.SaveChanges();
 
 			Movie m31 = new Movie();
@@ -556,7 +556,7 @@ namespace AWO_Team14.Migrations
 			m31.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m31.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Horror"));
 			m31.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-		
+
 			db.SaveChanges();
 
 			Movie m32 = new Movie();
@@ -573,7 +573,7 @@ namespace AWO_Team14.Migrations
 			m32 = db.Movies.FirstOrDefault(m => m.MovieNumber == m32.MovieNumber);
 			m32.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Western"));
 			m32.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m33 = new Movie();
@@ -591,7 +591,7 @@ namespace AWO_Team14.Migrations
 			m33.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m33.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m33.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m34 = new Movie();
@@ -609,7 +609,7 @@ namespace AWO_Team14.Migrations
 			m34.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Horror"));
 			m34.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m34.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-	
+
 			db.SaveChanges();
 
 			Movie m35 = new Movie();
@@ -627,7 +627,7 @@ namespace AWO_Team14.Migrations
 			m35.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m35.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
 			m35.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
-	
+
 			db.SaveChanges();
 
 			Movie m36 = new Movie();
@@ -645,7 +645,7 @@ namespace AWO_Team14.Migrations
 			m36.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m36.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m36.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-		
+
 			db.SaveChanges();
 
 			Movie m37 = new Movie();
@@ -662,7 +662,7 @@ namespace AWO_Team14.Migrations
 			m37 = db.Movies.FirstOrDefault(m => m.MovieNumber == m37.MovieNumber);
 			m37.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
 			m37.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m38 = new Movie();
@@ -678,7 +678,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m38 = db.Movies.FirstOrDefault(m => m.MovieNumber == m38.MovieNumber);
 			m38.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-		
+
 			db.SaveChanges();
 
 			Movie m39 = new Movie();
@@ -694,7 +694,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m39 = db.Movies.FirstOrDefault(m => m.MovieNumber == m39.MovieNumber);
 			m39.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m40 = new Movie();
@@ -711,7 +711,7 @@ namespace AWO_Team14.Migrations
 			m40 = db.Movies.FirstOrDefault(m => m.MovieNumber == m40.MovieNumber);
 			m40.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Horror"));
 			m40.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-	;
+			;
 			db.SaveChanges();
 
 			Movie m41 = new Movie();
@@ -730,7 +730,7 @@ namespace AWO_Team14.Migrations
 			m41.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m41.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
 			m41.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-		
+
 			db.SaveChanges();
 
 			Movie m42 = new Movie();
@@ -748,7 +748,7 @@ namespace AWO_Team14.Migrations
 			m42.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m42.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m42.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-		
+
 			db.SaveChanges();
 
 			Movie m43 = new Movie();
@@ -765,7 +765,7 @@ namespace AWO_Team14.Migrations
 			m43 = db.Movies.FirstOrDefault(m => m.MovieNumber == m43.MovieNumber);
 			m43.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m43.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "War"));
-	
+
 			db.SaveChanges();
 
 			Movie m44 = new Movie();
@@ -783,7 +783,7 @@ namespace AWO_Team14.Migrations
 			m44.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m44.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m44.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-		
+
 			db.SaveChanges();
 
 			Movie m45 = new Movie();
@@ -800,7 +800,7 @@ namespace AWO_Team14.Migrations
 			m45 = db.Movies.FirstOrDefault(m => m.MovieNumber == m45.MovieNumber);
 			m45.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Horror"));
 			m45.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-			
+
 			db.SaveChanges();
 
 			Movie m46 = new Movie();
@@ -816,7 +816,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m46 = db.Movies.FirstOrDefault(m => m.MovieNumber == m46.MovieNumber);
 			m46.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m47 = new Movie();
@@ -832,7 +832,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m47 = db.Movies.FirstOrDefault(m => m.MovieNumber == m47.MovieNumber);
 			m47.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-			
+
 			db.SaveChanges();
 
 			Movie m48 = new Movie();
@@ -848,8 +848,8 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m48 = db.Movies.FirstOrDefault(m => m.MovieNumber == m48.MovieNumber);
 			m48.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-		
-			
+
+
 			db.SaveChanges();
 
 			Movie m49 = new Movie();
@@ -866,7 +866,7 @@ namespace AWO_Team14.Migrations
 			m49 = db.Movies.FirstOrDefault(m => m.MovieNumber == m49.MovieNumber);
 			m49.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m49.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
-			
+
 			db.SaveChanges();
 
 			Movie m50 = new Movie();
@@ -885,7 +885,7 @@ namespace AWO_Team14.Migrations
 			m50.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m50.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m50.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
-			
+
 			db.SaveChanges();
 
 			Movie m51 = new Movie();
@@ -901,7 +901,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m51 = db.Movies.FirstOrDefault(m => m.MovieNumber == m51.MovieNumber);
 			m51.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-			
+
 			db.SaveChanges();
 
 			Movie m52 = new Movie();
@@ -919,7 +919,7 @@ namespace AWO_Team14.Migrations
 			m52.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m52.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m52.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-		
+
 			db.SaveChanges();
 
 			Movie m53 = new Movie();
@@ -936,7 +936,7 @@ namespace AWO_Team14.Migrations
 			m53 = db.Movies.FirstOrDefault(m => m.MovieNumber == m53.MovieNumber);
 			m53.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
 			m53.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m54 = new Movie();
@@ -952,7 +952,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m54 = db.Movies.FirstOrDefault(m => m.MovieNumber == m54.MovieNumber);
 			m54.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m55 = new Movie();
@@ -969,7 +969,7 @@ namespace AWO_Team14.Migrations
 			m55 = db.Movies.FirstOrDefault(m => m.MovieNumber == m55.MovieNumber);
 			m55.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m55.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-		
+
 			db.SaveChanges();
 
 			Movie m56 = new Movie();
@@ -988,7 +988,7 @@ namespace AWO_Team14.Migrations
 			m56.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m56.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
 			m56.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-			
+
 			db.SaveChanges();
 
 			Movie m57 = new Movie();
@@ -1007,7 +1007,7 @@ namespace AWO_Team14.Migrations
 			m57.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m57.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
 			m57.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-		
+
 			db.SaveChanges();
 
 			Movie m58 = new Movie();
@@ -1023,7 +1023,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m58 = db.Movies.FirstOrDefault(m => m.MovieNumber == m58.MovieNumber);
 			m58.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m59 = new Movie();
@@ -1041,7 +1041,7 @@ namespace AWO_Team14.Migrations
 			m59.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m59.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m59.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "War"));
-			
+
 			db.SaveChanges();
 
 			Movie m60 = new Movie();
@@ -1059,7 +1059,7 @@ namespace AWO_Team14.Migrations
 			m60.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Horror"));
 			m60.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
 			m60.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m61 = new Movie();
@@ -1076,7 +1076,7 @@ namespace AWO_Team14.Migrations
 			m61 = db.Movies.FirstOrDefault(m => m.MovieNumber == m61.MovieNumber);
 			m61.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m61.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m62 = new Movie();
@@ -1096,7 +1096,7 @@ namespace AWO_Team14.Migrations
 			m62.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m62.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m62.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-		
+
 			db.SaveChanges();
 
 			Movie m63 = new Movie();
@@ -1116,7 +1116,7 @@ namespace AWO_Team14.Migrations
 			m63.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m63.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m63.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m64 = new Movie();
@@ -1134,7 +1134,7 @@ namespace AWO_Team14.Migrations
 			m64.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m64.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m64.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m65 = new Movie();
@@ -1150,7 +1150,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m65 = db.Movies.FirstOrDefault(m => m.MovieNumber == m65.MovieNumber);
 			m65.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-		
+
 			db.SaveChanges();
 
 			Movie m66 = new Movie();
@@ -1168,7 +1168,7 @@ namespace AWO_Team14.Migrations
 			m66.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m66.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m66.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m67 = new Movie();
@@ -1184,8 +1184,8 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m67 = db.Movies.FirstOrDefault(m => m.MovieNumber == m67.MovieNumber);
 			m67.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
-			
+
+
 			db.SaveChanges();
 
 			Movie m68 = new Movie();
@@ -1203,7 +1203,7 @@ namespace AWO_Team14.Migrations
 			m68.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m68.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m68.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m69 = new Movie();
@@ -1222,7 +1222,7 @@ namespace AWO_Team14.Migrations
 			m69.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m69.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m69.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-		
+
 			db.SaveChanges();
 
 			Movie m70 = new Movie();
@@ -1241,7 +1241,7 @@ namespace AWO_Team14.Migrations
 			m70.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m70.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m70.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m71 = new Movie();
@@ -1257,7 +1257,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m71 = db.Movies.FirstOrDefault(m => m.MovieNumber == m71.MovieNumber);
 			m71.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
-			
+
 			db.SaveChanges();
 
 			Movie m72 = new Movie();
@@ -1273,7 +1273,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m72 = db.Movies.FirstOrDefault(m => m.MovieNumber == m72.MovieNumber);
 			m72.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-			
+
 			db.SaveChanges();
 
 			Movie m73 = new Movie();
@@ -1289,7 +1289,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m73 = db.Movies.FirstOrDefault(m => m.MovieNumber == m73.MovieNumber);
 			m73.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m74 = new Movie();
@@ -1348,7 +1348,7 @@ namespace AWO_Team14.Migrations
 			m76.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m76.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m76.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m77 = new Movie();
@@ -1364,7 +1364,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m77 = db.Movies.FirstOrDefault(m => m.MovieNumber == m77.MovieNumber);
 			m77.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m78 = new Movie();
@@ -1381,7 +1381,7 @@ namespace AWO_Team14.Migrations
 			m78 = db.Movies.FirstOrDefault(m => m.MovieNumber == m78.MovieNumber);
 			m78.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m78.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m79 = new Movie();
@@ -1399,7 +1399,7 @@ namespace AWO_Team14.Migrations
 			m79.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m79.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m79.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
-			
+
 			db.SaveChanges();
 
 			Movie m80 = new Movie();
@@ -1416,7 +1416,7 @@ namespace AWO_Team14.Migrations
 			m80 = db.Movies.FirstOrDefault(m => m.MovieNumber == m80.MovieNumber);
 			m80.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m80.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-	
+
 			db.SaveChanges();
 
 			Movie m81 = new Movie();
@@ -1452,7 +1452,7 @@ namespace AWO_Team14.Migrations
 			m82.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m82.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m82.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m83 = new Movie();
@@ -1470,7 +1470,7 @@ namespace AWO_Team14.Migrations
 			m83.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m83.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m83.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-		
+
 			db.SaveChanges();
 
 			Movie m84 = new Movie();
@@ -1487,7 +1487,7 @@ namespace AWO_Team14.Migrations
 			m84 = db.Movies.FirstOrDefault(m => m.MovieNumber == m84.MovieNumber);
 			m84.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m84.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
-			
+
 			db.SaveChanges();
 
 			Movie m85 = new Movie();
@@ -1504,7 +1504,7 @@ namespace AWO_Team14.Migrations
 			m85 = db.Movies.FirstOrDefault(m => m.MovieNumber == m85.MovieNumber);
 			m85.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
 			m85.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
-			
+
 			db.SaveChanges();
 
 			Movie m86 = new Movie();
@@ -1522,7 +1522,7 @@ namespace AWO_Team14.Migrations
 			m86.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m86.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
 			m86.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-		
+
 			db.SaveChanges();
 
 			Movie m87 = new Movie();
@@ -1540,7 +1540,7 @@ namespace AWO_Team14.Migrations
 			m87.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m87.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m87.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m88 = new Movie();
@@ -1557,7 +1557,7 @@ namespace AWO_Team14.Migrations
 			m88 = db.Movies.FirstOrDefault(m => m.MovieNumber == m88.MovieNumber);
 			m88.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m88.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-		
+
 			db.SaveChanges();
 
 			Movie m89 = new Movie();
@@ -1575,7 +1575,7 @@ namespace AWO_Team14.Migrations
 			m89.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m89.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m89.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-			
+
 			db.SaveChanges();
 
 			Movie m90 = new Movie();
@@ -1593,7 +1593,7 @@ namespace AWO_Team14.Migrations
 			m90.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m90.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m90.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m91 = new Movie();
@@ -1611,7 +1611,7 @@ namespace AWO_Team14.Migrations
 			m91.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
 			m91.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m91.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
-			
+
 			db.SaveChanges();
 
 			Movie m92 = new Movie();
@@ -1630,7 +1630,7 @@ namespace AWO_Team14.Migrations
 			m92.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m92.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m92.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m93 = new Movie();
@@ -1648,7 +1648,7 @@ namespace AWO_Team14.Migrations
 			m93.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m93.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m93.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-			
+
 			db.SaveChanges();
 
 			Movie m94 = new Movie();
@@ -1665,7 +1665,7 @@ namespace AWO_Team14.Migrations
 			m94 = db.Movies.FirstOrDefault(m => m.MovieNumber == m94.MovieNumber);
 			m94.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m94.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
-			
+
 			db.SaveChanges();
 
 			Movie m95 = new Movie();
@@ -1682,7 +1682,7 @@ namespace AWO_Team14.Migrations
 			m95 = db.Movies.FirstOrDefault(m => m.MovieNumber == m95.MovieNumber);
 			m95.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m95.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "History"));
-			
+
 			db.SaveChanges();
 
 			Movie m96 = new Movie();
@@ -1699,7 +1699,7 @@ namespace AWO_Team14.Migrations
 			m96 = db.Movies.FirstOrDefault(m => m.MovieNumber == m96.MovieNumber);
 			m96.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m96.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-		
+
 			db.SaveChanges();
 
 			Movie m97 = new Movie();
@@ -1716,7 +1716,7 @@ namespace AWO_Team14.Migrations
 			m97 = db.Movies.FirstOrDefault(m => m.MovieNumber == m97.MovieNumber);
 			m97.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m97.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
-			
+
 			db.SaveChanges();
 
 			Movie m98 = new Movie();
@@ -1734,7 +1734,7 @@ namespace AWO_Team14.Migrations
 			m98.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m98.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m98.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m99 = new Movie();
@@ -1752,7 +1752,7 @@ namespace AWO_Team14.Migrations
 			m99.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m99.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m99.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m100 = new Movie();
@@ -1770,7 +1770,7 @@ namespace AWO_Team14.Migrations
 			m100.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m100.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m100.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
-			
+
 			db.SaveChanges();
 
 			Movie m101 = new Movie();
@@ -1788,7 +1788,7 @@ namespace AWO_Team14.Migrations
 			m101.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m101.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
 			m101.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-			
+
 			db.SaveChanges();
 
 			Movie m102 = new Movie();
@@ -1806,7 +1806,7 @@ namespace AWO_Team14.Migrations
 			m102.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m102.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m102.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m103 = new Movie();
@@ -1824,7 +1824,7 @@ namespace AWO_Team14.Migrations
 			m103.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m103.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
 			m103.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
-		
+
 			db.SaveChanges();
 
 			Movie m104 = new Movie();
@@ -1842,7 +1842,7 @@ namespace AWO_Team14.Migrations
 			m104.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m104.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m104.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m105 = new Movie();
@@ -1858,7 +1858,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m105 = db.Movies.FirstOrDefault(m => m.MovieNumber == m105.MovieNumber);
 			m105.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-		
+
 			db.SaveChanges();
 
 			Movie m106 = new Movie();
@@ -1876,7 +1876,7 @@ namespace AWO_Team14.Migrations
 			m106.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m106.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m106.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-	
+
 			db.SaveChanges();
 
 			Movie m107 = new Movie();
@@ -1894,7 +1894,7 @@ namespace AWO_Team14.Migrations
 			m107.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m107.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m107.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-		
+
 			db.SaveChanges();
 
 			Movie m108 = new Movie();
@@ -1911,7 +1911,7 @@ namespace AWO_Team14.Migrations
 			m108 = db.Movies.FirstOrDefault(m => m.MovieNumber == m108.MovieNumber);
 			m108.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
 			m108.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
-		
+
 			db.SaveChanges();
 
 			Movie m109 = new Movie();
@@ -1929,7 +1929,7 @@ namespace AWO_Team14.Migrations
 			m109.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m109.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m109.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-	
+
 			db.SaveChanges();
 
 			Movie m110 = new Movie();
@@ -1946,7 +1946,7 @@ namespace AWO_Team14.Migrations
 			m110 = db.Movies.FirstOrDefault(m => m.MovieNumber == m110.MovieNumber);
 			m110.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m110.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-		
+
 			db.SaveChanges();
 
 			Movie m111 = new Movie();
@@ -1964,7 +1964,7 @@ namespace AWO_Team14.Migrations
 			m111.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m111.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
 			m111.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-			
+
 			db.SaveChanges();
 
 			Movie m112 = new Movie();
@@ -1982,7 +1982,7 @@ namespace AWO_Team14.Migrations
 			m112.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m112.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m112.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
-			
+
 			db.SaveChanges();
 
 			Movie m113 = new Movie();
@@ -1998,7 +1998,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m113 = db.Movies.FirstOrDefault(m => m.MovieNumber == m113.MovieNumber);
 			m113.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-			
+
 			db.SaveChanges();
 
 			Movie m114 = new Movie();
@@ -2016,7 +2016,7 @@ namespace AWO_Team14.Migrations
 			m114.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m114.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m114.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m115 = new Movie();
@@ -2034,7 +2034,7 @@ namespace AWO_Team14.Migrations
 			m115.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m115.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m115.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m116 = new Movie();
@@ -2053,7 +2053,7 @@ namespace AWO_Team14.Migrations
 			m116.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m116.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m116.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-		
+
 			db.SaveChanges();
 
 			Movie m117 = new Movie();
@@ -2071,7 +2071,7 @@ namespace AWO_Team14.Migrations
 			m117.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m117.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
 			m117.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
-			
+
 			db.SaveChanges();
 
 			Movie m118 = new Movie();
@@ -2090,7 +2090,7 @@ namespace AWO_Team14.Migrations
 			m118.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m118.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m118.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
-		
+
 			db.SaveChanges();
 
 			Movie m119 = new Movie();
@@ -2108,8 +2108,8 @@ namespace AWO_Team14.Migrations
 			m119.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m119.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
 			m119.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
-			
-		
+
+
 			db.SaveChanges();
 
 			Movie m120 = new Movie();
@@ -2128,7 +2128,7 @@ namespace AWO_Team14.Migrations
 			m120.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m120.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m120.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Mystery"));
-		
+
 			db.SaveChanges();
 
 			Movie m121 = new Movie();
@@ -2147,7 +2147,7 @@ namespace AWO_Team14.Migrations
 			m121.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m121.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Crime"));
 			m121.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Thriller"));
-			
+
 			db.SaveChanges();
 
 			Movie m122 = new Movie();
@@ -2165,7 +2165,7 @@ namespace AWO_Team14.Migrations
 			m122.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
 			m122.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m122.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
-			
+
 			db.SaveChanges();
 
 			Movie m123 = new Movie();
@@ -2184,7 +2184,7 @@ namespace AWO_Team14.Migrations
 			m123.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m123.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m123.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
-		
+
 			db.SaveChanges();
 
 			Movie m124 = new Movie();
@@ -2202,7 +2202,7 @@ namespace AWO_Team14.Migrations
 			m124.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m124.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m124.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
-			
+
 			db.SaveChanges();
 
 			Movie m125 = new Movie();
@@ -2221,7 +2221,7 @@ namespace AWO_Team14.Migrations
 			m125.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m125.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m125.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
-			
+
 			db.SaveChanges();
 
 			Movie m126 = new Movie();
@@ -2240,7 +2240,7 @@ namespace AWO_Team14.Migrations
 			m126.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
 			m126.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
 			m126.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
-			
+
 			db.SaveChanges();
 
 			Movie m127 = new Movie();
@@ -2258,7 +2258,7 @@ namespace AWO_Team14.Migrations
 			m127.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Animation"));
 			m127.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m127.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-			
+
 			db.SaveChanges();
 
 			Movie m128 = new Movie();
@@ -2275,7 +2275,7 @@ namespace AWO_Team14.Migrations
 			m128 = db.Movies.FirstOrDefault(m => m.MovieNumber == m128.MovieNumber);
 			m128.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
 			m128.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "History"));
-			
+
 			db.SaveChanges();
 
 			Movie m129 = new Movie();
@@ -2291,7 +2291,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m129 = db.Movies.FirstOrDefault(m => m.MovieNumber == m129.MovieNumber);
 			m129.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Drama"));
-		
+
 			db.SaveChanges();
 
 			Movie m130 = new Movie();
@@ -2329,7 +2329,7 @@ namespace AWO_Team14.Migrations
 			m131.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m131.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Musical"));
 			m131.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Romance"));
-		
+
 			db.SaveChanges();
 
 			Movie m132 = new Movie();
@@ -2349,7 +2349,7 @@ namespace AWO_Team14.Migrations
 			m132.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
 			m132.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Family"));
 			m132.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Fantasy"));
-			
+
 			db.SaveChanges();
 
 			Movie m133 = new Movie();
@@ -2367,7 +2367,7 @@ namespace AWO_Team14.Migrations
 			m133.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Action"));
 			m133.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Science Fiction"));
 			m133.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Adventure"));
-			
+
 			db.SaveChanges();
 
 			Movie m134 = new Movie();
@@ -2383,7 +2383,7 @@ namespace AWO_Team14.Migrations
 			db.SaveChanges();
 			m134 = db.Movies.FirstOrDefault(m => m.MovieNumber == m134.MovieNumber);
 			m134.Genres.Add(db.Genres.FirstOrDefault(g => g.GenreName == "Comedy"));
-			
+
 			db.SaveChanges();
 
 		}
