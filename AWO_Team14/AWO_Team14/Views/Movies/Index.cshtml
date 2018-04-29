@@ -8,9 +8,11 @@
 
 <h2>All Movies</h2>
 
-<p>
+@if (User.IsInRole("Manager"))
+{<p>
     @Html.ActionLink("Create New Movie", "Create", null, new { @class = "btn btn-info" })
 </p>
+}
 <p>
     @Html.ActionLink("Buy tickets", "Create", "Transactions", null, new { @class = "btn btn-info" })
 </p>
@@ -91,11 +93,18 @@
                 @Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)
             </td>
         }
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }) |
-            @Html.ActionLink("Details", "Details", "Home", new { id = item.MovieID }, null) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
-        </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Home", new { id = item.MovieID }, null)
+
+                @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
+                {
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.MovieID })
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
+
+                }
+            </td>
     </tr>
     }
 

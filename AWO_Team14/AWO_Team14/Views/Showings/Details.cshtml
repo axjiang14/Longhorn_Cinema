@@ -48,8 +48,10 @@
 @Html.ActionLink("Buy tickets", "Create", "Transactions", null, new { @class = "btn btn-info" })
 </p>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ShowingID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.IsInRole("Manager"))
+    {
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ShowingID })
+    }
 </p>
 
 

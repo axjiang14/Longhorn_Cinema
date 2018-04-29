@@ -97,14 +97,16 @@
                 <th>Details</th>
             </tr>
             @foreach (Showing showing in Model.Showings)
-        {
-            <tr>
+            {
+                if (showing.ShowDate >= DateTime.Now)
+                { <tr>
                 <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
                 <td>@Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)</td>
                 <td>@Html.DisplayFor(modelItem => showing.EndTime)</td>
                 <td>@Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)</td>
             </tr>
-    }
+                }
+            }
         </table>
 
         <dt>

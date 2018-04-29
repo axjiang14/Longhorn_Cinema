@@ -21,8 +21,6 @@ namespace AWO_Team14.Controllers
 
         public ActionResult Index()
         {
-            //Change this line later when we write validation for getting all the movies showing on today's date
-
             var query = from s in db.Showings
                        select s;
 
@@ -58,7 +56,6 @@ namespace AWO_Team14.Controllers
             return View(SelectedMovies);
         }
 
-        //Todo: Scaffold view for BasicMovieSearch
         public ActionResult BasicSearch(String BasicMovieSearch)
         {
             List<Movie> DisplayedMovies = new List<Movie>();
@@ -276,7 +273,7 @@ namespace AWO_Team14.Controllers
             var query = from s in db.Showings
                         select s;
 
-            query = query.Where(s => s.ShowDate == ShowDate);
+            query = query.Where(s => s.ShowDate >= ShowDate);
 
             List<Showing> qShowings = query.ToList();
 
@@ -285,7 +282,8 @@ namespace AWO_Team14.Controllers
             foreach (Showing s in qShowings)
             {
                 Movie m = db.Movies.Find(s.Movie.MovieID);
-                SelectedMovies.Add(m);
+                if (SelectedMovies.Contains(m) == false)
+                { SelectedMovies.Add(m); }
             }
 
             ViewBag.TotalMovies = db.Movies.Count();

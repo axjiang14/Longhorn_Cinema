@@ -14,12 +14,14 @@ namespace AWO_Team14.Controllers
 {
     public enum Report { Seats, Revenue, Both }
 
+    [Authorize(Roles = "Manager")]
     public class ReportsController : Controller
     {
         private AppDbContext db = new AppDbContext();
 
 
         // GET: Reports
+
         public ActionResult Index()
         {
             Debug.WriteLine(System.Web.Security.Roles.Enabled);
@@ -76,7 +78,6 @@ namespace AWO_Team14.Controllers
             return null;
         }
             
-
     public ActionResult GenerateReport()
         {
             ViewBag.AllMovies = GetAllMovies();

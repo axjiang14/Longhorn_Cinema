@@ -46,9 +46,9 @@
         <dd>
 
             @if (Model.HasPassword)
-        {
+            {
             @Html.ActionLink("Change your password", "ChangePassword")
-    }
+            }
 
 
         </dd>
@@ -56,8 +56,10 @@
         <dt>Change Account Info:</dt>
         <dd> @Html.ActionLink("Change Account Info", "ChangeUserInfo", new { id = Model.UserID })</dd>
 
-        <dt>Change Account Info:</dt>
+        @if (User.IsInRole("Customer"))
+        {<dt>Change Account Info:</dt>
         <dd> @Html.ActionLink("Add Credit Card", "AddCreditCard", new { id = Model.UserID })</dd>
+        }
     </dl>
 
 
