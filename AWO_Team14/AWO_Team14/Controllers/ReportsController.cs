@@ -51,34 +51,68 @@ namespace AWO_Team14.Controllers
             return GetMPAA;
         }
 
-        //public SelectList GetAllCustomers()
-        //{
-        //    var Employee = from
+        //public static IQueryable<AppUser> GetAllCustomers (AppDbContext db)
+        public SelectList GetAllCustomers()
+        {
 
-        //    String[] CustomerUsers = UserManager.GetUsersInRole("Customer");
+                var roles = db.Roles.Where(r => r.Name == "Customer");
+                if (roles.Any())
+                { 
+                    var roleId = roles.First().Id;
+                    var dbCustomers = from user in db.Users
+                                               where user.Roles.Any(r =>                                r.RoleId == "Customers")
+                                                select user;
+                    List<AppUser> Customers = dbCustomers.ToList();
 
-        //    List<String> CustomerList = new List<String>(CustomerUsers);
+                    SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.Id), "Id", "UserName");
 
-        //    CustomerList.Add("All Customers");
+                return AllCustomers;
 
-        //    SelectList AllCustomers = new SelectList(CustomerList);
+            }
 
-        //    return AllCustomers;
+            return null;
+        }
+            
 
-        //    //var AllUsers = from u in db.Users
-        //    //               select u;
 
-        //    //AllUsers = AllUsers.Where(u => User.IsInRole("Customer"));
+    //    public SelectList GetAllCustomers()
+    //    {
+    //    //    var Employee = from
 
-        //    //List<AppUser> Customers = AllUsers.ToList();
+    //    //String[] CustomerUsers = context.Roles.GetUsersInRole("Customer");
 
-        //    //SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.UserName), "Id", "Email");
+    //    var roles = db.Roles.Where(r => r.Name == "Customer");
+    //            if (roles.Any())
+    //            {
+    //                var roleId = roles.First().Id;
+    //                return from user in db.Users
+    //                        where user.Roles.Any(r => r.RoleId == "Customer")
+    //                        select user;
+    //            }
 
-        //    //return AllCustomers;
 
-        //}
+    ////    List<String> CustomerList = new List<String>(CustomerUsers);
 
-        public ActionResult GenerateReport()
+    ////    CustomerList.Add("All Customers");
+
+    ////    SelectList AllCustomers = new SelectList(CustomerList);
+
+    ////    return AllCustomers;
+
+    ////    //var AllUsers = from u in db.Users
+    ////    //               select u;
+
+    ////    //AllUsers = AllUsers.Where(u => User.IsInRole("Customer"));
+
+    ////    //List<AppUser> Customers = AllUsers.ToList();
+
+    ////    //SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.UserName), "Id", "Email");
+
+    //    return AllCustomers;
+
+    //}
+
+    public ActionResult GenerateReport()
         {
             ViewBag.AllMovies = GetAllMovies();
             ViewBag.AllMPAA = GetAllMPAA();
@@ -87,7 +121,7 @@ namespace AWO_Team14.Controllers
 
         public ActionResult GenerateCustomerReport()
         {
-            //ViewBag.AllCustomers = GetAllCustomers();
+            ViewBag.AllCustomers = GetAllCustomers();
             return View();
         }
 
