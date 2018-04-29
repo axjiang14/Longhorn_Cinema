@@ -500,24 +500,28 @@ namespace AWO_Team14.Controllers
 
             // if schedule is published
             // showing is canceled not delete
-            if (showing.Schedule.Published && showing.ShowDate < DateTime.Now)
+            if (showing.Schedule.Published && DateTime.Now < showing.ShowDate )
             {
                 // go to the cancelling a showing controller 
                 showing.Schedule = null;
                 db.SaveChanges();
+                // returns to Schedule's Detail page
+                return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
             }
 
             // schedule is unpublished
-            else
+            if (showing.Schedule.Published == false)
             {
                 // delete showing from table
                 db.Showings.Remove(showing);
                 db.SaveChanges();
+                // returns to Schedule's Detail page
+                return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
             }
 
             // TODO: refund popcorn points
-            // returns to Schedule's Detail page
-            return RedirectToAction("Details","Schedules", new { id = ScheduleID });
+            return View(showing);
+            
         }
 
         protected override void Dispose(bool disposing)

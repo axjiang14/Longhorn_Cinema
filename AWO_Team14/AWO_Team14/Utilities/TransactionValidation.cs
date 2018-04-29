@@ -13,26 +13,31 @@ namespace AWO_Team14.Utilities
 		public static Boolean TicketValidation(Transaction transaction)
 		{
 			AppDbContext db = new AppDbContext();
+            Debug.WriteLine("in validation");
 
 			for (var t = 0; t < transaction.UserTickets.Count; t++)
 			{
 				UserTicket TicketToCheck = transaction.UserTickets[t];
 
-				//check user tickets
-				for (var x = t + 1; x < transaction.UserTickets.Count; x++)
+                Debug.WriteLine(TicketToCheck);
+
+                //check user tickets
+                for (var x = t + 1; x < transaction.UserTickets.Count; x++)
 				{
-					var overlapQuery = from s in db.Showings
-									   select s;
-
-					overlapQuery = overlapQuery.Where(s => (s.EndTime >= TicketToCheck.Showing.ShowDate && s.ShowDate <= TicketToCheck.Showing.ShowDate) || (s.EndTime >= TicketToCheck.Showing.EndTime && s.ShowDate <= TicketToCheck.Showing.EndTime));
-
-					if (overlapQuery.Count() > 0)
-						return false;
-				}
+                    UserTicket TicketToCompare = transaction.UserTickets[x]; 
+					
+                    if ((TicketToCompare.Showing.EndTime >= TicketToCheck.Showing.ShowDate && TicketToCompare.Showing.ShowDate <= TicketToCheck.Showing.ShowDate) || (TicketToCompare.Showing.EndTime >= TicketToCheck.Showing.EndTime && TicketToCompare.Showing.ShowDate <= TicketToCheck.Showing.EndTime))
+					{
+                        return false;
+                    }
+                }
+                    
 			}
-			return true;
+            return true;
+        }
+			
 
-		}
+	
 
 		public static Int32 AgeCalc(DateTime Birthday)
 		{

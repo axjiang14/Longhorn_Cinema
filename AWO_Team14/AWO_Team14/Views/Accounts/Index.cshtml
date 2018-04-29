@@ -33,6 +33,15 @@
         <dt>Email:</dt>
         <dd>@Model.Email</dd>
 
+        <dt>Phone Number:</dt>
+        <dd>@Html.Raw(ViewBag.PhoneNumber)</dd>
+
+        <dt>Credit Card 1:</dt>
+        <dd>@Html.Raw(ViewBag.CreditCard1)</dd>
+
+        <dt>Credit Card 2:</dt>
+        <dd>@Html.Raw(ViewBag.CreditCard2)</dd>
+
         <dt>Password:</dt>
         <dd>
 
@@ -46,6 +55,9 @@
 
         <dt>Change Account Info:</dt>
         <dd> @Html.ActionLink("Change Account Info", "ChangeUserInfo", new { id = Model.UserID })</dd>
+
+        <dt>Change Account Info:</dt>
+        <dd> @Html.ActionLink("Add Credit Card", "AddCreditCard", new { id = Model.UserID })</dd>
     </dl>
 
 
