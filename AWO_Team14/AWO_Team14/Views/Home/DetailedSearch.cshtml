@@ -22,12 +22,13 @@
         Genre: @Html.ListBox("SearchGenres", (MultiSelectList)ViewBag.AllGenres, new { @class = "form-control" })
     </p>
     <p class="form-group">
-        Release Year:
+        Release Year: @Html.TextBox("SearchYear", null, new { @class = "form-control" })
+        <br />
         <label class="radio">@Html.RadioButton("SearchYearType", RangeType.Before, true) Before</label>
         <label class="radio">@Html.RadioButton("SearchYearType", RangeType.After) After</label>
         <label class="radio">@Html.RadioButton("SearchYearType", RangeType.Equal) On</label>
         <br />
-        <input type="date" name="SearchYear" class="form-control" />
+
     </p>
     <p class="form-group">
         MPAA Rating:

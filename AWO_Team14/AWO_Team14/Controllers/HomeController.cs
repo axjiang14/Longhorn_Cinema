@@ -101,7 +101,7 @@ namespace AWO_Team14.Controllers
             return View();
         }
 
-        public ActionResult DisplayDetailedSearch(String SearchTitle, String SearchTagline, int[] SearchGenres, DateTime? SearchYear, String SearchActors, RangeType SearchYearType, MPAA MPAARating, String SearchStarRatings, StarComp SelectedStar)
+        public ActionResult DisplayDetailedSearch(String SearchTitle, String SearchTagline, int[] SearchGenres, String SearchYear, String SearchActors, RangeType SearchYearType, MPAA MPAARating, String SearchStarRatings, StarComp SelectedStar)
         {
             var query = from m in db.Movies
                         select m;
@@ -146,18 +146,29 @@ namespace AWO_Team14.Controllers
                 }
             }
 
-            //if (SearchYear != null)
-            //{
-            //    Int32 DateSelected = SearchYear ?? new (1900, 1, 1);
-            //    if (SearchYearType == RangeType.After)
-            //    { query = query.Where(m => m.ReleaseYear >= DateSelected); }
-            //    else if (SearchYearType == RangeType.Before)
-            //    { query = query.Where(m => m.ReleaseYear <= DateSelected); }
-            //    else if (SearchYearType == RangeType.Equal)
-            //    {
-            //        query = query.Where(m => m.ReleaseYear == DateSelected);
-            //    }
-            //}
+            if (SearchYear != null && SearchYear != "")
+            {
+                try
+                {
+                    Int32 DateSelected = Convert.ToInt32(SearchYear);
+                    if (SearchYearType == RangeType.After)
+                    { query = query.Where(m => m.ReleaseYear >= DateSelected); }
+                    else if (SearchYearType == RangeType.Before)
+                    { query = query.Where(m => m.ReleaseYear <= DateSelected); }
+                    else if (SearchYearType == RangeType.Equal)
+                    {
+                        query = query.Where(m => m.ReleaseYear == DateSelected);
+                    }
+                }
+                    
+                catch
+                {
+                    ViewBag.Message = SearchYear + "is not a valid number.";
+                    ViewBag.AllGenres = GetAllGenres();
+                    ViewBag.AllMPAA = GetAllMPAA();
+                    return View("DetailedSearch");
+                }
+            }
 
             if (SearchActors != null)
             {
@@ -169,44 +180,7 @@ namespace AWO_Team14.Controllers
                 query = query.Where(m => m.MPAA_Rating == MPAARating);
             }
 
-            //Decimal decSearchStar;
-            //if (SearchStarRatings != null && SearchStarRatings != "")
-            //{
-            //    try
-            //    {
-            //        decSearchStar = Convert.ToDecimal(SearchStarRatings);
-
-            //        if (decSearchStar >= 1.0m && decSearchStar <= 5.0m)
-            //        {
-            //            switch (SelectedStar)
-            //            {
-            //                case StarComp.GreaterThan:
-            //                    Debug.WriteLine(query.Count());
-            //                    query = query.Where(m => m.RatingsAvg >= decSearchStar);
-            //                    Debug.WriteLine("THis is the query count");
-            //                    Debug.WriteLine(query.Count());
-            //                    break;
-            //                case StarComp.LessThan:
-            //                    query = query.Where(m => m.RatingsAvg <= decSearchStar);
-            //                    break;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            ViewBag.Message = SearchStarRatings + "is not a valid number.";
-            //            ViewBag.AllGenres = GetAllGenres();
-            //            ViewBag.AllMPAA = GetAllMPAA();
-            //            return View("DetailedSearch");
-            //        }
-            //    }
-            //    catch
-            //    {
-            //        ViewBag.Message = SearchStarRatings + "is not a valid number.";
-            //        ViewBag.AllGenres = GetAllGenres();
-            //        ViewBag.AllMPAA = GetAllMPAA();
-            //        return View("DetailedSearch");
-            //    }
-            //}
+            
 
             //Creates list of selected movies
             List<Movie> OtherMovies = query.ToList();
