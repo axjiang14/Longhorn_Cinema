@@ -197,7 +197,21 @@ namespace AWO_Team14.Controllers
                     userTicket.Status = Status.Returned;
                     userTicket.SeatNumber = Seat.Seat;
                     db.SaveChanges();
-                    return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
+
+					if (t.Payment == Payment.PopcornPoints)
+					{
+						t.User.PopcornPoints += 100;
+					}
+
+					if (t.Payment == Payment.CreditCard)
+					{
+						
+						Int32 intPopPoints = Convert.ToInt32(userTicket.CurrentPrice - (userTicket.CurrentPrice % 1));
+
+						t.User.PopcornPoints -= intPopPoints;
+
+					}
+					return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
                 }
                 else
                 {
