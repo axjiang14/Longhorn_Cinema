@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "EmployeeHome";
+}
+
+<h2>Employee Home</h2>
+
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole("Manager") || User.IsInRole("Employee"))
+    {
+    <div>
+        @Html.ActionLink("Register Customer", "RegisterCustomer", "Accounts", null, new { @class = "btn btn-default" })
+    </div>
+    }
+
+    if (User.IsInRole("Manager"))
+    {
+        <div>
+            @Html.ActionLink("Register Employee", "RegisterEmployee", "Accounts", null, new { @class = "btn btn-default" })
+        </div>
+
+        <div>
+            @Html.ActionLink("Hire Employee", "HireEmployee", "Accounts", null, new { @class = "btn btn-default" })
+        </div>
+
+        <div>
+            @Html.ActionLink("Fire Employee", "FireEmployee", "Accounts", null, new { @class = "btn btn-default" })
+        </div>
+    }
+}

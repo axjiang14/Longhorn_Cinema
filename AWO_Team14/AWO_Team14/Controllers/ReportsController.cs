@@ -18,6 +18,7 @@ namespace AWO_Team14.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
+
         // GET: Reports
         public ActionResult Index()
         {
@@ -50,25 +51,32 @@ namespace AWO_Team14.Controllers
             return GetMPAA;
         }
 
-        public SelectList GetAllCustomers()
-        {
+        //public SelectList GetAllCustomers()
+        //{
+        //    var Employee = from
 
-  
-            //List<AppUser> AllUsers = db.Users.OrderBy(u => u.UserName).ToList();
+        //    String[] CustomerUsers = UserManager.GetUsersInRole("Customer");
 
-            //List<AppUser> AllCustomers = new List<AppUser>();
+        //    List<String> CustomerList = new List<String>(CustomerUsers);
 
-            String[] CustomerUsers = Roles.GetUsersInRole("Customer");
+        //    CustomerList.Add("All Customers");
 
-            List<String> CustomerList = new List<String>(CustomerUsers);
+        //    SelectList AllCustomers = new SelectList(CustomerList);
 
-            CustomerList.Add("All Customers");
+        //    return AllCustomers;
 
-            SelectList AllCustomers = new SelectList(CustomerList);
+        //    //var AllUsers = from u in db.Users
+        //    //               select u;
 
-            return AllCustomers;
+        //    //AllUsers = AllUsers.Where(u => User.IsInRole("Customer"));
 
-        }
+        //    //List<AppUser> Customers = AllUsers.ToList();
+
+        //    //SelectList AllCustomers = new SelectList(Customers.OrderBy(u => u.UserName), "Id", "Email");
+
+        //    //return AllCustomers;
+
+        //}
 
         public ActionResult GenerateReport()
         {
@@ -79,7 +87,7 @@ namespace AWO_Team14.Controllers
 
         public ActionResult GenerateCustomerReport()
         {
-            ViewBag.AllCustomers = GetAllCustomers();
+            //ViewBag.AllCustomers = GetAllCustomers();
             return View();
         }
 
@@ -187,6 +195,14 @@ namespace AWO_Team14.Controllers
             get
             {
                 return HttpContext.GetOwinContext().GetUserManager<AppRoleManager>();
+            }
+        }
+
+        private AppUserManager UserManager
+        {
+            get
+            {
+                return HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
             }
         }
     }

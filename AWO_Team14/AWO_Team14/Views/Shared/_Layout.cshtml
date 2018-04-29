@@ -42,23 +42,14 @@
                         @Html.ActionLink("Run Reports", "Index", "Reports", null, new { @class = "nav-link" })
                     </li>
 
-                    @if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated)
     {
 
 
-        if (User.IsInRole("Manager"))
-        {
-                <li class="nav-item">
-                    @Html.ActionLink("Manage Users", "Index", "RoleAdmin", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Add Employee", "RegisterEmployee", "Accounts", null, new { @class = "nav-link" })
-                </li>
-}
 if (User.IsInRole("Employee") || User.IsInRole("Manager"))
 {
                 <li class="nav-item">
-                    @Html.ActionLink("Add Customer", "RegisterCustomer", "Accounts", null, new { @class = "nav-link" })
+                    @Html.ActionLink("EmployeeHome", "EmployeeHome", "Accounts", null, new { @class = "nav-link" })
                 </li>
 }
 
