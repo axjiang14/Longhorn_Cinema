@@ -263,7 +263,7 @@ namespace AWO_Team14.Controllers
 
             if (age < 13)
             {
-                ViewBag.Error = "You must be 13 to create a customer account.";
+                ViewBag.Error = "Customers must be 13 years of age.";
                 return View(model);
             }
 
