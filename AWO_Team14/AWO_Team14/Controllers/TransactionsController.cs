@@ -12,6 +12,7 @@ using System.Diagnostics;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using AWO_Team14.Utilities;
+using System.Web.Security;
 
 namespace AWO_Team14.Controllers
 {
@@ -150,7 +151,7 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User")] Transaction transaction)
+        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User")] Transaction transaction, string SearchGiftee)
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
@@ -158,6 +159,40 @@ namespace AWO_Team14.Controllers
             {
                 if (ModelState.IsValid)
                 {
+					if (SearchGiftee != null || SearchGiftee != "")
+					{
+						var Giftee = db.Users.Where(u => u.Email == SearchGiftee);
+						AppUser RGiftee = Giftee.FirstOrDefault();
+
+						if (RGiftee == null)
+						{
+							ViewBag.ErrorMessage = "The user can't be found";
+							return View(t);
+						}
+
+
+						//TODO: Check that the giftee is a customer
+						//if (! RGiftee.IsUserInRole("Customer"))
+						//{
+						//	ViewBag.ErrorMessage = "The user isn't a customer";
+						//	return View(t);
+						//}
+
+							foreach (UserTicket item in t.UserTickets)
+						{
+							if (item.Showing.Movie.MPAA_Rating == MPAA.NC17 || item.Showing.Movie.MPAA_Rating == MPAA.R)
+							{
+								if (Utilities.TransactionValidation.AgeCalc(RGiftee.Birthday) < 18)
+								{
+									ViewBag.ErrorMessage = "You can't gift a NC-17 or R rated movie to a minor";
+									return View(t);
+								}
+							}
+						}
+						t.Giftee = RGiftee;
+
+					}
+
                     //TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
                     t.Payment = transaction.Payment;
 					if (transaction.Payment == Payment.PopcornPoints)
@@ -221,11 +256,16 @@ namespace AWO_Team14.Controllers
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
             if (Utilities.TransactionValidation.TicketValidation(t) == true)
+            {
+
                 if (ModelState.IsValid)
                 {
                     foreach (UserTicket ut in t.UserTickets)
                     {
+                        int ticketCount = 1;
                         ut.Status = Status.Active;
+                        ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut, ticketCount);
+                        ticketCount += 1;
                     }
 
                     if (t.Payment == Payment.CreditCard)
@@ -245,8 +285,9 @@ namespace AWO_Team14.Controllers
                     return RedirectToAction("Details", new { id = t.TransactionID });
 
                 }
-            return View(transaction);
+            }
 
+            return View(transaction);
 
         }
 

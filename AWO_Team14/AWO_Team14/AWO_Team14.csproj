@@ -203,6 +203,7 @@
     <Compile Include="Controllers\ShowingsController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UserTicketsController.cs" />
+    <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="DAL\AppDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -586,6 +587,11 @@
     <Content Include="Views\Accounts\ChangeEmployeeStatus.cshtml" />
     <Content Include="Views\Transactions\EmployeeCreate.cshtml" />
     <Content Include="Views\Accounts\ChangeUserProfile.cshtml" />
+    <Content Include="Views\Votes\Create.cshtml" />
+    <Content Include="Views\Votes\Delete.cshtml" />
+    <Content Include="Views\Votes\Details.cshtml" />
+    <Content Include="Views\Votes\Edit.cshtml" />
+    <Content Include="Views\Votes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
