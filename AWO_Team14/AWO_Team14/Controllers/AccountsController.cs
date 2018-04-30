@@ -546,6 +546,7 @@ namespace AWO_Team14.Controllers
         public ActionResult ChangeUserInfo(string id)
         {
             AppUser user = db.Users.Find(id);
+
             return View(user);
         }
 

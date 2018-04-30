@@ -21,7 +21,15 @@
             @Html.DisplayFor(model => model.User.LastName)
         </div>
     </div>
-
+@if (Model.Giftee != null)
+{
+    <div class="form-group">
+        Giftee
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.Giftee)
+        </div>
+    </div>
+}
     <div class="form-group">
         @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
