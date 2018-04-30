@@ -59,8 +59,21 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Vote vote)
         {
+
             MovieReview mr = db.MovieReviews.Find(vote.MovieReview.MovieReviewID);
             vote.MovieReview = mr;
+
+            List<Vote> MovieVotes = mr.Votes;
+
+            AppUser CurrentUser = db.Users.Find(User.Identity.GetUserId());
+
+            foreach(Vote v in MovieVotes)
+            {
+                if(v.User == CurrentUser)
+                {
+                    return RedirectToAction("Edit", "Votes", new { id = v.VoteID });
+                }
+            }
 
             String UserID = User.Identity.GetUserId();
             AppUser user = db.Users.Find(UserID);
@@ -103,9 +116,13 @@ namespace AWO_Team14.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vote).State = EntityState.Modified;
+                Vote VoteToChange = db.Votes.Find(vote.VoteID);
+
+                VoteToChange.ThumbVote = vote.ThumbVote;
+
+                db.Entry(VoteToChange).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Home", new { id = VoteToChange.MovieReview.Movie.MovieID });
             }
             return View(vote);
         }
