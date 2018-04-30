@@ -21,7 +21,7 @@ namespace AWO_Team14.Utilities
 				}
 				else
 				{
-					MaxTransactionNum = db.Transactions.Max(t => t.TransactionID);
+					MaxTransactionNum = db.Transactions.Max(t => t.TransactionNumber);
 				}
 
 				NextTransactionNum = MaxTransactionNum + 1;
