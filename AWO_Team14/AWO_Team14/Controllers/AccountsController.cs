@@ -511,24 +511,29 @@ namespace AWO_Team14.Controllers
             return View(ivm);
         }
 
-        //public ActionResult ResetPassword()
-        //{
-        //    return View();
-        //}
+        public ActionResult ResetPassword()
+        {
+            ViewBag.AllUsers = GetAllUsers();
+            return View();
+        }
 
-        //public async Task<ActionResult> ResetPassword()
-        //{
-        //    UserStore<AppUser> store = new UserStore<AppUser>(db);
-        //    String userId = User.Identity.GetUserId();//"<YourLogicAssignsRequestedUserId>";
-        //    String newPassword = "test@123"; //"<PasswordAsTypedByUser>";
-        //    String hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
-        //    AppUser cUser = await store.FindByIdAsync(userId);
-        //    await store.SetPasswordHashAsync(cUser, hashedNewPassword);
-        //    await store.UpdateAsync(cUser);
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model, string Id)
+        {
+            UserStore<AppUser> store = new UserStore<AppUser>(db);
+            String userId = Id; //"<YourLogicAssignsRequestedUserId>";
+            String newPassword = model.NewPassword; //"<PasswordAsTypedByUser>";
+            String hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
+            AppUser cUser = await store.FindByIdAsync(userId);
+            await store.SetPasswordHashAsync(cUser, hashedNewPassword);
+            await store.UpdateAsync(cUser);
 
-        //    //string resetToken = await UserManager.GeneratePasswordResetTokenAsync(model.Id);
-        //    //IdentityResult passwordChangeResult = await UserManager.ResetPasswordAsync(model.Id, resetToken, model.NewPassword);
-        //}
+            return RedirectToAction("EmployeeHome");
+
+            //string resetToken = await UserManager.GeneratePasswordResetTokenAsync(model.Id);
+            //IdentityResult passwordChangeResult = await UserManager.ResetPasswordAsync(model.Id, resetToken, model.NewPassword);
+        }
 
 
         //Logic for change password

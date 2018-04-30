@@ -489,6 +489,10 @@
     <Compile Include="Migrations\201804302007377_constructor for userticket.Designer.cs">
       <DependentUpon>201804302007377_constructor for userticket.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804302037413_Reset password model.cs" />
+    <Compile Include="Migrations\201804302037413_Reset password model.Designer.cs">
+      <DependentUpon>201804302037413_Reset password model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -610,7 +614,6 @@
     <Content Include="Views\Votes\Edit.cshtml" />
     <Content Include="Views\Votes\Index.cshtml" />
     <Content Include="Views\Accounts\ResetPassword.cshtml" />
-    <Content Include="Views\Accounts\ChooseEmployeeReset.cshtml" />
     <Content Include="Views\Discounts\Create.cshtml" />
     <Content Include="Views\Discounts\Delete.cshtml" />
     <Content Include="Views\Discounts\Details.cshtml" />
@@ -848,6 +851,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804302007377_constructor for userticket.resx">
       <DependentUpon>201804302007377_constructor for userticket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804302037413_Reset password model.resx">
+      <DependentUpon>201804302037413_Reset password model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
