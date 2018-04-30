@@ -10,10 +10,10 @@ namespace AWO_Team14.Utilities
 {
     public class DiscountPrice
     {
-        public static void GetDiscountPrice(UserTicket ticket, int TicketCount)
+        public static Decimal GetTicketPrice(UserTicket ticket, int TicketCount)
         {
             AppDbContext db = new AppDbContext();
-
+            Decimal ticketPrice = -1;
             // assign price for each ticket
 
             Boolean weekend = (int)ticket.Showing.ShowDate.DayOfWeek == 6 || (int)ticket.Showing.ShowDate.DayOfWeek == 7;
@@ -28,7 +28,7 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $5.00
-                    ticket.CurrentPrice = result.DiscountValue;
+                    ticketPrice = result.DiscountValue;
                 }
             }
 
@@ -42,7 +42,7 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $10.00
-                    ticket.CurrentPrice = result.DiscountValue;
+                    ticketPrice = result.DiscountValue;
                 }
 
             }
@@ -56,7 +56,7 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $12.00
-                    ticket.CurrentPrice = result.DiscountValue;
+                    ticketPrice = result.DiscountValue;
                 }
             }
 
@@ -74,25 +74,44 @@ namespace AWO_Team14.Utilities
                         {
                             // sets Current Price property
                             // $8.00
-                            ticket.CurrentPrice = result.DiscountValue;
+                            ticketPrice = result.DiscountValue;
                         }
 
                 }
                 
-
                 //senior citizen discounts for 2 tickets in transcation
-                if (ticket.Transaction.User.Birthday.AddYears(60) > ticket.Transaction.TransactionDate && TicketCount <= 2)
+                if (ticket.Transaction.User.Birthday.AddYears(60) < ticket.Transaction.TransactionDate && TicketCount <= 2)
                 {
-                    ticket.CurrentPrice -= 2;
+                    var query = from c in db.Discounts
+                                where c.DiscountName == "senior"
+                                select c;
+                    foreach (var result in query)
+                    {
+                        ticketPrice -= result.DiscountValue;
+                    }
+                        
                 }
 
                 // early bird discount
                 if ((ticket.Showing.ShowDate - ticket.Transaction.TransactionDate).TotalDays > 2)
                 {
-                        // discounts $2.00
-                        ticket.CurrentPrice -= 1;
-                }                             
+                    var query = from c in db.Discounts
+                                where c.DiscountName == "earlybird"
+                                select c;
+                    foreach (var result in query)
+                    {
+                        ticketPrice -= result.DiscountValue;
+                    }
+                }
+
+                return ticketPrice;
+            }
+
+            else
+            {
+                return ticketPrice;
             }
         }
+
     }
 }

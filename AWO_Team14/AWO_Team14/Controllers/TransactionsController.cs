@@ -221,11 +221,16 @@ namespace AWO_Team14.Controllers
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
             if (Utilities.TransactionValidation.TicketValidation(t) == true)
+            {
+
                 if (ModelState.IsValid)
                 {
                     foreach (UserTicket ut in t.UserTickets)
                     {
+                        int ticketCount = 1;
                         ut.Status = Status.Active;
+                        ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut, ticketCount);
+                        ticketCount += 1;
                     }
 
                     if (t.Payment == Payment.CreditCard)
@@ -245,8 +250,9 @@ namespace AWO_Team14.Controllers
                     return RedirectToAction("Details", new { id = t.TransactionID });
 
                 }
-            return View(transaction);
+            }
 
+            return View(transaction);
 
         }
 
