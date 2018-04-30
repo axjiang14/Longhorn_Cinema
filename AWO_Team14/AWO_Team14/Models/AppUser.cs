@@ -61,7 +61,7 @@ namespace AWO_Team14.Models
         [DataType(DataType.CreditCard)]
         public String CreditCardNumber2 { get; set; }
 
-        [Display(Name = "Popcorn Points")]
+		[Display(Name = "Popcorn Points")]
         // sets default value to 0
         public int PopcornPoints { get; set; } = 0;
 
@@ -100,5 +100,18 @@ namespace AWO_Team14.Models
             // Add custom user claims here
             return userIdentity;
         }
-    }
+
+		//This method displays credit card - last 4 digits
+		public string CC
+		{
+			get
+			{
+				String CC = "";
+				//String CCEncoded;
+				//CCEncoded = "**** **** **** " + CC.Substring(CC.Length - 4, 4);
+				return CC;
+			}
+			set { }
+		}
+	}
 }

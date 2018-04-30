@@ -3,17 +3,13 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
 
 <div>
-    <h4>Change your account settings</h4>
+    <h2>Your Account</h2>
     <hr />
     <dl class="dl-horizontal">
         <dt>User Name:</dt>
         <dd>@Model.UserName</dd>
-
-        <dt>UserID:</dt>
-        <dd>@Model.UserID</dd>
 
         <dt>First Name:</dt>
         <dd>@Html.Raw(ViewBag.FirstName)</dd>

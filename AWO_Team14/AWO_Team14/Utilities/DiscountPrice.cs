@@ -10,7 +10,7 @@ namespace AWO_Team14.Utilities
 {
     public class DiscountPrice
     {
-        public static Decimal GetTicketPrice(UserTicket ticket, int TicketCount)
+        public static Decimal GetTicketPrice(UserTicket ticket)
         {
             AppDbContext db = new AppDbContext();
             Decimal ticketPrice = -1;
@@ -28,12 +28,13 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $5.00
+                    ticket.AppliedDiscounts = result.DiscountName;
                     ticketPrice = result.DiscountValue;
                 }
             }
 
             // checks if showing day is weekday and afternoon
-            else if (ticket.Showing.StartHour > 12 && ((int)ticket.Showing.ShowDate.DayOfWeek >= 1 || (int)ticket.Showing.ShowDate.DayOfWeek <= 4))
+            else if (ticket.Showing.StartHour >= 12 && ((int)ticket.Showing.ShowDate.DayOfWeek >= 1 || (int)ticket.Showing.ShowDate.DayOfWeek <= 4))
             {
                 var query = from c in db.Discounts
                             where c.DiscountName == "weekday"
@@ -42,6 +43,7 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $10.00
+                    ticket.AppliedDiscounts = result.DiscountName;
                     ticketPrice = result.DiscountValue;
                 }
 
@@ -56,6 +58,7 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $12.00
+                    ticket.AppliedDiscounts = result.DiscountName;
                     ticketPrice = result.DiscountValue;
                 }
             }
@@ -65,28 +68,35 @@ namespace AWO_Team14.Utilities
             {
                  
                 // tuesday discount
-                if ((int)ticket.Showing.ShowDate.DayOfWeek == 2 && (ticket.Showing.StartHour > 12 && ticket.Showing.StartHour < 17))
+                if ((int)ticket.Showing.ShowDate.DayOfWeek == 2 && (ticket.Showing.StartHour >= 12 && ticket.Showing.StartHour < 17))
                 {
                         var query = from c in db.Discounts
                                     where c.DiscountName == "tuesday"
                                     select c;
                         foreach (var result in query)
                         {
-                            // sets Current Price property
-                            // $8.00
-                            ticketPrice = result.DiscountValue;
+                        // sets Current Price property
+                        // $8.00
+                        ticket.AppliedDiscounts += ", " + result.DiscountName;
+                        ticketPrice = result.DiscountValue;
                         }
 
                 }
-                
+
                 //senior citizen discounts for 2 tickets in transcation
-                if (ticket.Transaction.User.Birthday.AddYears(60) <= ticket.Transaction.TransactionDate && TicketCount <= 2)
+                var querySenior = (from u in db.UserTickets
+                                  where u.Transaction.TransactionID == ticket.Transaction.TransactionID &&
+                                  u.AppliedDiscounts.Contains("senior")
+                                select u).Count();
+
+                if (ticket.Transaction.User.Birthday.AddYears(60) <= ticket.Transaction.TransactionDate && querySenior < 2)
                 {
                     var query = from c in db.Discounts
                                 where c.DiscountName == "senior"
                                 select c;
                     foreach (var result in query)
                     {
+                        ticket.AppliedDiscounts += ", " + result.DiscountName;
                         ticketPrice -= result.DiscountValue;
                     }
                         
@@ -100,6 +110,7 @@ namespace AWO_Team14.Utilities
                                 select c;
                     foreach (var result in query)
                     {
+                        ticket.AppliedDiscounts += ", " + result.DiscountName;
                         ticketPrice -= result.DiscountValue;
                     }
                 }

@@ -48,6 +48,7 @@
         <th>Price</th>
         <th>Status</th>
         <th>Seat</th>
+        <th>Discounts</th>
     </tr>
     @foreach (UserTicket t in Model.UserTickets)
     {
@@ -59,6 +60,7 @@
         <td>@Html.DisplayFor(model => t.CurrentPrice)</td>
         <td>@Html.DisplayFor(model => t.Status)</td>
         <td>@Html.DisplayFor(model => t.SeatNumber) </td>
+        <td>@Html.DisplayFor(model => t.AppliedDiscounts)</td>
 
     </tr>
     }
