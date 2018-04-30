@@ -463,6 +463,10 @@
     <Compile Include="Migrations\201804300235241_votes model stuff.Designer.cs">
       <DependentUpon>201804300235241_votes model stuff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804300307073_42920191006.cs" />
+    <Compile Include="Migrations\201804300307073_42920191006.Designer.cs">
+      <DependentUpon>201804300307073_42920191006.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -792,6 +796,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804300235241_votes model stuff.resx">
       <DependentUpon>201804300235241_votes model stuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804300307073_42920191006.resx">
+      <DependentUpon>201804300307073_42920191006.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
