@@ -14,6 +14,11 @@ namespace AWO_Team14.Models
 
         public ThumbVote ThumbVote { get; set; }
 
+        public virtual MovieReview MovieReview { get; set; }
+
+        public virtual AppUser User { get; set; }
+
+
 
     }
 }

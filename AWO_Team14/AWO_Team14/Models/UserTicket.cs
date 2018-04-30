@@ -27,6 +27,8 @@ namespace AWO_Team14.Models
 
         public Int32 MovieID { get; set; }
 
+        public string Email { get; set; }
+
         public virtual Transaction Transaction { get; set; }
         public virtual Showing Showing { get; set; }
 
