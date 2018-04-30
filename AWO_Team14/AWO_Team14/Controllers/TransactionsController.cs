@@ -172,6 +172,7 @@ namespace AWO_Team14.Controllers
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
+            Debug.WriteLine(Utilities.TransactionValidation.TicketValidation(t));
             if (Utilities.TransactionValidation.TicketValidation(t) == true)
             {
                 if (ModelState.IsValid)

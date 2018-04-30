@@ -604,6 +604,8 @@
     <Content Include="Views\Votes\Details.cshtml" />
     <Content Include="Views\Votes\Edit.cshtml" />
     <Content Include="Views\Votes\Index.cshtml" />
+    <Content Include="Views\Accounts\ResetPassword.cshtml" />
+    <Content Include="Views\Accounts\ChooseEmployeeReset.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

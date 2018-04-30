@@ -133,6 +133,9 @@ namespace AWO_Team14.Controllers
 
             if (ModelState.IsValid)
             {
+                int ticketCount = ut.Transaction.UserTickets.Count();
+                ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut, ticketCount);
+
                 ut.SeatNumber = SelectedSeat;
                 db.Entry(ut).State = EntityState.Modified;
                 db.SaveChanges();

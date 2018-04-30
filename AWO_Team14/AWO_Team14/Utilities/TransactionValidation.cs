@@ -24,13 +24,20 @@ namespace AWO_Team14.Utilities
                 //check user tickets
                 for (var x = t + 1; x < transaction.UserTickets.Count; x++)
 				{
-                    UserTicket TicketToCompare = transaction.UserTickets[x]; 
-					
-                    if ((TicketToCompare.Showing.EndTime >= TicketToCheck.Showing.ShowDate && TicketToCompare.Showing.ShowDate <= TicketToCheck.Showing.ShowDate) || (TicketToCompare.Showing.EndTime >= TicketToCheck.Showing.EndTime && TicketToCompare.Showing.ShowDate <= TicketToCheck.Showing.EndTime))
-					{
-                        return false;
+                    UserTicket TicketToCompare = transaction.UserTickets[x];
+                    if (TicketToCompare.MovieID == TicketToCheck.MovieID && TicketToCompare.Showing.ShowingID == TicketToCheck.Showing.ShowingID)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        if ((TicketToCompare.Showing.EndTime >= TicketToCheck.Showing.ShowDate && TicketToCompare.Showing.ShowDate <= TicketToCheck.Showing.ShowDate) || (TicketToCompare.Showing.EndTime >= TicketToCheck.Showing.EndTime && TicketToCompare.Showing.ShowDate <= TicketToCheck.Showing.EndTime))
+                        {
+                            return false;
+                        }
                     }
                 }
+
                     
 			}
             return true;

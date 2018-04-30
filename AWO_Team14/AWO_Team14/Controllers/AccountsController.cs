@@ -15,6 +15,7 @@ using AWO_Team14.Models;
 using System.Data.Entity;
 using System.Collections.Generic;
 using AWO_Team14.Utilities;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 //Change this namespace to match your project
 namespace AWO_Team14.Controllers
@@ -510,6 +511,24 @@ namespace AWO_Team14.Controllers
             return View(ivm);
         }
 
+        //public ActionResult ResetPassword()
+        //{
+        //    return View();
+        //}
+
+        //public async Task<ActionResult> ResetPassword()
+        //{
+        //    UserStore<AppUser> store = new UserStore<AppUser>(db);
+        //    String userId = User.Identity.GetUserId();//"<YourLogicAssignsRequestedUserId>";
+        //    String newPassword = "test@123"; //"<PasswordAsTypedByUser>";
+        //    String hashedNewPassword = UserManager.PasswordHasher.HashPassword(newPassword);
+        //    AppUser cUser = await store.FindByIdAsync(userId);
+        //    await store.SetPasswordHashAsync(cUser, hashedNewPassword);
+        //    await store.UpdateAsync(cUser);
+
+        //    //string resetToken = await UserManager.GeneratePasswordResetTokenAsync(model.Id);
+        //    //IdentityResult passwordChangeResult = await UserManager.ResetPasswordAsync(model.Id, resetToken, model.NewPassword);
+        //}
 
 
         //Logic for change password
