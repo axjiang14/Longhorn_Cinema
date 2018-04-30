@@ -31,6 +31,13 @@
     </div>
 
     <div class="form-group">
+        Please enter a customer email if you'd like to give this transaction as a gift
+        <div class="col-md-10">
+            @Html.TextBox("SearchGiftee", null, new { @class = "form-control"})
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.TransactionDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DisplayFor(model => model.TransactionDate, new { htmlAttributes = new { @class = "form-control" } })
