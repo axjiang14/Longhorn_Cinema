@@ -147,7 +147,14 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            var Employee = from u in db.Users
+                            where u.Email == model.Email
+                            select u;
+            List<AppUser> EmployeeList = Employee.ToList();
+
+            AppUser Employee1 = EmployeeList.FirstOrDefault();
+
+            if (!ModelState.IsValid || Employee1.Archived == true)
             {
                 return View(model);
             }
@@ -237,9 +244,9 @@ namespace AWO_Team14.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    String Message = "Hello " + model.FirstName + ",\n" + "A Longhorn Cinemas account has been created for you." +
+                    String Message = "Hello " + model.FirstName + ",\n" + "a Longhorn Cinemas account has been created for you." +
                                   ".\n\n" + "Love,\n" + "Dan";
-                    Emailing.SendEmail(model.Email, "Longhorn Cinemas Account", Message);
+                    Emailing.SendEmail(model.Email, "Your Longhorn Cinemas Account", Message);
 
                     return RedirectToAction("Index", "Home");
                     }
@@ -311,13 +318,17 @@ namespace AWO_Team14.Controllers
 
                 if (result.Succeeded)
                 {
-                    
+
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    String Message = "Hello " + model.FirstName + ",\n" + "a Longhorn Cinemas account has been created for you." +
+                                  ".\n\n" + "Love,\n" + "Dan";
+                    Emailing.SendEmail(model.Email, "Your Longhorn Cinemas Account", Message);
 
                     return RedirectToAction("EmployeeHome");
                 }
@@ -384,6 +395,10 @@ namespace AWO_Team14.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    String Message = "Hello " + model.FirstName + "!\n" + "Welcome to the Longhorn Cinemas family!" +
+                                  ".\n\n" + "Love,\n" + "Dan";
+                    Emailing.SendEmail(model.Email, "Welcome new Longhorn Cinemas Employee!", Message);
+
                     return RedirectToAction("EmployeeHome");
                 }
                 AddErrors(result);
@@ -403,7 +418,7 @@ namespace AWO_Team14.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager")]
         public ActionResult ChangeEmployeeStatus( string id, EmploymentAction EmploymentAction)
         {
@@ -411,11 +426,17 @@ namespace AWO_Team14.Controllers
 
             if (EmploymentAction == EmploymentAction.Hire)
             {
+                String Message = "Hello " + Employee.FirstName + ",\n" + "congratulations on your renewed employment with Longhorn Cinemas." +
+                                  ".\n\n" + "Love,\n" + "Dan";
+                Emailing.SendEmail(Employee.Email, "Welcome Back to Longhorn Cinemas", Message);
                 Employee.Archived = false;
 
             }
             if (EmploymentAction == EmploymentAction.Fire)
             {
+                String Message = "Hello " + Employee.FirstName + ",\n" + "your employment with Longhorn Cinemas has ended. We're sorry to hear you're leaving the Longhorn Family." +
+                                 ".\n\n" + "Love,\n" + "Dan";
+                Emailing.SendEmail(Employee.Email, "Goodbye, Longhorn Cinemas", Message);
                 Employee.Archived = true;
             }
 
@@ -432,28 +453,6 @@ namespace AWO_Team14.Controllers
             // If we got this far, something failed, redisplay form
             return View();
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Manager")]
-        //public ActionResult FireEmployee(string Id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        AppUser Employee = db.Users.Find(Id);
-        //        Employee.Archived = true;
-
-        //        db.Entry(Employee).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("EmployeeHome");
-
-        //    }
-
-        //    ViewBag.AllEmployees = GetAllEmployees();
-
-        //    // If we got this far, something failed, redisplay form
-        //    return View();
-        //}
 
         [Authorize(Roles = "Manager, Employee")]
         public ActionResult ChangeUserProfile()
