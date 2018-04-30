@@ -133,8 +133,8 @@ namespace AWO_Team14.Controllers
 
             if (ModelState.IsValid)
             {
-                int ticketCount = ut.Transaction.UserTickets.Count();
-                ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut, ticketCount);
+
+                ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut);
 
                 ut.SeatNumber = SelectedSeat;
                 db.Entry(ut).State = EntityState.Modified;
@@ -185,11 +185,20 @@ namespace AWO_Team14.Controllers
 
             if (userTicket.Status == Status.Pending)
             {
-
+                // delete ticket
                 Transaction t = userTicket.Transaction;
                 t.UserTickets.Remove(userTicket);
                 db.UserTickets.Remove(userTicket);
                 db.SaveChanges();
+
+                // recaculate prices for all tickets in transaction
+                foreach (UserTicket ticket in t.UserTickets)
+                {
+                    ticket.CurrentPrice = DiscountPrice.GetTicketPrice(ticket);
+                    db.Entry(ticket).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("PendingDetails", "Transactions", new { id = t.TransactionID });
 
             }

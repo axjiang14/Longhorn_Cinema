@@ -284,13 +284,13 @@ namespace AWO_Team14.Controllers
                     // add popcorn points from transaction
                     if (t.Payment == Payment.CreditCard)
                     {
-                        foreach (UserTicket ut in t.UserTickets)
-                        {
-                            int ticketCount = 1;
-                            ut.Status = Status.Active;
-                            ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut, ticketCount);
-                            ticketCount += 1;
-                        }
+                        //foreach (UserTicket ut in t.UserTickets)
+                        //{
+                        //    int ticketCount = 1;
+                        //    ut.Status = Status.Active;
+                        //    ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut);
+                        //    ticketCount += 1;
+                        //}
 
                         Decimal decPopPoints = t.UserTickets.Sum(ut => ut.CurrentPrice);
 
