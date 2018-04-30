@@ -76,12 +76,17 @@ namespace AWO_Team14.Models
 
 
         public virtual List<MovieReview> MovieReviews { get; set; }
+        public virtual List<Vote> Votes { get; set; }
 
         public AppUser()
         {
             if (MovieReviews == null)
             {
                 MovieReviews = new List<MovieReview>();
+            }
+            if (Votes == null)
+            {
+                Votes = new List<Vote>();
             }
 
         }
