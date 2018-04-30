@@ -55,7 +55,7 @@ namespace AWO_Team14.Controllers
 
             foreach (Showing s in Showings1)
             {
-                if (s.Movie.MovieID == movieid && s.ShowDate >= Now)
+                if (s.Movie.MovieID == movieid && s.ShowDate >= Now && s.Schedule.Published == true)
                 {
                     Showings2.Add(s);
                 }
@@ -160,38 +160,40 @@ namespace AWO_Team14.Controllers
                 {
                     //TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
                     t.Payment = transaction.Payment;
-
-                    if (Utilities.TransactionValidation.PPCalc(t) == false)
-                    {
-                        ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
-                    }
-
-					if (Utilities.TransactionValidation.PPCalc(t) == true)
+					if (transaction.Payment == Payment.PopcornPoints)
 					{
-						Int32 CurPopPoints = t.User.PopcornPoints;
-						Int32 intTickets = t.UserTickets.Count();
-						Int32 PPTickets = intTickets * 100;
-						t.User.PopcornPoints = CurPopPoints - PPTickets;
+						if (Utilities.TransactionValidation.PPCalc(t) == false)
+						{
+							ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
+							return View(t);
+						}
+
+						else
+						{
+							Int32 CurPopPoints = t.User.PopcornPoints;
+							Int32 intTickets = t.UserTickets.Count();
+							Int32 PPTickets = intTickets * 100;
+							t.User.PopcornPoints = CurPopPoints - PPTickets;
+
+						
+								foreach (UserTicket ut in t.UserTickets)
+								{
+									UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
+									userTicket.CurrentPrice = 0;
+									db.Entry(userTicket).State = EntityState.Modified;
+									db.SaveChanges();
+								}
+						}
 					}
 
-						if (transaction.Payment == Payment.PopcornPoints)
-                    {
-                        foreach (UserTicket ut in t.UserTickets)
-                        {
-                            UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
-                            userTicket.CurrentPrice = 0;
-                            db.Entry(userTicket).State = EntityState.Modified;
-                            db.SaveChanges();
-                        }
-                    }
 
-                    db.Entry(t).State = EntityState.Modified;
-                    db.SaveChanges();
+                    //db.Entry(t).State = EntityState.Modified;
+                    //db.SaveChanges();
                     return RedirectToAction("ConfirmTransaction", new { id = t.TransactionID });
 
                 }
             }
-            return View(transaction);
+            return View(t);
 			
 			
 		}
