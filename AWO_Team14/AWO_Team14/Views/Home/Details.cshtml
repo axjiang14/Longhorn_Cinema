@@ -129,8 +129,9 @@
                     <td>@Html.DisplayFor(modelItem => movreview.User.FirstName)</td>
                     <td>@Html.DisplayFor(modelItem => movreview.Rating)</td>
                     <td>@Html.DisplayFor(modelItem => movreview.Review)</td>
-                    <td>@Html.DisplayFor(modelItem => movreview.Votes.Count())</td>
-                    <td>@Html.DisplayFor(modelItem => movreview.Votes.Count())</td>
+                    <td>@Html.DisplayFor(modelItem => movreview.UpTotal)</td>
+                    <td>@Html.DisplayFor(modelItem => movreview.DownTotal)</td>
+                    <td>@Html.ActionLink("Vote", "Create","Votes", new { id = movreview.MovieReviewID }, null)</td>
                     </tr>
                 }
             
