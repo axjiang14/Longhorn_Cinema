@@ -61,7 +61,7 @@ namespace AWO_Team14.Models
         [DataType(DataType.CreditCard)]
         public String CreditCardNumber2 { get; set; }
 
-        [Display(Name = "Popcorn Points")]
+		[Display(Name = "Popcorn Points")]
         // sets default value to 0
         public int PopcornPoints { get; set; } = 0;
 
@@ -100,5 +100,6 @@ namespace AWO_Team14.Models
             // Add custom user claims here
             return userIdentity;
         }
-    }
+
+	}
 }

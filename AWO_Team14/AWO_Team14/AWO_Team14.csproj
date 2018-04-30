@@ -493,6 +493,14 @@
     <Compile Include="Migrations\201804302037413_Reset password model.Designer.cs">
       <DependentUpon>201804302037413_Reset password model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804302134081_update transaction and appuser models.cs" />
+    <Compile Include="Migrations\201804302134081_update transaction and appuser models.Designer.cs">
+      <DependentUpon>201804302134081_update transaction and appuser models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804302201400_idk.cs" />
+    <Compile Include="Migrations\201804302201400_idk.Designer.cs">
+      <DependentUpon>201804302201400_idk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -854,6 +862,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804302037413_Reset password model.resx">
       <DependentUpon>201804302037413_Reset password model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804302134081_update transaction and appuser models.resx">
+      <DependentUpon>201804302134081_update transaction and appuser models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804302201400_idk.resx">
+      <DependentUpon>201804302201400_idk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

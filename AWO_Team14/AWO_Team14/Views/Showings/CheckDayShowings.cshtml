@@ -5,7 +5,11 @@
     ViewBag.Title = "CheckDayShowings";
 }
 
+@Html.Raw(ViewBag.ErrorMessage)
+
 <h2>CheckDayShowings</h2>
+
+<p>@Html.Raw(ViewBag.ErrorMessage)</p>
 
 @using (Html.BeginForm("DisplayCheckDayShowings", "Showings", FormMethod.Get))
 {

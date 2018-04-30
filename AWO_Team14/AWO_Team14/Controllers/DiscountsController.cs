@@ -16,50 +16,52 @@ namespace AWO_Team14.Controllers
         private AppDbContext db = new AppDbContext();
 
         // GET: Discounts
+        [Authorize(Roles = "Manager")]
         public ActionResult Index()
         {
             return View(db.Discounts.ToList());
         }
 
         // GET: Discounts/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Discount discount = db.Discounts.Find(id);
-            if (discount == null)
-            {
-                return HttpNotFound();
-            }
-            return View(discount);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Discount discount = db.Discounts.Find(id);
+        //    if (discount == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(discount);
+        //}
 
         // GET: Discounts/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Discounts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DiscountID,DiscountName,DiscountValue")] Discount discount)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Discounts.Add(discount);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "DiscountID,DiscountName,DiscountValue")] Discount discount)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Discounts.Add(discount);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(discount);
-        }
+        //    return View(discount);
+        //}
 
         // GET: Discounts/Edit/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,30 +93,30 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Discounts/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Discount discount = db.Discounts.Find(id);
-            if (discount == null)
-            {
-                return HttpNotFound();
-            }
-            return View(discount);
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Discount discount = db.Discounts.Find(id);
+        //    if (discount == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(discount);
+        //}
 
         // POST: Discounts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Discount discount = db.Discounts.Find(id);
-            db.Discounts.Remove(discount);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Discount discount = db.Discounts.Find(id);
+        //    db.Discounts.Remove(discount);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
