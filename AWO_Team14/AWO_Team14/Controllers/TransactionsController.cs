@@ -271,8 +271,11 @@ namespace AWO_Team14.Controllers
         [Authorize(Roles = "Customer")]
         public ActionResult Create([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
         {
-            //TODO: Autoincrement transaction id
-            transaction.TransactionDate = DateTime.Now;
+
+			//TODONE: Autoincrement transaction id
+			transaction.TransactionID = Utilities.GenerateTransactionNumber.GetNextTransactionNum();
+
+			transaction.TransactionDate = DateTime.Now;
             transaction.Payment = Payment.CreditCard;
             transaction.User = db.Users.Find(User.Identity.GetUserId());
 
