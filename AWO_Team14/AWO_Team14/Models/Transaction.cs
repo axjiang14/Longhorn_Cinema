@@ -6,7 +6,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace AWO_Team14.Models
 {
-	public enum Payment { PopcornPoints, CreditCard }
+	public enum Payment
+	{
+		PopcornPoints, CreditCardNumber1, CreditCardNumber2, OtherCreditCard
+	}
 
 
 	public class Transaction

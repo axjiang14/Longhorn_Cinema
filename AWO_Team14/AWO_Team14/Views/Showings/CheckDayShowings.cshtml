@@ -7,6 +7,8 @@
 
 <h2>CheckDayShowings</h2>
 
+<p>@Html.Raw(ViewBag.ErrorMessage)</p>
+
 @using (Html.BeginForm("DisplayCheckDayShowings", "Showings", FormMethod.Get))
 {
     @Html.HiddenFor(model => model.Schedule.ScheduleID)

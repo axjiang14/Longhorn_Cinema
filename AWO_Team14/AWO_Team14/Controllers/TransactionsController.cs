@@ -98,6 +98,15 @@ namespace AWO_Team14.Controllers
             return null;
         }
 
+		////TODO: Create method to get payments and format the CCs
+		//Enum to list 
+		//add item to enum or change the display of CC to CC1 you use
+		//public SelectList GetAllPayments()
+		//{
+
+		//}
+			
+
         // GET: Transactions
         [Authorize]
         public ActionResult Index()
@@ -282,15 +291,8 @@ namespace AWO_Team14.Controllers
                     // get prices for each ticket
                     
                     // add popcorn points from transaction
-                    if (t.Payment == Payment.CreditCard)
+                    if (t.Payment != Payment.PopcornPoints)
                     {
-                        //foreach (UserTicket ut in t.UserTickets)
-                        //{
-                        //    int ticketCount = 1;
-                        //    ut.Status = Status.Active;
-                        //    ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut);
-                        //    ticketCount += 1;
-                        //}
 
                         Decimal decPopPoints = t.UserTickets.Sum(ut => ut.CurrentPrice);
 
@@ -298,9 +300,7 @@ namespace AWO_Team14.Controllers
 
                         Int32 CurPopPoints = t.User.PopcornPoints;
 
-                        t.User.PopcornPoints = CurPopPoints + intPopPoints;
-
-                        
+                        t.User.PopcornPoints = CurPopPoints + intPopPoints;             
 
                     }
                     // save changes to database
@@ -356,7 +356,9 @@ namespace AWO_Team14.Controllers
 			transaction.TransactionNumber = Utilities.GenerateTransactionNumber.GetNextTransactionNum();
 
 			transaction.TransactionDate = DateTime.Now;
-            transaction.Payment = Payment.CreditCard;
+
+			//TODO: Change to allow different credit cards to be stored --credit card 2 and other credit card 
+            transaction.Payment = Payment.CreditCardNumber1;
             transaction.User = db.Users.Find(User.Identity.GetUserId());
 
             if (ModelState.IsValid)
@@ -387,7 +389,9 @@ namespace AWO_Team14.Controllers
         {
             //TODO: Autoincrement transaction id
             transaction.TransactionDate = DateTime.Now;
-            transaction.Payment = Payment.CreditCard;
+
+			//TODO: Change to allow different credit cards to be stored --credit card 2 and other credit card 
+			transaction.Payment = Payment.CreditCardNumber1;
             transaction.User = db.Users.Find(Customer);
 
             if (ModelState.IsValid)
@@ -617,7 +621,7 @@ namespace AWO_Team14.Controllers
                 db.SaveChanges();
 			}
 
-            if (transaction.Payment == Payment.CreditCard)
+            if (transaction.Payment != Payment.PopcornPoints)
 			{
 				Decimal decPopPoints = transaction.UserTickets.Sum(ut => ut.CurrentPrice);
 

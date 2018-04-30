@@ -408,7 +408,7 @@ namespace AWO_Team14.Controllers
             {
                 ViewBag.ErrorMessage = ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater);               
             }
-            return RedirectToAction("Index", "Schedules");
+            return RedirectToAction("CheckDayShowings");
 
         }
 

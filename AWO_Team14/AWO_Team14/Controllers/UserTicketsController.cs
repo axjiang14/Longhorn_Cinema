@@ -220,7 +220,7 @@ namespace AWO_Team14.Controllers
                         db.SaveChanges();
                     }
 
-					if (t.Payment == Payment.CreditCard)
+					if (t.Payment != Payment.PopcornPoints)
 					{
 						
 						Int32 intPopPoints = Convert.ToInt32(userTicket.CurrentPrice - (userTicket.CurrentPrice % 1));
