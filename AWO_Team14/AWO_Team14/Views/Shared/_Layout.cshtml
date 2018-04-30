@@ -58,16 +58,6 @@
                     @Html.ActionLink("Employee Home", "EmployeeHome", "Accounts", null, new { @class = "nav-link" })
                 </li>
 }
-if (User.IsInRole("Manager"))
-{
-                <li class="nav-item">
-                    @Html.ActionLink("Schedule a movie", "Index", "Schedules", null, new { @class = "nav-link" })
-                </li>
-                <li class="nav-item">
-                    @Html.ActionLink("Run Reports", "Index", "Reports", null, new { @class = "nav-link" })
-                </li>
-}
-
 
 }
                 </ul>
