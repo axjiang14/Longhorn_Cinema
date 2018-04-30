@@ -117,6 +117,9 @@
                 <th>User</th>
                 <th>Rating</th>
                 <th>Review</th>
+                <th>UpVotes</th>
+                <th>DownVotes</th>
+                <th>Vote</th>
             </tr>
             @foreach (MovieReview movreview in Model.MovieReviews)
             {
@@ -126,6 +129,8 @@
                     <td>@Html.DisplayFor(modelItem => movreview.User.FirstName)</td>
                     <td>@Html.DisplayFor(modelItem => movreview.Rating)</td>
                     <td>@Html.DisplayFor(modelItem => movreview.Review)</td>
+                    <td>@Html.DisplayFor(modelItem => movreview.Votes.Count())</td>
+                    <td>@Html.DisplayFor(modelItem => movreview.Votes.Count())</td>
                     </tr>
                 }
             

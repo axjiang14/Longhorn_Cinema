@@ -40,7 +40,24 @@ namespace AWO_Team14.Models
 
 		public ReviewStatus Status { get; set; }
 
-		public virtual Movie Movie { get; set; }
+        public Int32 UpTotal
+        {
+            get { return Votes.Count(item => item.ThumbVote == ThumbVote.Up); }
+        }
+
+        public Int32 DownTotal
+        {
+            get { return Votes.Count(item => item.ThumbVote == ThumbVote.Down); }
+        }
+
+        public Int32 VoteTotal
+        {
+            get { return Votes.Count(); }
+        }
+
+
+
+        public virtual Movie Movie { get; set; }
         public virtual AppUser User { get; set; }
         public virtual List<Vote> Votes { get; set; }
 
