@@ -455,6 +455,10 @@
     <Compile Include="Migrations\201804292259502_seedmoviesss.Designer.cs">
       <DependentUpon>201804292259502_seedmoviesss.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804300253348_Fix merge.cs" />
+    <Compile Include="Migrations\201804300253348_Fix merge.Designer.cs">
+      <DependentUpon>201804300253348_Fix merge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -478,6 +482,7 @@
     <Compile Include="Utilities\DiscountPrice.cs" />
     <Compile Include="Utilities\Emailing.cs" />
     <Compile Include="Utilities\GenerateMovieNumber.cs" />
+    <Compile Include="Utilities\GenerateTransactionNumber.cs" />
     <Compile Include="Utilities\ScheduleValidation.cs" />
     <Compile Include="Utilities\TransactionValidation.cs" />
   </ItemGroup>
@@ -777,6 +782,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804292259502_seedmoviesss.resx">
       <DependentUpon>201804292259502_seedmoviesss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804300253348_Fix merge.resx">
+      <DependentUpon>201804300253348_Fix merge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
