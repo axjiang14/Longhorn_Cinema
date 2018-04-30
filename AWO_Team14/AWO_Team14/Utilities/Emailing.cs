@@ -27,7 +27,7 @@ namespace AWO_Team14.Utilities
             MailAddress senderEmail = new MailAddress("AWOTeam14@gmail.com", "AWO_Team 14");
 
             MailMessage mm = new MailMessage();
-            mm.Subject = "Team XX - " + emailSubject;
+            mm.Subject = "Team 14 - " + emailSubject;
             mm.Sender = senderEmail;
             mm.From = senderEmail;
             mm.To.Add(new MailAddress(toEmailAddress));

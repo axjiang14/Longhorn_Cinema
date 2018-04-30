@@ -10,7 +10,7 @@ namespace AWO_Team14.Utilities
 {
     public class DiscountPrice
     {
-        public static void GetDiscountPrice(Transaction transaction)
+        public static void GetDiscountPrice(UserTicket ticket, int TicketCount)
         {
             AppDbContext db = new AppDbContext();
 
@@ -18,43 +18,43 @@ namespace AWO_Team14.Utilities
             // based on qualifying discount
             // showings eligible for discounts
 
-            foreach (UserTicket ticket in transaction.UserTickets)
+            
+            // no discount for special tickets
+            if (ticket.Showing.Special == true)
             {
-                // no discount for special tickets
-                if (ticket.Showing.Special == true)
+                var query = from c in db.Discounts
+                                where c.DiscountName == "weekend"
+                                select c;
+                foreach (var result in query)
+                {
+                   // sets Current Price property to highest ticket price
+                   // $12.00
+                   ticket.CurrentPrice = result.DiscountValue;
+                }
+            }
+
+            // discounts here we come!
+            else
+            {
+                Boolean weekend = (int)ticket.Showing.ShowDate.DayOfWeek == 6 || (int)ticket.Showing.ShowDate.DayOfWeek == 7;
+
+                // checks if showing is matinee
+                if (ticket.Showing.StartHour < 12 && weekend == false)
                 {
                     var query = from c in db.Discounts
-                                where c.DiscountName == "weekend"
+                                where c.DiscountName == "matinee"
                                 select c;
                     foreach (var result in query)
                     {
-                        // sets Current Price property to highest ticket price
-                        // $12.00
+                        // sets Current Price property
+                        // $5.00
                         ticket.CurrentPrice = result.DiscountValue;
                     }
                 }
-
-                // discounts here we come!
-                else
+                
+                // tuesday discount
+                else if ((int)ticket.Showing.ShowDate.DayOfWeek == 2 && (ticket.Showing.StartHour > 12 && ticket.Showing.StartHour < 17))
                 {
-                    Boolean weekend = (int)ticket.Showing.ShowDate.DayOfWeek == 6 || (int)ticket.Showing.ShowDate.DayOfWeek == 7;
-
-                    // checks if showing is matinee
-                    if (ticket.Showing.StartHour < 12 && weekend == false)
-                    {
-                        var query = from c in db.Discounts
-                                    where c.DiscountName == "matinee"
-                                    select c;
-                        foreach (var result in query)
-                        {
-                            // sets Current Price property
-                            // $5.00
-                            ticket.CurrentPrice = result.DiscountValue;
-                        }
-                    }
-                    // tuesday discount
-                    else if ((int)ticket.Showing.ShowDate.DayOfWeek == 2 && (ticket.Showing.StartHour > 12 && ticket.Showing.StartHour < 17))
-                    {
                         var query = from c in db.Discounts
                                     where c.DiscountName == "tuesday"
                                     select c;
@@ -65,10 +65,10 @@ namespace AWO_Team14.Utilities
                             ticket.CurrentPrice = result.DiscountValue;
                         }
 
-                    }
-                    // checks if showing day is weekday and afternoon
-                    else if (ticket.Showing.StartHour > 12 && ((int)ticket.Showing.ShowDate.DayOfWeek >= 1 || (int)ticket.Showing.ShowDate.DayOfWeek <= 4))
-                    {
+                }
+                // checks if showing day is weekday and afternoon
+                else if (ticket.Showing.StartHour > 12 && ((int)ticket.Showing.ShowDate.DayOfWeek >= 1 || (int)ticket.Showing.ShowDate.DayOfWeek <= 4))
+                {
                         var query = from c in db.Discounts
                                     where c.DiscountName == "weekday"
                                     select c;
@@ -79,10 +79,10 @@ namespace AWO_Team14.Utilities
                             ticket.CurrentPrice = result.DiscountValue;
                         }
 
-                    }     
-                    // checks if showing day is after friday noontime
-                    else
-                    {
+                }     
+                // checks if showing day is after friday noontime
+                else
+                {
                         var query = from c in db.Discounts
                                     where c.DiscountName == "weekend"
                                     select c;
@@ -92,17 +92,22 @@ namespace AWO_Team14.Utilities
                             // $12.00
                             ticket.CurrentPrice = result.DiscountValue;
                         }
-                    }
-
-                    // TODO: write code for senior citizen discounts
-
-                    // early bird discount
-                    if ((ticket.Showing.ShowDate - transaction.TransactionDate).TotalDays > 2)
-                    {
-                        // discounts $2.00
-                        ticket.CurrentPrice -= 2;
-                    }               
                 }
+            
+
+                //senior citizen discounts for 2 tickets in transcation
+                if (ticket.Transaction.User.Birthday.AddYears(60) > ticket.Transaction.TransactionDate && TicketCount <= 2)
+                {
+                    ticket.CurrentPrice -= 2;
+                }
+
+                // early bird discount
+                if ((ticket.Showing.ShowDate - ticket.Transaction.TransactionDate).TotalDays > 2)
+                {
+                        // discounts $2.00
+                        ticket.CurrentPrice -= 1;
+                }               
+                
                 
             }
 

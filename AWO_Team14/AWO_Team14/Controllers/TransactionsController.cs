@@ -11,6 +11,7 @@ using AWO_Team14.Models;
 using System.Diagnostics;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using AWO_Team14.Utilities;
 
 namespace AWO_Team14.Controllers
 {
@@ -531,19 +532,21 @@ namespace AWO_Team14.Controllers
 				transaction.User.PopcornPoints = CurPopPoints + PPTickets;
 			}
 
-			//TODO: DAN - email customers that used credit card that their $ has been refunded
-
-			if (transaction.Payment == Payment.CreditCard)
+            if (transaction.Payment == Payment.CreditCard)
 			{
 				Decimal decPopPoints = transaction.UserTickets.Sum(ut => ut.CurrentPrice);
 
 				Int32 intPopPoints = Convert.ToInt32(decPopPoints - (decPopPoints % 1));
 
-				//Int32 CurPopPoints = transaction .User.PopcornPoints;
+				//Int32 CurPopPoints = transaction .User.PopcornPoints; 
 
 				transaction.User.PopcornPoints -= intPopPoints;
 
-			}
+                //TODO: DAN - email customers that used credit card that their $ has been refunded
+                String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionID + "has been canceled.\n\n" + "Love,\n" + "Dan";
+                Emailing.SendEmail(transaction.User.Email, "Transaction Canceled", Message);
+
+            }
 
 			foreach (UserTicket t in transaction.UserTickets)
             {

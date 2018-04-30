@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
+using AWO_Team14.Utilities;
 using Microsoft.AspNet.Identity;
 
 namespace AWO_Team14.Controllers
@@ -210,7 +211,11 @@ namespace AWO_Team14.Controllers
 
 						t.User.PopcornPoints -= intPopPoints;
 
-					}
+                        String Message = "Hello " + userTicket.Transaction.User.FirstName + ",\n" + "The ticket for " + userTicket.Showing.ShowDate + 
+                            userTicket.Showing.Movie.Title + "has been canceled.\n\n" + "Love,\n" + "Dan";
+                        Emailing.SendEmail(userTicket.Transaction.User.Email, "Ticket Canceled", Message);
+
+                    }
 					return RedirectToAction("Details", "Transactions", new { id = t.TransactionID });
                 }
                 else

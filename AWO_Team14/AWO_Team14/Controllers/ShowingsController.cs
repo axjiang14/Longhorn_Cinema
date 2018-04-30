@@ -227,13 +227,15 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager")]
-        public ActionResult Reschedule([Bind(Include = "ShowingID,ShowDate,StartHour,StartMinute")] Showing showing, DateTime NewDate, int StartHour, int StartMinute)
+        public ActionResult Reschedule([Bind(Include = "ShowingID,ShowDate,StartHour,StartMinute")] Showing showing)
         {
             Showing showingToChange = db.Showings.Include(x => x.Schedule)
                                              .FirstOrDefault(x => x.ShowingID == showing.ShowingID);
 
+            DateTime oldShowDate = showingToChange.ShowDate;
+
             // take back to Schedules/Details if Schedule is unpublished
-            if (showing.Schedule.Published == false)
+            if (showingToChange.Schedule.Published == false)
             {
                 ViewBag.RescheduleError = "Schedule is unpublished. Click 'Edit' to change showings.";
                 return RedirectToAction("Details", "Schedules", new { id = showingToChange.Schedule.ScheduleID });
@@ -242,24 +244,34 @@ namespace AWO_Team14.Controllers
             if (ModelState.IsValid)
             {
 
-                showingToChange.ShowDate = NewDate;
-
-                showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
+                showingToChange.ShowDate = showing.ShowDate;
+                showingToChange.ShowDate = showingToChange.ShowDate.AddHours(showing.StartHour).AddMinutes(showing.StartMinute).AddSeconds(0);
+                showingToChange.StartHour = showing.StartHour;
+                showingToChange.StartMinute = showing.StartMinute;
                 showingToChange.EndTime = showingToChange.ShowDate.Add(showingToChange.Movie.Runtime);
-                
+
                 // check if showing is range of current schedule
-                if (ScheduleValidation.ShowingInRange(showing))
+                if (ScheduleValidation.ShowingInRange(showingToChange))
                 {
                     // checks is showing fits into current schedule
-                    if (ScheduleValidation.ShowingValidation(showing) == "ok")
+                    if (ScheduleValidation.ShowingValidation(showingToChange) == "ok")
                     {
+                      
                         db.Entry(showingToChange).State = EntityState.Modified;
                         db.SaveChanges();
+                        // email each user who bought a ticket that showing has been rescheduled
+                        foreach (UserTicket t in showingToChange.UserTickets)
+                        {
+                            String Message = "Hello " + t.Transaction.User.FirstName + ",\n" + "The " + oldShowDate  + " " + showingToChange.Movie.Title 
+                                + "showing has been rescheduled to" + showingToChange.ShowDate + ".\n\n" + "Love,\n" + "Dan";
+                            Emailing.SendEmail(t.Transaction.User.Email, "Showing Rescheduled", Message);
+                        }
+                        
                         return RedirectToAction("Details", "Schedules", new { id = showingToChange.Schedule.ScheduleID });
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = ScheduleValidation.ShowingValidation(showing);
+                        ViewBag.ErrorMessage = ScheduleValidation.ShowingValidation(showingToChange);
                     }
                 }
                 else
@@ -435,6 +447,12 @@ namespace AWO_Team14.Controllers
                 // go to the cancelling a showing controller 
                 showing.Schedule = null;
                 db.SaveChanges();
+                foreach (UserTicket t in showing.UserTickets)
+                {
+                    String Message = "Hello " + t.Transaction.User.FirstName + ",\n" + "The " + showing.ShowDate + showing.Movie.Title
+                        + "showing has been canceled.\n\n" + "Love,\n" + "Dan";
+                    Emailing.SendEmail(t.Transaction.User.Email, "Showing Canceled", Message);
+                }
                 // returns to Schedule's Detail page
                 return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
             }
