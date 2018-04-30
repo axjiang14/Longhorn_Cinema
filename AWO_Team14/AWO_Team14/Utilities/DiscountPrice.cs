@@ -80,7 +80,7 @@ namespace AWO_Team14.Utilities
                 }
                 
                 //senior citizen discounts for 2 tickets in transcation
-                if (ticket.Transaction.User.Birthday.AddYears(60) < ticket.Transaction.TransactionDate && TicketCount <= 2)
+                if (ticket.Transaction.User.Birthday.AddYears(60) <= ticket.Transaction.TransactionDate && TicketCount <= 2)
                 {
                     var query = from c in db.Discounts
                                 where c.DiscountName == "senior"

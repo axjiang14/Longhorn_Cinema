@@ -260,6 +260,7 @@ namespace AWO_Team14.Controllers
 
                 if (ModelState.IsValid)
                 {
+                    // get prices for each ticket
                     foreach (UserTicket ut in t.UserTickets)
                     {
                         int ticketCount = 1;
@@ -267,7 +268,7 @@ namespace AWO_Team14.Controllers
                         ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut, ticketCount);
                         ticketCount += 1;
                     }
-
+                    // add popcorn points from transaction
                     if (t.Payment == Payment.CreditCard)
                     {
                         Decimal decPopPoints = t.UserTickets.Sum(ut => ut.CurrentPrice);
@@ -279,9 +280,12 @@ namespace AWO_Team14.Controllers
                         t.User.PopcornPoints = CurPopPoints + intPopPoints;
 
                     }
-
+                    // save changes to database
                     db.Entry(t).State = EntityState.Modified;
                     db.SaveChanges();
+
+                    String Message = "Hello " + t.User.FirstName + ",\n\n" + "Your order number" + t.TransactionNumber + "has been placed.\n\n" + "Love,\n" + "Dan";
+                    Emailing.SendEmail(t.User.Email, "Order Placed", Message);
                     return RedirectToAction("Details", new { id = t.TransactionID });
 
                 }
@@ -601,7 +605,7 @@ namespace AWO_Team14.Controllers
                 db.SaveChanges();
 
                 //TODO: DAN - email customers that used credit card that their $ has been refunded
-                String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionID + "has been canceled.\n\n" + "Love,\n" + "Dan";
+                String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionNumber + "has been canceled.\n\n" + "Love,\n" + "Dan";
                 Emailing.SendEmail(transaction.User.Email, "Transaction Canceled", Message);
 
             }
