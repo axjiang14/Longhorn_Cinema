@@ -101,17 +101,5 @@ namespace AWO_Team14.Models
             return userIdentity;
         }
 
-		//This method displays credit card - last 4 digits
-		public string CC
-		{
-			get
-			{
-				String CC = "";
-				//String CCEncoded;
-				//CCEncoded = "**** **** **** " + CC.Substring(CC.Length - 4, 4);
-				return CC;
-			}
-			set { }
-		}
 	}
 }
