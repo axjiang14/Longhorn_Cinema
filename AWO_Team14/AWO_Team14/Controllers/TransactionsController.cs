@@ -23,7 +23,17 @@ namespace AWO_Team14.Controllers
         {
             List<Movie> allMovies = db.Movies.OrderBy(m => m.Title).ToList();
 
-            SelectList selMovies = new SelectList(allMovies, "MovieID", "Title");
+            List<Movie> relMovies = new List<Movie>();
+            
+            foreach(Movie m in allMovies)
+            {
+                if(m.Showings.Count() != 0)
+                {
+                    relMovies.Add(m);
+                }
+            }
+
+            SelectList selMovies = new SelectList(relMovies, "MovieID", "Title");
 
             return selMovies;
         }
@@ -533,6 +543,7 @@ namespace AWO_Team14.Controllers
 				Int32 intTickets = transaction.UserTickets.Count();
 				Int32 PPTickets = intTickets * 100;
 				transaction.User.PopcornPoints = CurPopPoints + PPTickets;
+                db.SaveChanges();
 			}
 
             if (transaction.Payment == Payment.CreditCard)
@@ -544,6 +555,7 @@ namespace AWO_Team14.Controllers
 				//Int32 CurPopPoints = transaction .User.PopcornPoints; 
 
 				transaction.User.PopcornPoints -= intPopPoints;
+                db.SaveChanges();
 
                 //TODO: DAN - email customers that used credit card that their $ has been refunded
                 String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionID + "has been canceled.\n\n" + "Love,\n" + "Dan";
