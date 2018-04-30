@@ -82,8 +82,6 @@ namespace AWO_Team14.Utilities
                     return "The last movie must end after 21:30";
                 }
             }
-            
-            
 
             //check the gaps          
             for (var i = 0; i+1 < dayShowings.Count; i++)
