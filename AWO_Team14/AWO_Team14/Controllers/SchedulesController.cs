@@ -72,8 +72,17 @@ namespace AWO_Team14.Controllers
                         copyShowing.EndTime = copyShowing.ShowDate.Add(copyShowing.Movie.Runtime);
                         copyShowing.Special = showing.Special;
 
-                        db.Showings.Add(copyShowing);
-                        db.SaveChanges();
+                        if (Utilities.ScheduleValidation.ShowingValidation(copyShowing) == "ok")
+                        {
+                            db.Showings.Add(copyShowing);
+                            db.SaveChanges();
+                        }
+
+                        else
+                        {
+                            ViewBag.CopyOutofRange = Utilities.ScheduleValidation.ShowingValidation(copyShowing);
+                            return View(schedule);
+                        }
                     }
 
                     return RedirectToAction("Details", "Schedules", new { id = schedule.ScheduleID });
@@ -81,7 +90,7 @@ namespace AWO_Team14.Controllers
             }
             else
             {
-                ViewBag.CopyOutoRange = "The date to copy showings is out of the schedule's range. Choose a date within the schedule's range.";
+                ViewBag.CopyOutofRange = "The date to copy showings is out of the schedule's range. Choose a date within the schedule's range.";
             }
 
             return View(schedule);

@@ -5,7 +5,9 @@
 }
 
 <h2>Copy Schedule </h2>
-ViewBag.CopyOutOfRange;
+@Html.Raw(ViewBag.CopyOutOfRange)
+@Html.Raw(ViewBag.ErrorMessage)
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
