@@ -37,6 +37,8 @@ namespace AWO_Team14.DAL
 
 		public System.Data.Entity.DbSet<AWO_Team14.Models.MovieReview> MovieReviews { get; set; }
 
+        public System.Data.Entity.DbSet<AWO_Team14.Models.Vote> Votes { get; set; }
+
         //public System.Data.Entity.DbSet<AWO_Team14.Models.AppUser> AppUsers { get; set; }
     }
 }
