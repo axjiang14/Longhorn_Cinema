@@ -14,6 +14,12 @@ namespace AWO_Team14.Utilities
         {
             AppDbContext db = new AppDbContext();
 
+            //only make showings that will happen in the future
+            if (showing.ShowDate < DateTime.Now)
+            {
+                return "You cannot schedule a showing that will happen in the past";
+            }
+
             //check that the movie ends before midnight
             if ((showing.EndTime.Day > showing.ShowDate.Day))
             {
@@ -23,6 +29,8 @@ namespace AWO_Team14.Utilities
             //check for overlap
             var overlapQuery = from s in db.Showings
                         select s;
+            //filter only active showings
+            overlapQuery = overlapQuery.Where(s => s.Schedule != null);
             overlapQuery = overlapQuery.Where(s => s.Theater == showing.Theater);
             overlapQuery = overlapQuery.Where(s => (s.EndTime >= showing.ShowDate && s.ShowDate <= showing.ShowDate) || (s.EndTime >= showing.EndTime && s.ShowDate <= showing.EndTime));
 
@@ -35,7 +43,9 @@ namespace AWO_Team14.Utilities
             var query = from s in db.Showings
                         select s;
 
-			//find showings in the other theater
+            //filter only active showings
+            query = query.Where(s => s.Schedule !=null);
+            //find showings in the other theater
 			query = query.Where(s => s.Theater != showing.Theater);
 			//find showings that are showing at the same time
             query = query.Where(s => s.ShowDate == showing.ShowDate);
@@ -60,9 +70,15 @@ namespace AWO_Team14.Utilities
 			AppDbContext db = new AppDbContext();
 			var dayQuery = from s in db.Showings
 							   select s;
+            dayQuery = dayQuery.Where(s => s.Schedule != null);
             dayQuery = dayQuery.Where(s => s.Theater == theater);
             dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day && s.Theater == theater).OrderBy(s=>s.ShowDate);
             List<Showing> dayShowings = dayQuery.ToList();
+
+            if (dayShowings.Count() == 0)
+            {
+                return "You haven't scheduled any movies!";
+            }
 
             //the first movie must start between 9 AM and 10 AM
             DateTime date9 = new DateTime(2018, 1, 1, 9, 00, 00);
@@ -94,7 +110,7 @@ namespace AWO_Team14.Utilities
 
                 if (intGap < 25 || intGap > 45)
                 {
-                    String ErrorMessage = "The gap between " + dayShowings[i].Movie.Title + " and " + dayShowings[i + 1].Movie.Title + "must be between 25 and 45 minutes";
+                    String ErrorMessage = "The gap between " + dayShowings[i].Movie.Title + " and " + dayShowings[i + 1].Movie.Title + " must be between 25 and 45 minutes";
                     //Debug.WriteLine("The gap between ", dayShowings[i].Movie.Title, " and ", dayShowings[i + 1].Movie.Title, "must be between 25 and 45 minutes");
                     return ErrorMessage;
                 }

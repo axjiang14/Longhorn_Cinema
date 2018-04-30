@@ -57,5 +57,7 @@
     @Html.ActionLink("Create Showing", "Create", "Showings", new { ScheduleID = Model.ScheduleID }, null) |
     @Html.ActionLink("Edit", "Edit", new { id = Model.ScheduleID }) |
     @Html.ActionLink("Back to List", "Index") |
-    @Html.ActionLink("Copy", "Copy", new { id = Model.ScheduleID })
-</p>
+    @Html.ActionLink("Copy", "Copy", new { id = Model.ScheduleID }) |
+    @Html.ActionLink("Check the Showings for a Day", "CheckDayShowings", "Showings")
+    
+</>
