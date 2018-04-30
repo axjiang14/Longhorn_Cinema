@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -29,9 +26,7 @@
             @Html.DisplayFor(modelItem => item.DiscountValue)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DiscountID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DiscountID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DiscountID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.DiscountID })
         </td>
     </tr>
 }
