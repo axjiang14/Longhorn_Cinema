@@ -193,6 +193,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\DiscountsController.cs" />
     <Compile Include="Controllers\GenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieReviewsController.cs" />
@@ -480,9 +481,9 @@
     <Compile Include="Migrations\201804301644397_Add popcornspoints spent.Designer.cs">
       <DependentUpon>201804301644397_Add popcornspoints spent.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201804301751570_votingggg.cs" />
-    <Compile Include="Migrations\201804301751570_votingggg.Designer.cs">
-      <DependentUpon>201804301751570_votingggg.cs</DependentUpon>
+    <Compile Include="Migrations\201804302001036_string for discount on user ticket.cs" />
+    <Compile Include="Migrations\201804302001036_string for discount on user ticket.Designer.cs">
+      <DependentUpon>201804302001036_string for discount on user ticket.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
@@ -604,6 +605,11 @@
     <Content Include="Views\Votes\Details.cshtml" />
     <Content Include="Views\Votes\Edit.cshtml" />
     <Content Include="Views\Votes\Index.cshtml" />
+    <Content Include="Views\Discounts\Create.cshtml" />
+    <Content Include="Views\Discounts\Delete.cshtml" />
+    <Content Include="Views\Discounts\Details.cshtml" />
+    <Content Include="Views\Discounts\Edit.cshtml" />
+    <Content Include="Views\Discounts\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -831,8 +837,8 @@
     <EmbeddedResource Include="Migrations\201804301644397_Add popcornspoints spent.resx">
       <DependentUpon>201804301644397_Add popcornspoints spent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804301751570_votingggg.resx">
-      <DependentUpon>201804301751570_votingggg.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804302001036_string for discount on user ticket.resx">
+      <DependentUpon>201804302001036_string for discount on user ticket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

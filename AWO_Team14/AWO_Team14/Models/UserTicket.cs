@@ -29,6 +29,8 @@ namespace AWO_Team14.Models
 
         public string Email { get; set; }
 
+        public string AppliedDiscounts { get; set; }
+
         public virtual Transaction Transaction { get; set; }
         public virtual Showing Showing { get; set; }
 

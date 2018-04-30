@@ -24,7 +24,7 @@ namespace AWO_Team14.Controllers
             //generates a list of tickets that the user has seen in the past
             var ticketsQ = db.UserTickets.Where(ut => ut.Transaction.User.Id == UserID);
             ticketsQ = ticketsQ.Where(ut => ut.Status == Status.Active);
-            ticketsQ = ticketsQ.Where(ut => ut.Showing.EndTime < DateTime.Today);
+            ticketsQ = ticketsQ.Where(ut => ut.Showing.EndTime < DateTime.Now);
             List<UserTicket> UserTickets = ticketsQ.ToList();
 
             //creates a list of movies that the user has reviewed
