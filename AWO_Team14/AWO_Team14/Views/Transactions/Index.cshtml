@@ -6,7 +6,7 @@
 
 <h2>All Transactions</h2>
 
-@if (User.IsInRole("Manager"))
+@if (User.IsInRole("Customer"))
 {
 <p>
     @Html.ActionLink("New Transaction", "Create", null, new { @class = "btn btn-info" })

@@ -468,6 +468,10 @@
     <Compile Include="Migrations\201804300307073_42920191006.Designer.cs">
       <DependentUpon>201804300307073_42920191006.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804300448087_update transaction model.cs" />
+    <Compile Include="Migrations\201804300448087_update transaction model.Designer.cs">
+      <DependentUpon>201804300448087_update transaction model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -805,6 +809,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804300307073_42920191006.resx">
       <DependentUpon>201804300307073_42920191006.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804300448087_update transaction model.resx">
+      <DependentUpon>201804300448087_update transaction model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

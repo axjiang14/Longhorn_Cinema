@@ -114,10 +114,11 @@ namespace AWO_Team14.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ScheduleID,StartDate")] Schedule schedule)
+        public ActionResult Create([Bind(Include = "ScheduleID,StartDate,Published")] Schedule schedule)
         {
-            schedule.StartDate = DateTime.Today;
-            schedule.EndDate = DateTime.Today.AddDays(6);
+            schedule.Published = false;
+            schedule.StartDate = DateTime.Today.AddDays(7);
+            schedule.EndDate = schedule.StartDate.AddDays(6);
 
             if (ModelState.IsValid)
             {
@@ -156,6 +157,22 @@ namespace AWO_Team14.Controllers
             // ex. minimize gaps and last showing endtime
             Schedule s = db.Schedules.Find(schedule.ScheduleID);
             s.Published = schedule.Published;
+
+            if (s.Published == true)
+            {
+                //run validation to check that the schedule is valid
+                foreach (Theater theater in Enum.GetValues(typeof(Theater)))
+                {
+                    for (var i = 0; i < 7; i++)
+                    {
+                        if (Utilities.ScheduleValidation.DayShowingValidation(s.StartDate.AddDays(i), theater) != "ok")
+                        {
+                            ViewBag.PublishError = "The showings for " + s.StartDate.AddDays(i) + " in Theater " + theater + " are not valid";
+                            return View(schedule);
+                        }
+                    }
+                }
+            }
 
             if (ModelState.IsValid)
             {

@@ -202,7 +202,8 @@ namespace AWO_Team14.Controllers
 					if (t.Payment == Payment.PopcornPoints)
 					{
 						t.User.PopcornPoints += 100;
-					}
+                        db.SaveChanges();
+                    }
 
 					if (t.Payment == Payment.CreditCard)
 					{
@@ -210,6 +211,7 @@ namespace AWO_Team14.Controllers
 						Int32 intPopPoints = Convert.ToInt32(userTicket.CurrentPrice - (userTicket.CurrentPrice % 1));
 
 						t.User.PopcornPoints -= intPopPoints;
+                        db.SaveChanges();
 
                         String Message = "Hello " + userTicket.Transaction.User.FirstName + ",\n" + "The ticket for " + userTicket.Showing.ShowDate + 
                             userTicket.Showing.Movie.Title + "has been canceled.\n\n" + "Love,\n" + "Dan";
