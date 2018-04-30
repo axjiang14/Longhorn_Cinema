@@ -9,8 +9,10 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.MovieReview.MovieReviewID)
     
     <div class="form-horizontal">
+    
         <h4>Vote</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
