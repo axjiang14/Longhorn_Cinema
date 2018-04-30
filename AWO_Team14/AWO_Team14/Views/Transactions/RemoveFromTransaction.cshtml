@@ -5,7 +5,8 @@
 
 <h2>Change Seats & Remove From Transaction</h2>
 
-<table class="table">
+<table class="table table-striped">
+    <thead style="background-color: #fae3d9;">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Showing.Movie.Title)
@@ -27,6 +28,7 @@
         </th>
         <th></th>
     </tr>
+    </thead>
 
     @foreach (var item in Model)
     {

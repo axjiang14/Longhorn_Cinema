@@ -14,6 +14,7 @@ using AWO_Team14.DAL;
 using AWO_Team14.Models;
 using System.Data.Entity;
 using System.Collections.Generic;
+using AWO_Team14.Utilities;
 
 //Change this namespace to match your project
 namespace AWO_Team14.Controllers
@@ -222,21 +223,25 @@ namespace AWO_Team14.Controllers
 
                     //Once you get roles working, you may want to add users to roles upon creation
                     await UserManager.AddToRoleAsync(user.Id, "Customer");
-                    // --OR--
-                    // await UserManager.AddToRoleAsync(user.Id, "Employee");
+                // --OR--
+                // await UserManager.AddToRoleAsync(user.Id, "Employee");
 
 
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                        // Send an email with this link
-                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                        return RedirectToAction("Index", "Home");
+                    String Message = "Hello " + model.FirstName + ",\n" + "A Longhorn Cinemas account has been created for you." +
+                                  ".\n\n" + "Love,\n" + "Dan";
+                    Emailing.SendEmail(model.Email, "Longhorn Cinemas Account", Message);
+
+                    return RedirectToAction("Index", "Home");
                     }
                     AddErrors(result);
                 }

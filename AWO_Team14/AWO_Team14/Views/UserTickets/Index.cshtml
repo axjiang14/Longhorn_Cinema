@@ -4,9 +4,10 @@
     ViewBag.Title = "UserTickets Index";
 }
 
-<h2>UserTickets Index</h2>
+<h2>All Tickets</h2>
 
-<table class="table">
+<table class="table table-striped">
+    <thead style="background-color: #fae3d9;">
     <tr>
         <th>Purchaser</th>
         <th>Movie</th>
@@ -16,6 +17,7 @@
         <th>Status</th>
         <th>Seat</th>
     </tr>
+    </thead>
 
     @foreach (var item in Model)
     {
