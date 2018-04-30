@@ -9,6 +9,8 @@
 
 @using (Html.BeginForm("DisplayCheckDayShowings", "Showings", FormMethod.Get))
 {
+    @Html.HiddenFor(model => model.Schedule.ScheduleID)
+
     <p class="form-group">
         Pick Day to Check: <input type="date" name="ShowDate" class="form-control" />
         <div class="form-group">

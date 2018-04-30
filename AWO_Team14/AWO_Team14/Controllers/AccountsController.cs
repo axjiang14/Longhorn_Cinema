@@ -150,11 +150,17 @@ namespace AWO_Team14.Controllers
             var Employee = from u in db.Users
                             where u.Email == model.Email
                             select u;
+
             List<AppUser> EmployeeList = Employee.ToList();
 
             AppUser Employee1 = EmployeeList.FirstOrDefault();
 
-            if (!ModelState.IsValid || Employee1.Archived == true)
+            if(Employee1.Archived == true)
+            {
+                return View(model);
+            }
+
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }

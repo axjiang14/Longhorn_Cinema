@@ -408,7 +408,7 @@ namespace AWO_Team14.Controllers
             {
                 ViewBag.ErrorMessage = ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater);               
             }
-            return View("Index", db.Showings.OrderBy(s => s.ShowDate).ToList());
+            return RedirectToAction("Index", "Schedules");
 
         }
 
