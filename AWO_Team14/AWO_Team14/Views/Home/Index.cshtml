@@ -8,10 +8,10 @@
 
 <h1 style="font-family: 'Oleo Script Swash Caps', cursive">
     <br/>
-    Welcome to Longhorn Cinema
+    Welcome to Longhorn Cinemas
     @if (ViewBag.Name != null)
     {
-       @Html.Raw("," + ViewBag.Name)
+       @Html.Raw(", " + ViewBag.Name)
     }
 </h1>
     <p>
@@ -19,8 +19,8 @@
     </p>
 
 
-    <table class="table">
-        <thead class="thead-light">
+    <table class="table table-striped">
+        <thead style="background-color: #fae3d9;">
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
@@ -46,65 +46,68 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Genres)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.Showings)
-                </th>
+                </th>*@
                 <th></th>
             </tr>
         </thead>
 
             @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Tagline)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Overview)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseYear)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MPAA_Rating)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Runtime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Actors)
-                </td>
-                @foreach (Genre genre in item.Genres)
-            {
-                <td>
-                    @Html.DisplayFor(modelItem => genre.GenreName)
-                </td>
-        }
-                @foreach (Showing showing in item.Showings)
-            {
-                if (showing.ShowDate > DateTime.Now)
-                {
+                <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => showing.ShowDate)
-                        @Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)
-                        @Html.DisplayFor(modelItem => showing.EndTime)
-                        @Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)
+                        @Html.DisplayFor(modelItem => item.Title)
                     </td>
-            }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tagline)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Overview)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseYear)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MPAA_Rating)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Runtime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Actors)
+                    </td>
+                    @foreach (Genre genre in item.Genres)
+                    {
+                    <td>
+                    @Html.DisplayFor(modelItem => genre.GenreName)
+                    </td>
+                    }
+                    <td>
+                        @if (User.IsInRole("Manager"))
+    {
+                        <span> @Html.ActionLink("Edit", "Edit", "Movies", new { id = item.MovieID }, null) |</span>
 
-
-
-        }
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Movies", new { id = item.MovieID }, null) |
-                    @Html.ActionLink("Details", "Details", new { id = item.MovieID }) |
-                    @Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null)
-                </td>
-
+@Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null) 
+                        }
+                       | @Html.ActionLink("Movie Details", "Details", new { id = item.MovieID }) 
+                    </td>
+                </tr>
+            <tr>
+                @foreach (Showing showing in item.Showings)
+                {
+                    if (showing.ShowDate > DateTime.Now)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => showing.ShowDate)
+                            @Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)
+                            @Html.DisplayFor(modelItem => showing.EndTime)
+                            @Html.ActionLink("Showing Details", "Details", "Showings", new { id = showing.ShowingID }, null)
+                        </td>
+                    }
+                }
             </tr>
-    }
+              }
 
     </table>
+

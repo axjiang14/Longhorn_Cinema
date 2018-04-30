@@ -10,46 +10,57 @@
 
 @using (Html.BeginForm("DisplayDetailedSearch", "Home", FormMethod.Get))
 {
-    <p class="form-group">
-        Title: @Html.TextBox("SearchTitle", null, new { @class = "form-control" })
-        <br />
-    </p>
-    <p class="form-group">
-        Tagline: @Html.TextBox("SearchTagline", null, new { @class = "form-control" })
-        <br />
-    </p>
-    <p class="form-group">
-        Genre: @Html.ListBox("SearchGenres", (MultiSelectList)ViewBag.AllGenres, new { @class = "form-control" })
-    </p>
-    <p class="form-group">
-        Release Year: @Html.TextBox("SearchYear", null, new { @class = "form-control" })
-        <br />
-        <label class="radio">@Html.RadioButton("SearchYearType", RangeType.Before, true) Before</label>
-        <label class="radio">@Html.RadioButton("SearchYearType", RangeType.After) After</label>
-        <label class="radio">@Html.RadioButton("SearchYearType", RangeType.Equal) On</label>
-        <br />
+    <div class="container" style="background-color: #f0f0f0; padding: 10px">
+        <div class="row justify-content-center">
+            <p class="col form-group" style="padding-right: 10px">
+                Title: @Html.TextBox("SearchTitle", null, new { @class = "form-control" })
+            </p>
+            <br />
+            <p class="col form-group" style="padding-right: 10px">
+                Tagline: @Html.TextBox("SearchTagline", null, new { @class = "form-control" })
+                <br />
+            </p>
+        </div>
 
-    </p>
-    <p class="form-group">
+        <div class="row justify-content-center">
+        <p class="col form-group" style="padding-right: 20px">
+            Genre: @Html.ListBox("SearchGenres", (MultiSelectList)ViewBag.AllGenres, new { @class = "form-control" })
+        </p>
+        <p class="col form-group">
+            Release Year:
+            <br />
+            <label class="radio">@Html.RadioButton("SearchYearType", RangeType.Before, true) Before</label>
+            <label class="radio">@Html.RadioButton("SearchYearType", RangeType.After) After</label>
+            <label class="radio">@Html.RadioButton("SearchYearType", RangeType.Equal) On</label>
+            <br />
+            @Html.TextBox("SearchYear", null, new { @class = "form-control" })
+        </p>
+        </div>
+        <div class="row justify-content-center">
+    <p class="col form-group">
         MPAA Rating:
         @Html.ListBox("MPAARating", (MultiSelectList)ViewBag.AllMPAA, new { @class = "form-control" })
     </p>
 
-    <p class="form-group">
+    <p class="col form-group">
         Actors: @Html.TextBox("SearchActors", null, new { @class = "form-control" })
         <br />
     </p>
-
-    <p class="form-group">
-        Average Rating: @Html.TextBox("SearchStarRatings", null, new { @class = "form-control" })
-    </p>
-    <p class="form-group">
-        <label class="radio">@Html.RadioButton("SelectedStar", StarComp.GreaterThan,true)Greater Than</label>
-        <label class="radio">@Html.RadioButton("SelectedStar", StarComp.LessThan)Less Than</label>
-    </p>
-    <p class="form-group">
-        <input type="submit" value="Search" class="btn btn-default" />
-    </p>
+    </div>
+        <div class="row justify-content-center">
+            <p class="col form-group">
+                Average Rating:
+                <br />
+                <label class="radio">@Html.RadioButton("SelectedStar", StarComp.GreaterThan, true)Greater Than</label>
+                <label class="radio">@Html.RadioButton("SelectedStar", StarComp.LessThan)Less Than</label>
+                <br />
+                @Html.TextBox("SearchStarRatings", null, new { @class = "form-control" })
+            </p>
+            <p class="col form-group">
+                <input type="submit" value="Search" class="btn btn-info" />
+            </p>
+        </div>
+    </div>
 }
 
 

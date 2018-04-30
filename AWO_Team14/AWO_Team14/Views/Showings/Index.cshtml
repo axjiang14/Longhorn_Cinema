@@ -103,10 +103,10 @@
                 @Html.DisplayFor(modelItem => item.Theater)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.ShowingID })
+                @Html.ActionLink("Details", "Details", new { id = item.ShowingID }) |
                 @if (User.IsInRole("Manager"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ShowingID })
+                    <span>@Html.ActionLink("Edit", "Edit", new { id = item.ShowingID }) | </span>
                     @Html.ActionLink("Delete", "Delete", new { id = item.ShowingID })
                 }
             </td>

@@ -10,102 +10,110 @@
 
 @if (User.IsInRole("Manager"))
 {<p>
-    @Html.ActionLink("Create New Movie", "Create", null, new { @class = "btn btn-info" })
+    @Html.ActionLink("Create New Movie", "Create", null, new { @class = "btn btn-info", @style = "background-color: #ffb6b9 border-color: #ffb6b9" })
 </p>
 }
+@if (User.IsInRole("Customer"))
+{
 <p>
-    @Html.ActionLink("Buy tickets", "Create", "Transactions", null, new { @class = "btn btn-info" })
+    @Html.ActionLink("Buy tickets", "Create", "Transactions", null, new { @class = "btn btn-info", @style = "background-color: #ffb6b9" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MovieNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tagline)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Overview)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReleaseYear)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MPAA_Rating)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Runtime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Actors)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Genres)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Showings)
-        </th>
-        <th></th>
-    </tr>
+}
+<table class="table table-striped">
+    <thead style="background-color: #fae3d9;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MovieNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tagline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Overview)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseYear)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MPAA_Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Runtime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actors)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Showings)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MovieNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tagline)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Overview)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReleaseYear)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MPAA_Rating)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Runtime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Actors)
-        </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tagline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Overview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MPAA_Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Runtime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actors)
+            </td>
             @foreach (Genre genre in item.Genres)
-        {
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => genre.GenreName)
+                </td>
+            }
             <td>
-                @Html.DisplayFor(modelItem => genre.GenreName)
-            </td>
-        }
-            @foreach (Showing showing in item.Showings)
-        {
-            <td>
-                @Html.DisplayFor(modelItem => showing.ShowDate)
-                @Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)
-                @Html.DisplayFor(modelItem => showing.EndTime)
-                @Html.ActionLink("Details", "Details", "Showings", new { id = showing.ShowingID }, null)
-            </td>
-        }
-            <td>
-                @Html.ActionLink("Details", "Details", "Home", new { id = item.MovieID }, null)
+                @Html.ActionLink("Movie Details", "Details", "Home", new { id = item.MovieID }, null) |
 
                 @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
                 {
 
-                @Html.ActionLink("Edit", "Edit", new { id = item.MovieID })
-
-                @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
+                    <span>@Html.ActionLink("Edit", "Edit", new { id = item.MovieID })
+                    |</span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
 
                 }
             </td>
-    </tr>
+        </tr>
+
+        <tr>
+            @foreach (Showing showing in item.Showings)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => showing.ShowDate)
+                    @Html.DisplayFor(modelItem => showing.ShowDate.TimeOfDay)
+                    @Html.DisplayFor(modelItem => showing.EndTime)
+                    @Html.ActionLink("Showing Details", "Details", "Showings", new { id = showing.ShowingID }, null)
+                </td>
+            }
+        </tr>
     }
 
 </table>
