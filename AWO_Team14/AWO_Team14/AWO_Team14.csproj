@@ -485,6 +485,10 @@
     <Compile Include="Migrations\201804302001036_string for discount on user ticket.Designer.cs">
       <DependentUpon>201804302001036_string for discount on user ticket.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804302007377_constructor for userticket.cs" />
+    <Compile Include="Migrations\201804302007377_constructor for userticket.Designer.cs">
+      <DependentUpon>201804302007377_constructor for userticket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -839,6 +843,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804302001036_string for discount on user ticket.resx">
       <DependentUpon>201804302001036_string for discount on user ticket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804302007377_constructor for userticket.resx">
+      <DependentUpon>201804302007377_constructor for userticket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

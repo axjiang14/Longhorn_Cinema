@@ -34,6 +34,14 @@ namespace AWO_Team14.Models
         public virtual Transaction Transaction { get; set; }
         public virtual Showing Showing { get; set; }
 
+        public UserTicket()
+        {
+            if (AppliedDiscounts == null)
+            {
+                AppliedDiscounts = "";
+            }
+
+        }
 
     }
 }
