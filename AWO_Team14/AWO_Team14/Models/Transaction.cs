@@ -17,6 +17,8 @@ namespace AWO_Team14.Models
 
         public Int32 TransactionNumber { get; set; }
 
+        public Int32 PopcornPointsSpent { get; set; }
+
 		[Display(Name = "Payment")]
 		public Payment Payment { get; set; }
 

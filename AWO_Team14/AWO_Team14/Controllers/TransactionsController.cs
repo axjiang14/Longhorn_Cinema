@@ -605,8 +605,8 @@ namespace AWO_Team14.Controllers
                 db.SaveChanges();
 
                 //TODO: DAN - email customers that used credit card that their $ has been refunded
-                String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionNumber + "has been canceled.\n\n" + "Love,\n" + "Dan";
-                Emailing.SendEmail(transaction.User.Email, "Transaction Canceled", Message);
+                String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionNumber + "has been cancelled.\n\n" + "Love,\n" + "Dan";
+                Emailing.SendEmail(transaction.User.Email, "Transaction Cancelled", Message);
 
             }
 

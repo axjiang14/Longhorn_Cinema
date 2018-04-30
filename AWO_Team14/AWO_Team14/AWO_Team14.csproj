@@ -476,6 +476,10 @@
     <Compile Include="Migrations\201804301626401_Transaction number.Designer.cs">
       <DependentUpon>201804301626401_Transaction number.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804301644397_Add popcornspoints spent.cs" />
+    <Compile Include="Migrations\201804301644397_Add popcornspoints spent.Designer.cs">
+      <DependentUpon>201804301644397_Add popcornspoints spent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -819,6 +823,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804301626401_Transaction number.resx">
       <DependentUpon>201804301626401_Transaction number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301644397_Add popcornspoints spent.resx">
+      <DependentUpon>201804301644397_Add popcornspoints spent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
