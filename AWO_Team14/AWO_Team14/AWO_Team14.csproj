@@ -480,6 +480,10 @@
     <Compile Include="Migrations\201804301644397_Add popcornspoints spent.Designer.cs">
       <DependentUpon>201804301644397_Add popcornspoints spent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804301751570_votingggg.cs" />
+    <Compile Include="Migrations\201804301751570_votingggg.Designer.cs">
+      <DependentUpon>201804301751570_votingggg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -826,6 +830,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804301644397_Add popcornspoints spent.resx">
       <DependentUpon>201804301644397_Add popcornspoints spent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301751570_votingggg.resx">
+      <DependentUpon>201804301751570_votingggg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

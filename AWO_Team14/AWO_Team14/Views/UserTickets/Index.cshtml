@@ -11,8 +11,9 @@
     <tr>
         <th>Purchaser</th>
         <th>Movie</th>
-        <th>Showdate</th>
+        <th>ShowDate</th>
         <th>Showtime</th>
+        <th>Endtime</th>
         <th>Price</th>
         <th>Status</th>
         <th>Seat</th>
@@ -24,8 +25,9 @@
     <tr>
         <td>@Html.DisplayFor(model => item.Transaction.User.Email)</td>
         <td>@Html.DisplayFor(model => item.Showing.Movie.Title)</td>
-        <td>@Html.DisplayFor(model => item.Showing.ShowDate.Date)</td>
+        <td>@Html.DisplayFor(model => item.Showing.ShowDate)</td>
         <td>@Html.DisplayFor(model => item.Showing.ShowDate.TimeOfDay)</td>
+        <td>@Html.DisplayFor(model => item.Showing.EndTime)</td>
         <td>@Html.DisplayFor(model => item.CurrentPrice)</td>
         <td>@Html.DisplayFor(model => item.Status)</td>
         <td>@Html.DisplayFor(model => item.SeatNumber) </td>
