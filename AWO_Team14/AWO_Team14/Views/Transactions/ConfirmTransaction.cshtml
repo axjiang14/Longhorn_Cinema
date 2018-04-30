@@ -77,6 +77,26 @@
 
 </table>
 
-<div>
-    @Html.ActionLink("Back to transaction", "PendingDetails", new { id = Model.TransactionID }, null)
-</div>
+<table class="table table-sm table-bordered" style="width:30%">
+    <tr>
+        <th colspan="2" style="text-align:center">Order Summary</th>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => model.Subtotal)</td>
+        <td>@Html.DisplayFor(model => model.Subtotal)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => model.SalesTax)</td>
+        <td>@Html.DisplayFor(model => model.SalesTax)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => model.Total)</td>
+        <td>@Html.DisplayFor(model => model.Total)</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => model.PopcornPointsSpent)</td>
+        <td>@Html.DisplayFor(model => model.PopcornPointsSpent)</td>
+    </tr>
+
+</table>
+

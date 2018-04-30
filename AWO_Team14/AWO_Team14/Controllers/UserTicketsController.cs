@@ -24,6 +24,7 @@ namespace AWO_Team14.Controllers
         {
             var query = from ut in db.UserTickets
                         select ut;
+            query = query.Where(ut => ut.Status != Status.Pending);
 
             if (User.IsInRole("Customer"))
             {
@@ -195,6 +196,7 @@ namespace AWO_Team14.Controllers
 
                 if (userTicket.Showing.ShowDate > DateTime.Now.AddHours(1))
                 {
+                    userTicket.CurrentPrice = 0;
                     userTicket.Status = Status.Returned;
                     userTicket.SeatNumber = Seat.Seat;
                     db.SaveChanges();
@@ -202,6 +204,7 @@ namespace AWO_Team14.Controllers
 					if (t.Payment == Payment.PopcornPoints)
 					{
 						t.User.PopcornPoints += 100;
+                        t.PopcornPointsSpent -= 100;
                         db.SaveChanges();
                     }
 

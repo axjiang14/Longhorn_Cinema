@@ -1,17 +1,11 @@
 ﻿@model IEnumerable<AWO_Team14.Models.Transaction>
 
 @{
-    ViewBag.Title = "Transactions Index";
+    ViewBag.Title = "Received Gifts";
 }
 
-<h2>All Transactions</h2>
+<h2>Received Gifts</h2>
 
-@if (User.IsInRole("Customer"))
-{
-<p>
-    @Html.ActionLink("New Transaction", "Create", null, new { @class = "btn btn-info" })
-</p>
-}
 <table class="table table-striped">
     <thead style="background-color: #fae3d9;">
         <tr>
@@ -19,7 +13,7 @@
                 @Html.DisplayNameFor(model => model.TransactionNumber)
             </th>
             <th>
-                Customer Name
+                Gifted By
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TransactionDate)
@@ -64,15 +58,6 @@
 
             @Html.ActionLink("Details", "Details", new { id = item.TransactionID }) |
             @Html.ActionLink("Change Seats/Remove Tickets", "RemoveFromTransaction", new { id = item.TransactionID }) |
-
-            @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
-        {
-
-            <span>@Html.ActionLink("Edit", "Edit", new { id = item.TransactionID }) | </span>
-
-            @Html.ActionLink("Delete", "Delete", new { id = item.TransactionID })
-
-    }
 
 
 

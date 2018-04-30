@@ -118,6 +118,23 @@ namespace AWO_Team14.Controllers
             return View(db.Transactions.ToList());
         }
 
+        [Authorize(Roles = "Customer")]
+        public ActionResult ReceivedGifts()
+        {
+            var query = from t in db.Transactions
+                        select t;
+
+            if (User.IsInRole("Customer"))
+            {
+                string userid = User.Identity.GetUserId();
+                query = query.Where(t => t.Giftee.Id == userid);
+            }
+
+            List<Transaction> transactions = query.ToList();
+
+            return View(transactions);
+        }
+
         [Authorize]
         public ActionResult PendingDetails(int? id)
         {
@@ -151,7 +168,7 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User")] Transaction transaction, string SearchGiftee)
+        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User, PopcornPointsSpent")] Transaction transaction, string SearchGiftee)
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
@@ -159,7 +176,7 @@ namespace AWO_Team14.Controllers
             {
                 if (ModelState.IsValid)
                 {
-					if (SearchGiftee != null || SearchGiftee != "")
+					if (SearchGiftee != null && SearchGiftee != "")
 					{
 						var Giftee = db.Users.Where(u => u.Email == SearchGiftee);
 						AppUser RGiftee = Giftee.FirstOrDefault();
@@ -209,6 +226,7 @@ namespace AWO_Team14.Controllers
 							Int32 intTickets = t.UserTickets.Count();
 							Int32 PPTickets = intTickets * 100;
 							t.User.PopcornPoints = CurPopPoints - PPTickets;
+                            t.PopcornPointsSpent = PPTickets;
 
 						
 								foreach (UserTicket ut in t.UserTickets)
@@ -222,8 +240,8 @@ namespace AWO_Team14.Controllers
 					}
 
 
-                    //db.Entry(t).State = EntityState.Modified;
-                    //db.SaveChanges();
+                    db.Entry(t).State = EntityState.Modified;
+                    db.SaveChanges();
                     return RedirectToAction("ConfirmTransaction", new { id = t.TransactionID });
 
                 }
@@ -261,16 +279,18 @@ namespace AWO_Team14.Controllers
                 if (ModelState.IsValid)
                 {
                     // get prices for each ticket
-                    foreach (UserTicket ut in t.UserTickets)
-                    {
-                        int ticketCount = 1;
-                        ut.Status = Status.Active;
-                        ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut, ticketCount);
-                        ticketCount += 1;
-                    }
+                    
                     // add popcorn points from transaction
                     if (t.Payment == Payment.CreditCard)
                     {
+                        foreach (UserTicket ut in t.UserTickets)
+                        {
+                            int ticketCount = 1;
+                            ut.Status = Status.Active;
+                            ut.CurrentPrice = DiscountPrice.GetTicketPrice(ut, ticketCount);
+                            ticketCount += 1;
+                        }
+
                         Decimal decPopPoints = t.UserTickets.Sum(ut => ut.CurrentPrice);
 
                         Int32 intPopPoints = Convert.ToInt32(decPopPoints - (decPopPoints % 1));
@@ -278,6 +298,8 @@ namespace AWO_Team14.Controllers
                         Int32 CurPopPoints = t.User.PopcornPoints;
 
                         t.User.PopcornPoints = CurPopPoints + intPopPoints;
+
+                        
 
                     }
                     // save changes to database
@@ -326,11 +348,11 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         [Authorize]
         [Authorize(Roles = "Customer")]
-        public ActionResult Create([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "TransactionID,Payment,TransactionDate, TransactionNumber")] Transaction transaction)
         {
 
 			//TODONE: Autoincrement transaction id
-			transaction.TransactionID = Utilities.GenerateTransactionNumber.GetNextTransactionNum();
+			transaction.TransactionNumber = Utilities.GenerateTransactionNumber.GetNextTransactionNum();
 
 			transaction.TransactionDate = DateTime.Now;
             transaction.Payment = Payment.CreditCard;
@@ -360,7 +382,7 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Employee, Manager")]
-        public ActionResult EmployeeCreate([Bind(Include = "TransactionID,Payment,TransactionDate, User")] Transaction transaction, string Customer)
+        public ActionResult EmployeeCreate([Bind(Include = "TransactionID,Payment,TransactionDate, User, TransactionNumber")] Transaction transaction, string Customer)
         {
             //TODO: Autoincrement transaction id
             transaction.TransactionDate = DateTime.Now;
@@ -548,7 +570,7 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Edit([Bind(Include = "TransactionID,Payment,TransactionDate")] Transaction transaction)
+        public ActionResult Edit([Bind(Include = "TransactionID,Payment,TransactionDate, TransactionNumber")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
@@ -589,6 +611,7 @@ namespace AWO_Team14.Controllers
 				Int32 CurPopPoints = transaction.User.PopcornPoints;
 				Int32 intTickets = transaction.UserTickets.Count();
 				Int32 PPTickets = intTickets * 100;
+                transaction.PopcornPointsSpent = 0;
 				transaction.User.PopcornPoints = CurPopPoints + PPTickets;
                 db.SaveChanges();
 			}
@@ -612,6 +635,7 @@ namespace AWO_Team14.Controllers
 
 			foreach (UserTicket t in transaction.UserTickets)
             {
+                t.CurrentPrice = 0;
                 t.Status = Status.Returned;
                 t.SeatNumber = Seat.Seat;
 			}

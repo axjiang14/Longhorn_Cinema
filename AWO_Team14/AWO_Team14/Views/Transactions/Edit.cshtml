@@ -26,7 +26,14 @@
             </div>
         </div>*@
     <div class="form-group">
-       Customer Name
+        @Html.LabelFor(model => model.TransactionNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DisplayFor(model => model.TransactionNumber, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        Customer Name
         <div class="col-md-10">
             @Html.DisplayFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control" } })
             @Html.DisplayFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control" } })

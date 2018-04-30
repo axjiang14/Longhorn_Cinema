@@ -44,16 +44,22 @@
                 <li class="nav-item">
                     @Html.ActionLink("View Transactions", "Index", "Transactions", null, new { @class = "nav-link" })
                 </li>
-                        if (User.IsInRole("Customer") || User.IsInRole("Manager"))
-                        {
+if (User.IsInRole("Customer"))
+{
+                <li class="nav-item">
+                    @Html.ActionLink("My Gifts", "ReceivedGifts", "Transactions", null, new { @class = "nav-link" })
+                </li>
+}
+if (User.IsInRole("Customer") || User.IsInRole("Manager"))
+{
                 <li class="nav-item">
                     @Html.ActionLink("View Tickets", "Index", "UserTickets", null, new { @class = "nav-link" })
                 </li>
-                        }
+}
 
 
-                        if (User.IsInRole("Employee") || User.IsInRole("Manager"))
-                        {
+if (User.IsInRole("Employee") || User.IsInRole("Manager"))
+{
                 <li class="nav-item">
                     @Html.ActionLink("Employee Home", "EmployeeHome", "Accounts", null, new { @class = "nav-link" })
                 </li>

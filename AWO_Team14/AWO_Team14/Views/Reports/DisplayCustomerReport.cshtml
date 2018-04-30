@@ -5,6 +5,8 @@
 }
 
 <h2>Displaying Customer Report for @Html.Raw(ViewBag.ReportUser)</h2>
+<h2>Total Revenue: @Html.Raw(ViewBag.Revenue)</h2>
+<h2>Total Popcorn Points Used: @Html.Raw(ViewBag.TotalPoints)</h2>
 
 <p>
     @Html.ActionLink("Run Another Report", "Index", "Reports", null, null)
@@ -21,24 +23,31 @@
         <th>
             @Html.DisplayNameFor(model => model.Total)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PopcornPointsSpent)
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TransactionDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Payment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Total)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", "Transactions", new { id = item.TransactionID }, null) |
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Payment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PopcornPointsSpent)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Transactions", new { id = item.TransactionID }, null) |
+            </td>
+        </tr>
+    }
 
 </table>

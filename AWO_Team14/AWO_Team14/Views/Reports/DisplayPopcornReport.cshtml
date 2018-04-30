@@ -4,6 +4,9 @@
 <p>
     @Html.ActionLink("Run Another Report", "Index", "Reports", null, null)
 </p>
+
+<h2>Total Popcorn Points Used: @Html.Raw(ViewBag.TotalPoints)</h2>
+
 <table class="table">
     <tr>
         <th>
@@ -17,6 +20,9 @@
         </th>
         <th>
             Purchased On
+        </th>
+        <th>
+            Points Spent
         </th>
         <th></th>
     </tr>
@@ -36,7 +42,10 @@
             @Html.DisplayFor(modelItem => item.Transaction.TransactionDate)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", "Transactions", new { id=item.Transaction.TransactionID }, null ) 
+            @Html.DisplayFor(modelItem => item.Transaction.PopcornPointsSpent)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", "Transactions", new { id = item.Transaction.TransactionID }, null)
 
         </td>
     </tr>

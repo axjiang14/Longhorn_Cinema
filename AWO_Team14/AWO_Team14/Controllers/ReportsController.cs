@@ -179,6 +179,9 @@ namespace AWO_Team14.Controllers
             var query = from t in db.Transactions
                         select t;
 
+            Decimal decRevenue = 0;
+            Int32 totPoints = 0;
+
             if (Customer != "All Customers")
             {
                 query = query.Where(t => t.User.Email == Customer);
@@ -186,6 +189,20 @@ namespace AWO_Team14.Controllers
 
             List<Transaction> CustomerTransactions = query.ToList();
 
+            
+
+            foreach (Transaction t in CustomerTransactions)
+            {
+                totPoints += t.PopcornPointsSpent;
+
+                foreach (UserTicket ut in t.UserTickets)
+                {
+                    decRevenue = decRevenue + ut.CurrentPrice;
+                }
+            }
+
+            ViewBag.TotalPoints = totPoints.ToString();
+            ViewBag.Revenue = decRevenue.ToString("C");
             ViewBag.ReportUser = Customer;
 
             return View(CustomerTransactions);
@@ -196,20 +213,28 @@ namespace AWO_Team14.Controllers
             var query = from t in db.Transactions
                         select t;
 
+            Int32 TotalPoints = 0;
+
             List<UserTicket> Tickets = new List<UserTicket>();
 
             foreach (Transaction t in query)
             {
                 if (t.Payment == Payment.PopcornPoints)
                 {
+                    TotalPoints += t.PopcornPointsSpent;
+
                     foreach(UserTicket ut in t.UserTickets)
                     {
-                        Tickets.Add(ut);
+                        if (ut.Status == Status.Active)
+                        {
+                            Tickets.Add(ut);
+                        }
                     }
 
                 }
             }
 
+            ViewBag.TotalPoints = TotalPoints;
             return View(Tickets);
         }
 
