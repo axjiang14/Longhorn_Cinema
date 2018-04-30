@@ -501,6 +501,10 @@
     <Compile Include="Migrations\201804302201400_idk.Designer.cs">
       <DependentUpon>201804302201400_idk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804302233437_rescheduleView.cs" />
+    <Compile Include="Migrations\201804302233437_rescheduleView.Designer.cs">
+      <DependentUpon>201804302233437_rescheduleView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -868,6 +872,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804302201400_idk.resx">
       <DependentUpon>201804302201400_idk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804302233437_rescheduleView.resx">
+      <DependentUpon>201804302233437_rescheduleView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
