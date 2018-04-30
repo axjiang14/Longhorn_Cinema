@@ -91,7 +91,8 @@ namespace AWO_Team14.Controllers
             return null;
         }
 
-            public ActionResult EmployeeHome()
+        [Authorize(Roles = "Manager, Employee")]
+        public ActionResult EmployeeHome()
         {
             return View();
         }
@@ -591,7 +592,7 @@ namespace AWO_Team14.Controllers
 
                 db.Entry(AppUser).State = EntityState.Modified;
                 db.SaveChanges();
-                if (user.Id != User.Identity.GetUserId())
+                if (AppUser.Id != User.Identity.GetUserId())
                 {
                     return RedirectToAction("EmployeeHome", "Accounts");
                 }
