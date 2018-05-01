@@ -191,8 +191,10 @@ namespace AWO_Team14.Controllers
             {
                 ViewBag.OutOfRange = "Show date is out of schedule date range";
             }
-            
-            if (ScheduleValidation.ShowingValidation(showing) == "ok" && ScheduleValidation.ShowingInRange(showing))
+
+
+            String ValidationMessage = ScheduleValidation.ShowingValidation(showing);
+            if (ValidationMessage == "ok" && ScheduleValidation.ShowingInRange(showing))
             {
                 if (ModelState.IsValid)
                 {
@@ -201,6 +203,11 @@ namespace AWO_Team14.Controllers
                     // redirects to schedule's details page
                     return RedirectToAction("Details", "Schedules", new { id = schedule.ScheduleID });
                 }
+                
+            }
+            else
+            {
+                ViewBag.ErrorMessage = ValidationMessage;
             }
 
             ViewBag.AllMovies = GetAllMovies();
@@ -253,8 +260,9 @@ namespace AWO_Team14.Controllers
                 // check if showing is range of current schedule
                 if (ScheduleValidation.ShowingInRange(showingToChange))
                 {
+                    String ValidationMessage = ScheduleValidation.ShowingValidation(showingToChange);
                     // checks is showing fits into current schedule
-                    if (ScheduleValidation.ShowingValidation(showingToChange) == "ok")
+                    if (ValidationMessage == "ok")
                     {
                       
                         db.Entry(showingToChange).State = EntityState.Modified;
@@ -271,7 +279,7 @@ namespace AWO_Team14.Controllers
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = ScheduleValidation.ShowingValidation(showingToChange);
+                        ViewBag.ErrorMessage = ValidationMessage;
                     }
                 }
                 else
@@ -301,45 +309,7 @@ namespace AWO_Team14.Controllers
             return View(showing);
         }
 
-        // POST: Showings/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,StartTime,Special,Theater")] Showing showing, int SelectedMovie)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        //Find showing to change
-        //        Showing showingToChange = db.Showings.Find(showing.ShowingID);
-
-        //        //Remove existing movie
-        //        showingToChange.Movie = null;
-
-        //        Movie movie = db.Movies.Find(SelectedMovie);
-
-        //        showingToChange.Movie = movie;
-
-
-
-        //        //showingToChange.Movie = movie;
-        //        showingToChange.ShowDate = showing.ShowDate;
-        //        showingToChange.StartTime = showing.StartTime;
-        //        showing.EndTime = showing.StartTime.Add(movie.RunTime);
-        //        showingToChange.Special = showing.Special;
-        //        showingToChange.Theater = showing.Theater;
-
-        //        if (Utilities.ScheduleValidation.ShowingValidation(showing) == true)
-        //        {
-        //            db.Entry(showingToChange).State = EntityState.Modified;
-        //            db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }
-
-        //    }
-        //    ViewBag.AllMovies = GetAllMovies();
-        //    return View(showing);
-        //}
+       
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -364,6 +334,8 @@ namespace AWO_Team14.Controllers
                 showingToChange.Movie = movie;
 
                 showingToChange.ShowDate = showing.ShowDate;
+                showingToChange.StartHour = showing.StartHour;
+                showingToChange.StartMinute = showing.StartMinute;
                 
                 showingToChange.ShowDate = showingToChange.ShowDate.AddHours(StartHour).AddMinutes(StartMinute).AddSeconds(0);
                 //showingToChange.StartTime = showingToChange.ShowDate;
@@ -371,7 +343,8 @@ namespace AWO_Team14.Controllers
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
-                if (ScheduleValidation.ShowingValidation(showing) == "ok")
+                String ValidationMessage = ScheduleValidation.ShowingValidation(showingToChange);
+                if (ValidationMessage == "ok")
                 {
                     db.Entry(showingToChange).State = EntityState.Modified;
                     db.SaveChanges();
@@ -379,8 +352,10 @@ namespace AWO_Team14.Controllers
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = ScheduleValidation.ShowingValidation(showing);
+                    ViewBag.ErrorMessage = ValidationMessage;
                 }
+
+                
 
             }
             ViewBag.AllMovies = GetAllMovies();
@@ -399,16 +374,27 @@ namespace AWO_Team14.Controllers
         public ActionResult DisplayCheckDayShowings(DateTime ShowDate, Theater SelectedTheater)
         {
             AppDbContext db = new AppDbContext();
-            Debug.WriteLine("in post");
-            if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater)== "ok")
+
+            String ValidationMessage = ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater);
+
+            if (ValidationMessage == "ok")
             {
                 ViewBag.ErrorMessage = "Your schedule is great!";
             }
             else
             {
-                ViewBag.ErrorMessage = ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater);               
+                ViewBag.ErrorMessage = ValidationMessage;               
             }
-            return RedirectToAction("CheckDayShowings");
+
+            
+            //display list of that day's showings
+            var dayQuery = from s in db.Showings
+                           select s;
+            dayQuery = dayQuery.Where(s => s.Schedule != null);
+            dayQuery = dayQuery.Where(s => s.ShowDate.Day == ShowDate.Day && s.Theater == SelectedTheater).OrderBy(s => s.ShowDate);
+            List<Showing> dayShowings = dayQuery.ToList();
+
+            return View(dayShowings);
 
 
         }

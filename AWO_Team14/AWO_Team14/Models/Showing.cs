@@ -28,6 +28,7 @@ namespace AWO_Team14.Models
 
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{MM/dd/yyyy}")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Date")]
 		public DateTime ShowDate { get; set; }
 
