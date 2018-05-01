@@ -23,15 +23,15 @@
             @Html.DisplayFor(model => model.User.FirstName)
             @Html.DisplayFor(model => model.User.LastName)
         </dt>
-@if (Model.Giftee != null)
-{
-        <dt>
-            Giftee
-        </dt>
-        <dt>
-            @Html.DisplayFor(model => model.Giftee.Email)
-        </dt>
-}
+        @if (Model.Giftee != null)
+        {
+            <dt>
+                Giftee
+            </dt>
+            <dt>
+                @Html.DisplayFor(model => model.Giftee.Email)
+            </dt>
+        }
         <br />
         <dt>
             @Html.DisplayNameFor(model => model.PaymentUsed)
@@ -67,16 +67,16 @@
     </tr>
     @foreach (UserTicket t in Model.UserTickets)
     {
-    <tr>
-        <td>@Html.DisplayFor(model => t.UserTicketID)</td>
-        <td>@Html.DisplayFor(model => t.Showing.Movie.Title)</td>
-        <td>@Html.DisplayFor(model => t.Showing.ShowDate)</td>
-        <td>@Html.DisplayFor(model => t.Showing.ShowDate.TimeOfDay)</td>
-        <td>@Html.DisplayFor(model => t.CurrentPrice)</td>
-        <td>@Html.DisplayFor(model => t.Status)</td>
-        <td>@Html.DisplayFor(model => t.SeatNumber) </td>
+        <tr>
+            <td>@Html.DisplayFor(model => t.UserTicketID)</td>
+            <td>@Html.DisplayFor(model => t.Showing.Movie.Title)</td>
+            <td>@Html.DisplayFor(model => t.Showing.ShowDate)</td>
+            <td>@Html.DisplayFor(model => t.Showing.ShowDate.TimeOfDay)</td>
+            <td>@Html.DisplayFor(model => t.CurrentPrice)</td>
+            <td>@Html.DisplayFor(model => t.Status)</td>
+            <td>@Html.DisplayFor(model => t.SeatNumber) </td>
 
-    </tr>
+        </tr>
     }
 </table>
 
@@ -103,3 +103,4 @@
 
 </table>
 
+@Html.ActionLink("View All Transactions", "Index")
