@@ -191,8 +191,10 @@ namespace AWO_Team14.Controllers
             {
                 ViewBag.OutOfRange = "Show date is out of schedule date range";
             }
-            
-            if (ScheduleValidation.ShowingValidation(showing) == "ok" && ScheduleValidation.ShowingInRange(showing))
+
+
+            String ValidationMessage = ScheduleValidation.ShowingValidation(showing);
+            if (ValidationMessage == "ok" && ScheduleValidation.ShowingInRange(showing))
             {
                 if (ModelState.IsValid)
                 {
@@ -201,6 +203,11 @@ namespace AWO_Team14.Controllers
                     // redirects to schedule's details page
                     return RedirectToAction("Details", "Schedules", new { id = schedule.ScheduleID });
                 }
+                
+            }
+            else
+            {
+                ViewBag.ErrorMessage = ValidationMessage;
             }
 
             ViewBag.AllMovies = GetAllMovies();
@@ -253,8 +260,9 @@ namespace AWO_Team14.Controllers
                 // check if showing is range of current schedule
                 if (ScheduleValidation.ShowingInRange(showingToChange))
                 {
+                    String ValidationMessage = ScheduleValidation.ShowingValidation(showingToChange);
                     // checks is showing fits into current schedule
-                    if (ScheduleValidation.ShowingValidation(showingToChange) == "ok")
+                    if (ValidationMessage == "ok")
                     {
                       
                         db.Entry(showingToChange).State = EntityState.Modified;
@@ -271,7 +279,7 @@ namespace AWO_Team14.Controllers
                     }
                     else
                     {
-                        ViewBag.ErrorMessage = ScheduleValidation.ShowingValidation(showingToChange);
+                        ViewBag.ErrorMessage = ValidationMessage;
                     }
                 }
                 else
@@ -335,7 +343,8 @@ namespace AWO_Team14.Controllers
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
 
-                if (ScheduleValidation.ShowingValidation(showingToChange) == "ok")
+                String ValidationMessage = ScheduleValidation.ShowingValidation(showingToChange);
+                if (ValidationMessage == "ok")
                 {
                     db.Entry(showingToChange).State = EntityState.Modified;
                     db.SaveChanges();
@@ -343,10 +352,10 @@ namespace AWO_Team14.Controllers
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = ScheduleValidation.ShowingValidation(showingToChange);
+                    ViewBag.ErrorMessage = ValidationMessage;
                 }
 
-                Debug.WriteLine(ScheduleValidation.ShowingValidation(showingToChange));
+                
 
             }
             ViewBag.AllMovies = GetAllMovies();
@@ -365,14 +374,16 @@ namespace AWO_Team14.Controllers
         public ActionResult DisplayCheckDayShowings(DateTime ShowDate, Theater SelectedTheater)
         {
             AppDbContext db = new AppDbContext();
-            Debug.WriteLine("in post");
-            if (ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater)== "ok")
+
+            String ValidationMessage = ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater);
+
+            if (ValidationMessage == "ok")
             {
                 ViewBag.ErrorMessage = "Your schedule is great!";
             }
             else
             {
-                ViewBag.ErrorMessage = ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater);               
+                ViewBag.ErrorMessage = ValidationMessage;               
             }
 
             
@@ -383,7 +394,6 @@ namespace AWO_Team14.Controllers
             dayQuery = dayQuery.Where(s => s.ShowDate.Day == ShowDate.Day && s.Theater == SelectedTheater).OrderBy(s => s.ShowDate);
             List<Showing> dayShowings = dayQuery.ToList();
 
-            Debug.WriteLine(ScheduleValidation.DayShowingValidation(ShowDate, SelectedTheater));
             return View(dayShowings);
 
 
