@@ -2,14 +2,12 @@
 @using AWO_Team14.Models
 
 @{
-    ViewBag.Title = "Transaction Details";
+    ViewBag.Title = "Final Page";
 }
 
-<h2>Transaction Details</h2>
+<h2>Thank you for your purchase!</h2>
 
 <div>
-    <h4>Transaction Details</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.TransactionNumber)
@@ -105,9 +103,3 @@
 
 </table>
 
-<p>
-    @*TODO: Edit for managers only*@
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TransactionID }) |
-    @Html.ActionLink("Change Seats/Return Tickets", "RemoveFromTransaction", new { id = Model.TransactionID })|
-    @Html.ActionLink("Back to Transactions", "Index")
-</p>

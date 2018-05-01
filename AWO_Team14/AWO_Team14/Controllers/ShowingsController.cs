@@ -21,7 +21,13 @@ namespace AWO_Team14.Controllers
         // GET: Showings
         public ActionResult Index()
         {
-			return View(db.Showings.OrderBy(s =>s.ShowDate).ToList());
+            var query = from s in db.Showings
+                        select s;
+            query = query.Where(s => s.Schedule != null);
+            query = query.Where(s => s.Schedule.Published == true);
+            query = query.Where(s => s.ShowDate >= DateTime.Now);
+
+            return View(query.OrderBy(s =>s.ShowDate).ToList());
         }
 
         public ActionResult DayShowings(String ShowDate, Theater Theater)
