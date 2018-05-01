@@ -46,6 +46,13 @@
     </div>
 
     <div class="form-group">
+        <label class="control-label col-md-2">Choose Payment Method:</label>
+        <div class="col-md-10">
+            @Html.TextBox("OtherPayment", null, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
         Please enter a customer email if you'd like to give this transaction as a gift
         <div class="col-md-10">
             @Html.TextBox("SearchGiftee", null, new { @class = "form-control" })

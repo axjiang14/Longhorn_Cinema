@@ -505,6 +505,10 @@
     <Compile Include="Migrations\201804302233437_rescheduleView.Designer.cs">
       <DependentUpon>201804302233437_rescheduleView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805012037233_Add PaymentUsed.cs" />
+    <Compile Include="Migrations\201805012037233_Add PaymentUsed.Designer.cs">
+      <DependentUpon>201805012037233_Add PaymentUsed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -877,6 +881,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804302233437_rescheduleView.resx">
       <DependentUpon>201804302233437_rescheduleView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805012037233_Add PaymentUsed.resx">
+      <DependentUpon>201805012037233_Add PaymentUsed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

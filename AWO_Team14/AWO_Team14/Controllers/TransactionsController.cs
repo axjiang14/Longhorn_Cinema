@@ -20,6 +20,32 @@ namespace AWO_Team14.Controllers
     {
         private AppDbContext db = new AppDbContext();
 
+        public bool AvailableSeats(int showingid)
+        {
+            List<Seat> allSeats = Enum.GetValues(typeof(Seat)).Cast<Seat>().ToList();
+
+            List<Seat> FilledSeats = new List<Seat>();
+
+            Showing CurrentShowing = db.Showings.Find(showingid);
+
+            foreach (UserTicket ut in CurrentShowing.UserTickets)
+            {
+                FilledSeats.Add(ut.SeatNumber);
+            }
+
+            List<Seat> Empty = allSeats.Except(FilledSeats).Union(FilledSeats.Except(allSeats)).ToList();
+
+            if(Empty.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+                    
+        }
+
         public SelectList GetAllMovies()
         {
             List<Movie> allMovies = db.Movies.OrderBy(m => m.Title).ToList();
@@ -30,7 +56,16 @@ namespace AWO_Team14.Controllers
             {
                 if(m.Showings.Count() != 0)
                 {
-                    relMovies.Add(m);
+                    foreach (Showing s in m.Showings)
+                    {
+                        if(s.Schedule!= null && s.Schedule.Published == true && s.ShowDate >= DateTime.Now)
+                        {
+                            if (relMovies.Contains(m) == false)
+                            {
+                                relMovies.Add(m);
+                            }
+                        }
+                    }       
                 }
             }
 
@@ -58,7 +93,10 @@ namespace AWO_Team14.Controllers
             {
                 if (s.Movie.MovieID == movieid && s.ShowDate >= Now && s.Schedule.Published == true)
                 {
-                    Showings2.Add(s);
+                    if (AvailableSeats(s.ShowingID) == true)
+                    {
+                        Showings2.Add(s);
+                    }
                 }
             }
 
@@ -110,13 +148,15 @@ namespace AWO_Team14.Controllers
             PaymentOptions.Add(Payment.PopcornPoints, "Popcorn Points");
             if (User.CreditCardNumber1 != null)
             {
-                String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
-                PaymentOptions.Add(Payment.CreditCardNumber1, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber1.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
+                //String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
+                //PaymentOptions.Add(Payment.CreditCardNumber1, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber1.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
+                PaymentOptions.Add(Payment.CreditCardNumber1, User.CreditCardNumber1);
             }
             if (User.CreditCardNumber2 != null)
             {
-                String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
-                PaymentOptions.Add(Payment.CreditCardNumber2, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber2.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
+                //String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
+                //PaymentOptions.Add(Payment.CreditCardNumber2, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber2.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
+                PaymentOptions.Add(Payment.CreditCardNumber2, User.CreditCardNumber2);
             }
             PaymentOptions.Add(Payment.OtherCreditCard, "Enter a card below");
 
@@ -199,13 +239,20 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User, PopcornPointsSpent")] Transaction transaction, string SearchGiftee, Payment Payment)
+        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User, PopcornPointsSpent, OtherPayment")] Transaction transaction, string SearchGiftee, Payment Payment, String OtherPayment)
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
+
+            AppUser AU = t.User;
 
             Debug.WriteLine(Utilities.TransactionValidation.TicketValidation(t));
             if (Utilities.TransactionValidation.TicketValidation(t) == true)
             {
+                if(OtherPayment != null)
+                {
+                    //Insert Credit Card validation here.
+                }
+
                 if (ModelState.IsValid)
                 {
 					if (SearchGiftee != null && SearchGiftee != "")
@@ -244,8 +291,23 @@ namespace AWO_Team14.Controllers
 
                     //TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
                     t.Payment = Payment;
-					if (transaction.Payment == Payment.PopcornPoints)
+
+                    if (Payment == Payment.CreditCardNumber1)
+                    {
+                        t.PaymentUsed = AU.CreditCardNumber1;
+                    }
+                    if (Payment == Payment.CreditCardNumber2)
+                    {
+                        t.PaymentUsed = AU.CreditCardNumber2;
+                    }
+                    if (Payment == Payment.OtherCreditCard)
+                    {
+                        t.PaymentUsed = OtherPayment;
+                    }
+                    if (transaction.Payment == Payment.PopcornPoints)
 					{
+                        t.PaymentUsed = "Popcorn Points";
+
 						if (Utilities.TransactionValidation.PPCalc(t) == false)
 						{
 							ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
@@ -254,6 +316,8 @@ namespace AWO_Team14.Controllers
 
 						else
 						{
+
+
 							Int32 CurPopPoints = t.User.PopcornPoints;
 							Int32 intTickets = t.UserTickets.Count();
 							Int32 PPTickets = intTickets * 100;
@@ -305,25 +369,25 @@ namespace AWO_Team14.Controllers
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
-            if (t.Payment == Payment.CreditCardNumber1)
-            {
-                String ccType = (CreditCard.GetCreditCardType(t.User.CreditCardNumber1));
-                ViewBag.Payment = String.Format("{0}{1}{2}", "**** **** **** ", (t.User.CreditCardNumber1.Substring(t.User.CreditCardNumber1.Length - 4, 4)), " " + ccType);
+            //if (t.Payment == Payment.CreditCardNumber1)
+            //{
+            //    String ccType = (CreditCard.GetCreditCardType(t.User.CreditCardNumber1));
+            //    ViewBag.Payment = String.Format("{0}{1}{2}", "**** **** **** ", (t.User.CreditCardNumber1.Substring(t.User.CreditCardNumber1.Length - 4, 4)), " " + ccType);
 
-            }
-            else if (t.Payment == Payment.CreditCardNumber2)
-            {
-                String ccType = (CreditCard.GetCreditCardType(t.User.CreditCardNumber2));
-                ViewBag.Payment = String.Format("{0}{1}{2}", "**** **** **** ", (t.User.CreditCardNumber2.Substring(t.User.CreditCardNumber1.Length - 4, 4)), " " + ccType);
-            }
-            else if (t.Payment == Payment.PopcornPoints)
-            {
-                ViewBag.Payment = "PopcornPoints";
-            }
-            else
-            {
-                ViewBag.Payment = "Other credit card";
-            }
+            //}
+            //else if (t.Payment == Payment.CreditCardNumber2)
+            //{
+            //    String ccType = (CreditCard.GetCreditCardType(t.User.CreditCardNumber2));
+            //    ViewBag.Payment = String.Format("{0}{1}{2}", "**** **** **** ", (t.User.CreditCardNumber2.Substring(t.User.CreditCardNumber1.Length - 4, 4)), " " + ccType);
+            //}
+            //else if (t.Payment == Payment.PopcornPoints)
+            //{
+            //    ViewBag.Payment = "PopcornPoints";
+            //}
+            //else
+            //{
+            //    ViewBag.Payment = "Other credit card";
+            //}
             if (Utilities.TransactionValidation.TicketValidation(t) == true)
             {
 

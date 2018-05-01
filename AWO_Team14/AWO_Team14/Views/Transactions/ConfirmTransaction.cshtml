@@ -31,9 +31,9 @@
     </div>
 }
     <div class="form-group">
-        @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.PaymentUsed, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-           @Html.Raw(ViewBag.Payment)
+            @Html.DisplayFor(model => model.PaymentUsed, new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 

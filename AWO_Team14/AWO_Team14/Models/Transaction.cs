@@ -25,7 +25,10 @@ namespace AWO_Team14.Models
 		[Display(Name = "Payment")]
 		public Payment Payment { get; set; }
 
-		[Display(Name = "Transaction Date")]
+        [Display(Name = "Payment Used")]
+        public String PaymentUsed { get; set; }
+
+        [Display(Name = "Transaction Date")]
 		public DateTime TransactionDate { get; set; }
 
 		public Decimal Subtotal
