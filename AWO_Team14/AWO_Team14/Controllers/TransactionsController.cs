@@ -110,11 +110,13 @@ namespace AWO_Team14.Controllers
             PaymentOptions.Add(Payment.PopcornPoints, "Popcorn Points");
             if (User.CreditCardNumber1 != null)
             {
-                PaymentOptions.Add(Payment.CreditCardNumber1, User.CreditCardNumber1);
+                String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
+                PaymentOptions.Add(Payment.CreditCardNumber1, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber1.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
             }
             if (User.CreditCardNumber2 != null)
             {
-                PaymentOptions.Add(Payment.CreditCardNumber2, User.CreditCardNumber2);
+                String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
+                PaymentOptions.Add(Payment.CreditCardNumber2, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber2.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
             }
             PaymentOptions.Add(Payment.OtherCreditCard, "Enter a card below");
 
@@ -303,6 +305,25 @@ namespace AWO_Team14.Controllers
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
+            if (t.Payment == Payment.CreditCardNumber1)
+            {
+                String ccType = (CreditCard.GetCreditCardType(t.User.CreditCardNumber1));
+                ViewBag.Payment = String.Format("{0}{1}{2}", "**** **** **** ", (t.User.CreditCardNumber1.Substring(t.User.CreditCardNumber1.Length - 4, 4)), " " + ccType);
+
+            }
+            else if (t.Payment == Payment.CreditCardNumber2)
+            {
+                String ccType = (CreditCard.GetCreditCardType(t.User.CreditCardNumber2));
+                ViewBag.Payment = String.Format("{0}{1}{2}", "**** **** **** ", (t.User.CreditCardNumber2.Substring(t.User.CreditCardNumber1.Length - 4, 4)), " " + ccType);
+            }
+            else if (t.Payment == Payment.PopcornPoints)
+            {
+                ViewBag.Payment = "PopcornPoints";
+            }
+            else
+            {
+                ViewBag.Payment = "Other credit card";
+            }
             if (Utilities.TransactionValidation.TicketValidation(t) == true)
             {
 
