@@ -91,7 +91,7 @@ namespace AWO_Team14.Controllers
 
             foreach (Showing s in Showings1)
             {
-                if (s.Movie.MovieID == movieid && s.ShowDate >= Now && s.Schedule.Published == true)
+                if (s.Schedule != null && s.Movie.MovieID == movieid && s.ShowDate >= Now && s.Schedule.Published == true)
                 {
                     if (AvailableSeats(s.ShowingID) == true)
                     {
@@ -418,13 +418,27 @@ namespace AWO_Team14.Controllers
 
                     String Message = "Hello " + t.User.FirstName + ",\n\n" + "Your order number" + t.TransactionNumber + "has been placed.\n\n" + "Love,\n" + "Dan";
                     Emailing.SendEmail(t.User.Email, "Order Placed", Message);
-                    return RedirectToAction("Details", new { id = t.TransactionID });
+                    return RedirectToAction("FinalCheckoutPage", new { id = t.TransactionID });
 
                 }
             }
 
             return View(transaction);
 
+        }
+
+        public ActionResult FinalCheckoutPage(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Transaction transaction = db.Transactions.Find(id);
+            if (transaction == null)
+            {
+                return HttpNotFound();
+            }
+            return View(transaction);
         }
 
 
