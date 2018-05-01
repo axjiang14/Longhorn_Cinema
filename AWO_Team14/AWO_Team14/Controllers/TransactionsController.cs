@@ -98,14 +98,32 @@ namespace AWO_Team14.Controllers
             return null;
         }
 
-		////TODO: Create method to get payments and format the CCs
-		//Enum to list 
-		//add item to enum or change the display of CC to CC1 you use
-		//public SelectList GetAllPayments()
-		//{
+        //TODO: Create method to get payments and format the CCs
+        //Enum to list
+        //add item to enum or change the display of CC to CC1 you use
+        public SelectList GetAllPayments(string Id)
+        {
+            AppUser User = db.Users.Find(Id);
 
-		//}
-			
+            Dictionary<Payment, String> PaymentOptions = new Dictionary<Payment, String>();
+
+            PaymentOptions.Add(Payment.PopcornPoints, "Popcorn Points");
+            if (User.CreditCardNumber1 != null)
+            {
+                PaymentOptions.Add(Payment.CreditCardNumber1, User.CreditCardNumber1);
+            }
+            if (User.CreditCardNumber2 != null)
+            {
+                PaymentOptions.Add(Payment.CreditCardNumber2, User.CreditCardNumber2);
+            }
+            PaymentOptions.Add(Payment.OtherCreditCard, "Enter a card below");
+
+            SelectList PaymentSList = new SelectList(PaymentOptions, "Key", "Value");
+
+            return PaymentSList;
+
+        }
+
 
         // GET: Transactions
         [Authorize]
@@ -167,6 +185,8 @@ namespace AWO_Team14.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Transaction transaction = db.Transactions.Find(id);
+            ViewBag.PaymentOptions = GetAllPayments(transaction.User.Id);
+
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -177,7 +197,7 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User, PopcornPointsSpent")] Transaction transaction, string SearchGiftee)
+        public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User, PopcornPointsSpent")] Transaction transaction, string SearchGiftee, Payment Payment)
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
@@ -221,7 +241,7 @@ namespace AWO_Team14.Controllers
 					}
 
                     //TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
-                    t.Payment = transaction.Payment;
+                    t.Payment = Payment;
 					if (transaction.Payment == Payment.PopcornPoints)
 					{
 						if (Utilities.TransactionValidation.PPCalc(t) == false)
@@ -288,7 +308,11 @@ namespace AWO_Team14.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    // get prices for each ticket
+                    foreach(UserTicket ut in t.UserTickets)
+                    {
+                        ut.Status = Status.Active;
+                        db.SaveChanges();
+                    }
                     
                     // add popcorn points from transaction
                     if (t.Payment != Payment.PopcornPoints)
