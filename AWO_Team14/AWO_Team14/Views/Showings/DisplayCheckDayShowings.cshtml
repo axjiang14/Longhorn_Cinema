@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AWO_Team14.Models.Showing>
+@using AWO_Team14.Models;
+
+@{
+    ViewBag.Title = "DisplayCheckDayShowings";
+}
+
+<h2>Check Day Showings</h2>
+<p>@Html.Raw(ViewBag.ErrorMessage)</p>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Show Date
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th>
+            Movie
+        </th>
+        <th>
+            Special
+        </th>
+        <th>
+            Theater
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowDate.TimeOfDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime.TimeOfDay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Special)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Theater)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.ShowingID }) |
+                @if (User.IsInRole("Manager"))
+                {
+                    <span>@Html.ActionLink("Edit", "Edit", new { id = item.ShowingID }) | </span>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ShowingID })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@Html.ActionLink("Back to Schedules","Index", "Schedules")
+

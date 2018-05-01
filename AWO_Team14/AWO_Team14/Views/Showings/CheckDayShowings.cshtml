@@ -5,11 +5,9 @@
     ViewBag.Title = "CheckDayShowings";
 }
 
-@Html.Raw(ViewBag.ErrorMessage)
-
 <h2>CheckDayShowings</h2>
 
-<p>@Html.Raw(ViewBag.ErrorMessage)</p>
+@Html.Raw(ViewBag.ErrorMessage)
 
 @using (Html.BeginForm("DisplayCheckDayShowings", "Showings", FormMethod.Get))
 {
@@ -18,7 +16,7 @@
     <p class="form-group">
         Pick Day to Check: <input type="date" name="ShowDate" class="form-control" />
         <div class="form-group">
-            Select a theater: 
+            Select a theater:
             <br />
             <label class="radio">@Html.RadioButton("SelectedTheater", Theater.One, true)Theater One</label>
             <label class="radio">@Html.RadioButton("SelectedTheater", Theater.Two)Theater Two</label>
@@ -28,3 +26,6 @@
         <input type="submit" value="Submit" class="btn btn-default" />
     </p>
 }
+
+@Html.ActionLink("Back to Schedules", "Index", "Schedules")
+@*@Html.ActionLink("Edit", "Edit","Movies", new { id = Model.MovieID }, null)*@
