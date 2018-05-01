@@ -2,6 +2,7 @@
 using AWO_Team14.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -16,8 +17,8 @@ namespace AWO_Team14.Utilities
             Decimal ticketPrice = -1;
             // assign price for each ticket
 
-            Boolean weekend = (int)ticket.Showing.ShowDate.DayOfWeek == 6 || (int)ticket.Showing.ShowDate.DayOfWeek == 7;
-
+            Boolean weekend = (int)ticket.Showing.ShowDate.DayOfWeek == 6 || (int)ticket.Showing.ShowDate.DayOfWeek == 0;
+            Debug.WriteLine(weekend);
             // checks if showing is matinee
             if (ticket.Showing.StartHour < 12 && weekend == false)
             {
@@ -34,7 +35,7 @@ namespace AWO_Team14.Utilities
             }
 
             // checks if showing day is weekday and afternoon
-            else if (ticket.Showing.StartHour >= 12 && ((int)ticket.Showing.ShowDate.DayOfWeek >= 1 || (int)ticket.Showing.ShowDate.DayOfWeek <= 4))
+            else if (ticket.Showing.StartHour >= 12 && ((int)ticket.Showing.ShowDate.DayOfWeek >= 1 && (int)ticket.Showing.ShowDate.DayOfWeek <= 4))
             {
                 var query = from c in db.Discounts
                             where c.DiscountName == "weekday"

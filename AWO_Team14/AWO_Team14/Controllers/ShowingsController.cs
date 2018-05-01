@@ -434,8 +434,22 @@ namespace AWO_Team14.Controllers
                 // go to the cancelling a showing controller 
                 showing.Schedule = null;
                 db.SaveChanges();
+
+                // returns and loops through each user that bought tickets to the showing
                 foreach (UserTicket t in showing.UserTickets)
                 {
+                    // change status of tickets for canceled showing
+                    t.Status = Status.Cancelled;
+                    t.SeatNumber = Seat.Seat;
+                    t.CurrentPrice = 0;
+                    db.SaveChanges();
+                    // return popcorn points if showing is canceled
+                    if (t.Transaction.Payment == Payment.PopcornPoints)
+                    {
+                        t.Transaction.User.PopcornPoints += t.Transaction.PopcornPointsSpent;
+                        db.SaveChanges();
+                    }
+                    // emails the buyer that the showing has been canceled
                     String Message = "Hello " + t.Transaction.User.FirstName + ",\n" + "The " + showing.ShowDate + showing.Movie.Title
                         + "showing has been canceled.\n\n" + "Love,\n" + "Dan";
                     Emailing.SendEmail(t.Transaction.User.Email, "Showing Canceled", Message);
