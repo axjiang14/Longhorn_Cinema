@@ -246,7 +246,7 @@ namespace AWO_Team14.Controllers
             AppUser AU = t.User;
 
             // Dan - I changed the code here from OtherPayment == null to what's below
-            // Test to see if it's working completely
+            // TODO: Test to see if it's working completely
             if (t.Payment != Payment.OtherCreditCard ||
                 ((t.Payment == Payment.OtherCreditCard && OtherPayment == "") || (t.Payment == Payment.OtherCreditCard && CreditCard.GetCreditCardType(OtherPayment) != "Invalid")))
             {
@@ -329,6 +329,7 @@ namespace AWO_Team14.Controllers
                                 {
                                     UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
                                     userTicket.CurrentPrice = 0;
+                                    // what is this entitystate.modified??
                                     db.Entry(userTicket).State = EntityState.Modified;
                                     db.SaveChanges();
                                 }

@@ -63,6 +63,7 @@
                         @Html.DisplayFor(modelItem => item.Tagline)
                     </td>
                     <td>
+                        @*@item.Overview.Substring(0, Math.Min(item.Overview.Length, 100));*@
                         @Html.DisplayFor(modelItem => item.Overview)
                     </td>
                     <td>
@@ -77,20 +78,21 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Actors)
                     </td>
-                    @foreach (Genre genre in item.Genres)
-                    {
                     <td>
-                    @Html.DisplayFor(modelItem => genre.GenreName)
+                        @foreach (Genre genre in item.Genres)
+                        {
+                             @Html.DisplayFor(modelItem => genre.GenreName)
+                             @:&nbsp;
+                            }
                     </td>
-                    }
                     <td>
                         @if (User.IsInRole("Manager"))
     {
                         <span> @Html.ActionLink("Edit", "Edit", "Movies", new { id = item.MovieID }, null) |</span>
 
-@Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null) 
+@Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null) @:|
                         }
-                       | @Html.ActionLink("Movie Details", "Details", new { id = item.MovieID }) 
+                       @Html.ActionLink("Movie Details", "Details", new { id = item.MovieID }) 
                     </td>
                 </tr>
             <tr>
