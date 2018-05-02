@@ -242,10 +242,13 @@ namespace AWO_Team14.Controllers
         public ActionResult SubmitTransaction([Bind(Include = "TransactionID,Payment,TransactionDate, UserTickets, User, PopcornPointsSpent, OtherPayment")] Transaction transaction, string SearchGiftee, Payment Payment, String OtherPayment)
         {
             Transaction t = db.Transactions.Find(transaction.TransactionID);
-
+            t.Payment = Payment;
             AppUser AU = t.User;
+
             // Dan - I changed the code here from OtherPayment == null to what's below
-            if (OtherPayment == "" || CreditCard.GetCreditCardType(OtherPayment) != "Invalid")
+            // Test to see if it's working completely
+            if (t.Payment != Payment.OtherCreditCard ||
+                ((t.Payment == Payment.OtherCreditCard && OtherPayment == "") || (t.Payment == Payment.OtherCreditCard && CreditCard.GetCreditCardType(OtherPayment) != "Invalid")))
             {
 
                 Debug.WriteLine(Utilities.TransactionValidation.TicketValidation(t));
@@ -279,8 +282,7 @@ namespace AWO_Team14.Controllers
                             t.Giftee = RGiftee;
 
                         }
-
-                        t.Payment = Payment;
+                        
 
                         if (Payment == Payment.CreditCardNumber1)
                         {
