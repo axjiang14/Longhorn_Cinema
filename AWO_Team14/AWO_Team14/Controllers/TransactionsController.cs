@@ -244,8 +244,8 @@ namespace AWO_Team14.Controllers
             Transaction t = db.Transactions.Find(transaction.TransactionID);
 
             AppUser AU = t.User;
-
-            if (OtherPayment == null || CreditCard.GetCreditCardType(OtherPayment) != "Invalid")
+            // Dan - I changed the code here from OtherPayment == null to what's below
+            if (OtherPayment == "" || CreditCard.GetCreditCardType(OtherPayment) != "Invalid")
             {
 
                 Debug.WriteLine(Utilities.TransactionValidation.TicketValidation(t));
@@ -280,7 +280,6 @@ namespace AWO_Team14.Controllers
 
                         }
 
-                        //TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
                         t.Payment = Payment;
 
                         if (Payment == Payment.CreditCardNumber1)
@@ -755,11 +754,12 @@ namespace AWO_Team14.Controllers
 
 				//Int32 CurPopPoints = transaction .User.PopcornPoints; 
 
+                // TODO: Subtract popcorn points or add?
 				transaction.User.PopcornPoints -= intPopPoints;
                 db.SaveChanges();
 
                 //TODO: DAN - email customers that used credit card that their $ has been refunded
-                String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionNumber + "has been cancelled.\n\n" + "Love,\n" + "Dan";
+                String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionNumber + " has been cancelled.\n\n" + "Love,\n" + "Dan";
                 Emailing.SendEmail(transaction.User.Email, "Transaction Cancelled", Message);
 
             }

@@ -446,13 +446,21 @@ namespace AWO_Team14.Controllers
                 {
                     // change status of tickets for canceled showing
                     t.Status = Status.Cancelled;
-                    t.SeatNumber = Seat.Seat;
-                    t.CurrentPrice = 0;
+                    t.SeatNumber = Seat.Seat;                   
                     db.SaveChanges();
+
                     // return popcorn points if showing is canceled
                     if (t.Transaction.Payment == Payment.PopcornPoints)
                     {
                         t.Transaction.User.PopcornPoints += t.Transaction.PopcornPointsSpent;
+                        t.CurrentPrice = 0;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        // take back popcorn points received from credit card payment if showing is canceled
+                        t.Transaction.User.PopcornPoints -= Convert.ToInt32(t.CurrentPrice);
+                        t.CurrentPrice = 0;
                         db.SaveChanges();
                     }
                     // emails the buyer that the showing has been canceled
@@ -474,7 +482,6 @@ namespace AWO_Team14.Controllers
                 return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
             }
 
-            // TODO: refund popcorn points
             return View(showing);
             
         }
