@@ -148,15 +148,15 @@ namespace AWO_Team14.Controllers
             PaymentOptions.Add(Payment.PopcornPoints, "Popcorn Points");
             if (User.CreditCardNumber1 != null)
             {
-                //String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
-                //PaymentOptions.Add(Payment.CreditCardNumber1, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber1.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
-                PaymentOptions.Add(Payment.CreditCardNumber1, User.CreditCardNumber1);
+                String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
+                PaymentOptions.Add(Payment.CreditCardNumber1, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber1.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
+                //PaymentOptions.Add(Payment.CreditCardNumber1, User.CreditCardNumber1);
             }
             if (User.CreditCardNumber2 != null)
             {
-                //String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
-                //PaymentOptions.Add(Payment.CreditCardNumber2, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber2.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
-                PaymentOptions.Add(Payment.CreditCardNumber2, User.CreditCardNumber2);
+                String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
+                PaymentOptions.Add(Payment.CreditCardNumber2, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber2.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
+                //PaymentOptions.Add(Payment.CreditCardNumber2, User.CreditCardNumber2);
             }
             PaymentOptions.Add(Payment.OtherCreditCard, "Enter a card below");
 
@@ -245,103 +245,106 @@ namespace AWO_Team14.Controllers
 
             AppUser AU = t.User;
 
-            Debug.WriteLine(Utilities.TransactionValidation.TicketValidation(t));
-            if (Utilities.TransactionValidation.TicketValidation(t) == true)
+            if (OtherPayment == null || CreditCard.GetCreditCardType(OtherPayment) != "Invalid")
             {
-                if(OtherPayment != null)
+
+                Debug.WriteLine(Utilities.TransactionValidation.TicketValidation(t));
+                if (Utilities.TransactionValidation.TicketValidation(t) == true)
                 {
-                    //Insert Credit Card validation here.
-                }
 
-                if (ModelState.IsValid)
-                {
-					if (SearchGiftee != null && SearchGiftee != "")
-					{
-						var Giftee = db.Users.Where(u => u.Email == SearchGiftee);
-						AppUser RGiftee = Giftee.FirstOrDefault();
-
-						if (RGiftee == null)
-						{
-							ViewBag.ErrorMessage = "The user can't be found";
-							return View(t);
-						}
-
-
-						//TODO: Check that the giftee is a customer
-						//if (! RGiftee.IsUserInRole("Customer"))
-						//{
-						//	ViewBag.ErrorMessage = "The user isn't a customer";
-						//	return View(t);
-						//}
-
-							foreach (UserTicket item in t.UserTickets)
-						{
-							if (item.Showing.Movie.MPAA_Rating == MPAA.NC17 || item.Showing.Movie.MPAA_Rating == MPAA.R)
-							{
-								if (Utilities.TransactionValidation.AgeCalc(RGiftee.Birthday) < 18)
-								{
-									ViewBag.ErrorMessage = "You can't gift a NC-17 or R rated movie to a minor";
-									return View(t);
-								}
-							}
-						}
-						t.Giftee = RGiftee;
-
-					}
-
-                    //TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
-                    t.Payment = Payment;
-
-                    if (Payment == Payment.CreditCardNumber1)
+                    if (ModelState.IsValid)
                     {
-                        t.PaymentUsed = AU.CreditCardNumber1;
+                        if (SearchGiftee != null && SearchGiftee != "")
+                        {
+                            var Giftee = db.Users.Where(u => u.Email == SearchGiftee);
+                            AppUser RGiftee = Giftee.FirstOrDefault();
+
+                            if (RGiftee == null)
+                            {
+                                ViewBag.ErrorMessage = "The user can't be found";
+                                return View(t);
+                            }
+
+                            foreach (UserTicket item in t.UserTickets)
+                            {
+                                if (item.Showing.Movie.MPAA_Rating == MPAA.NC17 || item.Showing.Movie.MPAA_Rating == MPAA.R)
+                                {
+                                    if (Utilities.TransactionValidation.AgeCalc(RGiftee.Birthday) < 18)
+                                    {
+                                        ViewBag.ErrorMessage = "You can't gift a NC-17 or R rated movie to a minor";
+                                        return View(t);
+                                    }
+                                }
+                            }
+                            t.Giftee = RGiftee;
+
+                        }
+
+                        //TODO: put in popcorn validation - user only being able to use PP if they have enough for the whole tranaction
+                        t.Payment = Payment;
+
+                        if (Payment == Payment.CreditCardNumber1)
+                        {
+                            String ccType = (CreditCard.GetCreditCardType(AU.CreditCardNumber1));
+
+                            t.PaymentUsed = String.Format("{0}{1}{2}", "**** **** **** ", (AU.CreditCardNumber1.Substring(AU.CreditCardNumber1.Length - 4, 4)), " " + ccType);
+                        }
+                        if (Payment == Payment.CreditCardNumber2)
+                        {
+                            String ccType = (CreditCard.GetCreditCardType(AU.CreditCardNumber2));
+
+                            t.PaymentUsed = String.Format("{0}{1}{2}", "**** **** **** ", (AU.CreditCardNumber2.Substring(AU.CreditCardNumber2.Length - 4, 4)), " " + ccType);
+
+                        }
+                        if (Payment == Payment.OtherCreditCard)
+                        {
+                            String ccType = (CreditCard.GetCreditCardType(OtherPayment));
+
+                            t.PaymentUsed = String.Format("{0}{1}{2}", "**** **** **** ", (OtherPayment.Substring(OtherPayment.Length - 4, 4)), " " + ccType);
+
+                        }
+                        if (transaction.Payment == Payment.PopcornPoints)
+                        {
+                            t.PaymentUsed = "Popcorn Points";
+
+                            if (Utilities.TransactionValidation.PPCalc(t) == false)
+                            {
+                                ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
+                                return View(t);
+                            }
+
+                            else
+                            {
+
+
+                                Int32 CurPopPoints = t.User.PopcornPoints;
+                                Int32 intTickets = t.UserTickets.Count();
+                                Int32 PPTickets = intTickets * 100;
+                                t.User.PopcornPoints = CurPopPoints - PPTickets;
+                                t.PopcornPointsSpent = PPTickets;
+
+
+                                foreach (UserTicket ut in t.UserTickets)
+                                {
+                                    UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
+                                    userTicket.CurrentPrice = 0;
+                                    db.Entry(userTicket).State = EntityState.Modified;
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+
+
+                        db.Entry(t).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("ConfirmTransaction", new { id = t.TransactionID });
+
                     }
-                    if (Payment == Payment.CreditCardNumber2)
-                    {
-                        t.PaymentUsed = AU.CreditCardNumber2;
-                    }
-                    if (Payment == Payment.OtherCreditCard)
-                    {
-                        t.PaymentUsed = OtherPayment;
-                    }
-                    if (transaction.Payment == Payment.PopcornPoints)
-					{
-                        t.PaymentUsed = "Popcorn Points";
-
-						if (Utilities.TransactionValidation.PPCalc(t) == false)
-						{
-							ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
-							return View(t);
-						}
-
-						else
-						{
-
-
-							Int32 CurPopPoints = t.User.PopcornPoints;
-							Int32 intTickets = t.UserTickets.Count();
-							Int32 PPTickets = intTickets * 100;
-							t.User.PopcornPoints = CurPopPoints - PPTickets;
-                            t.PopcornPointsSpent = PPTickets;
-
-						
-								foreach (UserTicket ut in t.UserTickets)
-								{
-									UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
-									userTicket.CurrentPrice = 0;
-									db.Entry(userTicket).State = EntityState.Modified;
-									db.SaveChanges();
-								}
-						}
-					}
-
-
-                    db.Entry(t).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("ConfirmTransaction", new { id = t.TransactionID });
-
                 }
             }
+
+            ViewBag.ErrorMessage = "Invalid card number";
+            ViewBag.PaymentOptions = GetAllPayments(t.User.Id);
             return View(t);
 			
 			

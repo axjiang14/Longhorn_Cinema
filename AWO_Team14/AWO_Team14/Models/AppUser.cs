@@ -51,6 +51,7 @@ namespace AWO_Team14.Models
         [Required(ErrorMessage = "Birthday is required")]
         public DateTime Birthday { get; set; }
 
+        //[RegularExpression()]
         [Display(Name = "Credit Card 1")]
         // should validate credit card number for us 
         [DataType(DataType.CreditCard)]

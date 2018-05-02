@@ -13,22 +13,28 @@ namespace AWO_Team14.Utilities
             {
                 return "Amex";
             }
-            else if (creditcard[0] == '4')
+            else
+            if (creditcard.Length == 16)
             {
-                return "Visa";
-            }
-            else if (creditcard.Substring(0,2) == "54")
-            {
-                return "MasterCard";
-            }
-            else if (creditcard[0] == '6')
-            {
-                return "Discover";
+                if (creditcard[0] == '4')
+                {
+                    return "Visa";
+                }
+                else if (creditcard.Substring(0, 2) == "54")
+                {
+                    return "MasterCard";
+                }
+                else if (creditcard[0] == '6')
+                {
+                    return "Discover";
+                }
             }
             else
             {
                 return "Invalid";
             }
+
+            return "Invalid";
         }
     }
 }

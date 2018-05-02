@@ -13,8 +13,10 @@ namespace AWO_Team14.Models
 		[Display(Name = "Published")]
 		public Boolean Published { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } 
+
 
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
