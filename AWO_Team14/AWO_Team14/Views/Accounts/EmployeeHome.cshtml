@@ -9,6 +9,7 @@
 {
     if (User.IsInRole("Manager") || User.IsInRole("Employee"))
     {
+        <h5>All Employee Actions</h5>
         <div>
             @Html.ActionLink("Register Customer", "RegisterCustomer", "Accounts", null, new { @class = "btn btn-default" })
         </div>
@@ -21,6 +22,11 @@
         <div>
             @Html.ActionLink("Reset User Password", "ResetPassword", "Accounts", null, new { @class = "btn btn-default" })
         </div>
+        <div>
+            @Html.ActionLink("Approve Movie Reviews", "GetPendingReviews", "MovieReviews", null, new { @class = "btn btn-default" })
+        </div>
+        <br />
+        <br />
 
 
 
@@ -28,6 +34,8 @@
 
     if (User.IsInRole("Manager"))
     {
+        <h5>Manager Only Actions</h5>
+
         <div>
             @Html.ActionLink("Register Employee", "RegisterEmployee", "Accounts", null, new { @class = "btn btn-default" })
         </div>
@@ -38,9 +46,18 @@
         <div>
             @Html.ActionLink("View All Roles", "Index", "RoleAdmin", null, new { @class = "btn btn-default" })
         </div>
+        <br />
+        <h5>Movie Actions</h5>
         <div>
             @Html.ActionLink("Schedule a movie", "Index", "Schedules", null, new { @class = "btn btn-default" })
         </div>
+        <div>
+            @Html.ActionLink("Add a movie", "Create", "Movies", null, new { @class = "btn btn-default" })
+        </div>
+        <div>
+            @Html.ActionLink("Add a genre", "Index", "Genres", null, new { @class = "btn btn-default" })
+        </div>
+        <br/>
         <h5>Run a Report</h5>
         <div>
             @Html.ActionLink("Report Total Seats/Revenue", "GenerateReport", "Reports", null, new { @class = "btn btn-default" })

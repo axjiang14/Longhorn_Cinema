@@ -62,6 +62,8 @@ namespace AWO_Team14.Controllers
         //}
 
         // GET: Movies/Create
+
+        [Authorize(Roles = "Manager")]
         public ActionResult Create()
         {
             ViewBag.SelectedGenres = GetAllGenres();
@@ -95,6 +97,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Movies/Edit/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -153,6 +156,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Movies/Delete/5
+        [Authorize(Roles = "Manager")]
         public ActionResult Delete(int? id)
         {
             if (id == null)

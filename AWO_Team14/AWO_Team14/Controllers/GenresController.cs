@@ -11,6 +11,7 @@ using AWO_Team14.Models;
 
 namespace AWO_Team14.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class GenresController : Controller
     {
         private AppDbContext db = new AppDbContext();
@@ -22,19 +23,19 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Genres/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
-            if (genre == null)
-            {
-                return HttpNotFound();
-            }
-            return View(genre);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Genre genre = db.Genres.Find(id);
+        //    if (genre == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(genre);
+        //}
 
         // GET: Genres/Create
         public ActionResult Create()
@@ -60,61 +61,61 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: Genres/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
-            if (genre == null)
-            {
-                return HttpNotFound();
-            }
-            return View(genre);
-        }
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Genre genre = db.Genres.Find(id);
+        //    if (genre == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(genre);
+        //}
 
         // POST: Genres/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GenreID,GenreName")] Genre genre)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(genre).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(genre);
-        }
+        //public ActionResult Edit([Bind(Include = "GenreID,GenreName")] Genre genre)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(genre).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(genre);
+        //}
 
         // GET: Genres/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = db.Genres.Find(id);
-            if (genre == null)
-            {
-                return HttpNotFound();
-            }
-            return View(genre);
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Genre genre = db.Genres.Find(id);
+        //    if (genre == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(genre);
+        //}
 
         // POST: Genres/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Genre genre = db.Genres.Find(id);
-            db.Genres.Remove(genre);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Genre genre = db.Genres.Find(id);
+        //    db.Genres.Remove(genre);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

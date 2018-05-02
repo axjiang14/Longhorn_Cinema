@@ -55,38 +55,38 @@ namespace AWO_Team14.Controllers
 
         public SelectList GetAllUsers()
         {
-            if (User.IsInRole("Manager"))
-            { 
-            var roles = db.Roles.Where(r => r.Name == "Customer" ||r.Name == "Employee");
-                if (roles.Any())
-                {
-                    var roleId = roles.First().Id;
-                    var dbUsers = from user in db.Users
-                                      where user.Roles.Any(r => r.RoleId == roleId)
-                                      select user;
-                    List<AppUser> Users = dbUsers.ToList();
+            
+        var eroles = db.Roles.Where(r => r.Name == "Customer");
+        var eroleId = eroles.First().Id;
+        var dbEmployees = from user in db.Users
+                            where user.Roles.Any(r => r.RoleId == eroleId)
+                            select user;
+        List <AppUser> Employees = dbEmployees.ToList();
 
-                    SelectList UsersList = new SelectList(Users.OrderBy(u => u.Id), "Id", "UserName");
 
-                    return UsersList;
-                }
+        var croles = db.Roles.Where(r => r.Name == "Customer");
+        var croleId = croles.First().Id;
+        var dbCustomers = from user in db.Users
+                            where user.Roles.Any(r => r.RoleId == croleId)
+                            select user;
+        List<AppUser> Customers = dbCustomers.ToList();
+
+        if (User.IsInRole("Employee"))
+        {
+
+            SelectList UsersList = new SelectList(Customers.OrderBy(u => u.Id), "Id", "UserName");
+
+            return UsersList;
+        }
+
+        if (User.IsInRole("Manager"))
+        {
+                List<AppUser> AllUsers = Customers.Union(Employees).ToList();
+                SelectList UsersList = new SelectList(AllUsers.OrderBy(u => u.Id), "Id", "UserName");
+
+                return UsersList;
             }
-            if (User.IsInRole("Employee"))
-            {
-                var roles = db.Roles.Where(r => r.Name == "Customer");
-                if (roles.Any())
-                {
-                    var roleId = roles.First().Id;
-                    var dbUsers = from user in db.Users
-                                  where user.Roles.Any(r => r.RoleId == roleId)
-                                  select user;
-                    List<AppUser> Users = dbUsers.ToList();
 
-                    SelectList UsersList = new SelectList(Users.OrderBy(u => u.Id), "Id", "UserName");
-
-                    return UsersList;
-                }
-            }
 
             return null;
         }
@@ -181,8 +181,7 @@ namespace AWO_Team14.Controllers
             }
         }
 
-       
-        //
+
         // GET: /Accounts/Register
         [AllowAnonymous]
         public ActionResult Register()
@@ -265,6 +264,7 @@ namespace AWO_Team14.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
         // GET: /Accounts/Register
         [Authorize(Roles = "Manager, Employee")]
         public ActionResult RegisterCustomer()
@@ -503,8 +503,15 @@ namespace AWO_Team14.Controllers
             ViewBag.Zip = user.Zip;
             ViewBag.Birthday = user.Birthday;
             ViewBag.PopcornPoints = user.PopcornPoints;
-            ViewBag.CreditCard1 = user.CreditCardNumber1;
-            ViewBag.CreditCard2 = user.CreditCardNumber2;
+
+            String ccType1 = (CreditCard.GetCreditCardType(user.CreditCardNumber1));
+            ViewBag.CreditCard1 = String.Format("{0}{1}{2}", "**** **** **** ", (user.CreditCardNumber1.Substring(user.CreditCardNumber1.Length - 4, 4)), " " + ccType1);
+
+            String ccType2 = (CreditCard.GetCreditCardType(user.CreditCardNumber1));
+            ViewBag.CreditCard2 = String.Format("{0}{1}{2}", "**** **** **** ", (user.CreditCardNumber2.Substring(user.CreditCardNumber2.Length - 4, 4)), " " + ccType2);
+
+            //ViewBag.CreditCard1 = user.CreditCardNumber1;
+            //ViewBag.CreditCard2 = user.CreditCardNumber2;
             ViewBag.PhoneNumber = user.PhoneNumber;
 
 

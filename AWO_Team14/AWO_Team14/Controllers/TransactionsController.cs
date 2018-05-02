@@ -259,7 +259,13 @@ namespace AWO_Team14.Controllers
                     {
                         if (SearchGiftee != null && SearchGiftee != "")
                         {
-                            var Giftee = db.Users.Where(u => u.Email == SearchGiftee);
+                            var roles = db.Roles.Where(r => r.Name == "Customer");
+                            var roleId = roles.First().Id;
+                            var dbCustomers = from user in db.Users
+                                                where user.Roles.Any(r => r.RoleId == roleId)
+                                                select user;
+                            var Giftee = dbCustomers.Where(u => u.Email == SearchGiftee);
+
                             AppUser RGiftee = Giftee.FirstOrDefault();
 
                             if (RGiftee == null)

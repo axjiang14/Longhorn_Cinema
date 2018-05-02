@@ -11,6 +11,7 @@ using AWO_Team14.Models;
 
 namespace AWO_Team14.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class SchedulesController : Controller
     {
         private AppDbContext db = new AppDbContext();

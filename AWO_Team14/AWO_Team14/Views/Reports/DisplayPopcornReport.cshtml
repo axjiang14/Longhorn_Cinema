@@ -7,48 +7,51 @@
 
 <h2>Total Popcorn Points Used: @Html.Raw(ViewBag.TotalPoints)</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            Movie Title
-        </th>
-        <th>
-            Showdate
-        </th>
-        <th>
-            Purchased By
-        </th>
-        <th>
-            Purchased On
-        </th>
-        <th>
-            Points Spent
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-striped">
+    <thead style="background-color: #fae3d9;">
+        <tr>
+            <th>
+                Movie Title
+            </th>
+            <th>
+                Showdate
+            </th>
+            <th>
+                Purchased By
+            </th>
+            <th>
+                Purchased On
+            </th>
+            <th>
+                Points Spent
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Showing.Movie.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Showing.ShowDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Transaction.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Transaction.TransactionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Transaction.PopcornPointsSpent)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Transactions", new { id = item.Transaction.TransactionID }, null)
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Showing.Movie.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Showing.ShowDate.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Transaction.User.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Transaction.TransactionDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Transaction.PopcornPointsSpent)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", "Transactions", new { id = item.Transaction.TransactionID }, null)
-
-        </td>
-    </tr>
-}
+                </td>
+                <td></td>
+            </tr>
+        }
 
 </table>

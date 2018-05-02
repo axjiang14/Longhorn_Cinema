@@ -175,6 +175,36 @@ namespace AWO_Team14.Controllers
             return View(movieReview);
         }
 
+        public SelectList NeedApprovalReviews()
+        {
+            var query = from r in db.MovieReviews
+                        select r;
+
+            query = query.Where(r => r.Status == ReviewStatus.Pending);
+
+            List<MovieReview> Reviews = query.ToList();
+
+            SelectList PendingReviews = new SelectList(Reviews.OrderBy(r => r.MovieReviewID), "MovieReviewID", "MovieReviewID");
+
+            return PendingReviews;
+
+
+        }
+
+        public ActionResult GetPendingReviews()
+        {
+            ViewBag.PendingReviews = NeedApprovalReviews();
+
+            return View();
+        }
+
+        public ActionResult ChangeUserProfile(int Id)
+        {
+            MovieReview mr = db.MovieReviews.Find(Id);
+
+            return RedirectToAction("EditEmployee", "MovieReviews", new { id = mr.MovieReviewID });
+        }
+
         // GET: MovieReviews/Edit/5
         [Authorize(Roles = "Employee, Manager")]
         public ActionResult EditEmployee(int? id)
@@ -214,30 +244,30 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: MovieReviews/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MovieReview movieReview = db.MovieReviews.Find(id);
-            if (movieReview == null)
-            {
-                return HttpNotFound();
-            }
-            return View(movieReview);
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    MovieReview movieReview = db.MovieReviews.Find(id);
+        //    if (movieReview == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(movieReview);
+        //}
 
-        // POST: MovieReviews/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MovieReview movieReview = db.MovieReviews.Find(id);
-            db.MovieReviews.Remove(movieReview);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: MovieReviews/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    MovieReview movieReview = db.MovieReviews.Find(id);
+        //    db.MovieReviews.Remove(movieReview);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

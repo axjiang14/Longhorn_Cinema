@@ -2,17 +2,19 @@
 @using AWO_Team14.Models
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "All Movie Reviews";
 }
 
-<h2>Index</h2>
+<h2>Your Movie Reviews</h2>
 
 <p>@Html.Raw(ViewBag.ErrorMessage)</p>
 
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Customer"))
+{
+    <p>
+        @Html.ActionLink("Review a movie", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -46,10 +48,13 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @if (User.IsInRole("Customer")){@Html.ActionLink("Edit", "EditUser", new { id = item.MovieReviewID }); } 
-                @if (User.IsInRole("Employee")|| User.IsInRole("Manager"))
-                {@Html.ActionLink("Approve", "EditEmployee", new { id = item.MovieReviewID }); }
-                
+                @if (User.IsInRole("Customer"))
+                {@Html.ActionLink("Edit", "EditUser", new { id = item.MovieReviewID });
+            }
+                @if (User.IsInRole("Employee") || User.IsInRole("Manager"))
+                {@Html.ActionLink("Approve", "EditEmployee", new { id = item.MovieReviewID });
+            }
+
                 | @Html.ActionLink("Details", "Details", new { id = item.MovieReviewID }) |
 
             </td>

@@ -638,6 +638,7 @@
     <Content Include="Views\Discounts\Index.cshtml" />
     <Content Include="Views\Showings\DisplayCheckDayShowings.cshtml" />
     <Content Include="Views\Transactions\Details.cshtml" />
+    <Content Include="Views\MovieReviews\GetPendingReviews.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -135,6 +135,24 @@ namespace AWO_Team14.Controllers
             return selMovies; 
         }
 
+        public Int32 CountAvailableSeats(int? showingid)
+        {
+            List<Seat> allSeats = Enum.GetValues(typeof(Seat)).Cast<Seat>().ToList();
+
+            List<Seat> FilledSeats = new List<Seat>();
+
+            Showing CurrentShowing = db.Showings.Find(showingid);
+
+            foreach (UserTicket ut in CurrentShowing.UserTickets)
+            {
+                FilledSeats.Add(ut.SeatNumber);
+            }
+
+            List<Seat> Empty = allSeats.Except(FilledSeats).Union(FilledSeats.Except(allSeats)).ToList();
+
+            return Empty.Count();
+
+        }
 
         // GET: Showings/Details/5
         public ActionResult Details(int? id)
@@ -148,6 +166,8 @@ namespace AWO_Team14.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.EmptySeats = CountAvailableSeats(id);
+     
             return View(showing);
         }
 
@@ -407,84 +427,84 @@ namespace AWO_Team14.Controllers
 
 
         // GET: Showings/Delete/5
-        [Authorize(Roles = "Manager")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Showing showing = db.Showings.Find(id);
-            if (showing == null)
-            {
-                return HttpNotFound();
-            }
-            return View(showing);
-        }
+        //[Authorize(Roles = "Manager")]
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Showing showing = db.Showings.Find(id);
+        //    if (showing == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(showing);
+        //}
 
-        // POST: Showings/Delete/5
-        [Authorize(Roles = "Manager")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Showing showing = db.Showings.Find(id);
+        //// POST: Showings/Delete/5
+        //[Authorize(Roles = "Manager")]
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Showing showing = db.Showings.Find(id);
 
-            // saves showing's schedule to return to page 
-            int ScheduleID = showing.Schedule.ScheduleID;
+        //    // saves showing's schedule to return to page 
+        //    int ScheduleID = showing.Schedule.ScheduleID;
 
-            // if schedule is published
-            // showing is canceled not delete
-            if (showing.Schedule.Published && DateTime.Now < showing.ShowDate )
-            {
-                // go to the cancelling a showing controller 
-                showing.Schedule = null;
-                db.SaveChanges();
+        //    // if schedule is published
+        //    // showing is canceled not delete
+        //    if (showing.Schedule.Published && DateTime.Now < showing.ShowDate )
+        //    {
+        //        // go to the cancelling a showing controller 
+        //        showing.Schedule = null;
+        //        db.SaveChanges();
 
-                // returns and loops through each user that bought tickets to the showing
-                foreach (UserTicket t in showing.UserTickets)
-                {
-                    // change status of tickets for canceled showing
-                    t.Status = Status.Cancelled;
-                    t.SeatNumber = Seat.Seat;                   
-                    db.SaveChanges();
+        //        // returns and loops through each user that bought tickets to the showing
+        //        foreach (UserTicket t in showing.UserTickets)
+        //        {
+        //            // change status of tickets for canceled showing
+        //            t.Status = Status.Cancelled;
+        //            t.SeatNumber = Seat.Seat;                   
+        //            db.SaveChanges();
 
-                    // return popcorn points if showing is canceled
-                    if (t.Transaction.Payment == Payment.PopcornPoints)
-                    {
-                        t.Transaction.User.PopcornPoints += t.Transaction.PopcornPointsSpent;
-                        t.CurrentPrice = 0;
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        // take back popcorn points received from credit card payment if showing is canceled
-                        t.Transaction.User.PopcornPoints -= Convert.ToInt32(t.CurrentPrice);
-                        t.CurrentPrice = 0;
-                        db.SaveChanges();
-                    }
-                    // emails the buyer that the showing has been canceled
-                    String Message = "Hello " + t.Transaction.User.FirstName + ",\n" + "The " + showing.ShowDate + showing.Movie.Title
-                        + "showing has been canceled.\n\n" + "Love,\n" + "Dan";
-                    Emailing.SendEmail(t.Transaction.User.Email, "Showing Canceled", Message);
-                }
-                // returns to Schedule's Detail page
-                return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
-            }
+        //            // return popcorn points if showing is canceled
+        //            if (t.Transaction.Payment == Payment.PopcornPoints)
+        //            {
+        //                t.Transaction.User.PopcornPoints += t.Transaction.PopcornPointsSpent;
+        //                t.CurrentPrice = 0;
+        //                db.SaveChanges();
+        //            }
+        //            else
+        //            {
+        //                // take back popcorn points received from credit card payment if showing is canceled
+        //                t.Transaction.User.PopcornPoints -= Convert.ToInt32(t.CurrentPrice);
+        //                t.CurrentPrice = 0;
+        //                db.SaveChanges();
+        //            }
+        //            // emails the buyer that the showing has been canceled
+        //            String Message = "Hello " + t.Transaction.User.FirstName + ",\n" + "The " + showing.ShowDate + showing.Movie.Title
+        //                + "showing has been canceled.\n\n" + "Love,\n" + "Dan";
+        //            Emailing.SendEmail(t.Transaction.User.Email, "Showing Canceled", Message);
+        //        }
+        //        // returns to Schedule's Detail page
+        //        return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
+        //    }
 
-            // schedule is unpublished
-            if (showing.Schedule.Published == false)
-            {
-                // delete showing from table
-                db.Showings.Remove(showing);
-                db.SaveChanges();
-                // returns to Schedule's Detail page
-                return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
-            }
+        //    // schedule is unpublished
+        //    if (showing.Schedule.Published == false)
+        //    {
+        //        // delete showing from table
+        //        db.Showings.Remove(showing);
+        //        db.SaveChanges();
+        //        // returns to Schedule's Detail page
+        //        return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
+        //    }
 
-            return View(showing);
+        //    return View(showing);
             
-        }
+        //}
 
         protected override void Dispose(bool disposing)
         {

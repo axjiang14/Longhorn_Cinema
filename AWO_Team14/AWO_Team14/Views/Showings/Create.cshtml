@@ -1,7 +1,7 @@
 ﻿@model AWO_Team14.Models.Showing
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Showing";
 }
 
 @Html.Raw(ViewBag.ErrorMessage)
@@ -13,7 +13,6 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.Schedule.ScheduleID)
 <div class="form-horizontal">
-    <h4>Showing</h4>
     @Html.Raw(ViewBag.OutOfRange)
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -74,7 +73,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="submit" value="Create" class="btn btn-info" />
         </div>
     </div>
 </div>

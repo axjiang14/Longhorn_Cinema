@@ -106,8 +106,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.ShowingID }) |
                 @if (User.IsInRole("Manager"))
                 {
-                    <span>@Html.ActionLink("Edit", "Edit", new { id = item.ShowingID }) | </span>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ShowingID })
+                    <span>@Html.ActionLink("Make a schedule", "Index", "Schedules", new { id = item.ShowingID }, null) | </span>
                 }
             </td>
         </tr>

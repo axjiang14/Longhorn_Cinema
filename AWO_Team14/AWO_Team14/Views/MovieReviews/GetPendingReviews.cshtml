@@ -1,0 +1,33 @@
+﻿
+@using AWO_Team14.Controllers
+@{
+
+    ViewBag.Title = "Pending Reviews";
+}
+
+<h2>Edit/Approve Movie Reviews</h2>
+
+@using (Html.BeginForm())
+{
+
+    <p class="form-group">
+        Select a review:
+        <br />
+        @Html.DropDownList("Id", (SelectList)ViewBag.PendingReviews, new { @class = "form-control" })
+    </p>
+
+
+
+    <p class="form-group">
+        <input type="submit" value="Submit" class="btn btn-info" />
+    </p>
+}
+
+
+
+
+
+
+
+
+

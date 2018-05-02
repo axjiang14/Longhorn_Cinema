@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<AWO_Team14.Models.UserTicket>
 
 @{
-    ViewBag.Title = "DisplayReport";
+    ViewBag.Title = "DisplayGeneralReport";
 }
 
-<h2>DisplayReport</h2>
+<h2>Display General Report</h2>
 
 @if (ViewBag.SoldTicketsCount != null)
 {
@@ -16,51 +16,46 @@
 }
 
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Showing.Movie.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Showing.ShowDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SeatNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrentPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<table class="table table-striped">
+    <thead style="background-color: #fae3d9;">
         <tr>
             <th>
-                @Html.DisplayFor(modelItem => item.Status)
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-                @Html.DisplayFor(modelItem => item.Showing.Movie.Title)
+                @Html.DisplayNameFor(model => model.Showing.Movie.Title)
             </th>
             <th>
-                @Html.DisplayFor(modelItem => item.Showing.ShowDate)
+                @Html.DisplayNameFor(model => model.Showing.ShowDate)
             </th>
-            <td>
-                @Html.DisplayFor(modelItem => item.SeatNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.SeatNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentPrice)
+            </th>
+            <th></th>
         </tr>
-    }
-
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Showing.Movie.Title)
+                </th>
+                <th>
+                    @Html.DisplayFor(modelItem => item.Showing.ShowDate)
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SeatNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentPrice)
+                </td>
+                <td></td>
+            </tr>
+        }
 </table>

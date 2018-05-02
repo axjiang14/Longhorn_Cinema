@@ -12,42 +12,44 @@
     @Html.ActionLink("Run Another Report", "Index", "Reports", null, null)
 </p>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TransactionDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Payment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Total)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PopcornPointsSpent)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-striped">
+    <thead style="background-color: #fae3d9;">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TransactionDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Payment)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Total)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PopcornPointsSpent)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Payment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PopcornPointsSpent)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", "Transactions", new { id = item.TransactionID }, null) |
+                    </td>
+                    <td></td>
+                </tr>
+            }
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Payment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Total)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PopcornPointsSpent)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", "Transactions", new { id = item.TransactionID }, null) |
-            </td>
-        </tr>
-    }
-
-</table>
+        </table>

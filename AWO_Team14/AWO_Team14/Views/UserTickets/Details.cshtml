@@ -1,13 +1,12 @@
 ﻿@model AWO_Team14.Models.UserTicket
 
 @{
-    ViewBag.Title = "UserTicket Details";
+    ViewBag.Title = "Ticket Details";
 }
 
-<h2>UserTicket Details</h2>
+<h2>Ticket Details</h2>
 
 <div>
-    <h4>UserTicket Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -22,7 +21,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Showing.ShowDate.Date)
+            @Html.DisplayFor(model => model.Showing.ShowDate)
         </dd>
         <dt>
             Showtime
