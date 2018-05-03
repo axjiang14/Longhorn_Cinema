@@ -25,15 +25,20 @@ namespace AWO_Team14.Migrations
 			MovieData AddMovies = new MovieData();
 			AddMovies.SeedMovies(context);
 
+			//seed employees 
+			EmployeeData AddEmployees = new EmployeeData();
+			AddEmployees.SeedEmployees(context);
+
+			//seed customers 
+			CustomerData AddCustomers = new CustomerData();
+			AddCustomers.SeedCustomers(context); 
+
 			//UserData AddUsers = new UserData();
 			//AddUsers.SeedUsers(context);
 
 			SeedIdentity si = new SeedIdentity();
 			si.AddAdmin(context);
 
-			//seed employees 
-			EmployeeData AddEmployees = new EmployeeData();
-			AddEmployees.SeedEmployees(context);
 		}
 
     }
