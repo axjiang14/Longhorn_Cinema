@@ -228,8 +228,8 @@ namespace AWO_Team14.Controllers
 						t.User.PopcornPoints -= intPopPoints;
                         db.SaveChanges();
 
-                        String Message = "Hello " + userTicket.Transaction.User.FirstName + ",\n" + "The ticket for " + userTicket.Showing.ShowDate + 
-                            userTicket.Showing.Movie.Title + "has been canceled.\n\n" + "Love,\n" + "Dan";
+                        String Message = "Hello " + userTicket.Transaction.User.FirstName + ",\n\n" + "The ticket for " + userTicket.Showing.ShowDate + 
+                            userTicket.Showing.Movie.Title + " has been canceled.\n\n" + "Love,\n" + "Dan";
                         Emailing.SendEmail(userTicket.Transaction.User.Email, "Ticket Canceled", Message);
 
                     }
