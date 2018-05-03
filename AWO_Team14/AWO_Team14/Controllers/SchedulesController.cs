@@ -126,8 +126,9 @@ namespace AWO_Team14.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ScheduleID,StartDate,Published")] Schedule schedule)
         {
+            
             schedule.Published = false;
-            schedule.StartDate = DateTime.Today.AddDays(7);
+            schedule.StartDate = Utilities.GenerateScheduleDay.GetNextSchedDate();
             schedule.EndDate = schedule.StartDate.AddDays(6);
 
             if (ModelState.IsValid)
