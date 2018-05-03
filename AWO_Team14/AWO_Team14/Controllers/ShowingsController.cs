@@ -150,6 +150,10 @@ namespace AWO_Team14.Controllers
 
             List<Seat> Empty = allSeats.Except(FilledSeats).Union(FilledSeats.Except(allSeats)).ToList();
 
+            if(Empty.Contains(Seat.Seat))
+            {
+                return Empty.Count() - 1;
+            }
             return Empty.Count();
 
         }

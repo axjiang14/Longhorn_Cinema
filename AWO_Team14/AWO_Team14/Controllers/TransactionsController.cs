@@ -58,7 +58,7 @@ namespace AWO_Team14.Controllers
                 {
                     foreach (Showing s in m.Showings)
                     {
-                        if(s.Schedule!= null && s.Schedule.Published == true && s.ShowDate >= DateTime.Now)
+                        if(s.Schedule!= null && s.Schedule.Published == true && s.ShowDate >= DateTime.Now && AvailableSeats(s.ShowingID) == true)
                         {
                             if (relMovies.Contains(m) == false)
                             {
@@ -577,7 +577,9 @@ namespace AWO_Team14.Controllers
 			{
 				if (Utilities.TransactionValidation.AgeCalc(transaction.User.Birthday) < 18)
 				{
-					return View(ut);
+                    ViewBag.Error = "You are not old enough to purchase tickets to this movie.";
+                    ViewBag.AllMovies = GetAllMovies();
+                    return View(ut);
 				}
 			}
 
