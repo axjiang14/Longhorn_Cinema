@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using AWO_Team14.DAL;
 using AWO_Team14.Models;
 using AWO_Team14.Utilities;
+using Microsoft.AspNet.Identity;
 
 namespace AWO_Team14.Controllers
 {
@@ -173,6 +174,40 @@ namespace AWO_Team14.Controllers
             ViewBag.EmptySeats = CountAvailableSeats(id);
      
             return View(showing);
+        }
+
+        // go straight from tickets to choosing a seat
+        [Authorize(Roles = "Customer")]
+        public ActionResult BuyTicket (int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Showing showing = db.Showings.Find(id);
+            if (showing == null)
+            {
+                return HttpNotFound();
+            }
+
+            // create new transaction
+            Transaction t = new Transaction();
+            t.TransactionNumber =  Utilities.GenerateTransactionNumber.GetNextTransactionNum();
+            t.TransactionDate = DateTime.Now;
+            t.Payment = Payment.CreditCardNumber1;
+            t.User = db.Users.Find(User.Identity.GetUserId());
+            db.Transactions.Add(t);
+            db.SaveChanges();
+
+            UserTicket ut = new UserTicket();
+            ut.Transaction = t;
+            ut.Showing = showing;
+            ut.Status = Status.Pending;
+            db.UserTickets.Add(ut);
+            db.SaveChanges();
+
+            return RedirectToAction("Edit", "UserTickets", new { id = ut.UserTicketID });
+
         }
 
         // GET: Showings/Create
@@ -430,85 +465,85 @@ namespace AWO_Team14.Controllers
         }
 
 
-        // GET: Showings/Delete/5
-        //[Authorize(Roles = "Manager")]
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Showing showing = db.Showings.Find(id);
-        //    if (showing == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(showing);
-        //}
+        //GET: Showings/Delete/5
+        [Authorize(Roles = "Manager")]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Showing showing = db.Showings.Find(id);
+            if (showing == null)
+            {
+                return HttpNotFound();
+            }
+            return View(showing);
+        }
 
-        //// POST: Showings/Delete/5
-        //[Authorize(Roles = "Manager")]
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Showing showing = db.Showings.Find(id);
+        // POST: Showings/Delete/5
+        [Authorize(Roles = "Manager")]
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Showing showing = db.Showings.Find(id);
 
-        //    // saves showing's schedule to return to page 
-        //    int ScheduleID = showing.Schedule.ScheduleID;
+            // saves showing's schedule to return to page 
+            int ScheduleID = showing.Schedule.ScheduleID;
 
-        //    // if schedule is published
-        //    // showing is canceled not delete
-        //    if (showing.Schedule.Published && DateTime.Now < showing.ShowDate )
-        //    {
-        //        // go to the cancelling a showing controller 
-        //        showing.Schedule = null;
-        //        db.SaveChanges();
+            // if schedule is published
+            // showing is canceled not delete
+            if (showing.Schedule.Published && DateTime.Now < showing.ShowDate)
+            {
+                // go to the cancelling a showing controller 
+                showing.Schedule = null;
+                db.SaveChanges();
 
-        //        // returns and loops through each user that bought tickets to the showing
-        //        foreach (UserTicket t in showing.UserTickets)
-        //        {
-        //            // change status of tickets for canceled showing
-        //            t.Status = Status.Cancelled;
-        //            t.SeatNumber = Seat.Seat;                   
-        //            db.SaveChanges();
+                // returns and loops through each user that bought tickets to the showing
+                foreach (UserTicket t in showing.UserTickets)
+                {
+                    // change status of tickets for canceled showing
+                    t.Status = Status.Cancelled;
+                    t.SeatNumber = Seat.Seat;
+                    db.SaveChanges();
 
-        //            // return popcorn points if showing is canceled
-        //            if (t.Transaction.Payment == Payment.PopcornPoints)
-        //            {
-        //                t.Transaction.User.PopcornPoints += t.Transaction.PopcornPointsSpent;
-        //                t.CurrentPrice = 0;
-        //                db.SaveChanges();
-        //            }
-        //            else
-        //            {
-        //                // take back popcorn points received from credit card payment if showing is canceled
-        //                t.Transaction.User.PopcornPoints -= Convert.ToInt32(t.CurrentPrice);
-        //                t.CurrentPrice = 0;
-        //                db.SaveChanges();
-        //            }
-        //            // emails the buyer that the showing has been canceled
-        //            String Message = "Hello " + t.Transaction.User.FirstName + ",\n" + "The " + showing.ShowDate + showing.Movie.Title
-        //                + "showing has been canceled.\n\n" + "Love,\n" + "Dan";
-        //            Emailing.SendEmail(t.Transaction.User.Email, "Showing Canceled", Message);
-        //        }
-        //        // returns to Schedule's Detail page
-        //        return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
-        //    }
+                    // return popcorn points if showing is canceled
+                    if (t.Transaction.Payment == Payment.PopcornPoints)
+                    {
+                        t.Transaction.User.PopcornPoints += t.Transaction.PopcornPointsSpent;
+                        t.CurrentPrice = 0;
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        // take back popcorn points received from credit card payment if showing is canceled
+                        t.Transaction.User.PopcornPoints -= Convert.ToInt32(t.CurrentPrice);
+                        t.CurrentPrice = 0;
+                        db.SaveChanges();
+                    }
+                    // emails the buyer that the showing has been canceled
+                    String Message = "Hello " + t.Transaction.User.FirstName + ",\n" + "The " + showing.ShowDate + showing.Movie.Title
+                        + "showing has been canceled.\n\n" + "Love,\n" + "Dan";
+                    Emailing.SendEmail(t.Transaction.User.Email, "Showing Canceled", Message);
+                }
+                // returns to Schedule's Detail page
+                return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
+            }
 
-        //    // schedule is unpublished
-        //    if (showing.Schedule.Published == false)
-        //    {
-        //        // delete showing from table
-        //        db.Showings.Remove(showing);
-        //        db.SaveChanges();
-        //        // returns to Schedule's Detail page
-        //        return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
-        //    }
+            // schedule is unpublished
+            if (showing.Schedule.Published == false)
+            {
+                // delete showing from table
+                db.Showings.Remove(showing);
+                db.SaveChanges();
+                // returns to Schedule's Detail page
+                return RedirectToAction("Details", "Schedules", new { id = ScheduleID });
+            }
 
-        //    return View(showing);
-            
-        //}
+            return View(showing);
+
+        }
 
         protected override void Dispose(bool disposing)
         {
