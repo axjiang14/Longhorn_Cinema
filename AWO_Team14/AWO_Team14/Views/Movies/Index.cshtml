@@ -58,50 +58,53 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tagline)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Overview)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseYear)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MPAA_Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Runtime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Actors)
-            </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tagline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Overview)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseYear)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MPAA_Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Runtime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Actors)
+        </td>
+        <td>
             @foreach (Genre genre in item.Genres)
             {
-                <td>
-                    @Html.DisplayFor(modelItem => genre.GenreName)
-                </td>
+                @Html.DisplayFor(modelItem => genre.GenreName)
+                @:&nbsp;
             }
-            <td>
-                @Html.ActionLink("Movie Details", "Details", "Home", new { id = item.MovieID }, null) |
+        </td>
+        <td>
+            @Html.ActionLink("Movie Details", "Details", "Home", new { id = item.MovieID }, null) |
 
-                @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
-                {
+            @if (User.IsInRole("Manager") || User.IsInRole("Employee"))
+        {
 
-                    <span>@Html.ActionLink("Edit", "Edit", new { id = item.MovieID })
-                    |</span>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
+            <span>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MovieID })
+            |
+        </span>
+        @Html.ActionLink("Delete", "Delete", new { id = item.MovieID })
 
-                }
-            </td>
-        </tr>
+}
+        </td>
+    </tr>
 
         <tr>
             @foreach (Showing showing in item.Showings)
