@@ -44,6 +44,9 @@ namespace AWO_Team14.Controllers
                             select s;
 
                 query = query.Where(s => s.Theater == Theater);
+                query = query.Where(s => s.Schedule != null);
+                query = query.Where(s => s.Schedule.Published == true);
+                query = query.Where(s => s.ShowDate >= DateTime.Now);
                 Showings = query.ToList();
             }
 
@@ -54,6 +57,9 @@ namespace AWO_Team14.Controllers
                             select s;
 
                 query = query.Where(s => s.Theater == Theater);
+                query = query.Where(s => s.Schedule != null);
+                query = query.Where(s => s.Schedule.Published == true);
+                query = query.Where(s => s.ShowDate >= DateTime.Now);
                 Showings = query.ToList();
             }
 
@@ -64,6 +70,9 @@ namespace AWO_Team14.Controllers
                             select s;
 
                 query = query.Where(s => s.Theater == Theater);
+                query = query.Where(s => s.Schedule != null);
+                query = query.Where(s => s.Schedule.Published == true);
+                query = query.Where(s => s.ShowDate >= DateTime.Now);
                 Showings = query.ToList();
             }
 
@@ -74,6 +83,9 @@ namespace AWO_Team14.Controllers
                             select s;
 
                 query = query.Where(s => s.Theater == Theater);
+                query = query.Where(s => s.Schedule != null);
+                query = query.Where(s => s.Schedule.Published == true);
+                query = query.Where(s => s.ShowDate >= DateTime.Now);
                 Showings = query.ToList();
             }
 
@@ -84,6 +96,9 @@ namespace AWO_Team14.Controllers
                             select s;
 
                 query = query.Where(s => s.Theater == Theater);
+                query = query.Where(s => s.Schedule != null);
+                query = query.Where(s => s.Schedule.Published == true);
+                query = query.Where(s => s.ShowDate >= DateTime.Now);
                 Showings = query.ToList();
             }
 
@@ -94,6 +109,9 @@ namespace AWO_Team14.Controllers
                             select s;
 
                 query = query.Where(s => s.Theater == Theater);
+                query = query.Where(s => s.Schedule != null);
+                query = query.Where(s => s.Schedule.Published == true);
+                query = query.Where(s => s.ShowDate >= DateTime.Now);
                 Showings = query.ToList();
             }
 
@@ -104,6 +122,9 @@ namespace AWO_Team14.Controllers
                             select s;
 
                 query = query.Where(s => s.Theater == Theater);
+                query = query.Where(s => s.Schedule != null);
+                query = query.Where(s => s.Schedule.Published == true);
+                query = query.Where(s => s.ShowDate >= DateTime.Now);
                 Showings = query.ToList();
             }
 
@@ -300,8 +321,8 @@ namespace AWO_Team14.Controllers
                         // email each user who bought a ticket that showing has been rescheduled
                         foreach (UserTicket t in showingToChange.UserTickets)
                         {
-                            String Message = "Hello " + t.Transaction.User.FirstName + ",\n" + "The " + oldShowDate  + " " + showingToChange.Movie.Title 
-                                + "showing has been rescheduled to" + showingToChange.ShowDate + ".\n\n" + "Love,\n" + "Dan";
+                            String Message = "Hello " + t.Transaction.User.FirstName + ",\n\n" + "The " + oldShowDate  + " " + showingToChange.Movie.Title 
+                                + " showing has been rescheduled to " + showingToChange.ShowDate + ".\n\n" + "Love,\n" + "Dan";
                             Emailing.SendEmail(t.Transaction.User.Email, "Showing Rescheduled", Message);
                         }
                         
