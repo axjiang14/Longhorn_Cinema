@@ -44,6 +44,9 @@
             @Html.ActionLink("Change Employee Status", "ChangeEmployeeStatus", "Accounts", null, new { @class = "btn btn-default" })
         </div>
         <div>
+            @Html.ActionLink("Change Discounts", "Index", "Discounts", null, new { @class = "btn btn-default" })
+        </div>
+        <div>
             @Html.ActionLink("View All Roles", "Index", "RoleAdmin", null, new { @class = "btn btn-default" })
         </div>
         <br />
@@ -57,7 +60,7 @@
         <div>
             @Html.ActionLink("Add a genre", "Index", "Genres", null, new { @class = "btn btn-default" })
         </div>
-        <br/>
+        <br />
         <h5>Run a Report</h5>
         <div>
             @Html.ActionLink("Report Total Seats/Revenue", "GenerateReport", "Reports", null, new { @class = "btn btn-default" })

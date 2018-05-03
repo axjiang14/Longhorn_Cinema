@@ -105,16 +105,6 @@ namespace AWO_Team14.Controllers
             return ChosenShowings;
         }
 
-        public SelectList GetAllShowings()
-        {
-            List<Showing> Showings = db.Showings.ToList();
-
-            SelectList AllShowings = new SelectList(Showings.OrderBy(s => s.ShowingID), "ShowingID", "ShowDate");
-
-            return AllShowings;
-
-        }
-
         public SelectList GetAllCustomers()
         {
 
@@ -669,7 +659,7 @@ namespace AWO_Team14.Controllers
                 return RedirectToAction("Edit", "UserTickets", new { id = ut.UserTicketID });
             }
 
-            ViewBag.AllShowings = GetAllShowings();
+            ViewBag.AllShowings = GetRelShowings(showing.Movie.MovieID);
             return View(ut);
         }
 
