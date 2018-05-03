@@ -655,6 +655,7 @@
     <Content Include="Views\Showings\DisplayCheckDayShowings.cshtml" />
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\MovieReviews\GetPendingReviews.cshtml" />
+    <Content Include="Views\Transactions\ReceivedGifts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
