@@ -154,8 +154,8 @@ namespace AWO_Team14.Controllers
             }
             if (User.CreditCardNumber2 != null)
             {
-                String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber1));
-                PaymentOptions.Add(Payment.CreditCardNumber2, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber2.Substring(User.CreditCardNumber1.Length - 4, 4)), " " + ccType));
+                String ccType = (CreditCard.GetCreditCardType(User.CreditCardNumber2));
+                PaymentOptions.Add(Payment.CreditCardNumber2, String.Format("{0}{1}{2}", "**** **** **** ", (User.CreditCardNumber2.Substring(User.CreditCardNumber2.Length - 4, 4)), " " + ccType));
                 //PaymentOptions.Add(Payment.CreditCardNumber2, User.CreditCardNumber2);
             }
             PaymentOptions.Add(Payment.OtherCreditCard, "Enter a card below");
@@ -271,6 +271,7 @@ namespace AWO_Team14.Controllers
                             if (RGiftee == null)
                             {
                                 ViewBag.ErrorMessage = "The user can't be found";
+                                ViewBag.PaymentOptions = GetAllPayments(AU.Id);
                                 return View(t);
                             }
 
@@ -280,6 +281,7 @@ namespace AWO_Team14.Controllers
                                 {
                                     if (Utilities.TransactionValidation.AgeCalc(RGiftee.Birthday) < 18)
                                     {
+                                        ViewBag.PaymentOptions = GetAllPayments(AU.Id);
                                         ViewBag.ErrorMessage = "You can't gift a NC-17 or R rated movie to a minor";
                                         return View(t);
                                     }
@@ -317,6 +319,7 @@ namespace AWO_Team14.Controllers
                             if (Utilities.TransactionValidation.PPCalc(t) == false)
                             {
                                 ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
+                                ViewBag.PaymentOptions = GetAllPayments(AU.Id);
                                 return View(t);
                             }
 
