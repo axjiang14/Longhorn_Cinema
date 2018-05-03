@@ -127,7 +127,7 @@ namespace AWO_Team14.Controllers
             {
                 //List<Genre> Genres = new List<Genre>();
                 GenresMovies = query.ToList(); //List of movies from query
-                FilterMovies = query.ToList(); //We need two of these because you can't change the contents of the list during the loop. So we loop through GenresMovies and then remove the movies that don't fit the criteria from FilterMovies
+                //FilterMovies = query.ToList(); //We need two of these because you can't change the contents of the list during the loop. So we loop through GenresMovies and then remove the movies that don't fit the criteria from FilterMovies
 
                 //foreach (int i in SearchGenres)
                 foreach (Movie m in GenresMovies)
@@ -135,10 +135,13 @@ namespace AWO_Team14.Controllers
                     foreach (int i in SearchGenres)
                     {
                         //If movie doesn't contain the genre, remove the movie from the list of movies
-                        if (m.Genres.Contains(db.Genres.Find(i)) == false)
+                        if (m.Genres.Contains(db.Genres.Find(i)) == true)
                         {
-                            FilterMovies.Remove(m);
-                            break;
+                            if (FilterMovies.Contains(m) == false)
+                            {
+                                FilterMovies.Add(m);
+                            }
+                            
                         }
                     }
                 }
@@ -261,7 +264,7 @@ namespace AWO_Team14.Controllers
 
             SelectedMovies.OrderByDescending(m => m.Title);
 
-            return View("../Movies/Index", SelectedMovies);
+            return View("Index", SelectedMovies);
         }
 
         public ActionResult ShowdateSearch()

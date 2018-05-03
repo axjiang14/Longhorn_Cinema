@@ -79,7 +79,7 @@ namespace AWO_Team14.Controllers
         {
             movie.MovieNumber = Utilities.GenerateMovieNumber.GetNextMovieNum();
 
-            if (SelectedGenres.Count() == 0)
+            if (SelectedGenres == null || SelectedGenres.Count() == 0)
             {
                 ViewBag.Error = "At least one genre is required";
                 ViewBag.SelectedGenres = GetAllGenres(movie);

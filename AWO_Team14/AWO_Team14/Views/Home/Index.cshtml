@@ -46,55 +46,61 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Genres)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RatingsAvg)
+                </th>
                 @*<th>
-                    @Html.DisplayNameFor(model => model.Showings)
-                </th>*@
+            @Html.DisplayNameFor(model => model.Showings)
+        </th>*@
                 <th></th>
             </tr>
         </thead>
 
             @foreach (var item in Model)
         {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Tagline)
-                    </td>
-                    <td>
-                        @*@item.Overview.Substring(0, Math.Min(item.Overview.Length, 100));*@
-                        @Html.DisplayFor(modelItem => item.Overview)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ReleaseYear)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MPAA_Rating)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Runtime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Actors)
-                    </td>
-                    <td>
-                        @foreach (Genre genre in item.Genres)
-                        {
-                             @Html.DisplayFor(modelItem => genre.GenreName)
-                             @:&nbsp;
-                            }
-                    </td>
-                    <td>
-                        @if (User.IsInRole("Manager"))
-    {
-                        <span> @Html.ActionLink("Edit", "Edit", "Movies", new { id = item.MovieID }, null) |</span>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tagline)
+            </td>
+            <td>
+                @*@item.Overview.Substring(0, Math.Min(item.Overview.Length, 100));*@
+                @Html.DisplayFor(modelItem => item.Overview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MPAA_Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Runtime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actors)
+            </td>
+            <td>
+                @foreach (Genre genre in item.Genres)
+        {
+            @Html.DisplayFor(modelItem => genre.GenreName)
+            @:&nbsp;
+}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RatingsAvg)
+            </td>
+            <td>
+                @if (User.IsInRole("Manager"))
+        {
+            <span> @Html.ActionLink("Edit", "Edit", "Movies", new { id = item.MovieID }, null) |</span>
 
-@Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null) @:|
-                        }
-                       @Html.ActionLink("Movie Details", "Details", new { id = item.MovieID }) 
-                    </td>
-                </tr>
+            @Html.ActionLink("Delete", "Delete", "Movies", new { id = item.MovieID }, null) @:|
+}
+                @Html.ActionLink("Movie Details", "Details", new { id = item.MovieID })
+            </td>
+        </tr>
             <tr>
                 @foreach (Showing showing in item.Showings)
                 {
