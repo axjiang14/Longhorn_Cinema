@@ -46,9 +46,9 @@ namespace AWO_Team14
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false
             };
 
             

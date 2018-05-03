@@ -186,7 +186,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -509,7 +511,16 @@
     <Compile Include="Migrations\201805012037233_Add PaymentUsed.Designer.cs">
       <DependentUpon>201805012037233_Add PaymentUsed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805022049176_add employee seed.cs" />
+    <Compile Include="Migrations\201805022049176_add employee seed.Designer.cs">
+      <DependentUpon>201805022049176_add employee seed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805030234208_Change account view model.cs" />
+    <Compile Include="Migrations\201805030234208_Change account view model.Designer.cs">
+      <DependentUpon>201805030234208_Change account view model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\EmployeeData.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
     <Compile Include="Migrations\MovieData.cs" />
@@ -886,6 +897,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805012037233_Add PaymentUsed.resx">
       <DependentUpon>201805012037233_Add PaymentUsed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805022049176_add employee seed.resx">
+      <DependentUpon>201805022049176_add employee seed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805030234208_Change account view model.resx">
+      <DependentUpon>201805030234208_Change account view model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

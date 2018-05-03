@@ -19,26 +19,22 @@ namespace AWO_Team14.Migrations
 			//  You can use the DbSet<T>.AddOrUpdate() helper extension method 
 			//  to avoid creating duplicate seed data.
 
-			//GenreData AddGenres = new GenreData();
-			//AddGenres.SeedGenres(context);
+			GenreData AddGenres = new GenreData();
+			AddGenres.SeedGenres(context);
 
-			//MovieData AddMovies = new MovieData();
-			//AddMovies.SeedMovies(context);
+			MovieData AddMovies = new MovieData();
+			AddMovies.SeedMovies(context);
 
 			//UserData AddUsers = new UserData();
 			//AddUsers.SeedUsers(context);
 
-			//seed genres
-			GenreData AddGenres = new GenreData();
-			AddGenres.SeedGenres(context);
+			SeedIdentity si = new SeedIdentity();
+			si.AddAdmin(context);
 
-			//seed movies
-			MovieData AddMovies = new MovieData();
-			AddMovies.SeedMovies(context);
-
-            SeedIdentity si = new SeedIdentity();
-            si.AddAdmin(context);
-        }
+			//seed employees 
+			EmployeeData AddEmployees = new EmployeeData();
+			AddEmployees.SeedEmployees(context);
+		}
 
     }
 }
