@@ -5,6 +5,8 @@
     ViewBag.Title = "Register Employee";
 }
 
+<p style="color: #ffb6b9">@Html.Raw(ViewBag.Error)</p>
+
 <h2>@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("RegisterEmployee", "Accounts", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

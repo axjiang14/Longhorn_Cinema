@@ -18,7 +18,7 @@ namespace AWO_Team14.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            return View(db.Movies.ToList());
+            return View(db.Movies.OrderBy(m => m.MovieNumber).ToList());
         }
 
         public MultiSelectList GetAllGenres()
@@ -78,6 +78,13 @@ namespace AWO_Team14.Controllers
         public ActionResult Create([Bind(Include = "MovieID,MovieNumber,Title,Tagline,Overview,ReleaseYear,MPAA_Rating,RunTime,Actors")] Movie movie, int[] SelectedGenres)
         {
             movie.MovieNumber = Utilities.GenerateMovieNumber.GetNextMovieNum();
+
+            if (SelectedGenres == null || SelectedGenres.Count() == 0)
+            {
+                ViewBag.Error = "At least one genre is required";
+                ViewBag.SelectedGenres = GetAllGenres(movie);
+                return View(movie);
+            }
 
             foreach (int i in SelectedGenres)
             {

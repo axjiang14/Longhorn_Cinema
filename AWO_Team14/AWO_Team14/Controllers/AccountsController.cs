@@ -157,9 +157,12 @@ namespace AWO_Team14.Controllers
 
             AppUser Employee1 = EmployeeList.FirstOrDefault();
 
-            if(Employee1.Archived == true)
+            if (EmployeeList.Count() != 0 && EmployeeList != null)
             {
-                return View(model);
+                if (Employee1.Archived == true)
+                {
+                    return View(model);
+                }
             }
 
             if (!ModelState.IsValid)
