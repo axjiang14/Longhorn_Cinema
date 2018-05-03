@@ -251,8 +251,8 @@ namespace AWO_Team14.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    String Message = "Hello " + model.FirstName + ",\n" + "a Longhorn Cinemas account has been created for you." +
-                                  ".\n\n" + "Love,\n" + "Dan";
+                    String Message = "Hello " + model.FirstName + ",\n\n" + "A Longhorn Cinemas account has been created for you." +
+                                  "\n\n" + "Love,\n" + "Dan";
                     Emailing.SendEmail(model.Email, "Your Longhorn Cinemas Account", Message);
 
                     return RedirectToAction("Index", "Home");
@@ -403,8 +403,8 @@ namespace AWO_Team14.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    String Message = "Hello " + model.FirstName + "!\n" + "Welcome to the Longhorn Cinemas family!" +
-                                  ".\n\n" + "Love,\n" + "Dan";
+                    String Message = "Hello " + model.FirstName + "!\n\ns" + "Welcome to the Longhorn Cinemas family!" +
+                                  "\n\n" + "Love,\n" + "Dan";
                     Emailing.SendEmail(model.Email, "Welcome new Longhorn Cinemas Employee!", Message);
 
                     return RedirectToAction("EmployeeHome");
@@ -435,15 +435,15 @@ namespace AWO_Team14.Controllers
             if (EmploymentAction == EmploymentAction.Hire)
             {
                 String Message = "Hello " + Employee.FirstName + ",\n" + "congratulations on your renewed employment with Longhorn Cinemas." +
-                                  ".\n\n" + "Love,\n" + "Dan";
+                                  "\n\n" + "Love,\n" + "Dan";
                 Emailing.SendEmail(Employee.Email, "Welcome Back to Longhorn Cinemas", Message);
                 Employee.Archived = false;
 
             }
             if (EmploymentAction == EmploymentAction.Fire)
             {
-                String Message = "Hello " + Employee.FirstName + ",\n" + "your employment with Longhorn Cinemas has ended. We're sorry to hear you're leaving the Longhorn Family." +
-                                 ".\n\n" + "Love,\n" + "Dan";
+                String Message = "Hello " + Employee.FirstName + ",\n\n" + "Your employment with Longhorn Cinemas has ended. We're sorry to hear you're leaving the Longhorn Family." +
+                                 "\n\n" + "Love,\n" + "Dan";
                 Emailing.SendEmail(Employee.Email, "Goodbye, Longhorn Cinemas", Message);
                 Employee.Archived = true;
             }

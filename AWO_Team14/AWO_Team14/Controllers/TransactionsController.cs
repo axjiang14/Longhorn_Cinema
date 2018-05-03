@@ -420,7 +420,7 @@ namespace AWO_Team14.Controllers
                     db.Entry(t).State = EntityState.Modified;
                     db.SaveChanges();
 
-                    String Message = "Hello " + t.User.FirstName + ",\n\n" + "Your order number" + t.TransactionNumber + "has been placed.\n\n" + "Love,\n" + "Dan";
+                    String Message = "Hello " + t.User.FirstName + ",\n\n" + "Your order number " + t.TransactionNumber + " has been placed.\n\n" + "Love,\n" + "Dan";
                     Emailing.SendEmail(t.User.Email, "Order Placed", Message);
                     return RedirectToAction("FinalCheckoutPage", new { id = t.TransactionID });
 
@@ -763,7 +763,7 @@ namespace AWO_Team14.Controllers
                 db.SaveChanges();
 
                 //TODO: DAN - email customers that used credit card that their $ has been refunded
-                String Message = "Hello " + transaction.User.FirstName + ",\n" + "The transaction number" + transaction.TransactionNumber + " has been cancelled.\n\n" + "Love,\n" + "Dan";
+                String Message = "Hello " + transaction.User.FirstName + ",\n\n" + "The transaction number " + transaction.TransactionNumber + " has been cancelled.\n\n" + "Love,\n" + "Dan";
                 Emailing.SendEmail(transaction.User.Email, "Transaction Cancelled", Message);
 
             }
