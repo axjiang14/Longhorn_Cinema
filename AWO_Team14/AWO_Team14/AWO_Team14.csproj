@@ -549,6 +549,7 @@
     <Compile Include="Utilities\DiscountPrice.cs" />
     <Compile Include="Utilities\Emailing.cs" />
     <Compile Include="Utilities\GenerateMovieNumber.cs" />
+    <Compile Include="Utilities\GenerateScheduleDay.cs" />
     <Compile Include="Utilities\GenerateTransactionNumber.cs" />
     <Compile Include="Utilities\ScheduleValidation.cs" />
     <Compile Include="Utilities\TransactionValidation.cs" />

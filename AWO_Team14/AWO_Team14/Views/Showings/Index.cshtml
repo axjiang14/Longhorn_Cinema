@@ -10,9 +10,6 @@
 
 @if (User.IsInRole("Manager"))
 {
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
     <p>@Html.ActionLink("Check the Showings for a Day", "CheckDayShowings")
     </p>
 }
