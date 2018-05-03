@@ -92,6 +92,7 @@ namespace AWO_Team14.Controllers
         }
 
         // GET: MovieReviews/Create
+        [Authorize(Roles = "Customer")]
         public ActionResult Create()
         {
             if (GetUserMovies().Count() == 0)
