@@ -167,8 +167,6 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <None Include="Properties\PublishProfiles\awoteam14 - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\awoteam14 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -521,7 +519,12 @@
     <Compile Include="Migrations\201805030234208_Change account view model.Designer.cs">
       <DependentUpon>201805030234208_Change account view model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805030454535_customer seed data.cs" />
+    <Compile Include="Migrations\201805030454535_customer seed data.Designer.cs">
+      <DependentUpon>201805030454535_customer seed data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\CustomerData.cs" />
     <Compile Include="Migrations\EmployeeData.cs" />
     <Compile Include="Migrations\GenreData.cs" />
     <Compile Include="Migrations\OldMovieData.cs" />
@@ -652,6 +655,7 @@
     <Content Include="Views\Showings\DisplayCheckDayShowings.cshtml" />
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\MovieReviews\GetPendingReviews.cshtml" />
+    <Content Include="Views\Transactions\ReceivedGifts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -905,6 +909,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805030234208_Change account view model.resx">
       <DependentUpon>201805030234208_Change account view model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805030454535_customer seed data.resx">
+      <DependentUpon>201805030454535_customer seed data.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -505,10 +505,18 @@ namespace AWO_Team14.Controllers
             ViewBag.PopcornPoints = user.PopcornPoints;
 
             String ccType1 = (CreditCard.GetCreditCardType(user.CreditCardNumber1));
-            ViewBag.CreditCard1 = String.Format("{0}{1}{2}", "**** **** **** ", (user.CreditCardNumber1.Substring(user.CreditCardNumber1.Length - 4, 4)), " " + ccType1);
+            if (ccType1 != "Invalid")
+            {
+                ViewBag.CreditCard1 = String.Format("{0}{1}{2}", "**** **** **** ", (user.CreditCardNumber1.Substring(user.CreditCardNumber1.Length - 4, 4)), " " + ccType1);
+            }
+            else { ViewBag.CreditCard1 = "None"; }
 
-            String ccType2 = (CreditCard.GetCreditCardType(user.CreditCardNumber1));
-            ViewBag.CreditCard2 = String.Format("{0}{1}{2}", "**** **** **** ", (user.CreditCardNumber2.Substring(user.CreditCardNumber2.Length - 4, 4)), " " + ccType2);
+            String ccType2 = (CreditCard.GetCreditCardType(user.CreditCardNumber2));
+            if (ccType2 != "Invalid")
+            {
+                ViewBag.CreditCard2 = String.Format("{0}{1}{2}", "**** **** **** ", (user.CreditCardNumber2.Substring(user.CreditCardNumber2.Length - 4, 4)), " " + ccType2);
+            }
+            else { ViewBag.CreditCard2 = "None"; }
 
             //ViewBag.CreditCard1 = user.CreditCardNumber1;
             //ViewBag.CreditCard2 = user.CreditCardNumber2;
@@ -623,8 +631,33 @@ namespace AWO_Team14.Controllers
             AppUser AppUser = db.Users.First(u => u.Email == user.Email);
 
             //Change other properties
-            AppUser.CreditCardNumber1 = user.CreditCardNumber1;
-            AppUser.CreditCardNumber2 = user.CreditCardNumber2;
+            if (user.CreditCardNumber1 !=null)
+            {
+                String ccType1 = (CreditCard.GetCreditCardType(user.CreditCardNumber1));
+
+                if(ccType1 == "Invalid")
+                {
+                    ViewBag.Error = "Invalid card number";
+                    return View(user);
+                }
+
+                AppUser.CreditCardNumber1 = user.CreditCardNumber1;
+            }
+
+            if (user.CreditCardNumber2 != null)
+            {
+                String ccType2 = (CreditCard.GetCreditCardType(user.CreditCardNumber2));
+
+                if (ccType2 == "Invalid")
+                {
+                    ViewBag.Error = "Invalid card number";
+                    return View(user);
+                }
+
+                AppUser.CreditCardNumber2 = user.CreditCardNumber2;
+            }
+
+
 
             if (ModelState.IsValid)
             {

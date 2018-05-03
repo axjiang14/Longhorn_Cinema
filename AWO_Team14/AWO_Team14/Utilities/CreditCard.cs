@@ -9,29 +9,32 @@ namespace AWO_Team14.Utilities
     {
         public static String GetCreditCardType (String creditcard)
         {
-            if (creditcard.Length == 15)
+            if (creditcard != null)
             {
-                return "Amex";
-            }
-            else
-            if (creditcard.Length == 16)
-            {
-                if (creditcard[0] == '4')
+                if (creditcard.Length == 15)
                 {
-                    return "Visa";
+                    return "Amex";
                 }
-                else if (creditcard.Substring(0, 2) == "54")
+                else
+                if (creditcard.Length == 16)
                 {
-                    return "MasterCard";
+                    if (creditcard[0] == '4')
+                    {
+                        return "Visa";
+                    }
+                    else if (creditcard.Substring(0, 2) == "54")
+                    {
+                        return "MasterCard";
+                    }
+                    else if (creditcard[0] == '6')
+                    {
+                        return "Discover";
+                    }
                 }
-                else if (creditcard[0] == '6')
+                else
                 {
-                    return "Discover";
+                    return "Invalid";
                 }
-            }
-            else
-            {
-                return "Invalid";
             }
 
             return "Invalid";
