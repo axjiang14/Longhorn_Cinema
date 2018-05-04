@@ -57,7 +57,7 @@ namespace AWO_Team14.Controllers
 
             List<Showing> SelectedShowings = query.ToList();
             // restrict date to copy showing
-            if(datCopyToDate >= s.StartDate && datCopyToDate <= s.EndDate)
+            if(datCopyToDate.DayOfYear >= s.StartDate.DayOfYear && datCopyToDate.DayOfYear <= s.EndDate.DayOfYear)
             {
                 if (ModelState.IsValid)
                 {

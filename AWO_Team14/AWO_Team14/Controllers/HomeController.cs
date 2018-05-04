@@ -8,6 +8,8 @@ using AWO_Team14.DAL;
 using System.Net;
 using System.Diagnostics;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity;
 
 namespace AWO_Team14.Controllers
 {
@@ -24,8 +26,9 @@ namespace AWO_Team14.Controllers
             var query = from s in db.Showings
                        select s;
 
-            
-            query = query.Where(s => s.ShowDate >= DateTime.Now);
+            query = query.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(DateTime.Now));
+            query = query.Where(s => s.Schedule != null);
+            query = query.Where(s => s.Schedule.Published == true);
 
             List<Showing> qShowings = query.ToList();
 
@@ -274,12 +277,17 @@ namespace AWO_Team14.Controllers
 
         public ActionResult DisplayShowdateSearch(DateTime ShowDate)
         {
+
             var query = from s in db.Showings
                         select s;
 
-            query = query.Where(s => s.ShowDate >= ShowDate);
+            query = query.Where(s => s.Schedule != null);
+            query = query.Where(s => s.Schedule.Published == true);
+            query = query.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(ShowDate));
 
             List<Showing> qShowings = query.ToList();
+
+
 
             List<Movie> SelectedMovies = new List<Movie>();
 
