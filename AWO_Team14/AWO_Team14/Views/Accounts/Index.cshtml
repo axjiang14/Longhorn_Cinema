@@ -14,6 +14,9 @@
         <dt>First Name:</dt>
         <dd>@Html.Raw(ViewBag.FirstName)</dd>
 
+        <dt>Middle Initial:</dt>
+        <dd>@Html.Raw(ViewBag.MiddleInitial)</dd>
+
         <dt>Last Name:</dt>
         <dd>@Html.Raw(ViewBag.LastName)</dd>
 
@@ -21,7 +24,7 @@
         <dd>@Html.Raw(ViewBag.Street + ", " + ViewBag.City + ", " + ViewBag.State + ", " + ViewBag.Zip)</dd>
 
         <dt>Birthday:</dt>
-        <dd>@Html.Raw(ViewBag.Birthday)</dd>
+        <dd>@Html.Raw(ViewBag.Birthday.Date)</dd>
 
         <dt>Popcorn Points:</dt>
         <dd>@Html.Raw(ViewBag.PopcornPoints)</dd>
@@ -42,9 +45,9 @@
         <dd>
 
             @if (Model.HasPassword)
-            {
+        {
             @Html.ActionLink("Change your password", "ChangePassword")
-            }
+    }
 
 
         </dd>
@@ -53,9 +56,10 @@
         <dd> @Html.ActionLink("Change Account Info", "ChangeUserInfo", new { id = Model.UserID })</dd>
 
         @if (User.IsInRole("Customer"))
-        {<dt>Change Account Info:</dt>
+    {
+        <dt>Change Account Info:</dt>
         <dd> @Html.ActionLink("Add Credit Card", "AddCreditCard", new { id = Model.UserID })</dd>
-        }
+}
     </dl>
 
 

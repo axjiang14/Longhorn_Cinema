@@ -302,7 +302,19 @@ namespace AWO_Team14.Controllers
                             t.PaymentUsed = String.Format("{0}{1}{2}", "**** **** **** ", (OtherPayment.Substring(OtherPayment.Length - 4, 4)), " " + ccType);
 
                         }
-                        if (transaction.Payment == Payment.PopcornPoints)
+
+						// checks if any showing has a special showing
+						Boolean showingSpecial = false;
+						foreach (UserTicket ticket in t.UserTickets)
+						{
+							if (ticket.Showing.Special == true)
+							{
+								showingSpecial = true;
+								break;
+							}
+						}
+
+						if (transaction.Payment == Payment.PopcornPoints)
                         {
                             t.PaymentUsed = "Popcorn Points";
 
@@ -311,28 +323,32 @@ namespace AWO_Team14.Controllers
                                 ViewBag.ErrorMessage = "You don't have enough Popcorn Points to purchase these tickets";
                                 ViewBag.PaymentOptions = GetAllPayments(AU.Id);
                                 return View(t);
-                            }
-
-                            else
-                            {
-
-
-                                Int32 CurPopPoints = t.User.PopcornPoints;
-                                Int32 intTickets = t.UserTickets.Count();
-                                Int32 PPTickets = intTickets * 100;
-                                t.User.PopcornPoints = CurPopPoints - PPTickets;
-                                t.PopcornPointsSpent = PPTickets;
+                            }							
+							else if (showingSpecial)
+							{
+								ViewBag.ErrorMessage = "One or more showing is special. Popcorn points are not allowed.";
+								return View(t);
+							}
+							else
+							{
 
 
-                                foreach (UserTicket ut in t.UserTickets)
-                                {
-                                    UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
-                                    userTicket.CurrentPrice = 0;
-                                    // what is this entitystate.modified??
-                                    db.Entry(userTicket).State = EntityState.Modified;
-                                    db.SaveChanges();
-                                }
-                            }
+								Int32 CurPopPoints = t.User.PopcornPoints;
+								Int32 intTickets = t.UserTickets.Count();
+								Int32 PPTickets = intTickets * 100;
+								t.User.PopcornPoints = CurPopPoints - PPTickets;
+								t.PopcornPointsSpent = PPTickets;
+
+
+								foreach (UserTicket ut in t.UserTickets)
+								{
+									UserTicket userTicket = db.UserTickets.Find(ut.UserTicketID);
+									userTicket.CurrentPrice = 0;
+									// what is this entitystate.modified??
+									db.Entry(userTicket).State = EntityState.Modified;
+									db.SaveChanges();
+								}
+							}
                         }
 
 

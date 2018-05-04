@@ -221,12 +221,13 @@ namespace AWO_Team14.Controllers
             }
                 if (ModelState.IsValid)
                 {
-                    //Add fields to user here so they will be saved to do the database
-                    var user = new AppUser
-                    {
-                        UserName = model.Email,
-                        Email = model.Email,
-                        FirstName = model.FirstName,
+                //Add fields to user here so they will be saved to do the database
+                var user = new AppUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    MiddleInitial = model.MiddleInitial,
                         LastName = model.LastName,
                         Street = model.Street,
                         City = model.City,
@@ -310,6 +311,7 @@ namespace AWO_Team14.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
+                    MiddleInitial = model.MiddleInitial,
                     LastName = model.LastName,
                     Street = model.Street,
                     City = model.City,
@@ -379,6 +381,7 @@ namespace AWO_Team14.Controllers
                     Email = model.Email,
                     //Firstname is an example - you will need to add the rest
                     FirstName = model.FirstName,
+                    MiddleInitial = model.MiddleInitial,
                     LastName = model.LastName,
                     Street = model.Street,
                     City = model.City,
@@ -499,6 +502,7 @@ namespace AWO_Team14.Controllers
 
             
             ViewBag.FirstName = user.FirstName;
+            ViewBag.MiddleInitial = user.MiddleInitial;
             ViewBag.LastName = user.LastName;
             ViewBag.Street = user.Street;
             ViewBag.City = user.City;
