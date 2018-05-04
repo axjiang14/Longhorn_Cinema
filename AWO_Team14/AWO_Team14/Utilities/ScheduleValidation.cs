@@ -79,7 +79,7 @@ namespace AWO_Team14.Utilities
 							   select s;
             dayQuery = dayQuery.Where(s => s.Schedule != null);
             dayQuery = dayQuery.Where(s => s.Theater == theater);
-            dayQuery = dayQuery.Where(s => s.ShowDate.DayOfYear == Date.DayOfYear && s.Theater == theater).OrderBy(s=>s.ShowDate);
+            dayQuery = dayQuery.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(Date) && s.Theater == theater).OrderBy(s=>s.ShowDate);
             List<Showing> dayShowings = dayQuery.ToList();
 
             if (dayShowings.Count() == 0)
