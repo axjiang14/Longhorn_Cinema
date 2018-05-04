@@ -35,7 +35,7 @@
             <th>Theater</th>
         </tr>
 
-        @foreach (Showing showing in Model.Showings)
+        @foreach (Showing showing in Model.Showings.OrderBy(s=>s.ShowDate))
         {
         <tr>
             <td>@Html.DisplayFor(modelItem => showing.ShowDate)</td>
