@@ -344,10 +344,12 @@ namespace AWO_Team14.Controllers
                 showingToChange.EndTime = showingToChange.ShowDate.Add(showingToChange.Movie.Runtime);
 
                 // check if showing is range of current schedule
+
                 if (ScheduleValidation.ShowingInRange(showingToChange))
                 {
                     String ValidationMessage = ScheduleValidation.ShowingValidation(showingToChange);
                     // checks is showing fits into current schedule
+
                     if (ValidationMessage == "ok")
                     {
                       
