@@ -443,11 +443,14 @@ namespace AWO_Team14.Controllers
                 showingToChange.EndTime = showingToChange.ShowDate.Add(movie.Runtime);
                 showingToChange.Special = showing.Special;
                 showingToChange.Theater = showing.Theater;
+                
 
                 String ValidationMessage = ScheduleValidation.ShowingValidation(showingToChange);
                 if (ValidationMessage == "ok")
                 {
                     db.Entry(showingToChange).State = EntityState.Modified;
+                    db.SaveChanges();
+                    showingToChange.ShowingPrice = Utilities.DiscountPrice.GetBasePrice(showingToChange);
                     db.SaveChanges();
                     return RedirectToAction("Details", "Schedules", new { id = showingToChange.Schedule.ScheduleID });
                 }
