@@ -14,7 +14,7 @@ namespace AWO_Team14.Utilities
         public static Decimal GetTicketPrice(UserTicket ticket)
         {
             AppDbContext db = new AppDbContext();
-            Decimal ticketPrice = -1;     
+            Decimal ticketPrice = ticket.Showing.ShowingPrice;
             // assign price for each ticket
 
             Boolean weekend = (int)ticket.Showing.ShowDate.DayOfWeek == 6 || (int)ticket.Showing.ShowDate.DayOfWeek == 0;
@@ -98,8 +98,8 @@ namespace AWO_Team14.Utilities
                     foreach (var result in query)
                     {
                         ticket.AppliedDiscounts += ", " + result.DiscountName;
-                        ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
-                        //ticketPrice -= result.DiscountValue;
+                        //ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
+                        ticketPrice -= result.DiscountValue;
                     }
                         
                 }
@@ -113,8 +113,8 @@ namespace AWO_Team14.Utilities
                     foreach (var result in query)
                     {
                         ticket.AppliedDiscounts += ", " + result.DiscountName;
-                        ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
-                        //ticketPrice -= result.DiscountValue;
+                        //ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
+                        ticketPrice -= result.DiscountValue;
                     }
                 }
 
