@@ -22,7 +22,7 @@ namespace AWO_Team14.Utilities
             }
 
             //check that the movie ends before midnight
-            if ((DbFunctions.TruncateTime(showing.EndTime) > DbFunctions.TruncateTime(showing.ShowDate)))
+            if (showing.EndTime.Date > showing.ShowDate.Date)
             {
                 return "The showing needs to end before midnight";
             }
@@ -77,7 +77,7 @@ namespace AWO_Team14.Utilities
 							   select s;
             dayQuery = dayQuery.Where(s => s.Schedule != null);
             dayQuery = dayQuery.Where(s => s.Theater == theater);
-            dayQuery = dayQuery.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(Date) && s.Theater == theater).OrderBy(s=>s.ShowDate);
+            dayQuery = dayQuery.Where(s => s.ShowDate.DayOfYear == Date.DayOfYear && s.Theater == theater).OrderBy(s=>s.ShowDate);
             List<Showing> dayShowings = dayQuery.ToList();
 
             if (dayShowings.Count() == 0)
@@ -131,15 +131,49 @@ namespace AWO_Team14.Utilities
 
             return bolInRange;
         }
-        
-        public static String RescheduleValidation(Showing showing)
-        {
+
+        //public static String RescheduleValidation(Showing showing)
+        //{
+        //    AppDbContext db = new AppDbContext();
+
+        //    DateTime dayToCheck = showing.ShowDate.Date;
+
+        //    var query = db.Showings.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(dayToCheck));
+        //    List<Showing> dayShowings = query.ToList();
+
+        //    //the first movie must start between 9 AM and 10 AM
+        //    DateTime date9 = new DateTime(2018, 1, 1, 9, 00, 00);
+        //    DateTime date10 = new DateTime(2018, 1, 1, 10, 00, 00);
+
+        //    if (dayShowings.FirstOrDefault().ShowDate.TimeOfDay < date9.TimeOfDay || dayShowings.FirstOrDefault().ShowDate.TimeOfDay > date10.TimeOfDay)
+        //    {
+        //        return "The first movie must start between 9:00 and 10:00";
+        //    }
+
+        //    //the last movie must end after 21:30
+        //    DateTime date2130 = new DateTime(2018, 1, 1, 21, 30, 00);
+        //    if (dayShowings.Count() > 0)
+        //    {
+        //        if (dayShowings[dayShowings.Count() - 1].EndTime.TimeOfDay < date2130.TimeOfDay)
+        //        {
+        //            return "The last movie must end after 21:30";
+        //        }
+        //    }
+
+
+        //    return "Your showing has been rescheduled";
+        //}
+
+        public static String RescheduleValidation(DateTime newShowDate, DateTime newEndTime, Theater newTheater)
+        { 
             AppDbContext db = new AppDbContext();
 
-            DateTime dayToCheck = showing.ShowDate.Date;
+            DateTime dayToCheck = newShowDate.Date;
 
-            var query = db.Showings.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(dayToCheck));
+            var query = db.Showings.Where(s => s.ShowDate.DayOfYear == dayToCheck.DayOfYear);
+            query = query.Where(s => s.Theater == newTheater);
             List<Showing> dayShowings = query.ToList();
+
 
             //the first movie must start between 9 AM and 10 AM
             DateTime date9 = new DateTime(2018, 1, 1, 9, 00, 00);
@@ -149,6 +183,12 @@ namespace AWO_Team14.Utilities
             {
                 return "The first movie must start between 9:00 and 10:00";
             }
+            {
+                if (newShowDate.TimeOfDay > date10.TimeOfDay)
+                {
+                    return "The first movie must start between 9 AM and 10 AM";
+                }
+            }
 
             //the last movie must end after 21:30
             DateTime date2130 = new DateTime(2018, 1, 1, 21, 30, 00);
@@ -156,12 +196,47 @@ namespace AWO_Team14.Utilities
             {
                 if (dayShowings[dayShowings.Count() - 1].EndTime.TimeOfDay < date2130.TimeOfDay)
                 {
-                    return "The last movie must end after 21:30";
+                    if (newEndTime.TimeOfDay < date2130.TimeOfDay)
+                    {
+                        return "The last movie must end after 21:30";
+                    }
+                    
+                }
+            }
+
+            //check gaps
+            var showingsBefore = dayShowings.Where(s => s.EndTime < newShowDate);
+            var showingsAfter = dayShowings.Where(s => s.ShowDate < newEndTime);
+
+            List<Showing> lstShowingsBefore = showingsBefore.ToList();
+            List<Showing> lstShowingsAfter = showingsAfter.ToList();
+
+            //check the first showing that's before you
+            if (showingsBefore.Count() > 0)
+            {
+                TimeSpan beforeGap = lstShowingsBefore[lstShowingsBefore.Count() - 1].EndTime - newShowDate;
+                Int32 intBeforeGap = Convert.ToInt32(beforeGap);
+
+                if (intBeforeGap > 45 || intBeforeGap < 25)
+                {
+                    return "The gap between your movies must be between 25 and 45 minutes";
+                }
+            }
+
+            //check the first showing that's before you
+            if (showingsAfter.Count() > 0)
+            {
+                TimeSpan afterGap = lstShowingsAfter[lstShowingsAfter.Count() - 1].ShowDate - newEndTime;
+                Int32 intAfterGap = Convert.ToInt32(afterGap);
+
+                if (intAfterGap > 45 || intAfterGap < 25)
+                {
+                    return "The gap between your movies must be between 25 and 45 minutes";
                 }
             }
 
 
-            return "Your showing has been rescheduled";
+            return "ok";
         }
     }
 }
