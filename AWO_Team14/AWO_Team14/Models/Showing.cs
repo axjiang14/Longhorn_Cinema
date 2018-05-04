@@ -54,6 +54,8 @@ namespace AWO_Team14.Models
         [Display(Name = "Special")]
 		public Boolean Special { get; set; }
 
+        public Decimal ShowingPrice { get; set; }
+
 		[Display(Name = "Theater")]
 		public Theater Theater { get; set; }
 

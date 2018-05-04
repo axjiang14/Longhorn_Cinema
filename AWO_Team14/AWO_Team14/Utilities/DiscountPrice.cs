@@ -125,5 +125,59 @@ namespace AWO_Team14.Utilities
             }
         }
 
+        public static Decimal GetBasePrice(Showing showing)
+        {
+            AppDbContext db = new AppDbContext();
+            Decimal ticketPrice = -1;
+            // assign price for each ticket
+
+            Boolean weekend = (int)showing.ShowDate.DayOfWeek == 6 || (int)showing.ShowDate.DayOfWeek == 0;
+            Debug.WriteLine(weekend);
+            // checks if showing is matinee
+            if (showing.StartHour < 12 && weekend == false)
+            {
+                var query = from c in db.Discounts
+                            where c.DiscountName == "matinee"
+                            select c;
+                foreach (var result in query)
+                {
+                    // sets Current Price property
+                    // $5.00
+                    showingPrice = result.DiscountValue;
+                }
+            }
+
+            // checks if showing day is weekday and afternoon
+            else if (showing.StartHour >= 12 && ((int)showing.ShowDate.DayOfWeek >= 1 && (int)showing.ShowDate.DayOfWeek <= 4))
+            {
+                var query = from c in db.Discounts
+                            where c.DiscountName == "weekday"
+                            select c;
+                foreach (var result in query)
+                {
+                    // sets Current Price property
+                    // $10.00
+                    showingPrice = result.DiscountValue;
+                }
+
+            }
+            // checks if showing day is after friday noontime
+            else
+            {
+                var query = from c in db.Discounts
+                            where c.DiscountName == "weekend"
+                            select c;
+                foreach (var result in query)
+                {
+                    // sets Current Price property
+                    // $12.00
+                    showingPrice = result.DiscountValue;
+                }
+            }
+
+            return showingPrice;
+            
+        }
+
     }
 }

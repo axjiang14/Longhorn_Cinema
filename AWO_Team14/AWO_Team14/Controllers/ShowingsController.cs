@@ -255,7 +255,7 @@ namespace AWO_Team14.Controllers
         [Authorize(Roles = "Manager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Bind(Include = "ShowingID,ShowDate,StartHour, StartMinute, Special,Theater")]
+        //[Bind(Include = "ShowingID,ShowDate,StartHour, StartMinute, Special,Theater, ShowingPrice")]
         public ActionResult Create(Showing showing, int SelectedMovie)
         {
             Movie m = db.Movies.Find(SelectedMovie);
@@ -263,6 +263,8 @@ namespace AWO_Team14.Controllers
             showing.ShowDate = showing.ShowDate.AddHours(showing.StartHour).AddMinutes(showing.StartMinute).AddSeconds(0);
             
             showing.Movie = m;
+
+            showing.ShowingPrice = Utilities.DiscountPrice.GetBasePrice(showing);
 
             showing.EndTime = showing.ShowDate.Add(m.Runtime);
 
@@ -320,7 +322,7 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager")]
-        public ActionResult Reschedule([Bind(Include = "ShowingID,ShowDate,StartHour,StartMinute, Theater")] Showing showing)
+        public ActionResult Reschedule([Bind(Include = "ShowingID,ShowDate,StartHour,StartMinute,Theater, ShowingPrice")] Showing showing)
         {
             Showing showingToChange = db.Showings.Include(x => x.Schedule)
                                              .FirstOrDefault(x => x.ShowingID == showing.ShowingID);
@@ -350,6 +352,8 @@ namespace AWO_Team14.Controllers
                 showingToChange.StartHour = showing.StartHour;
                 showingToChange.StartMinute = showing.StartMinute;
                 showingToChange.EndTime = showingToChange.ShowDate.Add(showingToChange.Movie.Runtime);
+
+                showingToChange.ShowingPrice = Utilities.DiscountPrice.GetBasePrice(showingToChange);
 
                 // check if showing is range of current schedule
 
