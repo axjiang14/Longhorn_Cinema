@@ -7,6 +7,7 @@
 <div class="form-horizontal">
     <h4>Reschedule a Showing</h4>
     @Html.Raw(ViewBag.ErrorMessage)
+    @Html.Raw(ViewBag.ErrorMessage2)
     @Html.Raw(ViewBag.OutOfRange)
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -55,12 +56,12 @@
         </div>*@
 
     <div class="form-group">
-            @Html.LabelFor(model => model.Theater, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Theater, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Theater, "", new { @class = "text-danger" })
-            </div>
+        @Html.LabelFor(model => model.Theater, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EnumDropDownListFor(model => model.Theater, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Theater, "", new { @class = "text-danger" })
         </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

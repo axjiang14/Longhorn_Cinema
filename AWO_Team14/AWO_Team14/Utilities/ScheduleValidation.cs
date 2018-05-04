@@ -170,9 +170,10 @@ namespace AWO_Team14.Utilities
 
             DateTime dayToCheck = newShowDate.Date;
 
-            var query = db.Showings.Where(s => s.ShowDate.DayOfYear == dayToCheck.DayOfYear);
+            //var query = db.Showings.Where(s => s.ShowDate.DayOfYear == dayToCheck.DayOfYear);
+            var query = db.Showings.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(dayToCheck));
             query = query.Where(s => s.Theater == newTheater);
-            List<Showing> dayShowings = query.ToList();
+            List<Showing> dayShowings = query.OrderBy(s => s.ShowDate).ToList();
 
 
             //the first movie must start between 9 AM and 10 AM
@@ -208,13 +209,13 @@ namespace AWO_Team14.Utilities
             var showingsBefore = dayShowings.Where(s => s.EndTime < newShowDate);
             var showingsAfter = dayShowings.Where(s => s.ShowDate < newEndTime);
 
-            List<Showing> lstShowingsBefore = showingsBefore.ToList();
-            List<Showing> lstShowingsAfter = showingsAfter.ToList();
+            List<Showing> lstShowingsBefore = showingsBefore.OrderBy(s=> s.ShowDate).ToList();
+            List<Showing> lstShowingsAfter = showingsAfter.OrderBy(s => s.ShowDate).ToList();
 
             //check the first showing that's before you
             if (showingsBefore.Count() > 0)
             {
-                TimeSpan beforeGap = lstShowingsBefore[lstShowingsBefore.Count() - 1].EndTime - newShowDate;
+                TimeSpan beforeGap =  - (lstShowingsBefore[lstShowingsBefore.Count() - 1].EndTime - newShowDate);
                 Int32 intBeforeGap = Convert.ToInt32(beforeGap);
 
                 if (intBeforeGap > 45 || intBeforeGap < 25)

@@ -376,6 +376,7 @@ namespace AWO_Team14.Controllers
                     else
                     {
                         ViewBag.ErrorMessage = ValidationMessage;
+                        ViewBag.ErrorMessage2 = ValResults;
                     }
                 }
                 else
