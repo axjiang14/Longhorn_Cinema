@@ -127,7 +127,7 @@ namespace AWO_Team14.Utilities
         
         public static Boolean ShowingInRange(Showing showing)
         {
-            Boolean bolInRange = (showing.ShowDate >= showing.Schedule.StartDate) && (showing.ShowDate <= showing.Schedule.EndDate);
+            Boolean bolInRange = (showing.ShowDate.DayOfYear >= showing.Schedule.StartDate.DayOfYear) && (showing.ShowDate.DayOfYear <= showing.Schedule.EndDate.DayOfYear);
 
             return bolInRange;
         }
