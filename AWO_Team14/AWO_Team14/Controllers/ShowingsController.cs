@@ -327,6 +327,9 @@ namespace AWO_Team14.Controllers
 
             DateTime oldShowDate = showingToChange.ShowDate;
 
+            //DateTime newShowDate = showing.ShowDate;
+            //Int32 ShowingI
+
             // take back to Schedules/Details if Schedule is unpublished
             if (showingToChange.Schedule.Published == false)
             {

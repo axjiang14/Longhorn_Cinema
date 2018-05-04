@@ -5,6 +5,7 @@ using System.Web;
 using AWO_Team14.Models;
 using AWO_Team14.DAL;
 using System.Diagnostics;
+using System.Data.Entity;
 
 namespace AWO_Team14.Utilities
 {
@@ -21,7 +22,7 @@ namespace AWO_Team14.Utilities
             }
 
             //check that the movie ends before midnight
-            if ((showing.EndTime.Day > showing.ShowDate.Day))
+            if ((DbFunctions.TruncateTime(showing.EndTime) > DbFunctions.TruncateTime(showing.ShowDate)))
             {
                 return "The showing needs to end before midnight";
             }
@@ -35,9 +36,8 @@ namespace AWO_Team14.Utilities
             overlapQuery = overlapQuery.Where(s => s.Theater == showing.Theater);
             
             overlapQuery = overlapQuery.Where(s => (s.EndTime >= showing.ShowDate && s.ShowDate <= showing.ShowDate) || (s.EndTime >= showing.EndTime && s.ShowDate <= showing.EndTime));
-            
 
-            if (overlapQuery.Count() >0)
+            if (overlapQuery.Count() >= 1 && overlapQuery.FirstOrDefault().ShowingID != showing.ShowingID)
             {
                 return "This showing overlaps with an existing showing";
             }
@@ -77,7 +77,7 @@ namespace AWO_Team14.Utilities
 							   select s;
             dayQuery = dayQuery.Where(s => s.Schedule != null);
             dayQuery = dayQuery.Where(s => s.Theater == theater);
-            dayQuery = dayQuery.Where(s => s.ShowDate.Day == Date.Day && s.Theater == theater).OrderBy(s=>s.ShowDate);
+            dayQuery = dayQuery.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(Date) && s.Theater == theater).OrderBy(s=>s.ShowDate);
             List<Showing> dayShowings = dayQuery.ToList();
 
             if (dayShowings.Count() == 0)
@@ -127,9 +127,41 @@ namespace AWO_Team14.Utilities
         
         public static Boolean ShowingInRange(Showing showing)
         {
-            Boolean bolInRange = (showing.ShowDate.DayOfYear >= showing.Schedule.StartDate.DayOfYear) && (showing.ShowDate.DayOfYear <= showing.Schedule.EndDate.DayOfYear);
+            Boolean bolInRange = (showing.ShowDate.Date >= showing.Schedule.StartDate.Date) && (showing.ShowDate.Date <= showing.Schedule.EndDate.Date);
 
             return bolInRange;
+        }
+        
+        public static String RescheduleValidation(Showing showing)
+        {
+            AppDbContext db = new AppDbContext();
+
+            DateTime dayToCheck = showing.ShowDate.Date;
+
+            var query = db.Showings.Where(s => DbFunctions.TruncateTime(s.ShowDate) == DbFunctions.TruncateTime(dayToCheck));
+            List<Showing> dayShowings = query.ToList();
+
+            //the first movie must start between 9 AM and 10 AM
+            DateTime date9 = new DateTime(2018, 1, 1, 9, 00, 00);
+            DateTime date10 = new DateTime(2018, 1, 1, 10, 00, 00);
+
+            if (dayShowings.FirstOrDefault().ShowDate.TimeOfDay < date9.TimeOfDay || dayShowings.FirstOrDefault().ShowDate.TimeOfDay > date10.TimeOfDay)
+            {
+                return "The first movie must start between 9:00 and 10:00";
+            }
+
+            //the last movie must end after 21:30
+            DateTime date2130 = new DateTime(2018, 1, 1, 21, 30, 00);
+            if (dayShowings.Count() > 0)
+            {
+                if (dayShowings[dayShowings.Count() - 1].EndTime.TimeOfDay < date2130.TimeOfDay)
+                {
+                    return "The last movie must end after 21:30";
+                }
+            }
+
+
+            return "Your showing has been rescheduled";
         }
     }
 }
