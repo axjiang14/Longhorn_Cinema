@@ -320,15 +320,20 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager")]
-        public ActionResult Reschedule([Bind(Include = "ShowingID,ShowDate,StartHour,StartMinute")] Showing showing)
+        public ActionResult Reschedule([Bind(Include = "ShowingID,ShowDate,StartHour,StartMinute, Theater")] Showing showing)
         {
             Showing showingToChange = db.Showings.Include(x => x.Schedule)
                                              .FirstOrDefault(x => x.ShowingID == showing.ShowingID);
 
-            DateTime oldShowDate = showingToChange.ShowDate;
+            DateTime oldShowDate = showingToChange.ShowDate; 
 
-            //DateTime newShowDate = showing.ShowDate;
-            //Int32 ShowingI
+            //Alina added things here
+            DateTime newShowDate = showing.ShowDate;
+            DateTime newEndTime = newShowDate.Add(showingToChange.Movie.Runtime);
+            Theater newTheater = showing.Theater;
+
+            String ValResults = Utilities.ScheduleValidation.RescheduleValidation(newShowDate, newEndTime, newTheater);
+
 
             // take back to Schedules/Details if Schedule is unpublished
             if (showingToChange.Schedule.Published == false)
@@ -353,7 +358,7 @@ namespace AWO_Team14.Controllers
                     String ValidationMessage = ScheduleValidation.ShowingValidation(showingToChange);
                     // checks is showing fits into current schedule
 
-                    if (ValidationMessage == "ok")
+                    if (ValidationMessage == "ok" && ValResults == "ok")
                     {
                       
                         db.Entry(showingToChange).State = EntityState.Modified;
