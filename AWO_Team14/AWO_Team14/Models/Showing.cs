@@ -34,14 +34,16 @@ namespace AWO_Team14.Models
 
         //[DataType(DataType.Time)]
         ////[Range(typeof(DateTime), "9:00:00", "23:59:59",
-        ////ErrorMessage = "Value for {0} must be between {1} and {2}")]
+        //[ErrorMessage = "Value for {0} must be between {1} and {2}")]
         //[Display(Name = "Start Time")]
         //public DateTime StartTime { get; set; }
 
         [Range(9, 23)]
+        [Required(ErrorMessage = "Your movie must begin from the hours of 9:00 to 23:00")]
         public Int32 StartHour { get; set; }
 
         [Range(0, 60)]
+        [Required(ErrorMessage = "Your minutes for a movie must be between 0 and 60")]
         public Int32 StartMinute { get; set; }
 
         [DataType(DataType.Time)]
