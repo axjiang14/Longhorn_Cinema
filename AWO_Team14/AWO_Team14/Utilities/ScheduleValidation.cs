@@ -37,6 +37,8 @@ namespace AWO_Team14.Utilities
             
             overlapQuery = overlapQuery.Where(s => (s.EndTime >= showing.ShowDate && s.ShowDate <= showing.ShowDate) || (s.EndTime >= showing.EndTime && s.ShowDate <= showing.EndTime));
 
+            Debug.WriteLine(overlapQuery.Count());
+            Debug.WriteLine(overlapQuery.FirstOrDefault().ShowingID);
             if (overlapQuery.Count() >= 1 && overlapQuery.FirstOrDefault().ShowingID != showing.ShowingID)
             {
                 return "This showing overlaps with an existing showing";
