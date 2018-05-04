@@ -24,7 +24,7 @@ namespace AWO_Team14.Controllers
             var query = from s in db.Showings
                        select s;
 
-            
+            query = query.Where(s => s.Schedule.Published);
             query = query.Where(s => s.ShowDate >= DateTime.Now);
 
             List<Showing> qShowings = query.ToList();
