@@ -358,6 +358,12 @@ namespace AWO_Team14.Controllers
 
                     }
                 }
+                else
+                {
+                    ViewBag.ErrorMessage = "Transaction may not contain overlapping showings or different showings for the same movie.";
+                    ViewBag.PaymentOptions = GetAllPayments(t.User.Id);
+                    return View(t);
+                }
             }
 
             ViewBag.ErrorMessage = "Invalid card number";

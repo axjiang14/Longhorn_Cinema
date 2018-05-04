@@ -29,6 +29,10 @@ namespace AWO_Team14.Utilities
                     {
                         return true;
                     }
+                    else if (TicketToCompare.MovieID == TicketToCheck.MovieID && TicketToCompare.Showing.ShowingID != TicketToCheck.Showing.ShowingID)
+                    {
+                        return false;
+                    }
                     else
                     {
                         if ((TicketToCompare.Showing.EndTime >= TicketToCheck.Showing.ShowDate && TicketToCompare.Showing.ShowDate <= TicketToCheck.Showing.ShowDate) || (TicketToCompare.Showing.EndTime >= TicketToCheck.Showing.EndTime && TicketToCompare.Showing.ShowDate <= TicketToCheck.Showing.EndTime))
