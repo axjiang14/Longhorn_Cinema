@@ -37,8 +37,6 @@ namespace AWO_Team14.Utilities
             
             overlapQuery = overlapQuery.Where(s => (s.EndTime >= showing.ShowDate && s.ShowDate <= showing.ShowDate) || (s.EndTime >= showing.EndTime && s.ShowDate <= showing.EndTime));
 
-            Debug.WriteLine(overlapQuery.Count());
-            Debug.WriteLine(overlapQuery.FirstOrDefault().ShowingID);
             if (overlapQuery.Count() >= 1 && overlapQuery.FirstOrDefault().ShowingID != showing.ShowingID)
             {
                 return "This showing overlaps with an existing showing";
@@ -49,14 +47,16 @@ namespace AWO_Team14.Utilities
                         select s;
 
             //filter only active showings
-            query = query.Where(s => s.Schedule !=null);
+            query = query.Where(s => s.Schedule !=null && s.ShowingID != showing.ShowingID);
             //find showings in the other theater
 			//query = query.Where(s => s.Theater != showing.Theater);
 			//find showings that are showing at the same time
             query = query.Where(s => s.ShowDate == showing.ShowDate);
+           
 
-			//check if they are showing the same movie
-			if (query.ToList().Count() > 0)
+
+            //check if they are showing the same movie
+            if (query.ToList().Count() > 0)
 			{
                 foreach (Showing show in query.ToList())
                 {
