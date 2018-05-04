@@ -120,7 +120,7 @@
                 <th>DownVotes</th>
                 <th>Vote</th>
             </tr>
-            @foreach (MovieReview movreview in Model.MovieReviews)
+            @foreach (MovieReview movreview in Model.MovieReviews.OrderByDescending(m => m.VoteTotal))
             {
                 if (movreview.Status == ReviewStatus.Approved)
                 {
