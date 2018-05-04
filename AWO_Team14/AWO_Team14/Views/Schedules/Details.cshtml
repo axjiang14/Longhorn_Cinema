@@ -45,10 +45,11 @@
             <td>@Html.DisplayFor(modelItem => showing.Theater)</td>
             @if (Model.Published == true)
             {
-               <td>
-               @Html.ActionLink("Reschedule", "Reschedule", "Showings", new { id = showing.ShowingID }, null) |
-               @Html.ActionLink("Cancel", "Delete", "Showings", new { id = showing.ShowingID }, null)
-               </td>
+            <td>
+                @Html.ActionLink("Reschedule", "Reschedule", "Showings", new { id = showing.ShowingID }, null) |
+                @Html.ActionLink("Change Price", "EditPrice", "Showings", new { id = showing.ShowingID }, null) |
+                @Html.ActionLink("Cancel", "Delete", "Showings", new { id = showing.ShowingID }, null)
+            </td>
             }
             else
             {

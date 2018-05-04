@@ -30,8 +30,8 @@ namespace AWO_Team14.Migrations
 			AddEmployees.SeedEmployees(context);
 
 			//seed customers 
-			CustomerData AddCustomers = new CustomerData();
-			AddCustomers.SeedCustomers(context); 
+			//CustomerData AddCustomers = new CustomerData();
+			//AddCustomers.SeedCustomers(context); 
 
 			//UserData AddUsers = new UserData();
 			//AddUsers.SeedUsers(context);

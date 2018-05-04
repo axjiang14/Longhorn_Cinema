@@ -523,6 +523,10 @@
     <Compile Include="Migrations\201805030454535_customer seed data.Designer.cs">
       <DependentUpon>201805030454535_customer seed data.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805040725297_ShowingPrice.cs" />
+    <Compile Include="Migrations\201805040725297_ShowingPrice.Designer.cs">
+      <DependentUpon>201805040725297_ShowingPrice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\CustomerData.cs" />
     <Compile Include="Migrations\EmployeeData.cs" />
@@ -657,6 +661,7 @@
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\MovieReviews\GetPendingReviews.cshtml" />
     <Content Include="Views\Transactions\ReceivedGifts.cshtml" />
+    <Content Include="Views\Showings\EditPrice.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -913,6 +918,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805030454535_customer seed data.resx">
       <DependentUpon>201805030454535_customer seed data.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805040725297_ShowingPrice.resx">
+      <DependentUpon>201805040725297_ShowingPrice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

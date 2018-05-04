@@ -415,7 +415,7 @@ namespace AWO_Team14.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Manager")]
-        public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,Special,StartHour,StartMinute,Theater")] Showing showing, int SelectedMovie, int StartHour, int StartMinute)
+        public ActionResult Edit([Bind(Include = "ShowingID,ShowDate,Special,StartHour,StartMinute,Theater, ShowingPrice")] Showing showing, int SelectedMovie, int StartHour, int StartMinute)
         {
             Showing showingToChange = db.Showings.Include(x => x.Schedule)
                                              .Include(x => x.Movie)
@@ -460,6 +460,44 @@ namespace AWO_Team14.Controllers
 
             }
             ViewBag.AllMovies = GetAllMovies();
+            return View(showing);
+        }
+
+        [Authorize(Roles = "Manager")]
+        // GET: Showings/Edit/5
+        public ActionResult EditPrice(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Showing showing = db.Showings.Find(id);
+            if (showing == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.AllMovies = GetAllMovies();
+            return View(showing);
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
+        public ActionResult EditPrice([Bind(Include = "ShowingID,ShowDate,Special,StartHour,StartMinute,Theater, ShowingPrice")] Showing showing)
+        {
+            Showing showingToChange = db.Showings.Include(x => x.Schedule)
+                                             .Include(x => x.Movie)
+                                             .FirstOrDefault(x => x.ShowingID == showing.ShowingID);
+            if (ModelState.IsValid)
+            {
+                showingToChange.ShowingPrice = showing.ShowingPrice;
+                db.Entry(showingToChange).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Details", "Schedules", new { id = showingToChange.Schedule.ScheduleID });
+            }
             return View(showing);
         }
 

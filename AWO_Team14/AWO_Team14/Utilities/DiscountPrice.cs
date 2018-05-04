@@ -14,7 +14,7 @@ namespace AWO_Team14.Utilities
         public static Decimal GetTicketPrice(UserTicket ticket)
         {
             AppDbContext db = new AppDbContext();
-            Decimal ticketPrice = -1;
+            Decimal ticketPrice = -1;     
             // assign price for each ticket
 
             Boolean weekend = (int)ticket.Showing.ShowDate.DayOfWeek == 6 || (int)ticket.Showing.ShowDate.DayOfWeek == 0;
@@ -30,7 +30,7 @@ namespace AWO_Team14.Utilities
                     // sets Current Price property
                     // $5.00
                     ticket.AppliedDiscounts = result.DiscountName;
-                    ticketPrice = result.DiscountValue;
+                    //ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
                 }
             }
 
@@ -45,7 +45,7 @@ namespace AWO_Team14.Utilities
                     // sets Current Price property
                     // $10.00
                     ticket.AppliedDiscounts = result.DiscountName;
-                    ticketPrice = result.DiscountValue;
+                    //ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
                 }
 
             }
@@ -60,7 +60,7 @@ namespace AWO_Team14.Utilities
                     // sets Current Price property
                     // $12.00
                     ticket.AppliedDiscounts = result.DiscountName;
-                    ticketPrice = result.DiscountValue;
+                    //ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
                 }
             }
 
@@ -98,7 +98,8 @@ namespace AWO_Team14.Utilities
                     foreach (var result in query)
                     {
                         ticket.AppliedDiscounts += ", " + result.DiscountName;
-                        ticketPrice -= result.DiscountValue;
+                        ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
+                        //ticketPrice -= result.DiscountValue;
                     }
                         
                 }
@@ -112,7 +113,8 @@ namespace AWO_Team14.Utilities
                     foreach (var result in query)
                     {
                         ticket.AppliedDiscounts += ", " + result.DiscountName;
-                        ticketPrice -= result.DiscountValue;
+                        ticketPrice = ticket.Showing.ShowingPrice - result.DiscountValue;
+                        //ticketPrice -= result.DiscountValue;
                     }
                 }
 
@@ -128,7 +130,9 @@ namespace AWO_Team14.Utilities
         public static Decimal GetBasePrice(Showing showing)
         {
             AppDbContext db = new AppDbContext();
-            Decimal ticketPrice = -1;
+
+            Decimal showingPrice = 0;
+
             // assign price for each ticket
 
             Boolean weekend = (int)showing.ShowDate.DayOfWeek == 6 || (int)showing.ShowDate.DayOfWeek == 0;
@@ -143,7 +147,7 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $5.00
-                    showingPrice = result.DiscountValue;
+                   showingPrice = result.DiscountValue;
                 }
             }
 
@@ -157,7 +161,7 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $10.00
-                    showingPrice = result.DiscountValue;
+                   showingPrice = result.DiscountValue;
                 }
 
             }
@@ -171,12 +175,14 @@ namespace AWO_Team14.Utilities
                 {
                     // sets Current Price property
                     // $12.00
-                    showingPrice = result.DiscountValue;
+                  showingPrice = result.DiscountValue;
                 }
             }
 
             return showingPrice;
-            
+
+
+
         }
 
     }
