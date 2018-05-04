@@ -72,10 +72,13 @@ namespace AWO_Team14.Controllers
                         copyShowing.ShowDate = datCopyToDate.AddHours(copyShowing.StartHour).AddMinutes(copyShowing.StartMinute).AddSeconds(0);
                         copyShowing.EndTime = copyShowing.ShowDate.Add(copyShowing.Movie.Runtime);
                         copyShowing.Special = showing.Special;
+                        
 
                         if (Utilities.ScheduleValidation.ShowingValidation(copyShowing) == "ok")
                         {
                             db.Showings.Add(copyShowing);
+                            db.SaveChanges();
+                            copyShowing.ShowingPrice = Utilities.DiscountPrice.GetBasePrice(copyShowing);
                             db.SaveChanges();
                         }
 
