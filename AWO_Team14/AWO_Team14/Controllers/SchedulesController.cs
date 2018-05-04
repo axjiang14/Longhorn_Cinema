@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -72,14 +73,24 @@ namespace AWO_Team14.Controllers
                         copyShowing.ShowDate = datCopyToDate.AddHours(copyShowing.StartHour).AddMinutes(copyShowing.StartMinute).AddSeconds(0);
                         copyShowing.EndTime = copyShowing.ShowDate.Add(copyShowing.Movie.Runtime);
                         copyShowing.Special = showing.Special;
-                        
+
+                        Debug.WriteLine("1");
+                        Debug.WriteLine(copyShowing.ShowingID);
 
                         if (Utilities.ScheduleValidation.ShowingValidation(copyShowing) == "ok")
                         {
                             db.Showings.Add(copyShowing);
+
                             db.SaveChanges();
+                            Debug.WriteLine("2");
+                            Debug.WriteLine(copyShowing.ShowingID);
                             copyShowing.ShowingPrice = Utilities.DiscountPrice.GetBasePrice(copyShowing);
+                            Debug.WriteLine("3");
+                            Debug.WriteLine(copyShowing.ShowingID);
+                            Debug.WriteLine(Utilities.DiscountPrice.GetBasePrice(copyShowing));
                             db.SaveChanges();
+                            Debug.WriteLine("4");
+                            Debug.WriteLine(copyShowing.ShowingID);
                         }
 
                         else
