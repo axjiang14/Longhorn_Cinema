@@ -17,7 +17,7 @@ namespace AWO_Team14.Utilities
 
             if (db.Schedules.Count() == 0)
             {
-                MaxDate = new DateTime(2018,4,19);
+                MaxDate = new DateTime(2018,5,03);
             }
             else
             {
